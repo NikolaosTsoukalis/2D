@@ -1,0 +1,20 @@
+# Build files
+*.dll
+*.exe
+*.obj
+*.pdb
+*.bin
+*.o
+*.lib
+
+# Visual Studio files
+*.user
+*.suo
+.vs/
+
+# MonoGame Pipeline Tool generated files
+Content/obj/
+Content/bin/
+
+# Debug output
+*.log
