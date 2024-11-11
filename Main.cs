@@ -9,7 +9,8 @@ public class Main : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch spritebach;
-    private MovingSprite sprite;
+    private Sprite sprite;
+    private Movement movement;
     Texture2D texture;
 
     public Main()
@@ -32,7 +33,7 @@ public class Main : Game
         Global.spriteBatch = new SpriteBatch(GraphicsDevice);
 
         texture = Content.Load<Texture2D>("testSprite1");
-        sprite = new MovingSprite(texture, Vector2.Zero, 3f,"directionLess");
+        sprite = new Sprite(texture, Vector2.Zero);
         // TODO: use this.Content to load your game content here
     }
 
@@ -42,22 +43,10 @@ public class Main : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || state.IsKeyDown(Keys.Escape))
             Exit();
 
-        if(state.IsKeyDown(Keys.W))
-            sprite.Update("UP");
-        if(state.IsKeyDown(Keys.W) && state.IsKeyDown(Keys.D))
-            sprite.Update("UPRIGHT");
-        if(state.IsKeyDown(Keys.D))
-            sprite.Update("RIGHT");
-        if(state.IsKeyDown(Keys.D) && state.IsKeyDown(Keys.S))
-            sprite.Update("RIGHTDOWN");
-        if(state.IsKeyDown(Keys.S))
-            sprite.Update("DOWN");
-        if(state.IsKeyDown(Keys.S) && state.IsKeyDown(Keys.A))
-            sprite.Update("DOWNLEFT");
-        if(state.IsKeyDown(Keys.A))
-            sprite.Update("LEFT");
-        if(state.IsKeyDown(Keys.A) && state.IsKeyDown(Keys.W))
-            sprite.Update("LEFTUP");
+        movement = new Movement(sprite.position, 3f);
+
+        sprite.position = movement.Update(gameTime);
+        
 
 
         // TODO: Add your update logic here
