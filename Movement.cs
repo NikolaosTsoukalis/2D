@@ -6,40 +6,36 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-internal class Movement
+internal class Movement : InputManager
 {
     private Vector2 currentPosition;
     private Vector2 newPosition;
     private float speed;
-    private KeyboardState _ks;
-
     public Movement(Vector2 currentPosition, float speed)
     {
         this.currentPosition = currentPosition;
         this.speed = speed;
-
     }
 
     public Vector2 Update(GameTime gameTime)
     {
         float diagonalBuffer = (float)(1/Math.Sqrt(2));
-        _ks = Keyboard.GetState();
-        if (_ks.IsKeyDown(Keys.W))
+        if (ks.IsKeyDown(Keys.W))
         {
             newPosition.Y -= speed;
         }
 
-        if (_ks.IsKeyDown(Keys.S))
+        if (ks.IsKeyDown(Keys.S))
         {
             newPosition.Y += speed;
         }
 
-        if (_ks.IsKeyDown(Keys.A))
+        if (ks.IsKeyDown(Keys.A))
         {
             newPosition.X -= speed;
         }
 
-        if (_ks.IsKeyDown(Keys.D))
+        if (ks.IsKeyDown(Keys.D))
         {
             newPosition.X += speed;
         }
