@@ -42,9 +42,9 @@ public class Main : Game
             Exit();
 
         movement = new Movement(player.position, 3f);
-
         player.position = movement.Update(gameTime);
         player.Update();
+        Globals.Update(gameTime);
         // TODO: Add your update logic here
 
         base.Update(gameTime);
