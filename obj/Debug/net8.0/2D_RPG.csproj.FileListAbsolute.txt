@@ -25,3 +25,4 @@ c:\Users\ntosu\Desktop\2D_RPG\obj\Debug\net8.0\2D_RPG.pdb
 c:\Users\ntosu\Desktop\2D_RPG\obj\Debug\net8.0\2D_RPG.genruntimeconfig.cache
 c:\Users\ntosu\Desktop\2D_RPG\obj\Debug\net8.0\ref\2D_RPG.dll
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\testSprite1.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\testSpriteWalk_strip32.xnb

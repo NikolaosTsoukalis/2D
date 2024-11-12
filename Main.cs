@@ -1,4 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Net;
+using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,15 +10,12 @@ namespace _2D_RPG;
 
 public class Main : Game
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch spritebach;
-    private Sprite sprite;
+    private Player player;
     private Movement movement;
-    Texture2D texture;
 
     public Main()
     {
-        _graphics = new GraphicsDeviceManager(this);
+        Globals._graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -23,32 +23,28 @@ public class Main : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        Global.content = this.Content;
-        Global.spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        texture = Content.Load<Texture2D>("testSprite1");
-        sprite = new Sprite(texture, Vector2.Zero);
+        Globals.content = this.Content;
+        Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+        player = new Player(new Sprite(Vector2.Zero));
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
         var state = Keyboard.GetState(); 
+        InputManager.Update();
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || state.IsKeyDown(Keys.Escape))
             Exit();
 
-        movement = new Movement(sprite.position, 3f);
-
-        sprite.position = movement.Update(gameTime);
-        
-
-
+        movement = new Movement(player.position, 3f);
+        player.position = movement.Update(gameTime);
+        player.Update();
+        Globals.Update(gameTime);
         // TODO: Add your update logic here
 
         base.Update(gameTime);
@@ -60,12 +56,12 @@ public class Main : Game
 
         // TODO: Add your drawing code here
 
-        Global.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        Global.spriteBatch.Draw(sprite.texture,sprite.position, Color.White);
+        player.Draw();
 
 
-        Global.spriteBatch.End();
+        Globals.spriteBatch.End();
 
         base.Draw(gameTime);
     }
