@@ -5,7 +5,7 @@ class InpuHandler
 {
     private Command moveUp,moveDown,moveLeft,moveRight;
     private KeyboardState ks = Keyboard.GetState();
-    public Command handleInput()
+    public Command HandleInput()
     {
         if(ks.IsKeyDown(Keys.W))
         {
@@ -33,6 +33,11 @@ class InpuHandler
         moveDown = new MoveCommand("S");
         moveRight = new MoveCommand("A");
         moveLeft = new MoveCommand("D");
+    }
+
+    public virtual void Update(string parameter)
+    {
+        ks = Keyboard.GetState();
     }
 
 }
