@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Runtime.CompilerServices;
 
-class movingEntity : Entity
+class MovingEntity : Entity
 {
     #region values
     private float lspeed;
@@ -27,7 +27,7 @@ class movingEntity : Entity
     }
 
     #endregion values
-    public movingEntity(){}
+    public MovingEntity(){}
 
     public virtual void Update(string parameter)
     {
