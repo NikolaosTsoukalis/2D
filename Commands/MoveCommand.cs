@@ -9,21 +9,12 @@ class MoveCommand : Command
     public MoveCommand(string direction)
     {
         this.direction = direction;
-        
     }
-    public virtual void execute(Entity entity)
+    public virtual void Execute(Entity entity)
     {
-        Move(entity);
+        entity.Move(direction);
     }
 
-    public void Move(Entity entity)
-    {
-        private Vector2 newPosition = new Vector2();
-        private Vector2 currentPosition = entity.location;
-        float diagonalBuffer = (float)(1/Math.Sqrt(2));
-    }
-    
-          //return currentPosition += newPosition;
     
 }
 

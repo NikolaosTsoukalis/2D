@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -28,6 +29,12 @@ class MovingEntity : Entity
 
     #endregion values
     public MovingEntity(){}
+
+    public MovingEntity(Texture2D texture,Vector2 position)
+    {
+        this.texture = texture;
+        this.position = position;
+    }
 
     public virtual void Update(string parameter)
     {

@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 class Entity
 {
-
     private Vector2 lposition;
     public Vector2 position 
     {
@@ -32,5 +31,9 @@ class Entity
     }
 
     public virtual void Update(string parameter){}
+
+    public virtual void Move(string direction){}
+
+    public virtual void Draw(){}
 
 }
