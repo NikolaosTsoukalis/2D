@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 class InputHandler 
 {
-    private Command moveUp,moveDown,moveLeft,moveRight;
+    private Command moveUp,moveDown,moveLeft,moveRight,exit;
     private KeyboardState ks = Keyboard.GetState();
     public Command HandleInput()
     {
@@ -23,6 +23,10 @@ class InputHandler
         {
             return moveRight;
         }
+        if(ks.IsKeyDown(Keys.Escape))
+        {
+            return exit;
+        }
 
         return null;
     }
@@ -33,6 +37,7 @@ class InputHandler
         moveDown = new MoveCommand("S");
         moveRight = new MoveCommand("A");
         moveLeft = new MoveCommand("D");
+        exit = new ExitCommand();
     }
 
     public virtual void Update(string parameter)

@@ -1,18 +1,16 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Runtime.CompilerServices;
 
 class MovingEntity : Entity
 {
-    #region values
-    private float lspeed;
-    public float speed
+    #region Values
+    private float speed;
+    public float Speed 
     {
-        get{ return lspeed; }
-        set{ lspeed = speed; }
+        get{ return speed;}
+        set{speed = value;}
     }
-
     private bool lIsRunning;
     public bool IsRunning
     {
@@ -27,52 +25,63 @@ class MovingEntity : Entity
         set{ lIsRunning = IsWalking;}
     }
 
-    #endregion values
+    #endregion Values
+    
+    #region Constructors
     public MovingEntity(){}
 
-    public MovingEntity(Texture2D texture,Vector2 position)
+    public MovingEntity(Texture2D texture,Vector2 position) : base(texture,position)
     {
-        this.texture = texture;
-        this.position = position;
+         
     }
 
-    public virtual void Update(string parameter)
-    {
-        
-    }
+    #endregion Constructors
 
-    public virtual void Move(string direction)
+    #region Functions
+
+    public override void Move(string direction)
     {
         Vector2 newPosition = new();
         float diagonalBuffer = (float)(1/Math.Sqrt(2));
         if (direction == "W")
         {
-            newPosition.Y -= speed;
+            newPosition.Y -= Speed;
             //IsWalking = true;
         }
 
         if (direction == "S")
         {
-            newPosition.Y += speed;
+            newPosition.Y += Speed;
             //IsWalking = true;
         }
 
         if (direction == "A")
         {
-            newPosition.X -= speed;
+            newPosition.X -= Speed;
             //IsWalking = true;
         }
 
         if (direction == "D")
         {
-            newPosition.X += speed;
+            newPosition.X += Speed;
             //IsWalking = true;
         }
 
-        if(newPosition.LengthSquared() > speed * speed) // _speed*_speed = 1 with a _speed = 1
+        if(newPosition.LengthSquared() > Speed * Speed) // _speed*_speed = 1 with a _speed = 1
         {
             newPosition *= diagonalBuffer; // adjust for 2 directions pressed at same time.
         }
-        this.position += newPosition;
+        Position += newPosition;
     }
+
+    public override void Update(GameTime gametime)
+    {
+        
+    }
+    public override void Draw()
+    {
+        Globals.spriteBatch.Draw(Texture, Position, new Rectangle(0,0, 20,20), Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+    }
+
+    #endregion Functions
 }

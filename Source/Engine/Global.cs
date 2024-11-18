@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,4 +16,15 @@ public class Globals
     {
         TotalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
+
+
+    //Format : Tuple<{animationName},{maxFrames}>,{time per Frame}
+    public static readonly Dictionary<Tuple<string,int>,float> NewDictionary = new Dictionary<Tuple<string,int>, float>()
+        {
+            { new Tuple<string, int>("Player",32), 0.1f },
+            { "Reference2", Array2 },
+            { "Reference3", Array3 },
+            { "Reference4", Array4 },
+            { "Reference5", Array5 }
+        };
 }
