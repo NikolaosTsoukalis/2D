@@ -10,7 +10,7 @@ class MoveCommand : Command
     {
         this.direction = direction;
     }
-    public virtual void Execute(Entity entity)
+    public override void Execute(Entity entity)
     {
         entity.Move(direction);
     }

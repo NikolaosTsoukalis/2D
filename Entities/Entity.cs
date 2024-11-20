@@ -1,39 +1,53 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-class Entity
+public class Entity
 {
-    private Vector2 lposition;
-    public Vector2 position 
-    {
-        get{ return lposition;}
-        set{ lposition = position;}
-    }
-    private Texture2D ltexture;
+    #region Values
 
-    public Texture2D texture 
+    private Vector2 position;
+    public Vector2 Position 
     {
-        get{ return ltexture;}
-        set{ ltexture = texture;}
+        get{return position;}
+        set{position = value;}
     }
+    private Texture2D texture;
+    public Texture2D Texture 
+    {
+        get{return texture;}
+        set{texture = value;}
+    }
+
+    private string name;
+    public string Name
+    {
+        get{return name;}
+        set{name = value;}
+    }
+
+    #endregion Values
+
+    #region Constructors
     public Entity(){}
-    public Entity(Vector2 position)
+
+    public Entity(string entityName, Texture2D texture, Vector2 position)
     {
-        this.position = position;   
-    }
-    public Entity(Texture2D texture)
-    {
-        this.texture = texture;
-    }
-    public Entity(Texture2D texture, Vector2 position)
-    {
-        this.position = position;
-        this.texture = texture;
+        Name = entityName;
+        Position = position;
+        Texture = texture;
     }
 
-    public virtual void Update(string parameter){}
+    #endregion Constructors
+
+    #region Functions
+
+    public virtual void Update(GameTime gameTime){}
 
     public virtual void Move(string direction){}
 
-    public virtual void Draw(){}
+    public virtual void Draw()
+    {
+        Globals.spriteBatch.Draw(Texture, Position, new Rectangle(0,0, Texture.Width,Texture.Height), Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+    }
 
+    #endregion Functions
 }
