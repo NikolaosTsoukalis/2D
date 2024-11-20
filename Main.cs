@@ -56,6 +56,11 @@ public class Main : Game
             } 
             command.Execute(player);
         }
+        /*
+        Animation = animationhandeler[enity];
+        if(Animation !null)
+            animation.Animate([enity]);
+        */
         animationHandler.Update();
        // movement = new Movement(player.position, 3f);
         //player.position = movement.Update(gameTime);
