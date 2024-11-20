@@ -15,6 +15,8 @@ public class Main : Game
     private Command command;
     private Entity player;
 
+    private AnimationHandler animationHandler;
+
     public Main()
     {
         Globals._graphics = new GraphicsDeviceManager(this);
@@ -32,8 +34,11 @@ public class Main : Game
     {
         Globals.content = this.Content;
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
-        player = new MovingEntity(Globals.content.Load<Texture2D>("testSpriteWalk_strip32"),Vector2.Zero);
+        player = new MovingEntity("Player",Globals.content.Load<Texture2D>("testSpriteWalk_strip32"),Vector2.Zero);
+        Globals.UpdateEntityList(true,player);
+        animationHandler = new AnimationHandler(Globals.entityList.Find(x => x == player),32);
         inputhandler = new InputHandler();
+
         // TODO: use this.Content to load your game content here
     }
 
@@ -51,7 +56,7 @@ public class Main : Game
             } 
             command.Execute(player);
         }
-
+        animationHandler.Update();
        // movement = new Movement(player.position, 3f);
         //player.position = movement.Update(gameTime);
         //player.Update();
@@ -68,8 +73,7 @@ public class Main : Game
 
         Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        player.Draw();
-
+        animationHandler.Draw();
 
         Globals.spriteBatch.End();
 

@@ -1,3 +1,5 @@
+using _2D_RPG;
+using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -30,7 +32,7 @@ class MovingEntity : Entity
     #region Constructors
     public MovingEntity(){}
 
-    public MovingEntity(Texture2D texture,Vector2 position) : base(texture,position)
+    public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
          
     }
@@ -73,14 +75,10 @@ class MovingEntity : Entity
         }
         Position += newPosition;
     }
+ 
+    public virtual void Update() 
+    {
 
-    public override void Update(GameTime gametime)
-    {
-        
-    }
-    public override void Draw()
-    {
-        Globals.spriteBatch.Draw(Texture, Position, new Rectangle(0,0, 20,20), Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
 
     #endregion Functions

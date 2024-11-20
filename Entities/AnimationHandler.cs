@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,18 +10,22 @@ internal class AnimationHandler
     private readonly List<Rectangle> sourceRectangles = new();
     private readonly int totalFrames;
     private int currentFrame;
-    private readonly float frameTime;
+    private readonly float frameTime = 0.1f;
     private float frameTimeLeft;
     private bool active = true;
 
-    public AnimationHandler(Entity entity, int framesX, float frameTime)
+    private Texture2D Texture;
+
+    private Entity entity;
+
+    public AnimationHandler(Entity entity, int totalFrames)
     {
-        this.texture = entity.Texture;
-        this.frameTime = frameTime;
+        this.entity = entity;
+        Texture = entity.Texture;
         frameTimeLeft = this.frameTime;
-        totalFrames = framesX;
-        var frameWidth = Texture.Width / framesX;
-        var frameHeight = texture.Height;
+        this.totalFrames = totalFrames;
+        var frameWidth = Texture.Width / totalFrames;
+        var frameHeight = Texture.Height;
 
         for(int i = 0; i < totalFrames; i++)
         {
@@ -55,8 +60,9 @@ internal class AnimationHandler
         }
     }
 
-    public void Draw(Vector2 position)
+    public void Draw()
     {
-        Globals.spriteBatch.Draw(texture, position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+        Globals.spriteBatch.Draw(Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
+ 
 }
