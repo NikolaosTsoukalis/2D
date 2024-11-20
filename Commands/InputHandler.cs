@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 class InputHandler 
 {
@@ -7,20 +5,37 @@ class InputHandler
     private KeyboardState ks = Keyboard.GetState();
     public Command HandleInput()
     {
-        if(ks.IsKeyDown(Keys.W))
+        CommandAssign(); // temporary! this might be added to MAIN
+        if(ks.IsKeyDown(Keys.W) || ks.IsKeyDown(Keys.Up))
         {
+            if(ks.IsKeyDown(Keys.LeftShift))
+            {
+                return moveUp = new MoveCommand("W",true);
+            }
             return moveUp;
         }
-        if(ks.IsKeyDown(Keys.A))
+        if(ks.IsKeyDown(Keys.A) || ks.IsKeyDown(Keys.Left))
         {
+            if(ks.IsKeyDown(Keys.LeftShift))
+            {
+                return moveUp = new MoveCommand("A",true);
+            }
             return moveLeft;
         }
-        if(ks.IsKeyDown(Keys.S))
+        if(ks.IsKeyDown(Keys.S) || ks.IsKeyDown(Keys.Down))
         {
+            if(ks.IsKeyDown(Keys.LeftShift))
+            {
+                return moveUp = new MoveCommand("S",true);
+            }
             return moveDown;
         }
-        if(ks.IsKeyDown(Keys.D))
+        if(ks.IsKeyDown(Keys.D) || ks.IsKeyDown(Keys.Right))
         {
+            if(ks.IsKeyDown(Keys.LeftShift))
+            {
+                return moveUp = new MoveCommand("D",true);
+            }
             return moveRight;
         }
         if(ks.IsKeyDown(Keys.Escape))
@@ -31,7 +46,7 @@ class InputHandler
         return null;
     }
 
-    public void MoveCommand()
+    public void CommandAssign()
     {
         moveUp = new MoveCommand("W");
         moveDown = new MoveCommand("S");
