@@ -9,33 +9,32 @@ using Microsoft.Xna.Framework.Input;
 
 
 namespace _2D_RPG;
-internal class Animation : Sprite
+internal class Animation
 {
     private readonly List<Rectangle> sourceRectangles = new();
-    private readonly int totalFrames;
+    private int totalFrames;
     private int currentFrame;
-    private readonly float frameTime;
+    private float frameTime;
     private float frameTimeLeft;
-    private bool active = true;
+    private Entity entity;
 
-    public Animation(Sprite sprite, int framesX, float frameTime)
+    public Animation(Entity entity)
     {
-        this.texture = sprite.texture;
-        this.frameTime = frameTime;
-        frameTimeLeft = this.frameTime;
-        totalFrames = framesX;
-        var frameWidth = texture.Width / framesX;
-        var frameHeight = texture.Height;
-
-        for(int i = 0; i < totalFrames; i++)
+        if(Globals.AnimationData.TryGetValue(entity.Name, out var tuple))
         {
-            sourceRectangles.Add(new(i * frameWidth, 0, frameWidth,frameHeight));
-        }
-    }
+            entity.Texture = tuple.Item1;
+            frameTime = (float) Convert.ToDouble(tuple.Item2[1]);
+            totalFrames = Convert.ToInt32(tuple.Item2[0]);
+            this.entity = entity;
+            frameTimeLeft = frameTime;
+            var frameWidth = entity.Texture.Width / totalFrames;
+            var frameHeight = entity.Texture.Height;
 
-    public void Animate(bool animate)
-    {
-        active = animate;
+            for(int i = 0; i < totalFrames; i++)
+            {
+                sourceRectangles.Add(new(i * frameWidth, 0, frameWidth,frameHeight));
+            }
+        }
     }
 
     public void Reset()
@@ -46,11 +45,6 @@ internal class Animation : Sprite
 
     public void Update()
     {
-        if(!active)
-        {
-            return;
-        }
-
         frameTimeLeft -= Globals.TotalSeconds;
 
         if(frameTimeLeft <= 0)
@@ -60,8 +54,8 @@ internal class Animation : Sprite
         }
     }
 
-    public void Draw(Vector2 position)
+    public void Draw()
     {
-        Globals.spriteBatch.Draw(texture, position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+        Globals.spriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
 }

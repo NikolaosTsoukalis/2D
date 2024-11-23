@@ -33,19 +33,12 @@ public class Globals
             EntityList.Remove(entity);
     }   
 
-/*
-    //Format : Tuple<{animationName},{maxFrames}>,{time per Frame}
-    public static readonly Dictionary<Tuple<string,Texture2D>,Tuple<int,float>> NewDictionary 
-    = new Dictionary<Tuple<string,Texture2D>, Tuple<int,float>>()
-        {
-            { new Tuple<string, Texture2D>("Player",content.Load<Texture2D>("testSpriteWalk_strip32")), new Tuple<int, float>(32,0.1f) }
-        };
-
-*/
-    public static readonly Dictionary<Tuple<string,Texture2D>,int> NewDictionary 
-    = new Dictionary<Tuple<string,Texture2D>, int>()
+    //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
+    public static readonly Dictionary<string,Tuple<Texture2D,string[]>> AnimationData 
+    = new Dictionary<string,Tuple<Texture2D,string[]>>()
     {
-        { new Tuple<string, Texture2D>("Player",content.Load<Texture2D>("testSpriteWalk_strip32")), 32}
+        { "Player",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.1"])},
+        { "Player1",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])}
     };
     
 }
