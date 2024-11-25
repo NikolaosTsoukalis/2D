@@ -55,7 +55,7 @@ class InputHandler
         exit = new ExitCommand();
     }
 
-    public virtual void Update(string parameter)
+    public virtual void Update()
     {
         ks = Keyboard.GetState();
     }

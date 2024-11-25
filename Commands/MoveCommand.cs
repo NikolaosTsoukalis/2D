@@ -18,7 +18,7 @@ class MoveCommand : Command
         this.isRunning = isRunning;
     }
     
-    public override void Execute(Entity entity)
+    public override void Execute(MovingEntity entity)
     {
         if(isRunning)
         {

@@ -5,7 +5,6 @@ using System.Security.AccessControl;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace _2D_RPG;
 
@@ -19,12 +18,14 @@ public class Main : Game
 
     public Main()
     {
+        Globals._graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
 
     protected override void Initialize()
     {
+        
         // TODO: Add your initialization logic here
         base.Initialize();
     }
@@ -32,8 +33,8 @@ public class Main : Game
     protected override void LoadContent()
     {
         Globals.content = this.Content;
-        Globals._graphics = new GraphicsDeviceManager(this);
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+        Globals.LoadAnimationDictionary();
         animationHandler = new AnimationHandler();
         inputhandler = new InputHandler();
         player = new MovingEntity("Player",Globals.content.Load<Texture2D>("testSpriteWalk_strip32"),Vector2.Zero);
@@ -57,7 +58,7 @@ public class Main : Game
             command.Execute(player);
         }
 
-
+        inputhandler.Update();
         base.Update(gameTime);
     }
 

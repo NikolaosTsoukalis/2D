@@ -1,3 +1,4 @@
+using _2D_RPG;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 public class Entity
