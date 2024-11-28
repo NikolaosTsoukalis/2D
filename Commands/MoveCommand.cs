@@ -1,7 +1,3 @@
-using System;
-using Microsoft.Xna.Framework;
-using System.Security.Cryptography.X509Certificates;
-
 class MoveCommand : Command 
 {
     private string direction;
@@ -25,7 +21,7 @@ class MoveCommand : Command
             entity.Move(direction,true);
         }
         else
-            entity.Move(direction);
+            entity.Move(direction,false);
     }
 
     

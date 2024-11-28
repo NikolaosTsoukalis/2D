@@ -37,8 +37,9 @@ public class Globals
             EntityList.Remove(entity);
     }   
 
-    public static void LoadAnimationDictionary(){
-    //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
+    public static void LoadAnimationDictionary()
+    {
+        //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
         AnimationData = new Dictionary<string,Tuple<Texture2D,string[]>>
         {
             { "Player",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.1"])},

@@ -30,6 +30,7 @@ public class Entity
     #region Constructors
     public Entity(){}
 
+    public Entity (string Name, Vector2 Position){}
     public Entity(string entityName, Texture2D texture, Vector2 position)
     {
         Name = entityName;
@@ -43,13 +44,9 @@ public class Entity
 
     public virtual void Update(GameTime gameTime){}
 
-    public virtual void Move(string direction){}
-
-    public virtual void Move(string direction, bool isRunning){}
-
     public virtual void Draw()
     {
-        Globals.spriteBatch.Draw(Texture, Position, new Rectangle(0,0, Texture.Width,Texture.Height), Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+        //Globals.spriteBatch.Draw(Texture, Position, new Rectangle(0,0, Texture.Width,Texture.Height), Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
 
     #endregion Functions

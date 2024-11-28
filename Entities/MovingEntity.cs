@@ -27,14 +27,14 @@ class MovingEntity : Entity
 
     public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-         
+         speed = 1;
     }
 
     #endregion Constructors
 
     #region Functions
 
-    public override void Move(string direction, bool isRunning)
+    public void Move(string direction, bool isRunning)
     {
         Vector2 newPosition = new();
         float diagonalBuffer = (float)(1/Math.Sqrt(2));

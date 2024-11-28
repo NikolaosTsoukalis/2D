@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using Microsoft.VisualBasic;
@@ -12,12 +13,13 @@ public class Main : Game
 {
     private InputHandler inputhandler;
     private Command command;
-    private Entity player;
 
     private AnimationHandler animationHandler;
 
+    readonly MovingEntity player = new MovingEntity("Player",null,Vector2.Zero);
     public Main()
     {
+        
         Globals._graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -37,10 +39,8 @@ public class Main : Game
         Globals.LoadAnimationDictionary();
         animationHandler = new AnimationHandler();
         inputhandler = new InputHandler();
-        player = new MovingEntity("Player",Globals.content.Load<Texture2D>("testSpriteWalk_strip32"),Vector2.Zero);
         Globals.UpdateEntityList(true,player);
         animationHandler.addNewAnimation(new Animation(player));
-
         // TODO: use this.Content to load your game content here
     }
 
@@ -58,7 +58,7 @@ public class Main : Game
             command.Execute(player);
         }
 
-        inputhandler.Update();
+        //inputhandler.Update();
         base.Update(gameTime);
     }
 
