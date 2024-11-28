@@ -1,68 +1,64 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
 internal class AnimationHandler
 {
-    private readonly List<Rectangle> sourceRectangles = new();
-    private readonly int totalFrames;
-    private int currentFrame;
-    private readonly float frameTime = 0.1f;
-    private float frameTimeLeft;
-    private bool active = true;
+    private List<Animation> CurrentAnimations = [];
 
-    private Texture2D Texture;
-
-    private Entity entity;
-
-    public AnimationHandler(Entity entity, int totalFrames)
+    public void handleAnimation(bool methodCall)
     {
-        this.entity = entity;
-        Texture = entity.Texture;
-        frameTimeLeft = this.frameTime;
-        this.totalFrames = totalFrames;
-        var frameWidth = Texture.Width / totalFrames;
-        var frameHeight = Texture.Height;
+        try{
 
-        for(int i = 0; i < totalFrames; i++)
+            if(CurrentAnimations.Count() > 0) {
+
+                if(!methodCall)
+                {
+                    foreach(Animation animation in CurrentAnimations)
+                    {
+                        animation.Update();
+                    }
+                }
+                else
+                {
+                    foreach(Animation animation in CurrentAnimations)
+                    {
+                        animation.Draw();
+                    }
+                }
+
+            }
+
+        }
+        catch(Exception e)
         {
-            sourceRectangles.Add(new(i * frameWidth, 0, frameWidth,frameHeight));
+           Console.WriteLine(e.ToString()); 
         }
     }
 
-    public void Animate(bool animate)
+    public void addNewAnimation(Animation animation)
     {
-        active = animate;
+        if(!CurrentAnimations.Contains(animation))
+        {
+            CurrentAnimations.Add(animation);
+        }
+        
     }
 
-    public void Reset()
+    public void removeAnimation(Animation animation)
     {
-        currentFrame = 0;
-        frameTimeLeft = frameTime;
+        if(CurrentAnimations.Count != 0){
+            if(CurrentAnimations.Contains(animation))
+            {
+                CurrentAnimations.Remove(animation);
+            }
+        }
     }
-
     public void Update()
     {
-        if(!active)
-        {
-            return;
-        }
-
-        frameTimeLeft -= Globals.TotalSeconds;
-
-        if(frameTimeLeft <= 0)
-        {
-            frameTimeLeft += frameTime;
-            currentFrame = (currentFrame + 1) % totalFrames;
-        }
-    }
-
-    public void Draw()
-    {
-        Globals.spriteBatch.Draw(Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+        CurrentAnimations = new List<Animation>();
     }
  
 }

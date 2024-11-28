@@ -13,18 +13,11 @@ class MovingEntity : Entity
         get{ return speed;}
         set{speed = value;}
     }
-    private bool lIsRunning;
-    public bool IsRunning
+    private float runningSpeed;
+    public float RunningSpeed 
     {
-        get{ return lIsRunning;}
-        set{ lIsRunning = IsRunning;}
-    }
-
-    private bool lIsWalking;
-    public bool IsWalking
-    {
-        get{ return lIsWalking;}
-        set{ lIsRunning = IsWalking;}
+        get{ return runningSpeed;}
+        set{runningSpeed = value;}
     }
 
     #endregion Values
@@ -34,38 +27,57 @@ class MovingEntity : Entity
 
     public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-         
+         speed = 1;
     }
 
     #endregion Constructors
 
     #region Functions
 
-    public override void Move(string direction)
+    public void Move(string direction, bool isRunning)
     {
         Vector2 newPosition = new();
         float diagonalBuffer = (float)(1/Math.Sqrt(2));
         if (direction == "W")
         {
-            newPosition.Y -= Speed;
-            //IsWalking = true;
+            if(isRunning)
+            {
+                newPosition.Y -= runningSpeed;
+            }
+            else
+                newPosition.Y -= Speed;
+            
         }
 
         if (direction == "S")
         {
-            newPosition.Y += Speed;
-            //IsWalking = true;
+            if(isRunning)
+            {
+                newPosition.Y += runningSpeed;
+            }
+            else
+                newPosition.Y += Speed;
         }
 
         if (direction == "A")
         {
-            newPosition.X -= Speed;
-            //IsWalking = true;
+            if(isRunning)
+            {
+                newPosition.X -= runningSpeed;
+            }
+            else
+                newPosition.X -= Speed;
+
         }
 
         if (direction == "D")
         {
-            newPosition.X += Speed;
+            if(isRunning)
+            {
+                newPosition.X += runningSpeed;
+            }
+            else
+                newPosition.X += Speed;
             //IsWalking = true;
         }
 

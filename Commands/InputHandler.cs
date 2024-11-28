@@ -1,46 +1,111 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 class InputHandler 
 {
-    private Command moveUp,moveDown,moveLeft,moveRight,exit;
     private KeyboardState ks = Keyboard.GetState();
-    public Command HandleInput()
+
+    public InputHandler()
     {
-        if(ks.IsKeyDown(Keys.W))
+        //initialize non variable commands;
+    }
+    public Command HandleInput()     //TO DO: CREATE A MENU THAT CAN DYNAMICALLY CHANGE KEYS BASE ON PLAYER'S PREFERENCE
+    {
+        Update();
+        if(ks.IsKeyDown(Keys.W) || ks.IsKeyDown(Keys.Up))
         {
-            return moveUp;
+            if(ks.IsKeyDown(Keys.LeftShift))
+            {
+                return HandleCommand("W",true);
+            }
+            return HandleCommand("W",false);
         }
-        if(ks.IsKeyDown(Keys.A))
+        if(ks.IsKeyDown(Keys.A) || ks.IsKeyDown(Keys.Left))
         {
-            return moveLeft;
+            if(ks.IsKeyDown(Keys.LeftShift))
+            {
+                return HandleCommand("A",true);
+            }
+            return HandleCommand("A",false);
         }
-        if(ks.IsKeyDown(Keys.S))
+        if(ks.IsKeyDown(Keys.S) || ks.IsKeyDown(Keys.Down))
         {
-            return moveDown;
+            if(ks.IsKeyDown(Keys.LeftShift))
+            {
+                return HandleCommand("S",true);
+            }
+            return HandleCommand("S",false);
         }
-        if(ks.IsKeyDown(Keys.D))
+        if(ks.IsKeyDown(Keys.D) || ks.IsKeyDown(Keys.Right))
         {
-            return moveRight;
+            if(ks.IsKeyDown(Keys.LeftShift))
+            {
+                return HandleCommand("D",true);
+            }
+            return HandleCommand("D",false);
         }
         if(ks.IsKeyDown(Keys.Escape))
         {
-            return exit;
+            return HandleCommand("Esc",false);
         }
 
         return null;
     }
 
-    public void MoveCommand()
+    public Command HandleCommand(string parameter, bool x)
     {
-        moveUp = new MoveCommand("W");
-        moveDown = new MoveCommand("S");
-        moveRight = new MoveCommand("A");
-        moveLeft = new MoveCommand("D");
-        exit = new ExitCommand();
+        switch (parameter) 
+        {
+            case "W":
+                MoveCommand moveUp;
+                if(x)
+                {
+                    moveUp = new MoveCommand("W",true);
+                }
+                else
+                {
+                    moveUp = new MoveCommand("W",false);
+                }
+                return moveUp;
+            case "S":
+                MoveCommand moveDown;
+                if(x)
+                {
+                    moveDown = new MoveCommand("S",true);
+                }
+                else
+                {
+                    moveDown = new MoveCommand("S",false);
+                }
+                return moveDown;
+            case "D":
+                MoveCommand moveRight;
+                if(x)
+                {
+                    moveRight = new MoveCommand("D",true);
+                }
+                else
+                {
+                    moveRight = new MoveCommand("D",false);
+                }
+                return moveRight;
+            case "A":
+                MoveCommand moveLeft;
+                if(x)
+                {
+                    moveLeft = new MoveCommand("A",true);
+                }
+                else
+                {
+                    moveLeft = new MoveCommand("A",false);
+                }
+                return moveLeft;
+            case "Esc":
+                ExitCommand exit = new ExitCommand();
+                return exit;
+        }
+        return null;
     }
 
-    public virtual void Update(string parameter)
+    public virtual void Update()
     {
         ks = Keyboard.GetState();
     }

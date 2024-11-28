@@ -4,11 +4,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+namespace _2D_RPG;
+
 public class Globals
 {
-    internal static ContentManager content { get; set; }
-    internal static SpriteBatch spriteBatch { get; set; }
-    internal static GraphicsDeviceManager _graphics { get; set; }
+    public static ContentManager content { get; set; }
+    public static SpriteBatch spriteBatch { get; set; }
+    public static GraphicsDeviceManager _graphics { get; set; }
+
+    public static Dictionary<string,Tuple<Texture2D,string[]>> AnimationData;
     public static float TotalSeconds { get; set; }
 
     internal static List<Entity> EntityList = new List<Entity>{};
@@ -33,19 +37,13 @@ public class Globals
             EntityList.Remove(entity);
     }   
 
-/*
-    //Format : Tuple<{animationName},{maxFrames}>,{time per Frame}
-    public static readonly Dictionary<Tuple<string,Texture2D>,Tuple<int,float>> NewDictionary 
-    = new Dictionary<Tuple<string,Texture2D>, Tuple<int,float>>()
-        {
-            { new Tuple<string, Texture2D>("Player",content.Load<Texture2D>("testSpriteWalk_strip32")), new Tuple<int, float>(32,0.1f) }
-        };
-
-*/
-    public static readonly Dictionary<Tuple<string,Texture2D>,int> NewDictionary 
-    = new Dictionary<Tuple<string,Texture2D>, int>()
+    public static void LoadAnimationDictionary()
     {
-        { new Tuple<string, Texture2D>("Player",content.Load<Texture2D>("testSpriteWalk_strip32")), 32}
-    };
-    
+        //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
+        AnimationData = new Dictionary<string,Tuple<Texture2D,string[]>>
+        {
+            { "Player",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.1"])},
+            { "Player1",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3","x","y"])}
+        };
+    }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace _2D_RPG;
 
@@ -13,12 +13,13 @@ public class Main : Game
 {
     private InputHandler inputhandler;
     private Command command;
-    private Entity player;
 
     private AnimationHandler animationHandler;
 
+    readonly MovingEntity player = new MovingEntity("Player",null,Vector2.Zero);
     public Main()
     {
+        
         Globals._graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -26,6 +27,7 @@ public class Main : Game
 
     protected override void Initialize()
     {
+        
         // TODO: Add your initialization logic here
         base.Initialize();
     }
@@ -34,19 +36,18 @@ public class Main : Game
     {
         Globals.content = this.Content;
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
-        player = new MovingEntity("Player",Globals.content.Load<Texture2D>("testSpriteWalk_strip32"),Vector2.Zero);
-        Globals.UpdateEntityList(true,player);
-        animationHandler = new AnimationHandler(Globals.entityList.Find(x => x == player),32);
+        Globals.LoadAnimationDictionary();
+        animationHandler = new AnimationHandler();
         inputhandler = new InputHandler();
-
+        Globals.UpdateEntityList(true,player);
+        animationHandler.addNewAnimation(new Animation(player));
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
-        //var state = Keyboard.GetState(); 
-        //InputManager.Update();
         Globals.Update(gameTime);
+        animationHandler.handleAnimation(false);
         command = inputhandler.HandleInput();
         if(command != null)
         {
@@ -56,17 +57,8 @@ public class Main : Game
             } 
             command.Execute(player);
         }
-        /*
-        Animation = animationhandeler[enity];
-        if(Animation !null)
-            animation.Animate([enity]);
-        */
-        animationHandler.Update();
-       // movement = new Movement(player.position, 3f);
-        //player.position = movement.Update(gameTime);
-        //player.Update();
-        // TODO: Add your update logic here
 
+        //inputhandler.Update();
         base.Update(gameTime);
     }
 
@@ -78,7 +70,7 @@ public class Main : Game
 
         Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        animationHandler.Draw();
+        animationHandler.handleAnimation(true);
 
         Globals.spriteBatch.End();
 

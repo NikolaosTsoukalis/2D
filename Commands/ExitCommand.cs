@@ -1,6 +1,4 @@
-using System;
 using Microsoft.Xna.Framework;
-using System.Security.Cryptography.X509Certificates;
 
 class ExitCommand : Command 
 {
