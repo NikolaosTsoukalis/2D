@@ -27,7 +27,8 @@ class MovingEntity : Entity
 
     public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-         speed = 1;
+         Speed = 3;
+         RunningSpeed = 4;
     }
 
     #endregion Constructors
@@ -37,57 +38,149 @@ class MovingEntity : Entity
     public void Move(string direction, bool isRunning)
     {
         Vector2 newPosition = new();
-        float diagonalBuffer = (float)(1/Math.Sqrt(2));
-        if (direction == "W")
+        switch(direction)
         {
-            if(isRunning)
-            {
-                newPosition.Y -= runningSpeed;
-            }
-            else
-                newPosition.Y -= Speed;
-            
-        }
-
-        if (direction == "S")
-        {
-            if(isRunning)
-            {
-                newPosition.Y += runningSpeed;
-            }
-            else
-                newPosition.Y += Speed;
-        }
-
-        if (direction == "A")
-        {
-            if(isRunning)
-            {
-                newPosition.X -= runningSpeed;
-            }
-            else
-                newPosition.X -= Speed;
-
-        }
-
-        if (direction == "D")
-        {
-            if(isRunning)
-            {
-                newPosition.X += runningSpeed;
-            }
-            else
-                newPosition.X += Speed;
-            //IsWalking = true;
-        }
-
-        if(newPosition.LengthSquared() > Speed * Speed) // _speed*_speed = 1 with a _speed = 1
-        {
-            newPosition *= diagonalBuffer; // adjust for 2 directions pressed at same time.
+            case "W":
+                if(isRunning)
+                {
+                    newPosition.Y -= runningSpeed;
+                }
+                else
+                    newPosition.Y -= Speed;
+                break;
+            case "WA":
+                if(isRunning)
+                {
+                    newPosition.Y -= runningSpeed;
+                    newPosition.X -= runningSpeed;
+                    newPosition = AdjustDPosition(newPosition);
+                }
+                else
+                    newPosition.Y -= Speed;
+                    newPosition.X -= Speed;
+                    newPosition = AdjustDPosition(newPosition);                    
+                break;
+            case "WD":
+                if(isRunning)
+                {
+                    newPosition.Y -= runningSpeed;
+                    newPosition.X += runningSpeed;
+                    newPosition = AdjustDPosition(newPosition);
+                }
+                else
+                    newPosition.Y -= Speed;
+                    newPosition.X += Speed;
+                    newPosition = AdjustDPosition(newPosition);
+                break;
+            case "S":
+                if(isRunning)
+                {
+                    newPosition.Y += runningSpeed;
+                }
+                else
+                    newPosition.Y += Speed;
+                break;
+            case "SA":
+                if(isRunning)
+                {
+                    newPosition.Y += runningSpeed;
+                    newPosition.X -= runningSpeed;
+                    newPosition = AdjustDPosition(newPosition);
+                }
+                else
+                    newPosition.Y += Speed;
+                    newPosition.X -= Speed;
+                    newPosition = AdjustDPosition(newPosition);
+                break;
+            case "SD":
+                if(isRunning)
+                {
+                    newPosition.Y += runningSpeed;
+                    newPosition.X += runningSpeed;
+                    newPosition = AdjustDPosition(newPosition);
+                }
+                else
+                    newPosition.Y += Speed;
+                    newPosition.X += Speed;
+                    newPosition = AdjustDPosition(newPosition);
+                break;
+            case "A":
+                if(isRunning)
+                {
+                    newPosition.X -= runningSpeed;
+                }
+                else
+                    newPosition.X -= Speed;
+                break;
+            case "AW":
+                if(isRunning)
+                {
+                    newPosition.X -= runningSpeed;
+                    newPosition.Y -= runningSpeed;
+                    newPosition = AdjustDPosition(newPosition);
+                }
+                else
+                    newPosition.X -= Speed;
+                    newPosition.Y -= Speed;
+                    newPosition = AdjustDPosition(newPosition);
+                break;
+            case "AS":
+                if(isRunning)
+                {
+                    newPosition.X -= runningSpeed;
+                    newPosition.Y += runningSpeed;
+                    newPosition = AdjustDPosition(newPosition);
+                }
+                else
+                    newPosition.X -= Speed;
+                    newPosition.Y += Speed;
+                    newPosition = AdjustDPosition(newPosition);
+                break;
+            case "D":
+                if(isRunning)
+                {
+                    newPosition.X += runningSpeed;
+                }
+                else
+                    newPosition.X += Speed;
+                break;
+            case "DW":
+                if(isRunning)
+                {
+                    newPosition.X += runningSpeed;
+                    newPosition.Y -= runningSpeed;
+                    newPosition = AdjustDPosition(newPosition);
+                }
+                else
+                    newPosition.X += Speed;
+                    newPosition.Y -= Speed;
+                    newPosition = AdjustDPosition(newPosition);
+                break;
+            case "DS":
+                if(isRunning)
+                {
+                    newPosition.X += runningSpeed;
+                    newPosition.Y += runningSpeed;
+                    newPosition = AdjustDPosition(newPosition);
+                }
+                else
+                    newPosition.X += Speed;
+                    newPosition.Y += Speed;
+                    newPosition = AdjustDPosition(newPosition);
+                break;
         }
         Position += newPosition;
     }
  
+    public Vector2 AdjustDPosition(Vector2 newPosition)
+    {
+        float diagonalBuffer = (float)(1/Math.Sqrt(2));
+        if(newPosition.LengthSquared() > Speed * Speed || newPosition.LengthSquared() > runningSpeed * runningSpeed) // _speed*_speed = 1 with a _speed = 1
+        {
+            newPosition *= diagonalBuffer; // adjust for 2 directions pressed at same time.
+        }
+        return newPosition;
+    }
     public virtual void Update() 
     {
 
