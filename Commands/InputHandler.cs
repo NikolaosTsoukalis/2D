@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Input;
 class InputHandler 
 {
@@ -10,11 +11,49 @@ class InputHandler
     public Command HandleInput()     //TO DO: CREATE A MENU THAT CAN DYNAMICALLY CHANGE KEYS BASE ON PLAYER'S PREFERENCE
     {
         Update();
+        if(ks.IsKeyDown(Keys.A) || ks.IsKeyDown(Keys.S) || ks.IsKeyDown(Keys.D) || ks.IsKeyDown(Keys.W))
+        {
+            return HandleMovementInput();
+        }
+        if(ks.IsKeyDown(Keys.Escape))
+        {
+            return HandleCommand("Esc",false);
+        }
+        return null;
+    }
+
+    public Command HandleMovementInput()
+    {
         if(ks.IsKeyDown(Keys.W) || ks.IsKeyDown(Keys.Up))
         {
             if(ks.IsKeyDown(Keys.LeftShift))
             {
-                return HandleCommand("W",true);
+                if(ks.IsKeyDown(Keys.D))
+                {
+                    return HandleCommand("WD",true);
+                }
+                else if(ks.IsKeyDown(Keys.A))
+                {
+                    return HandleCommand("WA",true);
+                }
+                else if(ks.IsKeyDown(Keys.S))
+                {
+                    return null;
+                }
+                else
+                    return HandleCommand("W",true);
+            }
+            if(ks.IsKeyDown(Keys.D))
+            {
+                return HandleCommand("WD",false);
+            }
+            else if(ks.IsKeyDown(Keys.A))
+            {
+                return HandleCommand("WA",false);
+            }
+            else if(ks.IsKeyDown(Keys.S))
+            {
+                return null;
             }
             return HandleCommand("W",false);
         }
@@ -22,7 +61,32 @@ class InputHandler
         {
             if(ks.IsKeyDown(Keys.LeftShift))
             {
-                return HandleCommand("A",true);
+                if(ks.IsKeyDown(Keys.W))
+                {
+                    return HandleCommand("AW",true);
+                }
+                else if(ks.IsKeyDown(Keys.S))
+                {
+                    return HandleCommand("AS",true);
+                }
+                else if(ks.IsKeyDown(Keys.D))
+                {
+                    return null;
+                }
+                else
+                    return HandleCommand("A",true);
+            }
+            if(ks.IsKeyDown(Keys.W))
+            {
+                return HandleCommand("AW",false);
+            }
+            else if(ks.IsKeyDown(Keys.S))
+            {
+                return HandleCommand("AS",false);
+            }
+            else if(ks.IsKeyDown(Keys.D))
+            {
+                return null;
             }
             return HandleCommand("A",false);
         }
@@ -30,7 +94,31 @@ class InputHandler
         {
             if(ks.IsKeyDown(Keys.LeftShift))
             {
+                if(ks.IsKeyDown(Keys.A))
+                {
+                    return HandleCommand("SA",true);
+                }
+                else if(ks.IsKeyDown(Keys.D))
+                {
+                    return HandleCommand("SD",true);
+                }
+                else if(ks.IsKeyDown(Keys.W))
+                {
+                    return null;
+                }
                 return HandleCommand("S",true);
+            }
+            if(ks.IsKeyDown(Keys.A))
+            {
+                return HandleCommand("SA",false);
+            }
+            else if(ks.IsKeyDown(Keys.D))
+            {
+                return HandleCommand("SD",false);
+            }
+            else if(ks.IsKeyDown(Keys.W))
+            {
+                return null;
             }
             return HandleCommand("S",false);
         }
@@ -38,19 +126,38 @@ class InputHandler
         {
             if(ks.IsKeyDown(Keys.LeftShift))
             {
+                if(ks.IsKeyDown(Keys.W))
+                {
+                    return HandleCommand("DW",true);
+                }
+                else if(ks.IsKeyDown(Keys.S))
+                {
+                    return HandleCommand("DS",true);
+                }
+                else if(ks.IsKeyDown(Keys.A))
+                {
+                    return null;
+                }
                 return HandleCommand("D",true);
+            }
+            if(ks.IsKeyDown(Keys.W))
+            {
+                return HandleCommand("DW",false);
+            }
+            else if(ks.IsKeyDown(Keys.S))
+            {
+                return HandleCommand("DS",false);
+            }
+            else if(ks.IsKeyDown(Keys.W))
+            {
+                return null;
             }
             return HandleCommand("D",false);
         }
-        if(ks.IsKeyDown(Keys.Escape))
-        {
-            return HandleCommand("Esc",false);
-        }
-
         return null;
     }
 
-    public Command HandleCommand(string parameter, bool x)
+        public Command HandleCommand(string parameter, bool x)
     {
         switch (parameter) 
         {
@@ -65,6 +172,28 @@ class InputHandler
                     moveUp = new MoveCommand("W",false);
                 }
                 return moveUp;
+            case "WA":
+                MoveCommand moveUpLeft;
+                if(x)
+                {
+                    moveUpLeft = new MoveCommand("WA",true);
+                }
+                else
+                {
+                    moveUpLeft = new MoveCommand("WA",false);
+                }
+                return moveUpLeft;
+            case "WD":
+                MoveCommand moveUpRight;
+                if(x)
+                {
+                    moveUpRight = new MoveCommand("WD",true);
+                }
+                else
+                {
+                    moveUpRight = new MoveCommand("WD",false);
+                }
+                return moveUpRight;
             case "S":
                 MoveCommand moveDown;
                 if(x)
@@ -76,6 +205,28 @@ class InputHandler
                     moveDown = new MoveCommand("S",false);
                 }
                 return moveDown;
+            case "SA":
+                MoveCommand moveDownLeft;
+                if(x)
+                {
+                    moveDownLeft = new MoveCommand("SA",true);
+                }
+                else
+                {
+                    moveDownLeft = new MoveCommand("SA",false);
+                }
+                return moveDownLeft;
+            case "SD":
+                MoveCommand moveDownRight;
+                if(x)
+                {
+                    moveDownRight = new MoveCommand("SD",true);
+                }
+                else
+                {
+                    moveDownRight = new MoveCommand("SD",false);
+                }
+                return moveDownRight;
             case "D":
                 MoveCommand moveRight;
                 if(x)
@@ -87,6 +238,28 @@ class InputHandler
                     moveRight = new MoveCommand("D",false);
                 }
                 return moveRight;
+            case "DW":
+                MoveCommand moveRightUp;
+                if(x)
+                {
+                    moveRightUp = new MoveCommand("DW",true);
+                }
+                else
+                {
+                    moveRightUp = new MoveCommand("DW",false);
+                }
+                return moveRightUp;
+            case "DS":
+                MoveCommand moveRightDown;
+                if(x)
+                {
+                    moveRightDown = new MoveCommand("DS",true);
+                }
+                else
+                {
+                    moveRightDown = new MoveCommand("DS",false);
+                }
+                return moveRightDown;
             case "A":
                 MoveCommand moveLeft;
                 if(x)
@@ -98,6 +271,28 @@ class InputHandler
                     moveLeft = new MoveCommand("A",false);
                 }
                 return moveLeft;
+            case "AS":
+                MoveCommand moveLeftDown;
+                if(x)
+                {
+                    moveLeftDown = new MoveCommand("AS",true);
+                }
+                else
+                {
+                    moveLeftDown = new MoveCommand("AS",false);
+                }
+                return moveLeftDown;
+            case "AW":
+                MoveCommand moveLeftUp;
+                if(x)
+                {
+                    moveLeftUp = new MoveCommand("AW",true);
+                }
+                else
+                {
+                    moveLeftUp = new MoveCommand("AW",false);
+                }
+                return moveLeftUp;
             case "Esc":
                 ExitCommand exit = new ExitCommand();
                 return exit;
