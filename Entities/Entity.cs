@@ -25,12 +25,17 @@ public class Entity
         set{name = value;}
     }
 
+    private string direction;
+    public string Direction
+    {
+        get{return direction;}
+        set{direction = value;}
+    }
+
     #endregion Values
 
     #region Constructors
     public Entity(){}
-
-    public Entity (string Name, Vector2 Position){}
     public Entity(string entityName, Texture2D texture, Vector2 position)
     {
         Name = entityName;

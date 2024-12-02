@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 
 namespace _2D_RPG;
@@ -30,6 +26,7 @@ internal class Animation
             var frameWidth = entity.Texture.Width / totalFrames;
             var frameHeight = entity.Texture.Height;
 
+
             for(int i = 0; i < totalFrames; i++)
             {
                 sourceRectangles.Add(new(i * frameWidth, 0, frameWidth,frameHeight));
@@ -47,10 +44,56 @@ internal class Animation
     {
         frameTimeLeft -= Globals.TotalSeconds;
 
-        if(frameTimeLeft <= 0)
+        if(string.IsNullOrEmpty(entity.Direction))
         {
-            frameTimeLeft += frameTime;
-            currentFrame = (currentFrame + 1) % totalFrames;
+            if(frameTimeLeft <= 0)
+            {
+                frameTimeLeft += frameTime;
+                currentFrame = (currentFrame + 1) % totalFrames;
+            }
+        }
+        else
+        {
+            if(frameTimeLeft <= 0)
+            {
+                frameTimeLeft += frameTime;
+                int currentStartingFrame = 0;
+                int totalDirectionalFrames = totalFrames / 8;
+                switch(entity.Direction)
+                {
+                    case "S":
+                        currentStartingFrame = 0;
+                        break;
+                    case "SD":
+                        currentStartingFrame = totalDirectionalFrames;
+                        break;
+                    case "D":
+                        currentStartingFrame = totalDirectionalFrames*2;
+                        break;
+                    case "WD":
+                        currentStartingFrame = totalDirectionalFrames*3;
+                        break;
+                    case "W":
+                        currentStartingFrame = totalDirectionalFrames*4;
+                        break;
+                    case "WA":
+                        currentStartingFrame = totalDirectionalFrames*5;
+                        break;
+                    case "A":
+                        currentStartingFrame = totalDirectionalFrames*6;
+                        break;
+                    case "SA":
+                        currentStartingFrame = totalDirectionalFrames*7;
+                        break;
+                }
+                if(currentFrame == totalFrames-1 || currentFrame < currentStartingFrame || currentFrame >= currentStartingFrame + totalDirectionalFrames - 1)
+                {
+                    currentFrame = currentStartingFrame;
+                }
+                else
+                    currentFrame = (currentFrame + 1) % totalFrames;
+                //currentFrame = (currentFrame + 1) % totalFrames + currentStartingFrame;
+            }
         }
     }
 

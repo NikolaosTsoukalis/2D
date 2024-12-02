@@ -49,12 +49,15 @@ public class Main : Game
         Globals.Update(gameTime);
         animationHandler.handleAnimation(false);
         command = inputhandler.HandleInput();
+        string temp = player.Direction;
         if(command != null)
         {
             if(command.ToString() == "ExitCommand")
             {
                 command.Execute(this);
-            } 
+            }
+            if(temp != player.Direction)
+                return; 
             command.Execute(player);
         }
 

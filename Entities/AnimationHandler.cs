@@ -28,9 +28,7 @@ internal class AnimationHandler
                         animation.Draw();
                     }
                 }
-
             }
-
         }
         catch(Exception e)
         {
