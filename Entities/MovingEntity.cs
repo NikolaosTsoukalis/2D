@@ -138,5 +138,10 @@ class MovingEntity : Entity
 
     }
 
+    public override void resetEntityDirection()
+    {
+        base.resetEntityDirection();
+    }
+
     #endregion Functions
 }

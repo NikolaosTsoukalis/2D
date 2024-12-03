@@ -49,6 +49,11 @@ public class Entity
 
     public virtual void Update(GameTime gameTime){}
 
+    public virtual void resetEntityDirection()
+    {
+        Direction = "";
+    }
+
     public virtual void Draw(){}
 
     #endregion Functions
