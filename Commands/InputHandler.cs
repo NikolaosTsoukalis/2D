@@ -63,11 +63,11 @@ class InputHandler
             {
                 if(ks.IsKeyDown(Keys.W))
                 {
-                    return HandleCommand("AW",true);
+                    return HandleCommand("WA",true);
                 }
                 else if(ks.IsKeyDown(Keys.S))
                 {
-                    return HandleCommand("AS",true);
+                    return HandleCommand("SA",true);
                 }
                 else if(ks.IsKeyDown(Keys.D))
                 {
@@ -78,11 +78,11 @@ class InputHandler
             }
             if(ks.IsKeyDown(Keys.W))
             {
-                return HandleCommand("AW",false);
+                return HandleCommand("WA",false);
             }
             else if(ks.IsKeyDown(Keys.S))
             {
-                return HandleCommand("AS",false);
+                return HandleCommand("SA",false);
             }
             else if(ks.IsKeyDown(Keys.D))
             {
@@ -128,11 +128,11 @@ class InputHandler
             {
                 if(ks.IsKeyDown(Keys.W))
                 {
-                    return HandleCommand("DW",true);
+                    return HandleCommand("WD",true);
                 }
                 else if(ks.IsKeyDown(Keys.S))
                 {
-                    return HandleCommand("DS",true);
+                    return HandleCommand("SD",true);
                 }
                 else if(ks.IsKeyDown(Keys.A))
                 {
@@ -142,11 +142,11 @@ class InputHandler
             }
             if(ks.IsKeyDown(Keys.W))
             {
-                return HandleCommand("DW",false);
+                return HandleCommand("WD",false);
             }
             else if(ks.IsKeyDown(Keys.S))
             {
-                return HandleCommand("DS",false);
+                return HandleCommand("SD",false);
             }
             else if(ks.IsKeyDown(Keys.W))
             {
@@ -238,28 +238,6 @@ class InputHandler
                     moveRight = new MoveCommand("D",false);
                 }
                 return moveRight;
-            case "DW":
-                MoveCommand moveRightUp;
-                if(x)
-                {
-                    moveRightUp = new MoveCommand("DW",true);
-                }
-                else
-                {
-                    moveRightUp = new MoveCommand("DW",false);
-                }
-                return moveRightUp;
-            case "DS":
-                MoveCommand moveRightDown;
-                if(x)
-                {
-                    moveRightDown = new MoveCommand("DS",true);
-                }
-                else
-                {
-                    moveRightDown = new MoveCommand("DS",false);
-                }
-                return moveRightDown;
             case "A":
                 MoveCommand moveLeft;
                 if(x)
@@ -271,28 +249,6 @@ class InputHandler
                     moveLeft = new MoveCommand("A",false);
                 }
                 return moveLeft;
-            case "AS":
-                MoveCommand moveLeftDown;
-                if(x)
-                {
-                    moveLeftDown = new MoveCommand("AS",true);
-                }
-                else
-                {
-                    moveLeftDown = new MoveCommand("AS",false);
-                }
-                return moveLeftDown;
-            case "AW":
-                MoveCommand moveLeftUp;
-                if(x)
-                {
-                    moveLeftUp = new MoveCommand("AW",true);
-                }
-                else
-                {
-                    moveLeftUp = new MoveCommand("AW",false);
-                }
-                return moveLeftUp;
             case "Esc":
                 ExitCommand exit = new ExitCommand();
                 return exit;

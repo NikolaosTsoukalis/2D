@@ -25,12 +25,17 @@ public class Entity
         set{name = value;}
     }
 
+    private string direction;
+    public string Direction
+    {
+        get{return direction;}
+        set{direction = value;}
+    }
+
     #endregion Values
 
     #region Constructors
     public Entity(){}
-
-    public Entity (string Name, Vector2 Position){}
     public Entity(string entityName, Texture2D texture, Vector2 position)
     {
         Name = entityName;
@@ -43,6 +48,11 @@ public class Entity
     #region Functions
 
     public virtual void Update(GameTime gameTime){}
+
+    public virtual void resetEntityDirection()
+    {
+        Direction = "";
+    }
 
     public virtual void Draw(){}
 

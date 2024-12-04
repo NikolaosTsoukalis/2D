@@ -112,30 +112,6 @@ class MovingEntity : Entity
                 else
                     newPosition.X -= Speed;
                 break;
-            case "AW":
-                if(isRunning)
-                {
-                    newPosition.X -= runningSpeed;
-                    newPosition.Y -= runningSpeed;
-                    newPosition = AdjustDPosition(newPosition);
-                }
-                else
-                    newPosition.X -= Speed;
-                    newPosition.Y -= Speed;
-                    newPosition = AdjustDPosition(newPosition);
-                break;
-            case "AS":
-                if(isRunning)
-                {
-                    newPosition.X -= runningSpeed;
-                    newPosition.Y += runningSpeed;
-                    newPosition = AdjustDPosition(newPosition);
-                }
-                else
-                    newPosition.X -= Speed;
-                    newPosition.Y += Speed;
-                    newPosition = AdjustDPosition(newPosition);
-                break;
             case "D":
                 if(isRunning)
                 {
@@ -143,30 +119,6 @@ class MovingEntity : Entity
                 }
                 else
                     newPosition.X += Speed;
-                break;
-            case "DW":
-                if(isRunning)
-                {
-                    newPosition.X += runningSpeed;
-                    newPosition.Y -= runningSpeed;
-                    newPosition = AdjustDPosition(newPosition);
-                }
-                else
-                    newPosition.X += Speed;
-                    newPosition.Y -= Speed;
-                    newPosition = AdjustDPosition(newPosition);
-                break;
-            case "DS":
-                if(isRunning)
-                {
-                    newPosition.X += runningSpeed;
-                    newPosition.Y += runningSpeed;
-                    newPosition = AdjustDPosition(newPosition);
-                }
-                else
-                    newPosition.X += Speed;
-                    newPosition.Y += Speed;
-                    newPosition = AdjustDPosition(newPosition);
                 break;
         }
         Position += newPosition;
@@ -184,6 +136,11 @@ class MovingEntity : Entity
     public virtual void Update() 
     {
 
+    }
+
+    public override void resetEntityDirection()
+    {
+        base.resetEntityDirection();
     }
 
     #endregion Functions

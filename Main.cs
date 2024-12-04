@@ -57,6 +57,8 @@ public class Main : Game
             } 
             command.Execute(player);
         }
+        else
+            player.resetEntityDirection();
 
         //inputhandler.Update();
         base.Update(gameTime);

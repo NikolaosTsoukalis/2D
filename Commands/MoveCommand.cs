@@ -16,6 +16,7 @@ class MoveCommand : Command
     
     public override void Execute(MovingEntity entity)
     {
+        entity.Direction = direction;
         if(isRunning)
         {
             entity.Move(direction,true);
