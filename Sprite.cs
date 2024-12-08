@@ -20,6 +20,10 @@ public class Sprite
         this.position = position;
     }
 
+    // Properties to access the width and height of the sprite
+    public int Width => texture?.Width ?? 0;
+    public int Height => texture?.Height ?? 0;
+
     public virtual void Update(string parameter)
     {
 

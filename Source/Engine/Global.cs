@@ -15,3 +15,5 @@ public class Globals
         TotalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 }
+
+// :)

@@ -1,68 +1,95 @@
-﻿using System;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
-namespace _2D_RPG;
-
-public class Main : Game
+namespace _2D_RPG
 {
-    private Player player;
-    private Movement movement;
-
-    public Main()
+    public class Main : Game
     {
-        Globals._graphics = new GraphicsDeviceManager(this);
-        Content.RootDirectory = "Content";
-        IsMouseVisible = true;
-    }
+        private Player player;
+        private Movement movement;
+        private TileManager tileManager;
+        private Matrix _viewMatrix;
+        private Matrix _projectionMatrix;
+        private Vector3 _scaleFactor;
 
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
-        base.Initialize();
-    }
+        public Main()
+        {
+            Globals._graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
 
-    protected override void LoadContent()
-    {
-        Globals.content = this.Content;
-        Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
-        player = new Player(new Sprite(Vector2.Zero));
-        // TODO: use this.Content to load your game content here
-    }
+            Globals._graphics.IsFullScreen = false; // Disable fullscreen
+            Globals._graphics.PreferredBackBufferWidth = 800; // Set initial window size
+            Globals._graphics.PreferredBackBufferHeight = 480;
 
-    protected override void Update(GameTime gameTime)
-    {
-        var state = Keyboard.GetState(); 
-        InputManager.Update();
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || state.IsKeyDown(Keys.Escape))
-            Exit();
+            // Allow resizing the window
+            /*
+            Window.AllowUserResizing = true;  // Enable resizing
+            Window.ClientSizeChanged += OnWindowResized; // Event for resizing
+            */
+        }
 
-        movement = new Movement(player.position, 3f);
-        player.position = movement.Update(gameTime);
-        player.Update();
-        Globals.Update(gameTime);
-        // TODO: Add your update logic here
+        protected override void Initialize()
+        {
+            base.Initialize();
+            // Create the initial projection and view matrix based on the window size
+            //UpdateViewAndProjection();
+        }
 
-        base.Update(gameTime);
-    }
+        protected override void LoadContent()
+        {
+            Globals.content = this.Content;
+            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
 
-    protected override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+            tileManager = new TileManager(25, 15, 32); // 25x15 grid, each tile 32x32 pixels
+            TileGeneration.LoadTextures(Content);
+            tileManager.LoadTerrain(22, Content); // This will be the id of the seed 
 
-        // TODO: Add your drawing code here
+            player = new Player(new Sprite(Vector2.Zero));
+        }
 
-        Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        protected override void Update(GameTime gameTime)
+        {
+            var state = Keyboard.GetState();
+            InputManager.Update();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || state.IsKeyDown(Keys.Escape))
+                Exit();
 
-        player.Draw();
+            Globals.Update(gameTime);
+
+            // Handle window resizing during the game loop
+            //UpdateViewAndProjection();
+
+            movement = new Movement(player.position, 3f);
+            player.position = movement.Update(gameTime);
+            player.Update();
+
+            // Ensure the player stays within the bounds of the screen considering the scaling factor
+            /*
+            player.position = new Vector2(
+                MathHelper.Clamp(player.position.X, 0, (800 - 32) * _scaleFactor.Y), // Adjusted clamping to the map width minus 32 for size of player
+                MathHelper.Clamp(player.position.Y, 0, (480 - 64) * _scaleFactor.Z) // Adjusted clamping to the map height minus 64 for height of player
+            );
+            */
+            base.Update(gameTime);
+        }
 
 
-        Globals.spriteBatch.End();
 
-        base.Draw(gameTime);
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            Globals.spriteBatch.Begin();
+
+            tileManager.Draw(Globals.spriteBatch);
+            player.Draw();
+
+            Globals.spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
     }
 }

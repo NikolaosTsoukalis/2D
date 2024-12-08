@@ -53,3 +53,6 @@ C:\Users\Γιώργος\Desktop\2D RPG\2D\obj\Debug\net8.0\refint\2D_RPG.dll
 C:\Users\Γιώργος\Desktop\2D RPG\2D\obj\Debug\net8.0\2D_RPG.pdb
 C:\Users\Γιώργος\Desktop\2D RPG\2D\obj\Debug\net8.0\2D_RPG.genruntimeconfig.cache
 C:\Users\Γιώργος\Desktop\2D RPG\2D\obj\Debug\net8.0\ref\2D_RPG.dll
+C:\Users\Γιώργος\Desktop\2D RPG\2D\bin\Debug\net8.0\Content\Tiles\grass_tile.xnb
+C:\Users\Γιώργος\Desktop\2D RPG\2D\bin\Debug\net8.0\Content\Tiles\rock_tile.xnb
+C:\Users\Γιώργος\Desktop\2D RPG\2D\bin\Debug\net8.0\Content\Tiles\water_tile.xnb
