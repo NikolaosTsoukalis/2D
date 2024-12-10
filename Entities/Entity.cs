@@ -32,6 +32,12 @@ public class Entity
         set{direction = value;}
     }
 
+    private string actionIdentifier;
+    public string ActionIdentifier
+    {
+        get{return actionIdentifier;}
+        set{actionIdentifier = value;}
+    }
     #endregion Values
 
     #region Constructors
@@ -41,6 +47,8 @@ public class Entity
         Name = entityName;
         Position = position;
         Texture = texture;
+        ActionIdentifier = "Idle";
+        Direction = "S";
     }
 
     #endregion Constructors
@@ -48,11 +56,6 @@ public class Entity
     #region Functions
 
     public virtual void Update(GameTime gameTime){}
-
-    public virtual void resetEntityDirection()
-    {
-        Direction = "";
-    }
 
     public virtual void Draw(){}
 

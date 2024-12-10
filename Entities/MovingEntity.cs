@@ -43,19 +43,23 @@ class MovingEntity : Entity
             case "W":
                 if(isRunning)
                 {
+                    ActionIdentifier = "Run";
                     newPosition.Y -= runningSpeed;
                 }
                 else
+                    ActionIdentifier = "Walk";
                     newPosition.Y -= Speed;
                 break;
             case "WA":
                 if(isRunning)
                 {
+                    ActionIdentifier = "Run";
                     newPosition.Y -= runningSpeed;
                     newPosition.X -= runningSpeed;
                     newPosition = AdjustDPosition(newPosition);
                 }
                 else
+                    ActionIdentifier = "Walk";
                     newPosition.Y -= Speed;
                     newPosition.X -= Speed;
                     newPosition = AdjustDPosition(newPosition);                    
@@ -63,11 +67,13 @@ class MovingEntity : Entity
             case "WD":
                 if(isRunning)
                 {
+                    ActionIdentifier = "Run";
                     newPosition.Y -= runningSpeed;
                     newPosition.X += runningSpeed;
                     newPosition = AdjustDPosition(newPosition);
                 }
                 else
+                    ActionIdentifier = "Walk";
                     newPosition.Y -= Speed;
                     newPosition.X += Speed;
                     newPosition = AdjustDPosition(newPosition);
@@ -75,19 +81,23 @@ class MovingEntity : Entity
             case "S":
                 if(isRunning)
                 {
+                    ActionIdentifier = "Run";
                     newPosition.Y += runningSpeed;
                 }
                 else
+                    ActionIdentifier = "Walk";
                     newPosition.Y += Speed;
                 break;
             case "SA":
                 if(isRunning)
                 {
+                    ActionIdentifier = "Run";
                     newPosition.Y += runningSpeed;
                     newPosition.X -= runningSpeed;
                     newPosition = AdjustDPosition(newPosition);
                 }
                 else
+                    ActionIdentifier = "Walk";
                     newPosition.Y += Speed;
                     newPosition.X -= Speed;
                     newPosition = AdjustDPosition(newPosition);
@@ -95,11 +105,13 @@ class MovingEntity : Entity
             case "SD":
                 if(isRunning)
                 {
+                    ActionIdentifier = "Run";
                     newPosition.Y += runningSpeed;
                     newPosition.X += runningSpeed;
                     newPosition = AdjustDPosition(newPosition);
                 }
                 else
+                    ActionIdentifier = "Walk";
                     newPosition.Y += Speed;
                     newPosition.X += Speed;
                     newPosition = AdjustDPosition(newPosition);
@@ -107,17 +119,21 @@ class MovingEntity : Entity
             case "A":
                 if(isRunning)
                 {
+                    ActionIdentifier = "Run";
                     newPosition.X -= runningSpeed;
                 }
                 else
+                    ActionIdentifier = "Walk";
                     newPosition.X -= Speed;
                 break;
             case "D":
                 if(isRunning)
                 {
+                    ActionIdentifier = "Run";
                     newPosition.X += runningSpeed;
                 }
                 else
+                    ActionIdentifier = "Walk";
                     newPosition.X += Speed;
                 break;
         }
@@ -135,12 +151,7 @@ class MovingEntity : Entity
     }
     public virtual void Update() 
     {
-
-    }
-
-    public override void resetEntityDirection()
-    {
-        base.resetEntityDirection();
+        
     }
 
     #endregion Functions

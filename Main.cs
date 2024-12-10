@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
@@ -39,27 +40,27 @@ public class Main : Game
         Globals.LoadAnimationDictionary();
         animationHandler = new AnimationHandler();
         inputhandler = new InputHandler();
-        Globals.UpdateEntityList(true,player);
-        animationHandler.addNewAnimation(new Animation(player));
+        Globals.AddEntityToList(player);
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
         Globals.Update(gameTime);
+        animationHandler.Update(Globals.EntityList);
         animationHandler.handleAnimation(false);
         command = inputhandler.HandleInput();
         if(command != null)
         {
-            if(command.ToString() == "ExitCommand")
+            if(command.ToString() == "ExitCommand" || command.ToString() == "FullScreenCommand")
             {
                 command.Execute(this);
             } 
             command.Execute(player);
         }
         else
-            player.resetEntityDirection();
-
+            player.ActionIdentifier = "Idle";
+            
         //inputhandler.Update();
         base.Update(gameTime);
     }

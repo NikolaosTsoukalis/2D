@@ -14,18 +14,31 @@ internal class Animation
     private float frameTimeLeft;
     private Entity entity;
 
-    public Animation(Entity entity)
+    public Entity Entity 
     {
-        if(Globals.AnimationData.TryGetValue(entity.Name, out var tuple))
+        get{return entity;}
+        set{entity = value;}
+    }
+
+    private string actionIdentifier;
+
+    public string ActionIdentifier 
+    {
+        get{return actionIdentifier;}
+        set{actionIdentifier = value;}
+    }
+    public Animation(Entity entity, string identifier)
+    {
+        if(Globals.PlayerAnimationData.TryGetValue(identifier, out var tuple))
         {
             entity.Texture = tuple.Item1;
             frameTime = (float) Convert.ToDouble(tuple.Item2[1]);
             totalFrames = Convert.ToInt32(tuple.Item2[0]);
-            this.entity = entity;
             frameTimeLeft = frameTime;
             var frameWidth = entity.Texture.Width / totalFrames;
             var frameHeight = entity.Texture.Height;
-
+            ActionIdentifier = entity.ActionIdentifier;
+            Entity = entity;
 
             for(int i = 0; i < totalFrames; i++)
             {

@@ -17,7 +17,11 @@ class InputHandler
         }
         if(ks.IsKeyDown(Keys.Escape))
         {
-            return HandleCommand("Esc",false);
+            return HandleCommandType("Esc",false);
+        }
+        if(ks.IsKeyDown(Keys.LeftShift) && ks.IsKeyDown(Keys.Space))
+        {
+            return HandleCommandType("AltSpace",false);
         }
         return null;
     }
@@ -30,32 +34,32 @@ class InputHandler
             {
                 if(ks.IsKeyDown(Keys.D))
                 {
-                    return HandleCommand("WD",true);
+                    return HandleCommandType("WD",true);
                 }
                 else if(ks.IsKeyDown(Keys.A))
                 {
-                    return HandleCommand("WA",true);
+                    return HandleCommandType("WA",true);
                 }
                 else if(ks.IsKeyDown(Keys.S))
                 {
                     return null;
                 }
                 else
-                    return HandleCommand("W",true);
+                    return HandleCommandType("W",true);
             }
             if(ks.IsKeyDown(Keys.D))
             {
-                return HandleCommand("WD",false);
+                return HandleCommandType("WD",false);
             }
             else if(ks.IsKeyDown(Keys.A))
             {
-                return HandleCommand("WA",false);
+                return HandleCommandType("WA",false);
             }
             else if(ks.IsKeyDown(Keys.S))
             {
                 return null;
             }
-            return HandleCommand("W",false);
+            return HandleCommandType("W",false);
         }
         if(ks.IsKeyDown(Keys.A) || ks.IsKeyDown(Keys.Left))
         {
@@ -63,32 +67,32 @@ class InputHandler
             {
                 if(ks.IsKeyDown(Keys.W))
                 {
-                    return HandleCommand("WA",true);
+                    return HandleCommandType("WA",true);
                 }
                 else if(ks.IsKeyDown(Keys.S))
                 {
-                    return HandleCommand("SA",true);
+                    return HandleCommandType("SA",true);
                 }
                 else if(ks.IsKeyDown(Keys.D))
                 {
                     return null;
                 }
                 else
-                    return HandleCommand("A",true);
+                    return HandleCommandType("A",true);
             }
             if(ks.IsKeyDown(Keys.W))
             {
-                return HandleCommand("WA",false);
+                return HandleCommandType("WA",false);
             }
             else if(ks.IsKeyDown(Keys.S))
             {
-                return HandleCommand("SA",false);
+                return HandleCommandType("SA",false);
             }
             else if(ks.IsKeyDown(Keys.D))
             {
                 return null;
             }
-            return HandleCommand("A",false);
+            return HandleCommandType("A",false);
         }
         if(ks.IsKeyDown(Keys.S) || ks.IsKeyDown(Keys.Down))
         {
@@ -96,31 +100,31 @@ class InputHandler
             {
                 if(ks.IsKeyDown(Keys.A))
                 {
-                    return HandleCommand("SA",true);
+                    return HandleCommandType("SA",true);
                 }
                 else if(ks.IsKeyDown(Keys.D))
                 {
-                    return HandleCommand("SD",true);
+                    return HandleCommandType("SD",true);
                 }
                 else if(ks.IsKeyDown(Keys.W))
                 {
                     return null;
                 }
-                return HandleCommand("S",true);
+                return HandleCommandType("S",true);
             }
             if(ks.IsKeyDown(Keys.A))
             {
-                return HandleCommand("SA",false);
+                return HandleCommandType("SA",false);
             }
             else if(ks.IsKeyDown(Keys.D))
             {
-                return HandleCommand("SD",false);
+                return HandleCommandType("SD",false);
             }
             else if(ks.IsKeyDown(Keys.W))
             {
                 return null;
             }
-            return HandleCommand("S",false);
+            return HandleCommandType("S",false);
         }
         if(ks.IsKeyDown(Keys.D) || ks.IsKeyDown(Keys.Right))
         {
@@ -128,36 +132,36 @@ class InputHandler
             {
                 if(ks.IsKeyDown(Keys.W))
                 {
-                    return HandleCommand("WD",true);
+                    return HandleCommandType("WD",true);
                 }
                 else if(ks.IsKeyDown(Keys.S))
                 {
-                    return HandleCommand("SD",true);
+                    return HandleCommandType("SD",true);
                 }
                 else if(ks.IsKeyDown(Keys.A))
                 {
                     return null;
                 }
-                return HandleCommand("D",true);
+                return HandleCommandType("D",true);
             }
             if(ks.IsKeyDown(Keys.W))
             {
-                return HandleCommand("WD",false);
+                return HandleCommandType("WD",false);
             }
             else if(ks.IsKeyDown(Keys.S))
             {
-                return HandleCommand("SD",false);
+                return HandleCommandType("SD",false);
             }
             else if(ks.IsKeyDown(Keys.W))
             {
                 return null;
             }
-            return HandleCommand("D",false);
+            return HandleCommandType("D",false);
         }
         return null;
     }
 
-        public Command HandleCommand(string parameter, bool x)
+        public Command HandleCommandType(string parameter, bool x)
     {
         switch (parameter) 
         {
@@ -252,6 +256,9 @@ class InputHandler
             case "Esc":
                 ExitCommand exit = new ExitCommand();
                 return exit;
+            case "AltSpace":
+                FullScreenCommand fullScreen = new FullScreenCommand();
+                return fullScreen;
         }
         return null;
     }

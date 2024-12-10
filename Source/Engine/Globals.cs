@@ -12,14 +12,14 @@ public class Globals
     public static SpriteBatch spriteBatch { get; set; }
     public static GraphicsDeviceManager _graphics { get; set; }
 
-    public static Dictionary<string,Tuple<Texture2D,string[]>> AnimationData;
+    public static Dictionary<string,Tuple<Texture2D,string[]>> PlayerAnimationData;
     public static float TotalSeconds { get; set; }
 
-    internal static List<Entity> EntityList = new List<Entity>{};
+    private static List<Entity> entityList = new List<Entity>{};
 
-    public static List<Entity> entityList 
+    public static List<Entity> EntityList 
     {
-        get{return EntityList;}
+        get{return entityList;}
     }
 
     public static void Update(GameTime gameTime)
@@ -27,23 +27,24 @@ public class Globals
         TotalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
-    public static void UpdateEntityList(bool choice,Entity entity)
+    public static void AddEntityToList(Entity entity)
     {
-        if(choice)
-        {
             EntityList.Add(entity);
-        }
-        else
+    }
+
+    public static void RevomeEntityFromList(Entity entity)
+    {
             EntityList.Remove(entity);
-    }   
+    }    
 
     public static void LoadAnimationDictionary()
     {
         //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
-        AnimationData = new Dictionary<string,Tuple<Texture2D,string[]>>
+        PlayerAnimationData = new Dictionary<string,Tuple<Texture2D,string[]>>
         {
-            { "Player",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])},
-            { "Player1",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3","x","y"])}
+            { "Walk",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("Character_Walk_strip32"),["32","0.3"])},
+            { "Idle",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"])},
+            { "Run",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])}
         };
     }
 }

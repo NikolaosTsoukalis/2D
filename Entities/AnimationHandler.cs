@@ -54,9 +54,22 @@ internal class AnimationHandler
             }
         }
     }
-    public void Update()
+    public void Update(List<Entity> entityList)
     {
-        CurrentAnimations = new List<Animation>();
+        foreach(Entity entity in entityList)
+        {
+            if (CurrentAnimations.FirstOrDefault(animation => animation.ActionIdentifier == entity.ActionIdentifier) == null )
+            {
+                addNewAnimation(new Animation(entity,entity.ActionIdentifier));
+            }
+            foreach(Animation animation in CurrentAnimations)
+            {
+                if (animation.ActionIdentifier != entity.ActionIdentifier && animation.Entity == entity)
+                {
+                    removeAnimation(new Animation(entity,entity.ActionIdentifier));
+                }
+            }
+        }
     }
  
 }
