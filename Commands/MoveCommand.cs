@@ -19,9 +19,11 @@ class MoveCommand : Command
         entity.Direction = direction;
         if(isRunning)
         {
+            entity.ActionIdentifier = "Run";
             entity.Move(direction,true);
         }
         else
+            entity.ActionIdentifier = "Walk";
             entity.Move(direction,false);
     }
 

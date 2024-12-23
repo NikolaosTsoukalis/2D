@@ -7,14 +7,14 @@ namespace _2D_RPG;
 internal class AnimationHandler
 {
     private List<Animation> CurrentAnimations = [];
-
+    
     public void handleAnimation(bool methodCall)
     {
         try{
 
             if(CurrentAnimations.Count() > 0) {
 
-                if(!methodCall)
+                if(methodCall)
                 {
                     foreach(Animation animation in CurrentAnimations)
                     {
@@ -54,21 +54,26 @@ internal class AnimationHandler
             }
         }
     }
-    public void Update(List<Entity> entityList)
+   public void Update(List<Entity> entityList)
     {
+        List<Animation> toBeRemoved = [];
         foreach(Entity entity in entityList)
         {
-            if (CurrentAnimations.FirstOrDefault(animation => animation.ActionIdentifier == entity.ActionIdentifier) == null )
-            {
-                addNewAnimation(new Animation(entity,entity.ActionIdentifier));
-            }
             foreach(Animation animation in CurrentAnimations)
             {
                 if (animation.ActionIdentifier != entity.ActionIdentifier && animation.Entity == entity)
                 {
-                    removeAnimation(new Animation(entity,entity.ActionIdentifier));
+                    toBeRemoved.Add(animation);
                 }
             }
+            if (CurrentAnimations.FirstOrDefault(animation => animation.ActionIdentifier == entity.ActionIdentifier) == null )
+            {
+                addNewAnimation(new Animation(entity,entity.ActionIdentifier));
+            }
+        }
+        foreach(Animation animation in toBeRemoved)
+        {
+            removeAnimation(animation);
         }
     }
  

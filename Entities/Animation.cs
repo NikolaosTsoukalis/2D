@@ -34,7 +34,7 @@ internal class Animation
             entity.Texture = tuple.Item1;
             frameTime = (float) Convert.ToDouble(tuple.Item2[1]);
             totalFrames = Convert.ToInt32(tuple.Item2[0]);
-            frameTimeLeft = frameTime;
+            frameTimeLeft = 0;
             var frameWidth = entity.Texture.Width / totalFrames;
             var frameHeight = entity.Texture.Height;
             ActionIdentifier = entity.ActionIdentifier;

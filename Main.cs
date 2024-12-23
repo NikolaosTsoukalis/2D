@@ -47,8 +47,6 @@ public class Main : Game
     protected override void Update(GameTime gameTime)
     {
         Globals.Update(gameTime);
-        animationHandler.Update(Globals.EntityList);
-        animationHandler.handleAnimation(false);
         command = inputhandler.HandleInput();
         if(command != null)
         {
@@ -60,8 +58,10 @@ public class Main : Game
         }
         else
             player.ActionIdentifier = "Idle";
-            
-        //inputhandler.Update();
+        
+        animationHandler.Update(Globals.EntityList);
+        animationHandler.handleAnimation(true);
+
         base.Update(gameTime);
     }
 
@@ -73,7 +73,7 @@ public class Main : Game
 
         Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        animationHandler.handleAnimation(true);
+        animationHandler.handleAnimation(false);
 
         Globals.spriteBatch.End();
 

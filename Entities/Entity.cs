@@ -47,8 +47,12 @@ public class Entity
         Name = entityName;
         Position = position;
         Texture = texture;
-        ActionIdentifier = "Idle";
-        Direction = "S";
+        if((float)Globals.TotalSeconds <= 1.0)
+        {
+            ActionIdentifier = "Idle";
+            Direction = "S";
+        }
+
     }
 
     #endregion Constructors
