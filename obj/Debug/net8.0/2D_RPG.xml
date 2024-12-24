@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>2D_RPG</name>
+    </assembly>
+    <members>
+        <member name="M:_2D_RPG.Main.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Handles the drawing of the game scene each frame.
+            </summary>
+            <param name="gameTime">
+            Provides a snapshot of timing values, such as the time elapsed since the last update.
+            </param>
+            <remarks>
+            This method clears the screen to a specific color, begins the sprite batch for rendering, 
+            and handles animations before ending the sprite batch. Finally, it invokes the base class's 
+            <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)"/> method.
+            </remarks>
+        </member>
+    </members>
+</doc>

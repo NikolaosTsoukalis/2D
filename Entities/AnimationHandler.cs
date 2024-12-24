@@ -6,27 +6,41 @@ namespace _2D_RPG;
 
 internal class AnimationHandler
 {
+    #region Values
+
     private List<Animation> CurrentAnimations = [];
+
+    #endregion Values
     
-    public void handleAnimation(bool methodCall)
+    #region Functions
+    
+    public void AnimationsUpdate()
     {
         try{
 
-            if(CurrentAnimations.Count() > 0) {
-
-                if(methodCall)
+            if(CurrentAnimations.Count() > 0) 
+            {
+                foreach(Animation animation in CurrentAnimations)
                 {
-                    foreach(Animation animation in CurrentAnimations)
-                    {
-                        animation.Update();
-                    }
+                    animation.Update();
                 }
-                else
+            }
+        }
+        catch(Exception e)
+        {
+           Console.WriteLine(e.ToString()); 
+        }
+    }
+
+    public void AnimationsDraw()
+    {
+        try{
+
+            if(CurrentAnimations.Count() > 0) 
+            {
+                foreach(Animation animation in CurrentAnimations)
                 {
-                    foreach(Animation animation in CurrentAnimations)
-                    {
-                        animation.Draw();
-                    }
+                    animation.Draw();
                 }
             }
         }
@@ -76,5 +90,5 @@ internal class AnimationHandler
             removeAnimation(animation);
         }
     }
- 
+    #endregion Functions
 }

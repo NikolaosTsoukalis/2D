@@ -1,8 +1,14 @@
 class MoveCommand : Command 
 {
+    #region Values
+
     private string direction;
 
     private bool isRunning = false;
+
+    #endregion Values
+
+    #region Constructors
 
     public MoveCommand(string direction)
     {
@@ -13,6 +19,10 @@ class MoveCommand : Command
         this.direction = direction;
         this.isRunning = isRunning;
     }
+
+    #endregion Constructors
+
+    #region Functions
     
     public override void Execute(MovingEntity entity)
     {
@@ -27,6 +37,6 @@ class MoveCommand : Command
             entity.Move(direction,false);
     }
 
-    
+    #endregion Functions
 }
 

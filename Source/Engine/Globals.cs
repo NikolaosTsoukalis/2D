@@ -8,6 +8,7 @@ namespace _2D_RPG;
 
 public class Globals
 {
+    #region Values
     public static ContentManager content { get; set; }
     public static SpriteBatch spriteBatch { get; set; }
     public static GraphicsDeviceManager _graphics { get; set; }
@@ -17,12 +18,20 @@ public class Globals
 
     private static List<Entity> entityList = new List<Entity>{};
 
+    #endregion Values
+
+    #region Constructors
+
     public static List<Entity> EntityList 
     {
         get{return entityList;}
     }
 
-    public static void Update(GameTime gameTime)
+    #endregion Constructors
+
+    #region Functions
+
+    public static void Update(GameTime gameTime, Game game)
     {
         TotalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
@@ -42,9 +51,11 @@ public class Globals
         //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
         PlayerAnimationData = new Dictionary<string,Tuple<Texture2D,string[]>>
         {
-            { "Walk",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("Character_Walk_strip32"),["32","0.3"])},
+            { "Walk",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"])},
             { "Idle",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"])},
             { "Run",new Tuple<Texture2D,string[]>(content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])}
         };
     }
+
+    #endregion Functions
 }

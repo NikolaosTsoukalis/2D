@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _2D_RPG;
 internal class Animation
 {
+    #region Values
+
     private readonly List<Rectangle> sourceRectangles = new();
     private int totalFrames;
     private int currentFrame;
@@ -27,6 +29,10 @@ internal class Animation
         get{return actionIdentifier;}
         set{actionIdentifier = value;}
     }
+
+    #endregion Values
+
+    #region Constructors
     public Animation(Entity entity, string identifier)
     {
         if(Globals.PlayerAnimationData.TryGetValue(identifier, out var tuple))
@@ -46,6 +52,10 @@ internal class Animation
             }
         }
     }
+
+    #endregion Constructors
+
+    #region Functions
 
     public void Reset()
     {
@@ -114,4 +124,6 @@ internal class Animation
     {
         Globals.spriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
+
+    #endregion Functions
 }

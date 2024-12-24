@@ -2,12 +2,23 @@ using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Input;
 class InputHandler 
 {
+    #region Values
+
     private KeyboardState ks = Keyboard.GetState();
+
+    #endregion Values
+
+    #region Constructors
 
     public InputHandler()
     {
         //initialize non variable commands;
     }
+
+    #endregion Constructors
+
+    #region Functions
+
     public Command HandleInput()     //TO DO: CREATE A MENU THAT CAN DYNAMICALLY CHANGE KEYS BASE ON PLAYER'S PREFERENCE
     {
         Update();
@@ -161,7 +172,7 @@ class InputHandler
         return null;
     }
 
-        public Command HandleCommandType(string parameter, bool x)
+    public Command HandleCommandType(string parameter, bool x)
     {
         switch (parameter) 
         {
@@ -267,5 +278,7 @@ class InputHandler
     {
         ks = Keyboard.GetState();
     }
+
+    #endregion Functions
 
 }
