@@ -1,5 +1,7 @@
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Input;
+
+namespace _2D_RPG;
+
 class InputHandler 
 {
     #region Values
@@ -32,7 +34,7 @@ class InputHandler
         }
         if(ks.IsKeyDown(Keys.LeftShift) && ks.IsKeyDown(Keys.Space))
         {
-            return HandleCommandType("AltSpace",false);
+            return HandleCommandType("ShiftSpace",false);
         }
         return null;
     }
@@ -267,7 +269,7 @@ class InputHandler
             case "Esc":
                 ExitCommand exit = new ExitCommand();
                 return exit;
-            case "AltSpace":
+            case "ShiftSpace":
                 FullScreenCommand fullScreen = new FullScreenCommand();
                 return fullScreen;
         }

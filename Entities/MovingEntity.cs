@@ -1,8 +1,8 @@
-using _2D_RPG;
-using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+
+namespace _2D_RPG;
 
 class MovingEntity : Entity
 {

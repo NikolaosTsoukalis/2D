@@ -1,6 +1,8 @@
-using _2D_RPG;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+namespace _2D_RPG;
+
 public class Entity
 {
     #region Values

@@ -1,5 +1,6 @@
-using _2D_RPG;
 using Microsoft.Xna.Framework;
+
+namespace _2D_RPG;
 
 class FullScreenCommand : Command 
 {

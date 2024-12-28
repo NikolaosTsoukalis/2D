@@ -1,3 +1,5 @@
+namespace _2D_RPG;
+
 class MoveCommand : Command 
 {
     #region Values
