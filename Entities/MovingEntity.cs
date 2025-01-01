@@ -4,7 +4,7 @@ using System;
 
 namespace _2D_RPG;
 
-class MovingEntity : Entity
+public class MovingEntity : Entity
 {
     #region Values
     private float speed;

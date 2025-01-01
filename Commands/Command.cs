@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
 
-class Command
+public abstract class Command
 {
     public Command(){}
 

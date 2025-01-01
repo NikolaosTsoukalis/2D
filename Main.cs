@@ -11,14 +11,11 @@ namespace _2D_RPG;
 /// </remarks>
 public class Main : Game
 {
+
     #region Values
-    private InputHandler inputhandler;
-    private Command command;
 
-    private AnimationHandler animationHandler;
-    private EntityHandler entityHandler;
-
-    readonly MovingEntity player = new MovingEntity("Player",null,Vector2.Zero);
+    private State currentGameState;
+    private State nextGameState;
 
     #endregion Values
 
@@ -55,9 +52,6 @@ public class Main : Game
     {
         
         // TODO: Add your initialization logic here
-        entityHandler = new();
-        animationHandler = new();
-        inputhandler = new();
         base.Initialize();
     }
 
@@ -73,7 +67,7 @@ public class Main : Game
         Globals.content = this.Content;
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
         Globals.LoadPlayerAnimationDictionary();
-        EntityHandler.AddEntityToList(player);
+        currentGameState =  new MainMenuState(this);
         // TODO: use this.Content to load your game content here
     }
 
@@ -89,21 +83,14 @@ public class Main : Game
     /// </remarks>
     protected override void Update(GameTime gameTime)
     {
-        Globals.UpdateTimeForAnimations(gameTime, this);
-        command = inputhandler.HandleInput();
-        if(command != null)
+        if(nextGameState != null)
         {
-            if(command.ToString() == "ExitCommand" || command.ToString() == "FullScreenCommand")
-            {
-                command.Execute(this);
-            } 
-            command.Execute(player);
+            currentGameState = nextGameState;
+            nextGameState = null;
         }
-        else
-            player.ActionIdentifier = "Idle";
 
-        animationHandler.Update(EntityHandler.EntityList);
-        animationHandler.AnimationsUpdate();
+        currentGameState.Update(gameTime);
+        currentGameState.PostUpdate(gameTime);
 
         base.Update(gameTime);
     }
@@ -121,17 +108,18 @@ public class Main : Game
     /// </remarks>
     protected override void Draw(GameTime gameTime)
     {
-
-        Color colour = gameTime.IsRunningSlowly?Color.Red:Color.CornflowerBlue;
+        
+        Color colour = gameTime.IsRunningSlowly? Color.Red : Color.CornflowerBlue;
         GraphicsDevice.Clear(colour);
 
-        Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-        animationHandler.AnimationsDraw();
-
-        Globals.spriteBatch.End();
+        currentGameState.Draw(gameTime);
 
         base.Draw(gameTime);
+    }
+
+    public void ChangeState(State state)
+    {
+        nextGameState = state;
     }
 
     #endregion Functions
