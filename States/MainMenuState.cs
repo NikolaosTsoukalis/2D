@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
 public class MainMenuState : State
 {
-    private List<Component> _components;
+    private List<Component> components;
 
     public MainMenuState(Main main) : base(main)
     {
@@ -34,7 +33,7 @@ public class MainMenuState : State
 
         quitGameButton.Click += QuitGameButton_Click;
 
-        _components = new List<Component>()
+        components = new List<Component>()
         {
             startGameButton,
             settingsButton,
@@ -46,7 +45,7 @@ public class MainMenuState : State
     {
         Globals.spriteBatch.Begin();
 
-        foreach (var component in _components)
+        foreach (var component in components)
             component.Draw(gameTime);
 
         Globals.spriteBatch.End();
@@ -54,7 +53,7 @@ public class MainMenuState : State
 
     private void SettingsButton_Click(object sender, EventArgs e)
     {
-        Console.WriteLine("Settings");
+        main.ChangeState(new SettingsMainMenuState(main));
     }
 
     private void NewGameButton_Click(object sender, EventArgs e)
@@ -69,7 +68,7 @@ public class MainMenuState : State
 
     public override void Update(GameTime gameTime)
     {
-        foreach (var component in _components)
+        foreach (var component in components)
             component.Update(gameTime);
     }
 
