@@ -1,7 +1,9 @@
-using _2D_RPG;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-public class Entity
+
+namespace _2D_RPG;
+
+public abstract class Entity
 {
     #region Values
 
@@ -32,6 +34,12 @@ public class Entity
         set{direction = value;}
     }
 
+    private string actionIdentifier;
+    public string ActionIdentifier
+    {
+        get{return actionIdentifier;}
+        set{actionIdentifier = value;}
+    }
     #endregion Values
 
     #region Constructors
@@ -41,6 +49,12 @@ public class Entity
         Name = entityName;
         Position = position;
         Texture = texture;
+        if((float)Globals.TotalSeconds <= 1.0)
+        {
+            ActionIdentifier = "Idle";
+            Direction = "S";
+        }
+
     }
 
     #endregion Constructors
@@ -48,11 +62,6 @@ public class Entity
     #region Functions
 
     public virtual void Update(GameTime gameTime){}
-
-    public virtual void resetEntityDirection()
-    {
-        Direction = "";
-    }
 
     public virtual void Draw(){}
 

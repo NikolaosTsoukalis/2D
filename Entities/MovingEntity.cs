@@ -1,10 +1,10 @@
-using _2D_RPG;
-using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-class MovingEntity : Entity
+namespace _2D_RPG;
+
+public class MovingEntity : Entity
 {
     #region Values
     private float speed;
@@ -42,82 +42,85 @@ class MovingEntity : Entity
         {
             case "W":
                 if(isRunning)
-                {
+                {                   
                     newPosition.Y -= runningSpeed;
                 }
                 else
+                    
                     newPosition.Y -= Speed;
                 break;
             case "WA":
                 if(isRunning)
-                {
+                {                   
                     newPosition.Y -= runningSpeed;
                     newPosition.X -= runningSpeed;
                     newPosition = AdjustDPosition(newPosition);
                 }
-                else
+                else                
                     newPosition.Y -= Speed;
                     newPosition.X -= Speed;
                     newPosition = AdjustDPosition(newPosition);                    
                 break;
             case "WD":
                 if(isRunning)
-                {
+                {          
                     newPosition.Y -= runningSpeed;
                     newPosition.X += runningSpeed;
                     newPosition = AdjustDPosition(newPosition);
                 }
-                else
+                else     
                     newPosition.Y -= Speed;
                     newPosition.X += Speed;
                     newPosition = AdjustDPosition(newPosition);
                 break;
             case "S":
                 if(isRunning)
-                {
+                {   
                     newPosition.Y += runningSpeed;
                 }
                 else
+                    
                     newPosition.Y += Speed;
                 break;
             case "SA":
                 if(isRunning)
-                {
+                {    
                     newPosition.Y += runningSpeed;
                     newPosition.X -= runningSpeed;
                     newPosition = AdjustDPosition(newPosition);
                 }
-                else
+                else  
                     newPosition.Y += Speed;
                     newPosition.X -= Speed;
                     newPosition = AdjustDPosition(newPosition);
                 break;
             case "SD":
                 if(isRunning)
-                {
+                {     
                     newPosition.Y += runningSpeed;
                     newPosition.X += runningSpeed;
                     newPosition = AdjustDPosition(newPosition);
                 }
-                else
+                else    
                     newPosition.Y += Speed;
                     newPosition.X += Speed;
                     newPosition = AdjustDPosition(newPosition);
                 break;
             case "A":
                 if(isRunning)
-                {
+                {    
                     newPosition.X -= runningSpeed;
                 }
                 else
+                    
                     newPosition.X -= Speed;
                 break;
             case "D":
                 if(isRunning)
-                {
+                {    
                     newPosition.X += runningSpeed;
                 }
-                else
+                else    
                     newPosition.X += Speed;
                 break;
         }
@@ -135,12 +138,7 @@ class MovingEntity : Entity
     }
     public virtual void Update() 
     {
-
-    }
-
-    public override void resetEntityDirection()
-    {
-        base.resetEntityDirection();
+        
     }
 
     #endregion Functions

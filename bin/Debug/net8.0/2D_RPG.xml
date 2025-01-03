@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>2D_RPG</name>
+    </assembly>
+    <members>
+        <member name="T:_2D_RPG.Globals">
+            <summary>
+            Global class
+            </summary>
+            <remarks>
+            This class handles all Global variables.
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.Globals.UpdateTimeForAnimations(Microsoft.Xna.Framework.GameTime,Microsoft.Xna.Framework.Game)">
+            <summary>
+            Tracks the TotalSeconds passed for each Update and Draw call, and used for Animation
+            </summary>
+            <param name="gameTime">
+            Provides a snapshot of timing values, such as the time elapsed since the last update.
+            </param>
+            <param name="game">
+            This object resembles the base Game class.
+            </param>
+            <remarks>
+            This method updates the <see cref="P:_2D_RPG.Globals.TotalSeconds"/> value, which tracks the time passed for at the start of each <see cref="M:_2D_RPG.Main.Update(Microsoft.Xna.Framework.GameTime)"/> call.
+            It is used for the <see cref="T:_2D_RPG.Animation"/> class, to Update the Animation frame of each animation. 
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.Globals.LoadPlayerAnimationDictionary">
+            <summary>
+            Initiallizes a Dictionary for Player animations.
+            </summary>
+            <remarks>
+            This method initiallizes the <see cref="P:_2D_RPG.Globals.PlayerAnimationData"/> Dictionary, 
+            which is used as a storage structure for Player entity animations.
+            The format of the data structure is : {animation name},Tuple({Texture2D},string[totalFrames, timePerFrame]).
+            This dictionary is used in the <see cref="T:_2D_RPG.Animation"/> class.
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.EntityHandler.AddEntityToList(_2D_RPG.Entity)">
+            <summary>
+            Adds an entity to the Entity List.
+            </summary>
+            <param name="entity">
+            This object resembles an entity.
+            </param>
+            <remarks>
+            This method adds an <see cref="T:_2D_RPG.Entity"/> object to the <see cref="P:_2D_RPG.EntityHandler.EntityList"/> List.
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.EntityHandler.RevomeEntityFromList(_2D_RPG.Entity)">
+            <summary>
+            Removes an entity from the Entity List.
+            </summary>
+            <param name="entity">
+            This object resembles an entity.
+            </param>
+            <remarks>
+            This method remove an <see cref="T:_2D_RPG.Entity"/> object from the <see cref="P:_2D_RPG.EntityHandler.EntityList"/> List.
+            </remarks>
+        </member>
+        <member name="T:_2D_RPG.Main">
+            <summary>
+            Main class
+            </summary>
+            <remarks>
+            This class handles all game loop logic.
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.Main.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:_2D_RPG.Main"/> class.
+            </summary>
+            <remarks>
+            This is the Main constructor.
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.Main.Initialize">
+            <summary>
+            Initiallizes non graphical resources on startup runtime once, before LoadContent call.
+            </summary>
+            <remarks>
+            This method initiallizes non graphical resources once before the LoadContent call and the game loop, and calls the base class'
+            <see cref="M:Microsoft.Xna.Framework.Game.Initialize"/> method.
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.Main.LoadContent">
+            <summary>
+            Loads graphical resources on startup runtime once, before Update call.
+            </summary>
+            <remarks>
+            This method loads graphical resources once before the game loop, and calls the base class'
+            <see cref="M:Microsoft.Xna.Framework.Game.LoadContent"/> method.
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.Main.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Updates the game loop.
+            </summary>
+            <param name="gameTime">
+            Provides a snapshot of timing values, such as the time elapsed since the last update.
+            </param>
+            <remarks>
+            This method handles the runtime logic of the game loop, and call the base class'
+            <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)"/> method.
+            </remarks>
+        </member>
+        <member name="M:_2D_RPG.Main.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Handles the drawing of the game loop each frame.
+            </summary>
+            <param name="gameTime">
+            Provides a snapshot of timing values, such as the time elapsed since the last update.
+            </param>
+            <remarks>
+            This method clears the screen, begins the sprite batch for rendering, 
+            and handles animations before ending the sprite batch. Finally, it invokes the base class' 
+            <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)"/> method.
+            </remarks>
+        </member>
+    </members>
+</doc>

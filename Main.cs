@@ -1,30 +1,53 @@
-﻿using System;
-using System.Net;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
-using Microsoft.VisualBasic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
+/// <summary>
+/// Main class
+/// </summary>
+/// <remarks>
+/// This class handles all game loop logic.
+/// </remarks>
 public class Main : Game
 {
-    private InputHandler inputhandler;
-    private Command command;
 
-    private AnimationHandler animationHandler;
+    #region Values
 
-    readonly MovingEntity player = new MovingEntity("Player",null,Vector2.Zero);
+    private State currentGameState;
+    private State nextGameState;
+
+    #endregion Values
+
+    #region Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Main"/> class.
+    /// </summary>
+    /// <remarks>
+    /// This is the Main constructor.
+    /// </remarks>
     public Main()
     {
-        
+
         Globals._graphics = new GraphicsDeviceManager(this);
+
         Content.RootDirectory = "Content";
+
         IsMouseVisible = true;
     }
 
+    #endregion Constructors
+
+    #region Functions
+
+    /// <summary>
+    /// Initiallizes non graphical resources on startup runtime once, before LoadContent call.
+    /// </summary>
+    /// <remarks>
+    /// This method initiallizes non graphical resources once before the LoadContent call and the game loop, and calls the base class'
+    /// <see cref="Game.Initialize()"/> method.
+    /// </remarks>
     protected override void Initialize()
     {
         
@@ -32,50 +55,72 @@ public class Main : Game
         base.Initialize();
     }
 
+    /// <summary>
+    /// Loads graphical resources on startup runtime once, before Update call.
+    /// </summary>
+    /// <remarks>
+    /// This method loads graphical resources once before the game loop, and calls the base class'
+    /// <see cref="Game.LoadContent()"/> method.
+    /// </remarks>
     protected override void LoadContent()
     {
         Globals.content = this.Content;
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
-        Globals.LoadAnimationDictionary();
-        animationHandler = new AnimationHandler();
-        inputhandler = new InputHandler();
-        Globals.UpdateEntityList(true,player);
-        animationHandler.addNewAnimation(new Animation(player));
+        Globals.LoadPlayerAnimationDictionary();
+        currentGameState =  new MainMenuState(this);
         // TODO: use this.Content to load your game content here
     }
 
+    /// <summary>
+    /// Updates the game loop.
+    /// </summary>
+    /// <param name="gameTime">
+    /// Provides a snapshot of timing values, such as the time elapsed since the last update.
+    /// </param>
+    /// <remarks>
+    /// This method handles the runtime logic of the game loop, and call the base class'
+    /// <see cref="Game.Update(GameTime)"/> method.
+    /// </remarks>
     protected override void Update(GameTime gameTime)
     {
-        Globals.Update(gameTime);
-        animationHandler.handleAnimation(false);
-        command = inputhandler.HandleInput();
-        if(command != null)
+        if(nextGameState != null)
         {
-            if(command.ToString() == "ExitCommand")
-            {
-                command.Execute(this);
-            } 
-            command.Execute(player);
+            currentGameState = nextGameState;
+            nextGameState = null;
         }
-        else
-            player.resetEntityDirection();
 
-        //inputhandler.Update();
+        currentGameState.Update(gameTime);
+        currentGameState.PostUpdate(gameTime);
+
         base.Update(gameTime);
     }
 
+    /// <summary>
+    /// Handles the drawing of the game loop each frame.
+    /// </summary>
+    /// <param name="gameTime">
+    /// Provides a snapshot of timing values, such as the time elapsed since the last update.
+    /// </param>
+    /// <remarks>
+    /// This method clears the screen, begins the sprite batch for rendering, 
+    /// and handles animations before ending the sprite batch. Finally, it invokes the base class' 
+    /// <see cref="Game.Draw(GameTime)"/> method.
+    /// </remarks>
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        
+        Color colour = gameTime.IsRunningSlowly? Color.Red : Color.CornflowerBlue;
+        GraphicsDevice.Clear(colour);
 
-        // TODO: Add your drawing code here
-
-        Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-        animationHandler.handleAnimation(true);
-
-        Globals.spriteBatch.End();
+        currentGameState.Draw(gameTime);
 
         base.Draw(gameTime);
     }
+
+    public void ChangeState(State state)
+    {
+        nextGameState = state;
+    }
+
+    #endregion Functions
 }
