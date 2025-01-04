@@ -1,42 +1,47 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Design;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.VisualBasic;
 
 namespace _2D_RPG;
 public class SettingsMainMenuState : State 
 {
 
+
     private List<Component> components;
+    Button windowFormatButton;
     
     public SettingsMainMenuState(Main main) : base (main)
     {
-        var controlsButton = new Button(content.Load<Texture2D>("Button_StartGame"))
+        var controlsButton = new Button(content.Load<Texture2D>("Button_Controls"))
         {
             Position = new Vector2(300, 200),
         };
 
         controlsButton.Click += ControlsButton_Click;
 
-        var windowFormatButton = new Button(content.Load<Texture2D>("Button_Settings"))
+        windowFormatButton = new Button(null)
         {
-            Position = new Vector2(300, 250),
+            Position = new Vector2(300,250)
         };
+        GetWindowFormatButton();
 
         windowFormatButton.Click += WindowFormatButton_Click;
-    /*
-        var quitGameButton = new Button(content.Load<Texture2D>("Button_Exit"))
+    
+        var backButton = new Button(content.Load<Texture2D>("Button_Back"))
         {
             Position = new Vector2(300, 300),
         };
 
-        quitGameButton.Click += QuitGameButton_Click;
-    */
+        backButton.Click += BackButton_Click;
+    
         components = new List<Component>()
         {
             controlsButton,
             windowFormatButton,
-            //quitGameButton,
+            backButton,
         };
     }
 
@@ -65,6 +70,43 @@ public class SettingsMainMenuState : State
 
     private void WindowFormatButton_Click(object sender, EventArgs e)
     {
-        //main.ChangeState(new GameState(main));
+        if(Globals._graphics.IsFullScreen)
+        {
+            Globals._graphics.IsFullScreen = false;
+            windowFormatButton.Texture = GetWindowFormatButton();
+        }
+        else if(main.Window.IsBorderless)
+        {
+            main.Window.IsBorderless = false;
+            Globals._graphics.IsFullScreen = true;
+            windowFormatButton.Texture = GetWindowFormatButton();
+        }
+        else
+        {
+            main.Window.IsBorderless = true;
+            windowFormatButton.Texture = GetWindowFormatButton();
+
+        }
+    }
+
+    private void BackButton_Click(object sender, EventArgs e)
+    {
+        main.ChangeState(new MainMenuState(main));
+    }
+
+    public Texture2D GetWindowFormatButton()
+    {
+        if(Globals._graphics.IsFullScreen)
+        {
+            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Fullscreen");
+        }
+        else if(main.Window.IsBorderless)
+        {
+            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Borderless");
+        }
+        else
+        {
+            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Windowed");
+        }
     }
 }

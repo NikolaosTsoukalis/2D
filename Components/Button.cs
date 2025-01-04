@@ -19,6 +19,12 @@ public class Button : Component
 
     private Texture2D _texture;
 
+    public Texture2D Texture
+    {
+        get{return _texture;}
+        set{_texture = value;}
+    }
+
     #endregion
 
     #region Properties

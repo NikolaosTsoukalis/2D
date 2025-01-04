@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,6 +19,8 @@ public class Globals
     public static ContentManager content { get; set; }
     public static SpriteBatch spriteBatch { get; set; }
     public static GraphicsDeviceManager _graphics { get; set; }
+
+    public static GameWindow currentWindowState {get; set;} 
 
     private static Dictionary<string,Tuple<Texture2D,string[]>> playerAnimationData;
 

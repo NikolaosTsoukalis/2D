@@ -66,3 +66,8 @@ c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\obj\Debug\net
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_Exit.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_Settings.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_StartGame.xnb
+c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_Back.xnb
+c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_Controls.xnb
+c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_WindowFormat_Borderless.xnb
+c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_WindowFormat_Fullscreen.xnb
+c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_WindowFormat_Windowed.xnb
