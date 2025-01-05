@@ -45,7 +45,6 @@ public class GameState : State
 
     public override void Draw(GameTime gameTime)
     { 
-
         Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         animationHandler.AnimationsDraw();

@@ -73,17 +73,24 @@ public class SettingsMainMenuState : State
         if(Globals._graphics.IsFullScreen)
         {
             Globals._graphics.IsFullScreen = false;
+            Globals._graphics.PreferredBackBufferHeight = 600;
+            Globals._graphics.PreferredBackBufferWidth = 800;
+            Globals._graphics.ApplyChanges();
             windowFormatButton.Texture = GetWindowFormatButton();
         }
         else if(main.Window.IsBorderless)
         {
             main.Window.IsBorderless = false;
             Globals._graphics.IsFullScreen = true;
+            Globals._graphics.ApplyChanges();
             windowFormatButton.Texture = GetWindowFormatButton();
         }
         else
         {
             main.Window.IsBorderless = true;
+            Globals._graphics.PreferredBackBufferHeight = 1080;
+            Globals._graphics.PreferredBackBufferWidth = 1920;
+            Globals._graphics.ApplyChanges();
             windowFormatButton.Texture = GetWindowFormatButton();
 
         }
