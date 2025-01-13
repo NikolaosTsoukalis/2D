@@ -12,6 +12,7 @@ public class SettingsMainMenuState : State
 
     private List<Component> components;
     Button windowFormatButton;
+    Button backButton;
     
     public SettingsMainMenuState(Main main) : base (main)
     {
@@ -30,7 +31,7 @@ public class SettingsMainMenuState : State
 
         windowFormatButton.Click += WindowFormatButton_Click;
     
-        var backButton = new Button(content.Load<Texture2D>("Button_Back"))
+        backButton = new Button(content.Load<Texture2D>("Button_Back"))
         {
             Position = new Vector2(300, 300),
         };
@@ -65,7 +66,10 @@ public class SettingsMainMenuState : State
 
     private void ControlsButton_Click(object sender, EventArgs e)
     {
-        //main.ChangeState(new GameState(main));
+        components = new List<Component>()
+        {
+            backButton,
+        };
     }
 
     private void WindowFormatButton_Click(object sender, EventArgs e)
@@ -98,7 +102,10 @@ public class SettingsMainMenuState : State
 
     private void BackButton_Click(object sender, EventArgs e)
     {
-        main.ChangeState(new MainMenuState(main));
+        if(main.currentGameState == new SettingsMainMenuState(main))
+            main.ChangeState(new SettingsMainMenuState(main));
+        else
+            main.ChangeState(new MainMenuState(main));
     }
 
     public Texture2D GetWindowFormatButton()

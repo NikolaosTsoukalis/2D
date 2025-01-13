@@ -14,7 +14,7 @@ internal class AnimationHandler
     
     #region Functions
     
-    public void AnimationsUpdate()
+    public void UpdateAnimations()
     {
         try{
 
@@ -32,7 +32,7 @@ internal class AnimationHandler
         }
     }
 
-    public void AnimationsDraw()
+    public void DrawAnimations()
     {
         try{
 
@@ -68,19 +68,19 @@ internal class AnimationHandler
             }
         }
     }
-   public void Update(List<Entity> entityList)
+   public void UpdateAnimationList(List<Entity> entityList)
     {
         List<Animation> toBeRemoved = [];
         foreach(Entity entity in entityList)
         {
             foreach(Animation animation in CurrentAnimations)
             {
-                if (animation.ActionIdentifier != entity.ActionIdentifier && animation.Entity == entity)
+                if (animation.ActionIdentifier != entity.ActionIdentifier && animation.Entity.Name == entity.Name)
                 {
                     toBeRemoved.Add(animation);
                 }
             }
-            if (CurrentAnimations.FirstOrDefault(animation => animation.ActionIdentifier == entity.ActionIdentifier) == null )
+            if (CurrentAnimations.FirstOrDefault(animation => animation.ActionIdentifier == entity.ActionIdentifier && animation.Entity.Name == entity.Name) == null )
             {
                 addNewAnimation(new Animation(entity,entity.ActionIdentifier));
             }

@@ -20,8 +20,8 @@ public abstract class Entity
         set{texture = value;}
     }
 
-    private string name;
-    public string Name
+    private Globals.EntityTypes name;
+    public Globals.EntityTypes Name
     {
         get{return name;}
         set{name = value;}
@@ -34,8 +34,8 @@ public abstract class Entity
         set{direction = value;}
     }
 
-    private string actionIdentifier;
-    public string ActionIdentifier
+    private AnimationDataHandler.AnimationTypes actionIdentifier;
+    public AnimationDataHandler.AnimationTypes ActionIdentifier
     {
         get{return actionIdentifier;}
         set{actionIdentifier = value;}
@@ -44,14 +44,14 @@ public abstract class Entity
 
     #region Constructors
     public Entity(){}
-    public Entity(string entityName, Texture2D texture, Vector2 position)
+    public Entity(Globals.EntityTypes entityName, Texture2D texture, Vector2 position)
     {
         Name = entityName;
         Position = position;
         Texture = texture;
         if((float)Globals.TotalSeconds <= 1.0)
         {
-            ActionIdentifier = "Idle";
+            ActionIdentifier = AnimationDataHandler.AnimationTypes.Idle;
             Direction = "S";
         }
 

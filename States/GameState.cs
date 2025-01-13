@@ -9,7 +9,8 @@ public class GameState : State
     private Command command;
     private AnimationHandler animationHandler;
     private EntityHandler entityHandler;
-    readonly MovingEntity player = new MovingEntity("Player",null,Vector2.Zero);
+    readonly Player player = new Player(Globals.EntityTypes.Player,null,Vector2.Zero);
+    readonly MovingEntity slime = new MovingEntity(Globals.EntityTypes.Slime,null,new Vector2(300,400));
 
     public GameState(Main main) : base(main)
     {
@@ -17,6 +18,7 @@ public class GameState : State
         animationHandler = new();
         inputhandler = new();
         EntityHandler.AddEntityToList(player);
+        AnimationDataHandler.LoadPlayerAnimationDictionary();
     }
 
     public override void Update(GameTime gameTime)
@@ -32,22 +34,33 @@ public class GameState : State
             command.Execute(player);
         }
         else
-            player.ActionIdentifier = "Idle";
+            player.ActionIdentifier = AnimationDataHandler.AnimationTypes.Idle;
 
-        animationHandler.Update(EntityHandler.EntityList);
-        animationHandler.AnimationsUpdate();
+        animationHandler.UpdateAnimationList(EntityHandler.EntityList);
+        animationHandler.UpdateAnimations();
+
     }
 
     public override void PostUpdate(GameTime gameTime)
     {
+        if(player.ActionIdentifier == AnimationDataHandler.AnimationTypes.Run)
+        {
+            if(!EntityHandler.EntityList.Contains(slime))
+            {
+                AnimationDataHandler.LoadSlimeAnimationDictionary();
+                EntityHandler.AddEntityToList(slime);
+            }
+                
 
+        }
     }
 
     public override void Draw(GameTime gameTime)
     { 
+
         Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        animationHandler.AnimationsDraw();
+        animationHandler.DrawAnimations();
 
         Globals.spriteBatch.End();
     }

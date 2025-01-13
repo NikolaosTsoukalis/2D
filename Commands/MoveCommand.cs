@@ -31,11 +31,11 @@ class MoveCommand : Command
         entity.Direction = direction;
         if(isRunning)
         {
-            entity.ActionIdentifier = "Run";
+            entity.ActionIdentifier = AnimationDataHandler.AnimationTypes.Run;
             entity.Move(direction,true);
         }
         else
-            entity.ActionIdentifier = "Walk";
+            entity.ActionIdentifier = AnimationDataHandler.AnimationTypes.Walk;
             entity.Move(direction,false);
     }
 

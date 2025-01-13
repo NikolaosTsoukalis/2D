@@ -25,10 +25,10 @@ public class MovingEntity : Entity
     #region Constructors
     public MovingEntity(){}
 
-    public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
+    public MovingEntity(Globals.EntityTypes entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-         Speed = 3;
-         RunningSpeed = 4;
+        Speed = 3;
+        RunningSpeed = 4;
     }
 
     #endregion Constructors
