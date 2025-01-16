@@ -49,9 +49,6 @@ public class Player : MovingEntity
         AssignAttributes();
     }
 
-
-
-
     public void AssignAttributes()
     { 
         base.Speed = 3;
@@ -59,6 +56,12 @@ public class Player : MovingEntity
         HP = 100;
         AttackPower = 10;
     }
+
+    public virtual void MeleeAttack()
+    {
+        
+    }
+
 }
 
 

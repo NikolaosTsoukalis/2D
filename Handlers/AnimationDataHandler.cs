@@ -6,25 +6,26 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _2D_RPG;
 public class AnimationDataHandler
 {
-    public enum AnimationTypes 
+    public enum ActionIdentifier 
     {
         Idle,
         Walk,
         Run,
-        Attack
+        MeleeAttack,
+        RangedAttack
     }
 
-    private static Dictionary<AnimationTypes,Tuple<Texture2D,string[]>> playerAnimationData;
+    private static Dictionary<ActionIdentifier,Tuple<Texture2D,string[]>> playerAnimationData;
 
-    public static Dictionary<AnimationTypes,Tuple<Texture2D,string[]>> PlayerAnimationData
+    public static Dictionary<ActionIdentifier,Tuple<Texture2D,string[]>> PlayerAnimationData
     {
         get{return playerAnimationData;}
         set{playerAnimationData = value;}
     }
 
-    private static Dictionary<AnimationTypes,Tuple<Texture2D,string[]>> slimeAnimationData;
+    private static Dictionary<ActionIdentifier,Tuple<Texture2D,string[]>> slimeAnimationData;
 
-    public static Dictionary<AnimationTypes,Tuple<Texture2D,string[]>> SlimeAnimationData
+    public static Dictionary<ActionIdentifier,Tuple<Texture2D,string[]>> SlimeAnimationData
     {
         get{return slimeAnimationData;}
         set{slimeAnimationData = value;}
@@ -36,11 +37,11 @@ public class AnimationDataHandler
     public static void LoadPlayerAnimationDictionary()
     {
         //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
-        PlayerAnimationData = new Dictionary<AnimationTypes,Tuple<Texture2D,string[]>>
+        PlayerAnimationData = new Dictionary<ActionIdentifier,Tuple<Texture2D,string[]>>
         {
-            { AnimationTypes.Walk,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"])},
-            { AnimationTypes.Idle,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"])},
-            { AnimationTypes.Run,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])}
+            { ActionIdentifier.Walk,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"])},
+            { ActionIdentifier.Idle,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"])},
+            { ActionIdentifier.Run,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])}
         };
     }
 
@@ -52,11 +53,11 @@ public class AnimationDataHandler
     public static void LoadSlimeAnimationDictionary()
     {
         //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
-        SlimeAnimationData = new Dictionary<AnimationTypes,Tuple<Texture2D,string[]>>
+        SlimeAnimationData = new Dictionary<ActionIdentifier,Tuple<Texture2D,string[]>>
         {
-            { AnimationTypes.Walk,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Slime_Walk_strip48"),["48","0.1"])},
-            { AnimationTypes.Idle,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"])},
-            { AnimationTypes.Run,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"])}
+            { ActionIdentifier.Walk,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Slime_Walk_strip48"),["48","0.1"])},
+            { ActionIdentifier.Idle,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"])},
+            { ActionIdentifier.Run,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"])}
         };
     }
 

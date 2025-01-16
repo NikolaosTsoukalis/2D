@@ -25,11 +25,7 @@ public class MovingEntity : Entity
     #region Constructors
     public MovingEntity(){}
 
-    public MovingEntity(Globals.EntityTypes entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
-    {
-        Speed = 3;
-        RunningSpeed = 4;
-    }
+    public MovingEntity(Globals.EntityTypes entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position){}
 
     #endregion Constructors
 
@@ -135,10 +131,6 @@ public class MovingEntity : Entity
             newPosition *= diagonalBuffer; // adjust for 2 directions pressed at same time.
         }
         return newPosition;
-    }
-    public virtual void Update() 
-    {
-        
     }
 
     #endregion Functions

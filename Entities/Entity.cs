@@ -34,8 +34,8 @@ public abstract class Entity
         set{direction = value;}
     }
 
-    private AnimationDataHandler.AnimationTypes actionIdentifier;
-    public AnimationDataHandler.AnimationTypes ActionIdentifier
+    private AnimationDataHandler.ActionIdentifier actionIdentifier;
+    public AnimationDataHandler.ActionIdentifier ActionIdentifier
     {
         get{return actionIdentifier;}
         set{actionIdentifier = value;}
@@ -51,7 +51,7 @@ public abstract class Entity
         Texture = texture;
         if((float)Globals.TotalSeconds <= 1.0)
         {
-            ActionIdentifier = AnimationDataHandler.AnimationTypes.Idle;
+            ActionIdentifier = AnimationDataHandler.ActionIdentifier.Idle;
             Direction = "S";
         }
 
@@ -64,6 +64,10 @@ public abstract class Entity
     public virtual void Update(GameTime gameTime){}
 
     public virtual void Draw(){}
+
+    public virtual void MeleeAttack(){}
+
+    public virtual void RangeAttack(){}
 
     #endregion Functions
 }

@@ -34,7 +34,7 @@ public class GameState : State
             command.Execute(player);
         }
         else
-            player.ActionIdentifier = AnimationDataHandler.AnimationTypes.Idle;
+            player.ActionIdentifier = AnimationDataHandler.ActionIdentifier.Idle;
 
         animationHandler.UpdateAnimationList(EntityHandler.EntityList);
         animationHandler.UpdateAnimations();
@@ -43,7 +43,7 @@ public class GameState : State
 
     public override void PostUpdate(GameTime gameTime)
     {
-        if(player.ActionIdentifier == AnimationDataHandler.AnimationTypes.Run)
+        if(player.ActionIdentifier == AnimationDataHandler.ActionIdentifier.Run)
         {
             if(!EntityHandler.EntityList.Contains(slime))
             {
