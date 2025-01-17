@@ -22,7 +22,7 @@ class MeleeAttackCommand : Command
     public override void Execute(MovingEntity entity)
     {
         //entity.Direction = direction;
-        entity.ActionIdentifier = AnimationDataHandler.ActionIdentifier.MeleeAttack;
+        entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.MeleeAttack;
         entity.MeleeAttack();
     }
 

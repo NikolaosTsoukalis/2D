@@ -8,10 +8,19 @@ internal class AnimationHandler
 {
     #region Values
 
-    private List<Animation> CurrentAnimations = [];
+    private List<Animation> CurrentAnimations;
 
     #endregion Values
     
+    #region Constructors
+
+    public AnimationHandler()
+    {
+        CurrentAnimations = [];
+    }
+    
+    #endregion Constructors
+
     #region Functions
     
     public void UpdateAnimations()
@@ -75,14 +84,14 @@ internal class AnimationHandler
         {
             foreach(Animation animation in CurrentAnimations)
             {
-                if (animation.ActionIdentifier != entity.ActionIdentifier && animation.Entity.Name == entity.Name)
+                if (animation.AnimationIdentifier != entity.AnimationIdentifier && animation.Entity.Name == entity.Name)
                 {
                     toBeRemoved.Add(animation);
                 }
             }
-            if (CurrentAnimations.FirstOrDefault(animation => animation.ActionIdentifier == entity.ActionIdentifier && animation.Entity.Name == entity.Name) == null )
+            if (CurrentAnimations.FirstOrDefault(animation => animation.AnimationIdentifier == entity.AnimationIdentifier && animation.Entity.Name == entity.Name) == null )
             {
-                addNewAnimation(new Animation(entity,entity.ActionIdentifier));
+                addNewAnimation(new Animation(entity,entity.AnimationIdentifier));
             }
         }
         foreach(Animation animation in toBeRemoved)

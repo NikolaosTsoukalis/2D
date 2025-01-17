@@ -24,6 +24,7 @@ public class Globals
         MoveLeft,
         OpenGeneralMenu,
         SoftToggleRun,
+        MeleeAttack,
         OpenInventory
 
     }

@@ -34,11 +34,11 @@ public abstract class Entity
         set{direction = value;}
     }
 
-    private AnimationDataHandler.ActionIdentifier actionIdentifier;
-    public AnimationDataHandler.ActionIdentifier ActionIdentifier
+    private AnimationDataHandler.AnimationIdentifier animationIdentifier;
+    public AnimationDataHandler.AnimationIdentifier AnimationIdentifier
     {
-        get{return actionIdentifier;}
-        set{actionIdentifier = value;}
+        get{return animationIdentifier;}
+        set{animationIdentifier = value;}
     }
     #endregion Values
 
@@ -51,7 +51,7 @@ public abstract class Entity
         Texture = texture;
         if((float)Globals.TotalSeconds <= 1.0)
         {
-            ActionIdentifier = AnimationDataHandler.ActionIdentifier.Idle;
+            AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
             Direction = "S";
         }
 

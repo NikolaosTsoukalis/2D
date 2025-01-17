@@ -22,18 +22,18 @@ internal class Animation
         set{entity = value;}
     }
 
-    private AnimationDataHandler.ActionIdentifier actionIdentifier;
+    private AnimationDataHandler.AnimationIdentifier animationIdentifier;
 
-    public AnimationDataHandler.ActionIdentifier ActionIdentifier 
+    public AnimationDataHandler.AnimationIdentifier AnimationIdentifier 
     {
-        get{return actionIdentifier;}
-        set{actionIdentifier = value;}
+        get{return animationIdentifier;}
+        set{animationIdentifier = value;}
     }
 
     #endregion Values
 
     #region Constructors
-    public Animation(Entity entity, AnimationDataHandler.ActionIdentifier identifier)
+    public Animation(Entity entity, AnimationDataHandler.AnimationIdentifier identifier)
     {
         if(getAnimationDictionary(entity.Name).TryGetValue(identifier, out var tuple))
         {
@@ -43,7 +43,7 @@ internal class Animation
             frameTimeLeft = 0;
             var frameWidth = entity.Texture.Width / totalFrames;
             var frameHeight = entity.Texture.Height;
-            ActionIdentifier = entity.ActionIdentifier;
+            AnimationIdentifier = entity.AnimationIdentifier;
             Entity = entity;
 
             for(int i = 0; i < totalFrames; i++)
@@ -125,7 +125,7 @@ internal class Animation
         Globals.spriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
 
-    public Dictionary<AnimationDataHandler.ActionIdentifier,Tuple<Texture2D,string[]>> getAnimationDictionary(Globals.EntityTypes entityName)
+    public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> getAnimationDictionary(Globals.EntityTypes entityName)
     {
         switch(entityName)
         {

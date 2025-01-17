@@ -59,6 +59,7 @@ public class Player : MovingEntity
 
     public virtual void MeleeAttack()
     {
+        Rectangle hitbox = new Rectangle((int)(this.Position.X + 1),(int)(this.Position.Y + 1),100,100);
         
     }
 
