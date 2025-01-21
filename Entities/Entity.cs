@@ -40,6 +40,14 @@ public abstract class Entity
         get{return animationIdentifier;}
         set{animationIdentifier = value;}
     }
+
+    private Texture2D currentTexture;
+    public Texture2D CurrentTexture
+    {
+        get{return currentTexture;}
+        set{currentTexture = value;}
+    }
+
     #endregion Values
 
     #region Constructors

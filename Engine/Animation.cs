@@ -109,7 +109,7 @@ internal class Animation
                         currentStartingFrame = totalDirectionalFrames*7;
                         break;
                 }
-                if(currentFrame == totalFrames-1 || currentFrame < currentStartingFrame || currentFrame >= currentStartingFrame + totalDirectionalFrames - 1)
+                if(currentFrame == totalFrames - 1 || currentFrame < currentStartingFrame || currentFrame >= currentStartingFrame + totalDirectionalFrames - 1)
                 {
                     currentFrame = currentStartingFrame;
                 }
@@ -122,6 +122,7 @@ internal class Animation
 
     public void Draw()
     {
+        Entity.CurrentTexture = sourceRectangles[currentFrame];
         Globals.spriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
 

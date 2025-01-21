@@ -28,15 +28,21 @@ class MoveCommand : Command
     
     public override void Execute(MovingEntity entity)
     {
-        entity.Direction = direction;
-        if(isRunning)
+        if(!CollisionHandler.IsColliding(entity))
         {
-            entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Run;
-            entity.Move(direction,true);
+            entity.Direction = direction;
+            if(isRunning)
+            {
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Run;
+                entity.Move(direction,true);
+            }
+            else
+            {
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Walk;
+                entity.Move(direction,false);
+            }
         }
-        else
-            entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Walk;
-            entity.Move(direction,false);
+
     }
 
     #endregion Functions

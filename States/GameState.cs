@@ -9,6 +9,7 @@ public class GameState : State
     private Command command;
     private AnimationHandler animationHandler;
     private EntityHandler entityHandler;
+    private CollisionHandler collisionHandler;
     readonly Player player = new Player(Globals.EntityTypes.Player,null,Vector2.Zero);
     readonly MovingEntity slime = new MovingEntity(Globals.EntityTypes.Slime,null,new Vector2(300,400));
 
@@ -17,6 +18,7 @@ public class GameState : State
         entityHandler = new();
         animationHandler = new();
         inputhandler = new();
+        collisionHandler = new();
         EntityHandler.AddEntityToList(player);
         AnimationDataHandler.LoadPlayerAnimationDictionary();
     }
