@@ -11,6 +11,10 @@ internal class Animation
 
     private readonly List<Rectangle> sourceRectangles = new();
     private int totalFrames;
+    public int TotalFrames
+    {
+        get{return totalFrames;}
+    }
     private int currentFrame;
     private float frameTime;
     private float frameTimeLeft;
@@ -122,7 +126,6 @@ internal class Animation
 
     public void Draw()
     {
-        Entity.CurrentTexture = sourceRectangles[currentFrame];
         Globals.spriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
 

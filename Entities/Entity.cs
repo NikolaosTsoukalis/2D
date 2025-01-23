@@ -41,13 +41,6 @@ public abstract class Entity
         set{animationIdentifier = value;}
     }
 
-    private Texture2D currentTexture;
-    public Texture2D CurrentTexture
-    {
-        get{return currentTexture;}
-        set{currentTexture = value;}
-    }
-
     #endregion Values
 
     #region Constructors
@@ -57,11 +50,7 @@ public abstract class Entity
         Name = entityName;
         Position = position;
         Texture = texture;
-        if((float)Globals.TotalSeconds <= 1.0)
-        {
-            AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
-            Direction = "S";
-        }
+        InitiallizeAnimationVariables();
 
     }
 
@@ -76,6 +65,15 @@ public abstract class Entity
     public virtual void MeleeAttack(){}
 
     public virtual void RangeAttack(){}
+
+    public void InitiallizeAnimationVariables()
+    {
+        if((float)Globals.TotalSeconds <= 1.0)
+        {
+            AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
+            Direction = "S";
+        }
+    }
 
     #endregion Functions
 }
