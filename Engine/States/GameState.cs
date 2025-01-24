@@ -37,7 +37,8 @@ public class GameState : State
         }
         else
             player.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
-
+        
+        CollisionHandler.Update();
         animationHandler.UpdateAnimationList(EntityHandler.EntityList);
         animationHandler.UpdateAnimations();
 

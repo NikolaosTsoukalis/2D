@@ -60,19 +60,6 @@ public class Globals
 
     #region Functions
 
-    /// <summary>
-    /// Tracks the TotalSeconds passed for each Update and Draw call, and used for Animation
-    /// </summary>
-    /// <param name="gameTime">
-    /// Provides a snapshot of timing values, such as the time elapsed since the last update.
-    /// </param>
-    /// <param name="game">
-    /// This object resembles the base Game class.
-    /// </param>
-    /// <remarks>
-    /// This method updates the <see cref="TotalSeconds"/> value, which tracks the time passed for at the start of each <see cref="Main.Update"/> call.
-    /// It is used for the <see cref="Animation"/> class, to Update the Animation frame of each animation. 
-    /// </remarks>
     public static void UpdateTimeForAnimations(GameTime gameTime, Game game)
     {
         TotalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;

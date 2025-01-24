@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace _2D_RPG;
 
@@ -17,13 +21,21 @@ public class CollisionHandler
     {
         foreach(Entity currentEntity in EntityHandler.EntityList)
         {
-            if(currentEntity.Name == Globals.EntityTypes.Player)
-            {
-                continue;
-            }
-            Texture2D currentEntityTexture = currentEntity.Texture;
             Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
-            entityCollisionMap.AddToCollisionMap(currentEntityRectangle);
+            var x = entityCollisionMap.Map.Find(x => x.Item1 == currentEntity.Name.ToString()); // Tuple(Name,Rectangle)
+            
+            if(x != null) // Does the map have collision for the specific entity based on name? 
+            {
+                if(x.Item2 == currentEntityRectangle) // Does the map have collision for the specific entity based on rectangle?
+                {
+                    continue;
+                }
+                else
+                {
+                    entityCollisionMap.RemoveFromCollisionMap(currentEntity.Name.ToString(),entityCollisionMap.Map.Find(x => x.Item1 == currentEntity.Name.ToString()).Item2);
+                }      
+            }
+            entityCollisionMap.AddToCollisionMap(currentEntity.Name.ToString(),currentEntityRectangle);
         }
     }
 
@@ -39,12 +51,11 @@ public class CollisionHandler
 
     public static bool IsCollidingWithEntity(Entity currentEntity)
     {
-        //Texture2D currentEntityTexture = currentEntity.Texture;
         Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
 
-        foreach(Rectangle rect in entityCollisionMap.Map)
+        foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
         {
-            if(currentEntityRectangle.Intersects(rect))
+            if(currentEntityRectangle.Intersects(tempTuple.Item2))
             {
                 return true;
             }
@@ -60,9 +71,9 @@ public class CollisionHandler
         //Texture2D currentEntityTexture = currentEntity.Texture;
         Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
 
-        foreach(Rectangle rect in tileCollisionMap.Map)
+        foreach(Tuple<string,Rectangle> tempTuple in tileCollisionMap.Map)
         {
-            if(currentEntityRectangle.Intersects(rect))
+            if(currentEntityRectangle.Intersects(tempTuple.Item2))
             {
                 return true;
             }
@@ -71,5 +82,19 @@ public class CollisionHandler
 
         // Map is empty
         return false;
+    }
+
+    public static bool Update()
+    {
+        try
+        {
+            handleTileCollisionMap();
+            handleEntityCollisionMap();
+        }
+        catch(Exception e)
+        {
+            MessageBox.Show("Error",e.ToString(),new List<string> {"OK"});
+        }
+        return true;
     }
 }

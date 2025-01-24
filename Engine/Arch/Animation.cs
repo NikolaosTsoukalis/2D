@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -69,58 +70,65 @@ internal class Animation
 
     public void Update()
     {
-        frameTimeLeft -= Globals.TotalSeconds;
-
-        if(string.IsNullOrEmpty(entity.Direction))
+        try
         {
-            if(frameTimeLeft <= 0)
+            frameTimeLeft -= Globals.TotalSeconds;
+
+            if(string.IsNullOrEmpty(entity.Direction))
             {
-                frameTimeLeft += frameTime;
-                currentFrame = (currentFrame + 1) % totalFrames;
+                if(frameTimeLeft <= 0)
+                {
+                    frameTimeLeft += frameTime;
+                    currentFrame = (currentFrame + 1) % totalFrames;
+                }
+            }
+            else
+            {
+                if(frameTimeLeft <= 0)
+                {
+                    frameTimeLeft += frameTime;
+                    int currentStartingFrame = 0;
+                    int totalDirectionalFrames = totalFrames / 8;
+                    switch(entity.Direction)
+                    {
+                        case "S":
+                            currentStartingFrame = 0;
+                            break;
+                        case "SD":
+                            currentStartingFrame = totalDirectionalFrames;
+                            break;
+                        case "D":
+                            currentStartingFrame = totalDirectionalFrames*2;
+                            break;
+                        case "WD":
+                            currentStartingFrame = totalDirectionalFrames*3;
+                            break;
+                        case "W":
+                            currentStartingFrame = totalDirectionalFrames*4;
+                            break;
+                        case "WA":
+                            currentStartingFrame = totalDirectionalFrames*5;
+                            break;
+                        case "A":
+                            currentStartingFrame = totalDirectionalFrames*6;
+                            break;
+                        case "SA":
+                            currentStartingFrame = totalDirectionalFrames*7;
+                            break;
+                    }
+                    if(currentFrame == totalFrames - 1 || currentFrame < currentStartingFrame || currentFrame >= currentStartingFrame + totalDirectionalFrames - 1)
+                    {
+                        currentFrame = currentStartingFrame;
+                    }
+                    else
+                        currentFrame = (currentFrame + 1) % totalFrames;
+                    //currentFrame = (currentFrame + 1) % totalFrames + currentStartingFrame;
+                }
             }
         }
-        else
+        catch(Exception e)
         {
-            if(frameTimeLeft <= 0)
-            {
-                frameTimeLeft += frameTime;
-                int currentStartingFrame = 0;
-                int totalDirectionalFrames = totalFrames / 8;
-                switch(entity.Direction)
-                {
-                    case "S":
-                        currentStartingFrame = 0;
-                        break;
-                    case "SD":
-                        currentStartingFrame = totalDirectionalFrames;
-                        break;
-                    case "D":
-                        currentStartingFrame = totalDirectionalFrames*2;
-                        break;
-                    case "WD":
-                        currentStartingFrame = totalDirectionalFrames*3;
-                        break;
-                    case "W":
-                        currentStartingFrame = totalDirectionalFrames*4;
-                        break;
-                    case "WA":
-                        currentStartingFrame = totalDirectionalFrames*5;
-                        break;
-                    case "A":
-                        currentStartingFrame = totalDirectionalFrames*6;
-                        break;
-                    case "SA":
-                        currentStartingFrame = totalDirectionalFrames*7;
-                        break;
-                }
-                if(currentFrame == totalFrames - 1 || currentFrame < currentStartingFrame || currentFrame >= currentStartingFrame + totalDirectionalFrames - 1)
-                {
-                    currentFrame = currentStartingFrame;
-                }
-                else
-                    currentFrame = (currentFrame + 1) % totalFrames;
-                //currentFrame = (currentFrame + 1) % totalFrames + currentStartingFrame;
-            }
+            MessageBox.Show("Error",e.ToString(),new List<string> {"OK"});
         }
     }
 
@@ -135,10 +143,8 @@ internal class Animation
         {
             case Globals.EntityTypes.Player:
                 return AnimationDataHandler.PlayerAnimationData;
-                break;
             case Globals.EntityTypes.Slime:
                 return AnimationDataHandler.SlimeAnimationData;
-                break;
         }
         return null;
     }
