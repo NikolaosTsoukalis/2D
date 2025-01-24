@@ -40,7 +40,7 @@ internal class Animation
     #region Constructors
     public Animation(Entity entity, AnimationDataHandler.AnimationIdentifier identifier)
     {
-        if(getAnimationDictionary(entity.Name).TryGetValue(identifier, out var tuple))
+        if(AnimationDataHandler.getAnimationDictionary(entity.Name.ToString()).TryGetValue(identifier, out var tuple))
         {
             entity.Texture = tuple.Item1;
             frameTime = (float) Convert.ToDouble(tuple.Item2[1]);
@@ -136,18 +136,6 @@ internal class Animation
     public void Draw()
     {
         Globals.spriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
-    }
-
-    public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> getAnimationDictionary(Globals.EntityTypes entityName)
-    {
-        switch(entityName)
-        {
-            case Globals.EntityTypes.Player:
-                return AnimationDataHandler.PlayerAnimationData;
-            case Globals.EntityTypes.Slime:
-                return AnimationDataHandler.SlimeAnimationData;
-        }
-        return null;
     }
 
     #endregion Functions

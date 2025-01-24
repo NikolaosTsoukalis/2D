@@ -11,8 +11,10 @@ public class CollisionHandler
 {
     private static CollisionMap entityCollisionMap;
     private static CollisionMap tileCollisionMap;
-    public CollisionHandler()
+    private Main main;
+    public CollisionHandler(Main main)
     {
+        this.main = main;
         tileCollisionMap = new();
         entityCollisionMap = new();
     }
@@ -84,7 +86,7 @@ public class CollisionHandler
         return false;
     }
 
-    public static bool Update()
+    public void Update()
     {
         try
         {
@@ -95,6 +97,12 @@ public class CollisionHandler
         {
             MessageBox.Show("Error",e.ToString(),new List<string> {"OK"});
         }
-        return true;
+        //return true;
+    }
+
+    public void Draw()
+    {
+        entityCollisionMap.Draw(main,"Entity");
+        tileCollisionMap.Draw(main,"Entity");
     }
 }

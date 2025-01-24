@@ -65,4 +65,27 @@ public class AnimationDataHandler
     {
         SlimeAnimationData = new();
     }
+
+    public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> getAnimationDictionary(string entityName)
+    {
+        
+        if (Enum.TryParse(entityName, true, out EntityDataHandler.GeneralEntityTypes generalEntityType))
+        {
+            switch (generalEntityType)
+            {
+                case EntityDataHandler.GeneralEntityTypes.Player:
+                    return AnimationDataHandler.PlayerAnimationData;
+            }
+        }
+        else if (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEnemyTypes hostileEnemyType))
+        {
+            switch (hostileEnemyType)
+            {
+                case EntityDataHandler.HostileEnemyTypes.Slime:
+                    return AnimationDataHandler.SlimeAnimationData;
+            }
+        }
+        return null;
+    }
+
 }

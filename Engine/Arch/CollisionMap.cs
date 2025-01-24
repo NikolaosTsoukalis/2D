@@ -40,5 +40,12 @@ public class CollisionMap
     {
         Map = new();
     }
-
+    public void Draw()
+    {
+        foreach(Tuple<string,Rectangle> rect in Map)
+        {
+            Globals.spriteBatch.Draw(rect.Item2,new Vector2(rect.Item2.X,rect.Item2.Y), Color.Red);
+        }
+        
+    }
 }

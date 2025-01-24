@@ -10,8 +10,8 @@ public class GameState : State
     private AnimationHandler animationHandler;
     private EntityHandler entityHandler;
     private CollisionHandler collisionHandler;
-    readonly Player player = new Player(Globals.EntityTypes.Player,null,Vector2.Zero);
-    readonly MovingEntity slime = new MovingEntity(Globals.EntityTypes.Slime,null,new Vector2(300,400));
+    readonly Player player = new Player(EntityDataHandler.GeneralEntityTypes.Player,null,Vector2.Zero);
+    readonly EnemyEntity slime = new EnemyEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
 
     public GameState(Main main) : base(main)
     {
@@ -37,8 +37,8 @@ public class GameState : State
         }
         else
             player.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
-        
-        CollisionHandler.Update();
+
+        collisionHandler.Update();
         animationHandler.UpdateAnimationList(EntityHandler.EntityList);
         animationHandler.UpdateAnimations();
 

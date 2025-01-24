@@ -49,9 +49,6 @@ public class EnemyEntity : MovingEntity
         AssignAttributes();
     }
 
-
-
-
     public void AssignAttributes()
     { 
         base.Speed = 3;

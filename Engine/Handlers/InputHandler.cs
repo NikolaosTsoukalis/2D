@@ -36,6 +36,10 @@ class InputHandler
         {
             return HandleCommandType("ShiftSpace",false);
         }
+        if(ks.IsKeyDown(Keys.Back))
+        {
+            return HandleCommandType("BackSpace",false);
+        }
         return null;
     }
 
@@ -272,6 +276,9 @@ class InputHandler
             case "ShiftSpace":
                 FullScreenCommand fullScreen = new FullScreenCommand();
                 return fullScreen;
+            case "BackSpace":
+                EnableDebugsCommand enableDebugsCommand = new EnableDebugsCommand();
+                return enableDebugsCommand;
         }
         return null;
     }

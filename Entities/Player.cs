@@ -44,7 +44,7 @@ public class Player : MovingEntity
         set{attackPower = value;}
     }
 
-    public Player(Globals.EntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
+    public Player(EntityDataHandler.GeneralEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
         AssignAttributes();
     }
