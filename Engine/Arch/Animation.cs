@@ -121,8 +121,9 @@ internal class Animation
                         currentFrame = currentStartingFrame;
                     }
                     else
+                    {
                         currentFrame = (currentFrame + 1) % totalFrames;
-                    //currentFrame = (currentFrame + 1) % totalFrames + currentStartingFrame;
+                    }
                 }
             }
         }
