@@ -28,17 +28,6 @@ public class Globals
 
     }
 
-    public enum EntityTypes
-    {
-        Player,
-        Tree,
-        Rock,
-        House,
-        Door,
-        Deer,
-        Slime
-
-    }
     #endregion Enums
 
     #region Values
@@ -55,6 +44,8 @@ public class Globals
     }
 
     public static float TotalSeconds { get; set; }
+
+    public static bool enableDebugsCommand = false;
 
     #endregion Values
 

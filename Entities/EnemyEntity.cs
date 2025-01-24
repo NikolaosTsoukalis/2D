@@ -44,7 +44,7 @@ public class EnemyEntity : MovingEntity
         set{attackPower = value;}
     }
 
-    public EnemyEntity(Globals.EntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
+    public EnemyEntity(EntityDataHandler.HostileEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
         AssignAttributes();
     }

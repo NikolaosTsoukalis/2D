@@ -18,7 +18,7 @@ public class GameState : State
         entityHandler = new();
         animationHandler = new();
         inputhandler = new();
-        collisionHandler = new();
+        collisionHandler = new(main);
         EntityHandler.AddEntityToList(player);
         AnimationDataHandler.LoadPlayerAnimationDictionary();
     }
@@ -64,6 +64,11 @@ public class GameState : State
         Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         animationHandler.DrawAnimations();
+
+        if(Globals.enableDebugsCommand)
+        {
+            collisionHandler.Draw(main);
+        }
 
         Globals.spriteBatch.End();
     }

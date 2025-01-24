@@ -11,10 +11,8 @@ public class CollisionHandler
 {
     private static CollisionMap entityCollisionMap;
     private static CollisionMap tileCollisionMap;
-    private Main main;
     public CollisionHandler(Main main)
     {
-        this.main = main;
         tileCollisionMap = new();
         entityCollisionMap = new();
     }
@@ -100,7 +98,7 @@ public class CollisionHandler
         //return true;
     }
 
-    public void Draw()
+    public void Draw(Main main) // for testing purposes
     {
         entityCollisionMap.Draw(main,"Entity");
         tileCollisionMap.Draw(main,"Entity");

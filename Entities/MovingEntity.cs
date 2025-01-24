@@ -25,7 +25,7 @@ public class MovingEntity : Entity
     #region Constructors
     public MovingEntity(){}
 
-    public MovingEntity(Globals.EntityTypes entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position){}
+    public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position){}
 
     #endregion Constructors
 

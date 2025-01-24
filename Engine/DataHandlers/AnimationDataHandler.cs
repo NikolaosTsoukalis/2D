@@ -66,7 +66,7 @@ public class AnimationDataHandler
         SlimeAnimationData = new();
     }
 
-    public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> getAnimationDictionary(string entityName)
+    public static Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> getAnimationDictionary(string entityName)
     {
         
         if (Enum.TryParse(entityName, true, out EntityDataHandler.GeneralEntityTypes generalEntityType))
@@ -77,11 +77,11 @@ public class AnimationDataHandler
                     return AnimationDataHandler.PlayerAnimationData;
             }
         }
-        else if (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEnemyTypes hostileEnemyType))
+        else if (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEntityTypes hostileEnemyType))
         {
             switch (hostileEnemyType)
             {
-                case EntityDataHandler.HostileEnemyTypes.Slime:
+                case EntityDataHandler.HostileEntityTypes.Slime:
                     return AnimationDataHandler.SlimeAnimationData;
             }
         }
