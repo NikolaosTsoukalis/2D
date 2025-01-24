@@ -53,8 +53,6 @@ public class GameState : State
                 AnimationDataHandler.LoadSlimeAnimationDictionary();
                 EntityHandler.AddEntityToList(slime);
             }
-                
-
         }
     }
 
@@ -65,7 +63,7 @@ public class GameState : State
 
         animationHandler.DrawAnimations();
 
-        if(Globals.enableDebugsCommand)
+        if(Globals.enableDebugs)
         {
             collisionHandler.Draw(main);
         }

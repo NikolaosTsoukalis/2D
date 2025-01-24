@@ -64,13 +64,13 @@ internal class AnimationHandler
         if(!CurrentAnimations.Contains(animation))
         {
             CurrentAnimations.Add(animation);
-        }
-        
+        }  
     }
 
     public void removeAnimation(Animation animation)
     {
-        if(CurrentAnimations.Count != 0){
+        if(CurrentAnimations.Count != 0)
+        {
             if(CurrentAnimations.Contains(animation))
             {
                 CurrentAnimations.Remove(animation);

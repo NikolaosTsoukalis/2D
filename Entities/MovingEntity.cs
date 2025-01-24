@@ -31,7 +31,7 @@ public class MovingEntity : Entity
 
     #region Functions
 
-    public void Move(string direction, bool isRunning)
+    public bool Move(string direction, bool isRunning)
     {
         Vector2 newPosition = new();
         switch(direction)
@@ -124,10 +124,12 @@ public class MovingEntity : Entity
         if(!CollisionHandler.IsCollidingWithEntity(this) && !CollisionHandler.IsCollidingWithStructure(this))
         {
             Position += newPosition;
+            return true;
         }
         else
         {
             //play Collision case. handleCollidingBehaviour
+            return false;
         }
             
     }

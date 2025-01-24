@@ -45,7 +45,7 @@ public class Globals
 
     public static float TotalSeconds { get; set; }
 
-    public static bool enableDebugsCommand = false;
+    public static bool enableDebugs = false;
 
     #endregion Values
 
