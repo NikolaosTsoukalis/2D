@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
 
-public class EntityCollisionMap
+public class CollisionMap
 {
     private List<Rectangle> map;
     public List<Rectangle> Map
@@ -11,7 +11,7 @@ public class EntityCollisionMap
         get{return map;}
         set{map = value;}
     }
-    public EntityCollisionMap()
+    public CollisionMap()
     {
         Map = new();
     }

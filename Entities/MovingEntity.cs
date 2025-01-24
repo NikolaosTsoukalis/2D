@@ -120,11 +120,16 @@ public class MovingEntity : Entity
                     newPosition.X += Speed;
                 break;
         }
-        
-        if(!CollisionHandler.IsCollidingWithEntity(this))
+
+        if(!CollisionHandler.IsCollidingWithEntity(this) && !CollisionHandler.IsCollidingWithStructure(this))
         {
             Position += newPosition;
         }
+        else
+        {
+            //play Collision case. handleCollidingBehaviour
+        }
+            
     }
  
     public Vector2 AdjustDPosition(Vector2 newPosition)
