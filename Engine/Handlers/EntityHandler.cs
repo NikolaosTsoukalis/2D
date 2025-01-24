@@ -39,7 +39,7 @@ public class EntityHandler
     /// <remarks>
     /// This method remove an <see cref="Entity"/> object from the <see cref="EntityList"/> List.
     /// </remarks>
-    public static void RevomeEntityFromList(Entity entity)
+    public static void RemoveEntityFromList(Entity entity)
     {
             EntityList.Remove(entity);
     }    

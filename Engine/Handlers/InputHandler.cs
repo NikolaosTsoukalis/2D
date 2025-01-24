@@ -174,13 +174,13 @@ class InputHandler
         return null;
     }
 
-    public Command HandleCommandType(string parameter, bool x)
+    public Command HandleCommandType(string parameter, bool isRunning)
     {
         switch (parameter) 
         {
             case "W":
                 MoveCommand moveUp;
-                if(x)
+                if(isRunning)
                 {
                     moveUp = new MoveCommand("W",true);
                 }
@@ -191,7 +191,7 @@ class InputHandler
                 return moveUp;
             case "WA":
                 MoveCommand moveUpLeft;
-                if(x)
+                if(isRunning)
                 {
                     moveUpLeft = new MoveCommand("WA",true);
                 }
@@ -202,7 +202,7 @@ class InputHandler
                 return moveUpLeft;
             case "WD":
                 MoveCommand moveUpRight;
-                if(x)
+                if(isRunning)
                 {
                     moveUpRight = new MoveCommand("WD",true);
                 }
@@ -213,7 +213,7 @@ class InputHandler
                 return moveUpRight;
             case "S":
                 MoveCommand moveDown;
-                if(x)
+                if(isRunning)
                 {
                     moveDown = new MoveCommand("S",true);
                 }
@@ -224,7 +224,7 @@ class InputHandler
                 return moveDown;
             case "SA":
                 MoveCommand moveDownLeft;
-                if(x)
+                if(isRunning)
                 {
                     moveDownLeft = new MoveCommand("SA",true);
                 }
@@ -235,7 +235,7 @@ class InputHandler
                 return moveDownLeft;
             case "SD":
                 MoveCommand moveDownRight;
-                if(x)
+                if(isRunning)
                 {
                     moveDownRight = new MoveCommand("SD",true);
                 }
@@ -246,7 +246,7 @@ class InputHandler
                 return moveDownRight;
             case "D":
                 MoveCommand moveRight;
-                if(x)
+                if(isRunning)
                 {
                     moveRight = new MoveCommand("D",true);
                 }
@@ -257,7 +257,7 @@ class InputHandler
                 return moveRight;
             case "A":
                 MoveCommand moveLeft;
-                if(x)
+                if(isRunning)
                 {
                     moveLeft = new MoveCommand("A",true);
                 }

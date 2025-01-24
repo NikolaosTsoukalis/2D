@@ -31,12 +31,14 @@ class MoveCommand : Command
         entity.Direction = direction;
         if(isRunning)
         {
-            entity.ActionIdentifier = "Run";
+            entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Run;
             entity.Move(direction,true);
         }
         else
-            entity.ActionIdentifier = "Walk";
+        {
+            entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Walk;
             entity.Move(direction,false);
+        }
     }
 
     #endregion Functions

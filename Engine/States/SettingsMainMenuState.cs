@@ -1,0 +1,126 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Design;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.VisualBasic;
+
+namespace _2D_RPG;
+public class SettingsMainMenuState : State 
+{
+
+
+    private List<Component> components;
+    Button windowFormatButton;
+    Button backButton;
+    
+    public SettingsMainMenuState(Main main) : base (main)
+    {
+        var controlsButton = new Button(content.Load<Texture2D>("Button_Controls"))
+        {
+            Position = new Vector2(300, 200),
+        };
+
+        controlsButton.Click += ControlsButton_Click;
+
+        windowFormatButton = new Button(null)
+        {
+            Position = new Vector2(300,250)
+        };
+        GetWindowFormatButton();
+
+        windowFormatButton.Click += WindowFormatButton_Click;
+    
+        backButton = new Button(content.Load<Texture2D>("Button_Back"))
+        {
+            Position = new Vector2(300, 300),
+        };
+
+        backButton.Click += BackButton_Click;
+    
+        components = new List<Component>()
+        {
+            controlsButton,
+            windowFormatButton,
+            backButton,
+        };
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+        foreach (var component in components)
+            component.Update(gameTime);
+    }
+
+    public override void PostUpdate(GameTime gameTime){}
+
+    public override void Draw(GameTime gameTime)
+    {
+        Globals.spriteBatch.Begin();
+
+        foreach (var component in components)
+            component.Draw(gameTime);
+
+        Globals.spriteBatch.End();
+    }
+
+    private void ControlsButton_Click(object sender, EventArgs e)
+    {
+        components = new List<Component>()
+        {
+            backButton,
+        };
+    }
+
+    private void WindowFormatButton_Click(object sender, EventArgs e)
+    {
+        if(Globals._graphics.IsFullScreen)
+        {
+            Globals._graphics.IsFullScreen = false;
+            Globals._graphics.PreferredBackBufferHeight = 600;
+            Globals._graphics.PreferredBackBufferWidth = 800;
+            Globals._graphics.ApplyChanges();
+            windowFormatButton.Texture = GetWindowFormatButton();
+        }
+        else if(main.Window.IsBorderless)
+        {
+            main.Window.IsBorderless = false;
+            Globals._graphics.IsFullScreen = true;
+            Globals._graphics.ApplyChanges();
+            windowFormatButton.Texture = GetWindowFormatButton();
+        }
+        else
+        {
+            main.Window.IsBorderless = true;
+            Globals._graphics.PreferredBackBufferHeight = 1080;
+            Globals._graphics.PreferredBackBufferWidth = 1920;
+            Globals._graphics.ApplyChanges();
+            windowFormatButton.Texture = GetWindowFormatButton();
+
+        }
+    }
+
+    private void BackButton_Click(object sender, EventArgs e)
+    {
+        if(main.currentGameState == new SettingsMainMenuState(main))
+            main.ChangeState(new SettingsMainMenuState(main));
+        else
+            main.ChangeState(new MainMenuState(main));
+    }
+
+    public Texture2D GetWindowFormatButton()
+    {
+        if(Globals._graphics.IsFullScreen)
+        {
+            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Fullscreen");
+        }
+        else if(main.Window.IsBorderless)
+        {
+            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Borderless");
+        }
+        else
+        {
+            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Windowed");
+        }
+    }
+}

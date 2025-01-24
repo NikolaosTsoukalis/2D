@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
 namespace _2D_RPG;
 
 /// <summary>
@@ -14,8 +14,8 @@ public class Main : Game
 
     #region Values
 
-    private State currentGameState;
-    private State nextGameState;
+    public State currentGameState;
+    public State nextGameState;
 
     #endregion Values
 
@@ -35,6 +35,9 @@ public class Main : Game
         Content.RootDirectory = "Content";
 
         IsMouseVisible = true;
+
+        Globals._graphics.PreferredBackBufferHeight = 600;
+        Globals._graphics.PreferredBackBufferWidth = 800;
     }
 
     #endregion Constructors
@@ -66,8 +69,10 @@ public class Main : Game
     {
         Globals.content = this.Content;
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
-        Globals.LoadPlayerAnimationDictionary();
         currentGameState =  new MainMenuState(this);
+        Texture2D customCursorTexture = Content.Load<Texture2D>("Cup_Coffee_Animation2");
+        MouseCursor customCursor = MouseCursor.FromTexture2D(customCursorTexture, 0, 0);
+        Mouse.SetCursor(customCursor);
         // TODO: use this.Content to load your game content here
     }
 

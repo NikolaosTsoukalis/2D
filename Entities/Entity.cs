@@ -20,8 +20,8 @@ public abstract class Entity
         set{texture = value;}
     }
 
-    private string name;
-    public string Name
+    private Globals.EntityTypes name;
+    public Globals.EntityTypes Name
     {
         get{return name;}
         set{name = value;}
@@ -34,26 +34,23 @@ public abstract class Entity
         set{direction = value;}
     }
 
-    private string actionIdentifier;
-    public string ActionIdentifier
+    private AnimationDataHandler.AnimationIdentifier animationIdentifier;
+    public AnimationDataHandler.AnimationIdentifier AnimationIdentifier
     {
-        get{return actionIdentifier;}
-        set{actionIdentifier = value;}
+        get{return animationIdentifier;}
+        set{animationIdentifier = value;}
     }
+
     #endregion Values
 
     #region Constructors
     public Entity(){}
-    public Entity(string entityName, Texture2D texture, Vector2 position)
+    public Entity(Globals.EntityTypes entityName, Texture2D texture, Vector2 position)
     {
         Name = entityName;
         Position = position;
         Texture = texture;
-        if((float)Globals.TotalSeconds <= 1.0)
-        {
-            ActionIdentifier = "Idle";
-            Direction = "S";
-        }
+        InitiallizeAnimationVariables();
 
     }
 
@@ -64,6 +61,19 @@ public abstract class Entity
     public virtual void Update(GameTime gameTime){}
 
     public virtual void Draw(){}
+
+    public virtual void MeleeAttack(){}
+
+    public virtual void RangeAttack(){}
+
+    public void InitiallizeAnimationVariables()
+    {
+        if((float)Globals.TotalSeconds <= 1.0)
+        {
+            AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
+            Direction = "S";
+        }
+    }
 
     #endregion Functions
 }
