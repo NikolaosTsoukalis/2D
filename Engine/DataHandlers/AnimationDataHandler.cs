@@ -52,7 +52,7 @@ public class AnimationDataHandler
 
     public static void LoadSlimeAnimationDictionary()
     {
-        //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
+        //Format : {Texture2D},string[{"totalFrames","timeOfEachFrame"}]
         SlimeAnimationData = new Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>>
         {
             { AnimationIdentifier.Walk,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Slime_Walk_strip48"),["48","0.1"])},

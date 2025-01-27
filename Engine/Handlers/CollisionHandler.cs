@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,7 +22,9 @@ public class CollisionHandler
     {
         foreach(Entity currentEntity in EntityHandler.EntityList)
         {
-            Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
+            AnimationDataHandler.getAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
+            var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(tuple.Item2[0]);
+            Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
             var x = entityCollisionMap.Map.Find(x => x.Item1 == currentEntity.Name.ToString()); // Tuple(Name,Rectangle)
             
             if(x != null) // Does the map have collision for the specific entity based on name? 
@@ -51,11 +54,14 @@ public class CollisionHandler
 
     public static bool IsCollidingWithEntity(Entity currentEntity)
     {
-        Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
-
+        AnimationDataHandler.getAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
+        var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(tuple.Item2[0]);
+        Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
+        string entityName = currentEntity.Name;
+        Tuple<string,Rectangle> currentEntityTuple = new Tuple<string,Rectangle> (entityName,currentEntityRectangle);
         foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
         {
-            if(currentEntityRectangle.Intersects(tempTuple.Item2))
+            if(currentEntityTuple.Item2.Intersects(tempTuple.Item2) && currentEntityTuple.Item1 != tempTuple.Item1)
             {
                 return true;
             }

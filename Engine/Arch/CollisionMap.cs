@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,17 +44,20 @@ public class CollisionMap
     }
     public void Draw(Game game,string mapType)
     {
-        Texture2D mapTexture = new Texture2D(game.GraphicsDevice, 1, 1);
 
         foreach(Tuple<string,Rectangle> rect in Map)
         {
+            Texture2D mapTexture = new Texture2D(game.GraphicsDevice, 1,1);
             if(mapType == "Entity" )
             {
-                Globals.spriteBatch.Draw(mapTexture,new Vector2(rect.Item2.X,rect.Item2.Y), Color.Yellow);
+                
+                mapTexture.SetData(new[] { Color.Yellow });
+                Globals.spriteBatch.Draw(mapTexture,rect.Item2, Color.White);
             }
             else if(mapType == "Structure" )
             {
-                Globals.spriteBatch.Draw(mapTexture,new Vector2(rect.Item2.X,rect.Item2.Y), Color.Black);
+                mapTexture.SetData(new[] { Color.Black });
+                Globals.spriteBatch.Draw(mapTexture,rect.Item2, Color.White);
             }
             
         }

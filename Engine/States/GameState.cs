@@ -29,7 +29,8 @@ public class GameState : State
         command = inputhandler.HandleInput();
         if(command != null)
         {
-            if(command.ToString() == "ExitCommand" || command.ToString() == "FullScreenCommand")
+            var temp = command.ToString();
+            if(command.ToString() == "ExitCommand" || command.ToString() == "FullScreenCommand" || command.ToString() == "_2D_RPG.EnableDebugsCommand") 
             {
                 command.Execute(main);
             } 
