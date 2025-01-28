@@ -11,7 +11,7 @@ public class GameState : State
     private EntityHandler entityHandler;
     private CollisionHandler collisionHandler;
     readonly Player player = new Player(EntityDataHandler.GeneralEntityTypes.Player,null,Vector2.Zero);
-    readonly EnemyEntity slime = new EnemyEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
+    readonly CombatEntity slime = new CombatEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
 
     public GameState(Main main) : base(main)
     {

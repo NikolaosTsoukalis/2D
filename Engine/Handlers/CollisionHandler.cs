@@ -72,6 +72,20 @@ public class CollisionHandler
         return false;
     }
 
+    public static bool IsCollidingWithEntity(string entityName,Rectangle hitbox)
+    {
+        foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
+        {
+            if(hitbox.Intersects(tempTuple.Item2) && entityName != tempTuple.Item1)
+            {
+                return true;
+            }
+            return false;
+        }
+        // Map is empty
+        return false;
+    }
+
     public static bool IsCollidingWithStructure(Entity currentEntity)
     {
         //Texture2D currentEntityTexture = currentEntity.Texture;

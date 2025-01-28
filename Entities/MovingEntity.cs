@@ -121,8 +121,6 @@ public class MovingEntity : Entity
                 break;
         }
 
-        bool a = CollisionHandler.IsCollidingWithEntity(this);
-        bool b = CollisionHandler.IsCollidingWithStructure(this);
         if(!CollisionHandler.IsCollidingWithEntity(this) && !CollisionHandler.IsCollidingWithStructure(this))
         {
             Position += newPosition;
@@ -131,7 +129,7 @@ public class MovingEntity : Entity
         else
         {
             //play Collision case. handleCollidingBehaviour
-            Position -= Position;
+            Position -= newPosition;
             return false;
         }
             

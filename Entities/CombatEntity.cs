@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace _2D_RPG;
 
 
 
-public class Player : MovingEntity
+public class CombatEntity : MovingEntity
 {
     #region Enums
 
@@ -44,7 +43,7 @@ public class Player : MovingEntity
         set{attackPower = value;}
     }
 
-    public Player(EntityDataHandler.GeneralEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
+    public CombatEntity(EntityDataHandler.HostileEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
         AssignAttributes();
     }
@@ -83,7 +82,6 @@ public class Player : MovingEntity
         }
         
     }
-
 }
 
 
