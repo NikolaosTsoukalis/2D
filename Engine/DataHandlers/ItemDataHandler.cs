@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -7,20 +8,20 @@ namespace _2D_RPG;
 public class ItemDataHandler
 {
     #region Enums
-    enum Potions{}
+    public enum Potions{}
 
-    enum Food{};
+    public enum Food{};
 
-    enum Materials{}
+    public enum Materials{}
     
-    enum MeleeWeapons
+    public enum MeleeWeapons
     {
         ShortSword
     }
 
-    enum RangedWeapons{}
+    public enum RangedWeapons{}
 
-    enum MagicWeapons{}
+    public enum MagicWeapons{}
 
     public enum WeaponTypes
     {
@@ -35,7 +36,13 @@ public class ItemDataHandler
     
     #region Values
 
-    private Dictionary<MeleeWeapons,string[]> meleeWeaponData;
+    private static Dictionary<MeleeWeapons,string[]> meleeWeaponData;
+    public static Dictionary<MeleeWeapons,string[]> MeleeWeaponData
+    {
+        get{return meleeWeaponData;}
+        
+    }
+
     #endregion Values
     public ItemDataHandler()
     {
@@ -44,6 +51,25 @@ public class ItemDataHandler
 
     public static void LoadMeleeWeaponDictionary()
     {
-        meleeWeaponData = new ()
+        meleeWeaponData = new Dictionary<MeleeWeapons, string[]> {};
+    }
+
+    public static Dictionary<,string[]> getItemData(string itemName)
+    {
+        
+        if (Enum.TryParse(itemName, true, out MeleeWeapons meleeWeapons))
+        {
+            LoadMeleeWeaponDictionary();
+            return meleeWeaponData;
+        }
+        else if (Enum.TryParse(itemName, true, out Food food))
+        {
+            switch (hostileEnemyType)
+            {
+                case EntityDataHandler.HostileEntityTypes.Slime:
+                    return AnimationDataHandler.SlimeAnimationData;
+            }
+        }
+        return null;
     }
 }
