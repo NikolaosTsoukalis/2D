@@ -8,7 +8,9 @@ public class GameState : State
     private InputHandler inputhandler;
     private Command command;
     private AnimationHandler animationHandler;
+    private AnimationDataHandler animationDataHandler;
     private EntityHandler entityHandler;
+    private ItemDataHandler itemDataHandler;
     private CollisionHandler collisionHandler;
     readonly Player player = new Player(EntityDataHandler.GeneralEntityTypes.Player,null,Vector2.Zero);
     readonly CombatEntity slime = new CombatEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
@@ -17,10 +19,11 @@ public class GameState : State
     {
         entityHandler = new();
         animationHandler = new();
+        animationDataHandler = new();
         inputhandler = new();
         collisionHandler = new(main);
+        itemDataHandler = new();
         EntityHandler.AddEntityToList(player);
-        AnimationDataHandler.LoadPlayerAnimationDictionary();
     }
 
     public override void Update(GameTime gameTime)
@@ -33,7 +36,7 @@ public class GameState : State
             if(command.ToString() == "ExitCommand" || command.ToString() == "FullScreenCommand" || command.ToString() == "_2D_RPG.EnableDebugsCommand") 
             {
                 command.Execute(main);
-            } 
+            }
             command.Execute(player);
         }
         else
@@ -51,7 +54,7 @@ public class GameState : State
         {
             if(!EntityHandler.EntityList.Contains(slime))
             {
-                AnimationDataHandler.LoadSlimeAnimationDictionary();
+                //AnimationDataHandler.LoadSlimeAnimationDictionary();
                 EntityHandler.AddEntityToList(slime);
             }
         }

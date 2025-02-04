@@ -28,6 +28,18 @@ public class Globals
 
     }
 
+    public enum Directions
+    {
+        Up,
+        UpRight,
+        UpLeft,
+        Right,
+        Left,
+        Down,
+        DownRight,
+        DownLeft
+    }
+
     #endregion Enums
 
     #region Values

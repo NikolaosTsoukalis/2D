@@ -27,8 +27,8 @@ public abstract class Entity
         set{name = value;}
     }
 
-    private string direction;
-    public string Direction
+    private Globals.Directions direction;
+    public Globals.Directions Direction
     {
         get{return direction;}
         set{direction = value;}
@@ -62,16 +62,12 @@ public abstract class Entity
 
     public virtual void Draw(){}
 
-    public virtual void MeleeAttack(){}
-
-    public virtual void RangeAttack(){}
-
     public void InitiallizeGraphicalValues()
     {
         if((float)Globals.TotalSeconds <= 1.0)
         {
             AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
-            Direction = "S";
+            Direction = Globals.Directions.Down;
         }
     }
 

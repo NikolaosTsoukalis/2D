@@ -74,7 +74,7 @@ internal class Animation
         {
             frameTimeLeft -= Globals.TotalSeconds;
 
-            if(string.IsNullOrEmpty(entity.Direction))
+            if(string.IsNullOrEmpty(entity.Direction.ToString()))
             {
                 if(frameTimeLeft <= 0)
                 {
@@ -91,28 +91,28 @@ internal class Animation
                     int totalDirectionalFrames = totalFrames / 8;
                     switch(entity.Direction)
                     {
-                        case "S":
+                        case Globals.Directions.Down:
                             currentStartingFrame = 0;
                             break;
-                        case "SD":
+                        case Globals.Directions.DownRight:
                             currentStartingFrame = totalDirectionalFrames;
                             break;
-                        case "D":
+                        case Globals.Directions.Right:
                             currentStartingFrame = totalDirectionalFrames*2;
                             break;
-                        case "WD":
+                        case Globals.Directions.UpRight:
                             currentStartingFrame = totalDirectionalFrames*3;
                             break;
-                        case "W":
+                        case Globals.Directions.Up:
                             currentStartingFrame = totalDirectionalFrames*4;
                             break;
-                        case "WA":
+                        case Globals.Directions.UpLeft:
                             currentStartingFrame = totalDirectionalFrames*5;
                             break;
-                        case "A":
+                        case Globals.Directions.Left:
                             currentStartingFrame = totalDirectionalFrames*6;
                             break;
-                        case "SA":
+                        case Globals.Directions.DownLeft:
                             currentStartingFrame = totalDirectionalFrames*7;
                             break;
                     }

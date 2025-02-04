@@ -31,7 +31,11 @@ public class AnimationDataHandler
         set{slimeAnimationData = value;}
     }
 
-    public AnimationDataHandler(GameTime gameTime, Game game){}
+    public AnimationDataHandler()
+    {
+        LoadPlayerAnimationDictionary();
+        LoadSlimeAnimationDictionary();
+    }
 
 
     public static void LoadPlayerAnimationDictionary()

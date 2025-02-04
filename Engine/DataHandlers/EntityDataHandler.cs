@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 public class EntityDataHandler

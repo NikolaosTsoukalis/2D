@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
-
-
 public class CombatEntity : MovingEntity
 {
     #region Enums
@@ -56,31 +54,30 @@ public class CombatEntity : MovingEntity
         AttackPower = 10;
     }
 
-    public virtual void MeleeAttack()
+    public Rectangle MeleeAttack(ItemDataHandler.WeaponTypes weaponType,Vector2 position,string direction)// pass in current weapon.
     {
-        Rectangle attackHitbox;
-        switch(Direction)
+        int[] variables = ItemDataHandler.getItemHitboxData(ItemDataHandler.MeleeWeapons.ShortSword.ToString()); // pass player weapon 
+        
+        switch(direction)
         {
             case "W":
-                attackHitbox = new Rectangle((int)(this.Position.X),(int)(this.Position.Y - 50),50,100);
-                break;
+                return new Rectangle((int)(position.X),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
             case "A":
-                attackHitbox = new Rectangle((int)(this.Position.X - 50),(int)(this.Position.Y),100,50);
-                break;
+                return new Rectangle((int)(position.X - variables[0]),(int)(position.Y),variables[2],variables[3]);
+
             case "S":
-                attackHitbox = new Rectangle((int)(this.Position.X),(int)(this.Position.Y + 50),50,100);
-                break;
+                return new Rectangle((int)(position.X),(int)(position.Y + variables[1]),variables[2],variables[3]);
+                
             case "D":
-                attackHitbox = new Rectangle((int)(this.Position.X + 50),(int)(this.Position.Y),100,50);
-                break;
+                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);
+                
             case "WA":
-                attackHitbox = new Rectangle((int)(this.Position.X - 50 ),(int)(this.Position.Y - 50),100,100);
-                break;
+                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
             default:
-                attackHitbox = new();
-                break;
+                return new();
         }
-        
     }
 }
 

@@ -12,6 +12,7 @@ public abstract class Command
     public virtual void Execute(MovingEntity entity){}
     public virtual void Execute(MovingEntity entity,string x){}
 
+    public virtual void Execute(Player entity){}
     public virtual void Execute(Game game){}
     
 }

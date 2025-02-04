@@ -44,6 +44,8 @@ public class Player : MovingEntity
         set{attackPower = value;}
     }
 
+    public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped;
+
     public Player(EntityDataHandler.GeneralEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
         AssignAttributes();
@@ -55,34 +57,16 @@ public class Player : MovingEntity
         base.RunningSpeed = 4;
         HP = 100;
         AttackPower = 10;
+        MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
     }
 
-    public virtual void MeleeAttack()
+    public void MeleeAttack()
     {
-        Rectangle attackHitbox;
-        switch(Direction)
-        {
-            case "W":
-                attackHitbox = new Rectangle((int)(this.Position.X),(int)(this.Position.Y - 50),50,100);
-                break;
-            case "A":
-                attackHitbox = new Rectangle((int)(this.Position.X - 50),(int)(this.Position.Y),100,50);
-                break;
-            case "S":
-                attackHitbox = new Rectangle((int)(this.Position.X),(int)(this.Position.Y + 50),50,100);
-                break;
-            case "D":
-                attackHitbox = new Rectangle((int)(this.Position.X + 50),(int)(this.Position.Y),100,50);
-                break;
-            case "WA":
-                attackHitbox = new Rectangle((int)(this.Position.X - 50 ),(int)(this.Position.Y - 50),100,100);
-                break;
-            default:
-                attackHitbox = new();
-                break;
-        }
-        
+        Rectangle attackHitbox = ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
+           
     }
+
+    
 
 }
 
