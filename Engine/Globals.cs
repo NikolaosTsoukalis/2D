@@ -42,7 +42,7 @@ public class Globals
                 ContentManager = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + ContentManager.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + ContentManager.GetType().ToString() + ".");
             return;
         }
     }
@@ -56,7 +56,7 @@ public class Globals
                 SpriteBatch = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + SpriteBatch.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + SpriteBatch.GetType().ToString() + ".");
             return;
         }
     }
@@ -70,7 +70,7 @@ public class Globals
                 GraphicsDeviceManager = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + GraphicsDeviceManager.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + GraphicsDeviceManager.GetType().ToString() + ".");
             return;
         }
     }
@@ -85,7 +85,7 @@ public class Globals
                 Inputhandler = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + Inputhandler.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + Inputhandler.GetType().ToString() + ".");
             return;
         }
     }
@@ -99,7 +99,7 @@ public class Globals
                 AnimationHandler = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + AnimationHandler.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + AnimationHandler.GetType().ToString() + ".");
             return;
         }
     }
@@ -113,7 +113,7 @@ public class Globals
                 AnimationDataHandler = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + AnimationDataHandler.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + AnimationDataHandler.GetType().ToString() + ".");
             return;
         }
     }
@@ -127,7 +127,7 @@ public class Globals
                 EntityHandler = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + EntityHandler.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + EntityHandler.GetType().ToString() + ".");
             return;
         }
     }    
@@ -141,7 +141,7 @@ public class Globals
                 ItemDataHandler = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + ItemDataHandler.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + ItemDataHandler.GetType().ToString() + ".");
             return;
         }
     }
@@ -155,7 +155,7 @@ public class Globals
                 EntityDataHandler = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + EntityDataHandler.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + EntityDataHandler.GetType().ToString() + ".");
             return;
         }
     }
@@ -169,7 +169,7 @@ public class Globals
                 CollisionHandler = value;
                 return;
             }
-            Console.Out.WriteLine("Can't create a more than 1 instance of " + CollisionHandler.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + CollisionHandler.GetType().ToString() + ".");
             return;
         }
     }
