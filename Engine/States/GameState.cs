@@ -11,19 +11,19 @@ public class GameState : State
 
     public GameState(Main main) : base(main)
     {
-        Globals.entityHandler = new();
-        Globals.animationHandler = new();
-        Globals.animationDataHandler = new();
-        Globals.inputhandler = new();
-        Globals.collisionHandler = new(main);
-        Globals.itemDataHandler = new();
-        Globals.entityHandler.AddEntityToList(player);
+        Globals.EntityHandler = new();
+        Globals.AnimationHandler = new();
+        Globals.AnimationDataHandler = new();
+        Globals.Inputhandler = new();
+        Globals.CollisionHandler = new(main);
+        Globals.ItemDataHandler = new();
+        Globals.EntityHandler.AddEntityToList(player);
     }
 
     public override void Update(GameTime gameTime)
     {
         Globals.UpdateTimeForAnimations(gameTime, main);
-        command = Globals.inputhandler.HandleInput();
+        command = Globals.Inputhandler.HandleInput();
         if(command != null)
         {
             if(command.commandType == Command.CommandTypes.ExitCommand || command.commandType == Command.CommandTypes.FullScreenCommand || command.commandType == Command.CommandTypes.EnableDebugsCommand) 
@@ -42,10 +42,10 @@ public class GameState : State
     {
         if(player.AnimationIdentifier == AnimationDataHandler.AnimationIdentifier.Run)
         {
-            if(!Globals.entityHandler.GetEntityList().Contains(slime))
+            if(!Globals.EntityHandler.GetEntityList().Contains(slime))
             {
                 //AnimationDataHandler.LoadSlimeAnimationDictionary();
-                Globals.entityHandler.AddEntityToList(slime);
+                Globals.EntityHandler.AddEntityToList(slime);
             }
         }
     }
@@ -53,22 +53,22 @@ public class GameState : State
     public override void Draw(GameTime gameTime)
     { 
 
-        Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        Globals.animationHandler.DrawAnimations();
+        Globals.AnimationHandler.DrawAnimations();
 
         if(Globals.enableDebugs)
         {
-            Globals.collisionHandler.Draw(main);
+            Globals.CollisionHandler.Draw(main);
         }
 
-        Globals.spriteBatch.End();
+        Globals.SpriteBatch.End();
     }
 
     public void UpdateHandlers()
     {
-        Globals.collisionHandler.Update();
-        Globals.animationHandler.UpdateAnimationList();
-        Globals.animationHandler.UpdateAnimations();
+        Globals.CollisionHandler.Update();
+        Globals.AnimationHandler.UpdateAnimationList();
+        Globals.AnimationHandler.UpdateAnimations();
     }
 }

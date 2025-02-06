@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 
@@ -19,9 +18,9 @@ public class CollisionHandler
 
     public static void handleEntityCollisionMap()
     {
-        foreach(Entity currentEntity in Globals.entityHandler.GetEntityList())
+        foreach(Entity currentEntity in Globals.EntityHandler.GetEntityList())
         {
-            Globals.animationDataHandler.GetAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
+            Globals.AnimationDataHandler.GetAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
             var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(tuple.Item2[0]);
             Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
             var x = entityCollisionMap.Map.Find(x => x.Item1 == currentEntity.Name.ToString()); // Tuple(Name,Rectangle)
@@ -52,9 +51,9 @@ public class CollisionHandler
     }
     */
 
-    public static bool IsCollidingWithEntity(Entity currentEntity)
+    public bool IsCollidingWithEntity(Entity currentEntity)
     {
-        Globals.animationDataHandler.GetAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
+        Globals.AnimationDataHandler.GetAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
         var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(tuple.Item2[0]);
         Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
         string entityName = currentEntity.Name;
@@ -104,13 +103,13 @@ public class CollisionHandler
         return false;
     }
 
-    public static Entity getCollidingEntity(string entityName,Rectangle hitbox)
+    public Entity getCollidingEntity(string entityName,Rectangle hitbox)
     {
         foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
         {
             if(hitbox.Intersects(tempTuple.Item2) && entityName != tempTuple.Item1)
             {
-                foreach(Entity entity in Globals.entityHandler.GetEntityList())
+                foreach(Entity entity in Globals.EntityHandler.GetEntityList())
                 {
                     if(entityName == entity.Name)
                     {

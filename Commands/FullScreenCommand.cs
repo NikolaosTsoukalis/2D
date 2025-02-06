@@ -8,6 +8,6 @@ class FullScreenCommand : Command
     public FullScreenCommand() : base(CommandTypes.FullScreenCommand){}
     public override void Execute(Game game)
     {
-        Globals._graphics.ToggleFullScreen();
+        Globals.GraphicsDeviceManager.ToggleFullScreen();
     }    
 }

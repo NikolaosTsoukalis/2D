@@ -12,21 +12,21 @@ public class MainMenuState : State
     public MainMenuState(Main main) : base(main)
     {
 
-        var startGameButton = new Button(content.Load<Texture2D>("Button_StartGame"))
+        var startGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_StartGame"))
         {
             Position = new Vector2(300, 200),
         };
 
         startGameButton.Click += NewGameButton_Click;
 
-        var settingsButton = new Button(content.Load<Texture2D>("Button_Settings"))
+        var settingsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Settings"))
         {
             Position = new Vector2(300, 250),
         };
 
         settingsButton.Click += SettingsButton_Click;
 
-        var quitGameButton = new Button(content.Load<Texture2D>("Button_Exit"))
+        var quitGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Exit"))
         {
             Position = new Vector2(300, 300),
         };
@@ -43,12 +43,12 @@ public class MainMenuState : State
 
     public override void Draw(GameTime gameTime)
     {
-        Globals.spriteBatch.Begin();
+        Globals.SpriteBatch.Begin();
 
         foreach (var component in components)
             component.Draw(gameTime);
 
-        Globals.spriteBatch.End();
+        Globals.SpriteBatch.End();
     }
 
     private void SettingsButton_Click(object sender, EventArgs e)

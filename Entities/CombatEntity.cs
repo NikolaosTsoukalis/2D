@@ -48,7 +48,7 @@ public class CombatEntity : MovingEntity
         AssignAttributes();
     }
 
-    public void AssignAttributes()
+    public virtual void AssignAttributes()
     { 
         base.Speed = 3;
         base.RunningSpeed = 4;
@@ -57,10 +57,10 @@ public class CombatEntity : MovingEntity
         MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
     }
 
-    public void MeleeAttack()
+    public virtual void MeleeAttack()
     {
-        Rectangle attackHitbox = ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
-        Entity entityGettingHit = CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        Rectangle attackHitbox = Globals.ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
+        Entity entityGettingHit = Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
         
         if(entityGettingHit != null)
         {

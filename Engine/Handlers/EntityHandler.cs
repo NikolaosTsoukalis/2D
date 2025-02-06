@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _2D_RPG;
 
@@ -41,6 +42,17 @@ public class EntityHandler
     public List<Entity> GetEntityList()
     {
         return EntityList;
+    }
+
+    public bool HandleEntityAttacked(float damageTaken, Entity entity)
+    {
+        var list = GetEntityList();
+        CombatEntity entityAttacked = (CombatEntity)list.FirstOrDefault(entityC => entityC.Name == entity.Name && entityC.GetType() == typeof(CombatEntity));
+        if(entityAttacked != null)
+        {
+            entityAttacked.HP -= damageTaken;
+        }
+        return false;
     }  
 
 }

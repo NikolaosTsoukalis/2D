@@ -59,7 +59,7 @@ public class Button : Component
         if (_isHovering)
             colour = Color.Gray;
 
-        Globals.spriteBatch.Draw(_texture, Rectangle, colour);
+        Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
     }
 
     public override void Update(GameTime gameTime)
