@@ -53,13 +53,13 @@ public class GameState : State
     public override void Draw(GameTime gameTime)
     { 
 
-        Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        Globals.animationHandler.DrawAnimations();
+        Globals.AnimationHandler.DrawAnimations();
 
         if(Globals.enableDebugs)
         {
-            Globals.collisionHandler.Draw(main);
+            Globals.CollisionHandler.Draw(main);
         }
 
         Globals.spriteBatch.End();

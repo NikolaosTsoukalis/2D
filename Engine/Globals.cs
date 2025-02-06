@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -31,18 +32,147 @@ public class Globals
     #endregion Enums
 
     #region Values
-    public static ContentManager content { get; set; }
-    public static SpriteBatch spriteBatch { get; set; }
-    public static GraphicsDeviceManager _graphics { get; set; }
+    public static ContentManager content
+    {
+        get{return content;}
+        set
+        {
+            if(content == null)
+            {
+                content = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + content.GetType().ToString() + ".");
+            return;
+        }
+    }
+    public static SpriteBatch spriteBatch
+    {
+        get{return spriteBatch;}
+        set
+        {
+            if(spriteBatch == null)
+            {
+                spriteBatch = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + spriteBatch.GetType().ToString() + ".");
+            return;
+        }
+    }
+    public static GraphicsDeviceManager _graphics 
+    {
+        get{return _graphics;}
+        set
+        {
+            if(_graphics == null)
+            {
+                _graphics = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + _graphics.GetType().ToString() + ".");
+            return;
+        }
+    }
 
-    public static InputHandler inputhandler;
-    public static AnimationHandler animationHandler;
-    public static AnimationDataHandler animationDataHandler;
-    public static EntityHandler entityHandler;
-    public static ItemDataHandler itemDataHandler;
-    public static EntityDataHandler entityDataHandler;
-    public static CollisionHandler collisionHandler;
-
+    public static InputHandler inputhandler
+    {
+        get{return inputhandler;}
+        set
+        {
+            if(inputhandler == null)
+            {
+                inputhandler = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + inputhandler.GetType().ToString() + ".");
+            return;
+        }
+    }
+    public static AnimationHandler animationHandler
+    {
+        get{return animationHandler;}
+        set
+        {
+            if(animationHandler == null)
+            {
+                animationHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + animationHandler.GetType().ToString() + ".");
+            return;
+        }
+    }
+    public static AnimationDataHandler animationDataHandler
+    {
+        get{return animationDataHandler;}
+        set
+        {
+            if(animationDataHandler == null)
+            {
+                animationDataHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + animationDataHandler.GetType().ToString() + ".");
+            return;
+        }
+    }
+    public static EntityHandler entityHandler
+    {
+        get{return entityHandler;}
+        set
+        {
+            if(entityHandler == null)
+            {
+                entityHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + entityHandler.GetType().ToString() + ".");
+            return;
+        }
+    }    
+    public static ItemDataHandler itemDataHandler
+    {
+        get{return itemDataHandler;}
+        set
+        {
+            if(itemDataHandler == null)
+            {
+                itemDataHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + itemDataHandler.GetType().ToString() + ".");
+            return;
+        }
+    }
+    public static EntityDataHandler entityDataHandler
+    {
+        get{return entityDataHandler;}
+        set
+        {
+            if(entityDataHandler == null)
+            {
+                entityDataHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + entityDataHandler.GetType().ToString() + ".");
+            return;
+        }
+    }
+    public static CollisionHandler collisionHandler
+    {
+        get{return collisionHandler;}
+        set
+        {
+            if(collisionHandler == null)
+            {
+                collisionHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("Can't create a more than 1 instance of " + collisionHandler.GetType().ToString() + ".");
+            return;
+        }
+    }
     private static Dictionary<Command.CommandTypes,Keys> keyBindings;
 
     public static Dictionary<Command.CommandTypes,Keys> KeyBindings

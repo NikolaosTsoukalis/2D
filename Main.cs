@@ -30,14 +30,14 @@ public class Main : Game
     public Main()
     {
 
-        Globals._graphics = new GraphicsDeviceManager(this);
+        Globals.GraphicsDeviceManager = new GraphicsDeviceManager(this);
 
         Content.RootDirectory = "Content";
 
         IsMouseVisible = true;
 
-        Globals._graphics.PreferredBackBufferHeight = 600;
-        Globals._graphics.PreferredBackBufferWidth = 800;
+        Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 600;
+        Globals.GraphicsDeviceManager.PreferredBackBufferWidth = 800;
     }
 
     #endregion Constructors
@@ -67,8 +67,8 @@ public class Main : Game
     /// </remarks>
     protected override void LoadContent()
     {
-        Globals.content = this.Content;
-        Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+        Globals.ContentManager = this.Content;
+        Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
         currentGameState =  new MainMenuState(this);
         Texture2D customCursorTexture = Content.Load<Texture2D>("Cup_Coffee_Animation2");
         MouseCursor customCursor = MouseCursor.FromTexture2D(customCursorTexture, 0, 0);

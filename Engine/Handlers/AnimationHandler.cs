@@ -80,7 +80,7 @@ public class AnimationHandler
    public void UpdateAnimationList()
     {
         List<Animation> toBeRemoved = [];
-        foreach(Entity entity in Globals.entityHandler.GetEntityList())
+        foreach(Entity entity in Globals.EntityHandler.GetEntityList())
         {
             foreach(Animation animation in CurrentAnimations)
             {

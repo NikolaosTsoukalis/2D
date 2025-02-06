@@ -48,24 +48,21 @@ public class Player : CombatEntity
         AssignAttributes();
     }
 
-    public void AssignAttributes()
-    { 
+    public override void AssignAttributes()
+    {
+        base.AssignAttributes();
+        /* 
         base.Speed = 3;
         base.RunningSpeed = 4;
         HP = 100;
         AttackPower = 10;
         MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
+        */
     }
 
-    public void MeleeAttack()
+    public override void MeleeAttack()
     {
-        Rectangle attackHitbox = ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
-        Entity entityGettingHit = CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
-        
-        if(entityGettingHit != null)
-        {
-            Globals.entityHandler.HandleEntityAttacked(this.AttackPower,entityGettingHit);
-        }
+        base.MeleeAttack();
     }
 }
 

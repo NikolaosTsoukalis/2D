@@ -50,24 +50,24 @@ public class MovingEntity : Entity
                 {                   
                     newPosition.Y -= runningSpeed;
                     newPosition.X -= runningSpeed;
-                    newPosition = AdjustDPosition(newPosition);
+                    newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else                
                     newPosition.Y -= Speed;
                     newPosition.X -= Speed;
-                    newPosition = AdjustDPosition(newPosition);                    
+                    newPosition = AdjustDiagonalPosition(newPosition);                    
                 break;
             case Globals.Directions.UpRight:
                 if(isRunning)
                 {          
                     newPosition.Y -= runningSpeed;
                     newPosition.X += runningSpeed;
-                    newPosition = AdjustDPosition(newPosition);
+                    newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else     
                     newPosition.Y -= Speed;
                     newPosition.X += Speed;
-                    newPosition = AdjustDPosition(newPosition);
+                    newPosition = AdjustDiagonalPosition(newPosition);
                 break;
             case Globals.Directions.Down:
                 if(isRunning)
@@ -83,24 +83,24 @@ public class MovingEntity : Entity
                 {    
                     newPosition.Y += runningSpeed;
                     newPosition.X -= runningSpeed;
-                    newPosition = AdjustDPosition(newPosition);
+                    newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else  
                     newPosition.Y += Speed;
                     newPosition.X -= Speed;
-                    newPosition = AdjustDPosition(newPosition);
+                    newPosition = AdjustDiagonalPosition(newPosition);
                 break;
             case Globals.Directions.DownRight:
                 if(isRunning)
                 {     
                     newPosition.Y += runningSpeed;
                     newPosition.X += runningSpeed;
-                    newPosition = AdjustDPosition(newPosition);
+                    newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else    
                     newPosition.Y += Speed;
                     newPosition.X += Speed;
-                    newPosition = AdjustDPosition(newPosition);
+                    newPosition = AdjustDiagonalPosition(newPosition);
                 break;
             case Globals.Directions.Left:
                 if(isRunning)
@@ -121,7 +121,7 @@ public class MovingEntity : Entity
                 break;
         }
 
-        if(!CollisionHandler.IsCollidingWithEntity(this) && !CollisionHandler.IsCollidingWithStructure(this))
+        if(!Globals.CollisionHandler.IsCollidingWithEntity(this) && !CollisionHandler.IsCollidingWithStructure(this))
         {
             Position += newPosition;
             return true;
@@ -135,7 +135,7 @@ public class MovingEntity : Entity
             
     }
  
-    public Vector2 AdjustDPosition(Vector2 newPosition)
+    public Vector2 AdjustDiagonalPosition(Vector2 newPosition)
     {
         float diagonalBuffer = (float)(1/Math.Sqrt(2));
         if(newPosition.LengthSquared() > Speed * Speed || newPosition.LengthSquared() > runningSpeed * runningSpeed) // _speed*_speed = 1 with a _speed = 1

@@ -8,8 +8,6 @@ using Microsoft.VisualBasic;
 namespace _2D_RPG;
 public class SettingsMainMenuState : State 
 {
-
-
     private List<Component> components;
     Button windowFormatButton;
     Button backButton;
@@ -56,12 +54,12 @@ public class SettingsMainMenuState : State
 
     public override void Draw(GameTime gameTime)
     {
-        Globals.spriteBatch.Begin();
+        Globals.SpriteBatch.Begin();
 
         foreach (var component in components)
             component.Draw(gameTime);
 
-        Globals.spriteBatch.End();
+        Globals.SpriteBatch.End();
     }
 
     private void ControlsButton_Click(object sender, EventArgs e)
@@ -74,27 +72,27 @@ public class SettingsMainMenuState : State
 
     private void WindowFormatButton_Click(object sender, EventArgs e)
     {
-        if(Globals._graphics.IsFullScreen)
+        if(Globals.GraphicsDeviceManager.IsFullScreen)
         {
-            Globals._graphics.IsFullScreen = false;
-            Globals._graphics.PreferredBackBufferHeight = 600;
-            Globals._graphics.PreferredBackBufferWidth = 800;
-            Globals._graphics.ApplyChanges();
+            Globals.GraphicsDeviceManager.IsFullScreen = false;
+            Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 600;
+            Globals.GraphicsDeviceManager.PreferredBackBufferWidth = 800;
+            Globals.GraphicsDeviceManager.ApplyChanges();
             windowFormatButton.Texture = GetWindowFormatButton();
         }
         else if(main.Window.IsBorderless)
         {
             main.Window.IsBorderless = false;
-            Globals._graphics.IsFullScreen = true;
-            Globals._graphics.ApplyChanges();
+            Globals.GraphicsDeviceManager.IsFullScreen = true;
+            Globals.GraphicsDeviceManager.ApplyChanges();
             windowFormatButton.Texture = GetWindowFormatButton();
         }
         else
         {
             main.Window.IsBorderless = true;
-            Globals._graphics.PreferredBackBufferHeight = 1080;
-            Globals._graphics.PreferredBackBufferWidth = 1920;
-            Globals._graphics.ApplyChanges();
+            Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 1080;
+            Globals.GraphicsDeviceManager.PreferredBackBufferWidth = 1920;
+            Globals.GraphicsDeviceManager.ApplyChanges();
             windowFormatButton.Texture = GetWindowFormatButton();
 
         }
@@ -110,7 +108,7 @@ public class SettingsMainMenuState : State
 
     public Texture2D GetWindowFormatButton()
     {
-        if(Globals._graphics.IsFullScreen)
+        if(Globals.GraphicsDeviceManager.IsFullScreen)
         {
             return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Fullscreen");
         }

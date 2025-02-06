@@ -40,7 +40,7 @@ public class Animation
     #region Constructors
     public Animation(Entity entity, AnimationDataHandler.AnimationIdentifier identifier)
     {
-        if(Globals.animationDataHandler.GetAnimationDictionary(entity.Name.ToString()).TryGetValue(identifier, out var tuple))
+        if(Globals.AnimationDataHandler.GetAnimationDictionary(entity.Name.ToString()).TryGetValue(identifier, out var tuple))
         {
             entity.Texture = tuple.Item1;
             frameTime = (float) Convert.ToDouble(tuple.Item2[1]);
@@ -135,7 +135,7 @@ public class Animation
 
     public void Draw()
     {
-        Globals.spriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
+        Globals.SpriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
     }
 
     #endregion Functions

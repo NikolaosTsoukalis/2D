@@ -106,7 +106,7 @@ public class ItemDataHandler
         return null;
     }
 
-    public static Rectangle getWeaponHitBox(Globals.Directions direction,Vector2 position, string itemName) 
+    public Rectangle getWeaponHitBox(Globals.Directions direction,Vector2 position, string itemName) 
     {
         int[] variables = ItemDataHandler.getItemHitboxData(itemName); // pass player weapon 
         
