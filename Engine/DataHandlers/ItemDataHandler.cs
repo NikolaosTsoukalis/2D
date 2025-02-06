@@ -36,12 +36,12 @@ public class ItemDataHandler
         Magic
     }
 
-    enum Special{}
+    public enum SpecialItems{}
 
     #endregion Enums
     
-    #region Values
 
+    #region MeleeWeaponDictionaries
     private static Dictionary<string,string[]> meleeWeaponData;
     public static Dictionary<string,string[]> MeleeWeaponData
     {
@@ -56,6 +56,15 @@ public class ItemDataHandler
         
     }
 
+    private static Dictionary<string,int[]> meleeWeaponInventoryData;
+    public static Dictionary<string,int[]> MeleeWeaponInventoryData
+    {
+        get{return meleeWeaponInventoryData;}
+        
+    }
+
+    #endregion MeleeWeaponDictionaries
+
     private static Dictionary<string,string[]> foodData;
     public static Dictionary<string,string[]> FoodData
     {
@@ -63,13 +72,14 @@ public class ItemDataHandler
         
     }
 
-    #endregion Values
     public ItemDataHandler()
     {
         LoadMeleeWeaponDictionary();
         LoadMeleeWeaponHitboxDictionary();
         LoadFoodDictionary();
     }
+
+    #region MeleeWeaponFunctions
 
     public static void LoadMeleeWeaponDictionary()
     {
@@ -83,7 +93,16 @@ public class ItemDataHandler
             { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] }
         };
     }
+
+    public static void LoadMeleeWeaponInventoryDictionary() // x,y,width,height
+    {
+        meleeWeaponInventoryData = new Dictionary<string, int[]> 
+        {
+            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] }
+        };
+    }
     
+    #endregion MeleeWeaponFunctions
 
     public static void LoadFoodDictionary()
     {
