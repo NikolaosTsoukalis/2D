@@ -52,12 +52,12 @@ public class CollisionMap
             {
                 
                 mapTexture.SetData(new[] { Color.Yellow });
-                Globals.spriteBatch.Draw(mapTexture,rect.Item2, Color.White);
+                Globals.SpriteBatch.Draw(mapTexture,rect.Item2, Color.White);
             }
             else if(mapType == "Structure" )
             {
                 mapTexture.SetData(new[] { Color.Black });
-                Globals.spriteBatch.Draw(mapTexture,rect.Item2, Color.White);
+                Globals.SpriteBatch.Draw(mapTexture,rect.Item2, Color.White);
             }
             
         }

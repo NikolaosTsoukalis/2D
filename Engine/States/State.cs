@@ -8,9 +8,6 @@ public abstract class State
 {
     #region Values
 
-    protected ContentManager content;
-
-    protected GraphicsDevice graphicsDevice;
 
     protected Main main;
 
@@ -22,9 +19,9 @@ public abstract class State
     {
         main = game;
 
-        graphicsDevice = game.GraphicsDevice;
+        //graphicsDevice = game.GraphicsDevice;
 
-        content = Globals.content;
+        //content = Globals.ContentManager;
     }
 
     #endregion Constructors

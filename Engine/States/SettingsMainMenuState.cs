@@ -14,7 +14,7 @@ public class SettingsMainMenuState : State
     
     public SettingsMainMenuState(Main main) : base (main)
     {
-        var controlsButton = new Button(content.Load<Texture2D>("Button_Controls"))
+        var controlsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Controls"))
         {
             Position = new Vector2(300, 200),
         };
@@ -29,7 +29,7 @@ public class SettingsMainMenuState : State
 
         windowFormatButton.Click += WindowFormatButton_Click;
     
-        backButton = new Button(content.Load<Texture2D>("Button_Back"))
+        backButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Back"))
         {
             Position = new Vector2(300, 300),
         };
@@ -110,15 +110,15 @@ public class SettingsMainMenuState : State
     {
         if(Globals.GraphicsDeviceManager.IsFullScreen)
         {
-            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Fullscreen");
+            return windowFormatButton.Texture = Globals.ContentManager.Load<Texture2D>("Button_WindowFormat_Fullscreen");
         }
         else if(main.Window.IsBorderless)
         {
-            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Borderless");
+            return windowFormatButton.Texture = Globals.ContentManager.Load<Texture2D>("Button_WindowFormat_Borderless");
         }
         else
         {
-            return windowFormatButton.Texture = content.Load<Texture2D>("Button_WindowFormat_Windowed");
+            return windowFormatButton.Texture = Globals.ContentManager.Load<Texture2D>("Button_WindowFormat_Windowed");
         }
     }
 }
