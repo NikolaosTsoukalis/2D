@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,8 +9,8 @@ namespace _2D_RPG;
 
 public class CollisionHandler
 {
-    private static CollisionMap entityCollisionMap;
-    private static CollisionMap tileCollisionMap;
+    private static CollisionMap entityCollisionMap {get;set;}
+    private static CollisionMap tileCollisionMap {get;set;}
     public CollisionHandler(Main main)
     {
         tileCollisionMap = new();
@@ -20,9 +19,9 @@ public class CollisionHandler
 
     public static void handleEntityCollisionMap()
     {
-        foreach(Entity currentEntity in EntityHandler.EntityList)
+        foreach(Entity currentEntity in Globals.entityHandler.GetEntityList())
         {
-            AnimationDataHandler.getAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
+            Globals.animationDataHandler.GetAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
             var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(tuple.Item2[0]);
             Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
             var x = entityCollisionMap.Map.Find(x => x.Item1 == currentEntity.Name.ToString()); // Tuple(Name,Rectangle)
@@ -41,20 +40,21 @@ public class CollisionHandler
             entityCollisionMap.AddToCollisionMap(currentEntity.Name.ToString(),currentEntityRectangle);
         }
     }
-
+/*
     public static void handleTileCollisionMap()
     {
-        foreach(Entity currentEntity in EntityHandler.EntityList)
+        foreach(Entity currentEntity in EntityHandler.TileList)
         {
             Texture2D currentEntityTexture = currentEntity.Texture;
             Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
         }
         //tileCollisionMap.AddToCollisionMap(tile)
     }
+    */
 
     public static bool IsCollidingWithEntity(Entity currentEntity)
     {
-        AnimationDataHandler.getAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
+        Globals.animationDataHandler.GetAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
         var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(tuple.Item2[0]);
         Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
         string entityName = currentEntity.Name;
@@ -72,7 +72,7 @@ public class CollisionHandler
         return false;
     }
 
-    public static bool IsCollidingWithEntity(string entityName,Rectangle hitbox)
+    public static bool IsHitboxCollidingWithEntity(string entityName,Rectangle hitbox)
     {
         foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
         {
@@ -104,11 +104,30 @@ public class CollisionHandler
         return false;
     }
 
+    public static Entity getCollidingEntity(string entityName,Rectangle hitbox)
+    {
+        foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
+        {
+            if(hitbox.Intersects(tempTuple.Item2) && entityName != tempTuple.Item1)
+            {
+                foreach(Entity entity in Globals.entityHandler.GetEntityList())
+                {
+                    if(entityName == entity.Name)
+                    {
+                        return entity;
+                    }
+                }
+            }
+        }
+        // Entity doesnt exist in the entity list.
+        return null;
+    }
+
     public void Update()
     {
         try
         {
-            handleTileCollisionMap();
+            //handleTileCollisionMap();
             handleEntityCollisionMap();
         }
         catch(Exception e)
@@ -121,6 +140,6 @@ public class CollisionHandler
     public void Draw(Main main) // for testing purposes
     {
         entityCollisionMap.Draw(main,"Entity");
-        tileCollisionMap.Draw(main,"Entity");
+        //tileCollisionMap.Draw(main,"Entity");
     }
 }

@@ -12,11 +12,11 @@ class MoveCommand : Command
 
     #region Constructors
 
-    public MoveCommand(Globals.Directions direction)
+    public MoveCommand(Globals.Directions direction) : base(CommandTypes.MoveCommand)
     {
         this.direction = direction;
     }
-    public MoveCommand(Globals.Directions direction, bool isRunning)
+    public MoveCommand(Globals.Directions direction, bool isRunning) : base(CommandTypes.MoveCommand)
     {
         this.direction = direction;
         this.isRunning = isRunning;

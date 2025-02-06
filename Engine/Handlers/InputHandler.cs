@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2D_RPG;
 
-class InputHandler 
+public class InputHandler 
 {
     #region Values
 

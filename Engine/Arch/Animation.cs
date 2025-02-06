@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
-internal class Animation
+public class Animation
 {
     #region Values
 
@@ -40,7 +40,7 @@ internal class Animation
     #region Constructors
     public Animation(Entity entity, AnimationDataHandler.AnimationIdentifier identifier)
     {
-        if(AnimationDataHandler.getAnimationDictionary(entity.Name.ToString()).TryGetValue(identifier, out var tuple))
+        if(Globals.animationDataHandler.GetAnimationDictionary(entity.Name.ToString()).TryGetValue(identifier, out var tuple))
         {
             entity.Texture = tuple.Item1;
             frameTime = (float) Convert.ToDouble(tuple.Item2[1]);

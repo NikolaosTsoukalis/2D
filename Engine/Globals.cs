@@ -15,18 +15,6 @@ namespace _2D_RPG;
 public class Globals
 {
     #region Enums
-    public enum CommandTypes
-    {
-        MoveUp,
-        MoveDown,
-        MoveRight,
-        MoveLeft,
-        OpenGeneralMenu,
-        SoftToggleRun,
-        MeleeAttack,
-        OpenInventory
-
-    }
 
     public enum Directions
     {
@@ -47,9 +35,17 @@ public class Globals
     public static SpriteBatch spriteBatch { get; set; }
     public static GraphicsDeviceManager _graphics { get; set; }
 
-    private static Dictionary<CommandTypes,Keys> keyBindings;
+    public static InputHandler inputhandler;
+    public static AnimationHandler animationHandler;
+    public static AnimationDataHandler animationDataHandler;
+    public static EntityHandler entityHandler;
+    public static ItemDataHandler itemDataHandler;
+    public static EntityDataHandler entityDataHandler;
+    public static CollisionHandler collisionHandler;
 
-    public static Dictionary<CommandTypes,Keys> KeyBindings
+    private static Dictionary<Command.CommandTypes,Keys> keyBindings;
+
+    public static Dictionary<Command.CommandTypes,Keys> KeyBindings
     {
         get{return keyBindings;}
         set{keyBindings = value;}
@@ -68,9 +64,10 @@ public class Globals
         TotalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
+/*
     public static void LoadKeyBindingsDictionary()
     {
-        keyBindings = new Dictionary<CommandTypes, Keys>
+        keyBindings = new Dictionary<Command.CommandTypes, Keys>
         {
             { CommandTypes.MoveUp, Keys.W },
             { CommandTypes.MoveDown, Keys.S },
@@ -81,6 +78,7 @@ public class Globals
             { CommandTypes.OpenInventory, Keys.E }
         };
     }
+    */
 
     #endregion Functions
 }

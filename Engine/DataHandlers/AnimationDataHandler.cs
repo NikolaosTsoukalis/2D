@@ -70,7 +70,7 @@ public class AnimationDataHandler
         SlimeAnimationData = new();
     }
 
-    public static Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> getAnimationDictionary(string entityName)
+    public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> GetAnimationDictionary(string entityName)
     {
         
         if (Enum.TryParse(entityName, true, out EntityDataHandler.GeneralEntityTypes generalEntityType))

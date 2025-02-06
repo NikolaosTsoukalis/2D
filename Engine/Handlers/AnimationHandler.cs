@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace _2D_RPG;
 
-internal class AnimationHandler
+public class AnimationHandler
 {
     #region Values
 
-    private List<Animation> CurrentAnimations;
+    private List<Animation> CurrentAnimations {get;set;}
 
     #endregion Values
     
@@ -16,7 +16,7 @@ internal class AnimationHandler
 
     public AnimationHandler()
     {
-        CurrentAnimations = [];
+        CurrentAnimations = new();
     }
     
     #endregion Constructors
@@ -77,10 +77,10 @@ internal class AnimationHandler
             }
         }
     }
-   public void UpdateAnimationList(List<Entity> entityList)
+   public void UpdateAnimationList()
     {
         List<Animation> toBeRemoved = [];
-        foreach(Entity entity in entityList)
+        foreach(Entity entity in Globals.entityHandler.GetEntityList())
         {
             foreach(Animation animation in CurrentAnimations)
             {

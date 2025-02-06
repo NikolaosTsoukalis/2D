@@ -1,12 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace _2D_RPG;
 
-
-
-public class Player : MovingEntity
+public class Player : CombatEntity
 {
     #region Enums
 
@@ -63,11 +60,13 @@ public class Player : MovingEntity
     public void MeleeAttack()
     {
         Rectangle attackHitbox = ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
-           
+        Entity entityGettingHit = CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        
+        if(entityGettingHit != null)
+        {
+            //remove health from entity base on weapon damage.
+        }
     }
-
-    
-
 }
 
 

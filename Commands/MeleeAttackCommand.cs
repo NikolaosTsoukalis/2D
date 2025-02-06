@@ -7,7 +7,7 @@ class MeleeAttackCommand : Command
 
     #region Constructors
 
-    public MeleeAttackCommand(){}
+    public MeleeAttackCommand() : base(CommandTypes.MeleeAttackCommand){}
 
     #endregion Constructors
 

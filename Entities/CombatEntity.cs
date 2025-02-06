@@ -41,7 +41,9 @@ public class CombatEntity : MovingEntity
         set{attackPower = value;}
     }
 
-    public CombatEntity(EntityDataHandler.HostileEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
+    public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped;
+
+    public CombatEntity(string entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
         AssignAttributes();
     }
@@ -52,31 +54,17 @@ public class CombatEntity : MovingEntity
         base.RunningSpeed = 4;
         HP = 100;
         AttackPower = 10;
+        MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
     }
 
-    public Rectangle MeleeAttack(ItemDataHandler.WeaponTypes weaponType,Vector2 position,string direction)// pass in current weapon.
+    public void MeleeAttack()
     {
-        int[] variables = ItemDataHandler.getItemHitboxData(ItemDataHandler.MeleeWeapons.ShortSword.ToString()); // pass player weapon 
+        Rectangle attackHitbox = ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
+        Entity entityGettingHit = CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
         
-        switch(direction)
+        if(entityGettingHit != null)
         {
-            case "W":
-                return new Rectangle((int)(position.X),(int)(position.Y - variables[1]),variables[2],variables[3]);
-
-            case "A":
-                return new Rectangle((int)(position.X - variables[0]),(int)(position.Y),variables[2],variables[3]);
-
-            case "S":
-                return new Rectangle((int)(position.X),(int)(position.Y + variables[1]),variables[2],variables[3]);
-                
-            case "D":
-                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);
-                
-            case "WA":
-                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
-
-            default:
-                return new();
+            //remove health from entity base on weapon damage.
         }
     }
 }

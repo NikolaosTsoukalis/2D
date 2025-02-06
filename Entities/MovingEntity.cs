@@ -129,7 +129,7 @@ public class MovingEntity : Entity
         else
         {
             //play Collision case. handleCollidingBehaviour
-            Position -= newPosition;
+            //Position -= newPosition;
             return false;
         }
             
