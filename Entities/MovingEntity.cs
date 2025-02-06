@@ -25,18 +25,18 @@ public class MovingEntity : Entity
     #region Constructors
     public MovingEntity(){}
 
-    public MovingEntity(Globals.EntityTypes entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position){}
+    public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position){}
 
     #endregion Constructors
 
     #region Functions
 
-    public void Move(string direction, bool isRunning)
+    public bool Move(Globals.Directions direction, bool isRunning)
     {
         Vector2 newPosition = new();
         switch(direction)
         {
-            case "W":
+            case Globals.Directions.Up:
                 if(isRunning)
                 {                   
                     newPosition.Y -= runningSpeed;
@@ -45,7 +45,7 @@ public class MovingEntity : Entity
                     
                     newPosition.Y -= Speed;
                 break;
-            case "WA":
+            case Globals.Directions.UpLeft:
                 if(isRunning)
                 {                   
                     newPosition.Y -= runningSpeed;
@@ -57,7 +57,7 @@ public class MovingEntity : Entity
                     newPosition.X -= Speed;
                     newPosition = AdjustDPosition(newPosition);                    
                 break;
-            case "WD":
+            case Globals.Directions.UpRight:
                 if(isRunning)
                 {          
                     newPosition.Y -= runningSpeed;
@@ -69,7 +69,7 @@ public class MovingEntity : Entity
                     newPosition.X += Speed;
                     newPosition = AdjustDPosition(newPosition);
                 break;
-            case "S":
+            case Globals.Directions.Down:
                 if(isRunning)
                 {   
                     newPosition.Y += runningSpeed;
@@ -78,7 +78,7 @@ public class MovingEntity : Entity
                     
                     newPosition.Y += Speed;
                 break;
-            case "SA":
+            case Globals.Directions.DownLeft:
                 if(isRunning)
                 {    
                     newPosition.Y += runningSpeed;
@@ -90,7 +90,7 @@ public class MovingEntity : Entity
                     newPosition.X -= Speed;
                     newPosition = AdjustDPosition(newPosition);
                 break;
-            case "SD":
+            case Globals.Directions.DownRight:
                 if(isRunning)
                 {     
                     newPosition.Y += runningSpeed;
@@ -102,7 +102,7 @@ public class MovingEntity : Entity
                     newPosition.X += Speed;
                     newPosition = AdjustDPosition(newPosition);
                 break;
-            case "A":
+            case Globals.Directions.Left:
                 if(isRunning)
                 {    
                     newPosition.X -= runningSpeed;
@@ -111,7 +111,7 @@ public class MovingEntity : Entity
                     
                     newPosition.X -= Speed;
                 break;
-            case "D":
+            case Globals.Directions.Right:
                 if(isRunning)
                 {    
                     newPosition.X += runningSpeed;
@@ -124,10 +124,13 @@ public class MovingEntity : Entity
         if(!CollisionHandler.IsCollidingWithEntity(this) && !CollisionHandler.IsCollidingWithStructure(this))
         {
             Position += newPosition;
+            return true;
         }
         else
         {
             //play Collision case. handleCollidingBehaviour
+            //Position -= newPosition;
+            return false;
         }
             
     }

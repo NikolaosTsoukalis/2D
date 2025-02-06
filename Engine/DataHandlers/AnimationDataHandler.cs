@@ -31,7 +31,11 @@ public class AnimationDataHandler
         set{slimeAnimationData = value;}
     }
 
-    public AnimationDataHandler(GameTime gameTime, Game game){}
+    public AnimationDataHandler()
+    {
+        LoadPlayerAnimationDictionary();
+        LoadSlimeAnimationDictionary();
+    }
 
 
     public static void LoadPlayerAnimationDictionary()
@@ -52,7 +56,7 @@ public class AnimationDataHandler
 
     public static void LoadSlimeAnimationDictionary()
     {
-        //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
+        //Format : {Texture2D},string[{"totalFrames","timeOfEachFrame"}]
         SlimeAnimationData = new Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>>
         {
             { AnimationIdentifier.Walk,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Slime_Walk_strip48"),["48","0.1"])},
@@ -65,4 +69,27 @@ public class AnimationDataHandler
     {
         SlimeAnimationData = new();
     }
+
+    public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> GetAnimationDictionary(string entityName)
+    {
+        
+        if (Enum.TryParse(entityName, true, out EntityDataHandler.GeneralEntityTypes generalEntityType))
+        {
+            switch (generalEntityType)
+            {
+                case EntityDataHandler.GeneralEntityTypes.Player:
+                    return AnimationDataHandler.PlayerAnimationData;
+            }
+        }
+        else if (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEntityTypes hostileEnemyType))
+        {
+            switch (hostileEnemyType)
+            {
+                case EntityDataHandler.HostileEntityTypes.Slime:
+                    return AnimationDataHandler.SlimeAnimationData;
+            }
+        }
+        return null;
+    }
+
 }

@@ -3,23 +3,17 @@ namespace _2D_RPG;
 class MeleeAttackCommand : Command 
 {
     #region Values
-
-    private string direction;
-
     #endregion Values
 
     #region Constructors
 
-    public MeleeAttackCommand(string direction)
-    {
-        //this.direction = direction;
-    }
+    public MeleeAttackCommand() : base(CommandTypes.MeleeAttackCommand){}
 
     #endregion Constructors
 
     #region Functions
     
-    public override void Execute(MovingEntity entity)
+    public override void Execute(Player entity)
     {
         //entity.Direction = direction;
         entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.MeleeAttack;

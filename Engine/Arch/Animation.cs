@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
-internal class Animation
+public class Animation
 {
     #region Values
 
@@ -40,7 +40,7 @@ internal class Animation
     #region Constructors
     public Animation(Entity entity, AnimationDataHandler.AnimationIdentifier identifier)
     {
-        if(getAnimationDictionary(entity.Name).TryGetValue(identifier, out var tuple))
+        if(Globals.animationDataHandler.GetAnimationDictionary(entity.Name.ToString()).TryGetValue(identifier, out var tuple))
         {
             entity.Texture = tuple.Item1;
             frameTime = (float) Convert.ToDouble(tuple.Item2[1]);
@@ -74,7 +74,7 @@ internal class Animation
         {
             frameTimeLeft -= Globals.TotalSeconds;
 
-            if(string.IsNullOrEmpty(entity.Direction))
+            if(string.IsNullOrEmpty(entity.Direction.ToString()))
             {
                 if(frameTimeLeft <= 0)
                 {
@@ -91,28 +91,28 @@ internal class Animation
                     int totalDirectionalFrames = totalFrames / 8;
                     switch(entity.Direction)
                     {
-                        case "S":
+                        case Globals.Directions.Down:
                             currentStartingFrame = 0;
                             break;
-                        case "SD":
+                        case Globals.Directions.DownRight:
                             currentStartingFrame = totalDirectionalFrames;
                             break;
-                        case "D":
+                        case Globals.Directions.Right:
                             currentStartingFrame = totalDirectionalFrames*2;
                             break;
-                        case "WD":
+                        case Globals.Directions.UpRight:
                             currentStartingFrame = totalDirectionalFrames*3;
                             break;
-                        case "W":
+                        case Globals.Directions.Up:
                             currentStartingFrame = totalDirectionalFrames*4;
                             break;
-                        case "WA":
+                        case Globals.Directions.UpLeft:
                             currentStartingFrame = totalDirectionalFrames*5;
                             break;
-                        case "A":
+                        case Globals.Directions.Left:
                             currentStartingFrame = totalDirectionalFrames*6;
                             break;
-                        case "SA":
+                        case Globals.Directions.DownLeft:
                             currentStartingFrame = totalDirectionalFrames*7;
                             break;
                     }
@@ -121,8 +121,9 @@ internal class Animation
                         currentFrame = currentStartingFrame;
                     }
                     else
+                    {
                         currentFrame = (currentFrame + 1) % totalFrames;
-                    //currentFrame = (currentFrame + 1) % totalFrames + currentStartingFrame;
+                    }
                 }
             }
         }
@@ -135,18 +136,6 @@ internal class Animation
     public void Draw()
     {
         Globals.spriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
-    }
-
-    public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> getAnimationDictionary(Globals.EntityTypes entityName)
-    {
-        switch(entityName)
-        {
-            case Globals.EntityTypes.Player:
-                return AnimationDataHandler.PlayerAnimationData;
-            case Globals.EntityTypes.Slime:
-                return AnimationDataHandler.SlimeAnimationData;
-        }
-        return null;
     }
 
     #endregion Functions

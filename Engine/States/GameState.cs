@@ -5,56 +5,48 @@ namespace _2D_RPG;
 
 public class GameState : State
 {
-    private InputHandler inputhandler;
     private Command command;
-    private AnimationHandler animationHandler;
-    private EntityHandler entityHandler;
-    private CollisionHandler collisionHandler;
-    readonly Player player = new Player(Globals.EntityTypes.Player,null,Vector2.Zero);
-    readonly MovingEntity slime = new MovingEntity(Globals.EntityTypes.Slime,null,new Vector2(300,400));
+    readonly Player player = new Player(EntityDataHandler.GeneralEntityTypes.Player,null,Vector2.Zero);
+    readonly HostileEntity slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
 
     public GameState(Main main) : base(main)
     {
-        entityHandler = new();
-        animationHandler = new();
-        inputhandler = new();
-        collisionHandler = new();
-        EntityHandler.AddEntityToList(player);
-        AnimationDataHandler.LoadPlayerAnimationDictionary();
+        Globals.entityHandler = new();
+        Globals.animationHandler = new();
+        Globals.animationDataHandler = new();
+        Globals.inputhandler = new();
+        Globals.collisionHandler = new(main);
+        Globals.itemDataHandler = new();
+        Globals.entityHandler.AddEntityToList(player);
     }
 
     public override void Update(GameTime gameTime)
     {
         Globals.UpdateTimeForAnimations(gameTime, main);
-        command = inputhandler.HandleInput();
+        command = Globals.inputhandler.HandleInput();
         if(command != null)
         {
-            if(command.ToString() == "ExitCommand" || command.ToString() == "FullScreenCommand")
+            if(command.commandType == Command.CommandTypes.ExitCommand || command.commandType == Command.CommandTypes.FullScreenCommand || command.commandType == Command.CommandTypes.EnableDebugsCommand) 
             {
                 command.Execute(main);
-            } 
+            }
             command.Execute(player);
         }
         else
             player.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
-        
-        CollisionHandler.Update();
-        animationHandler.UpdateAnimationList(EntityHandler.EntityList);
-        animationHandler.UpdateAnimations();
 
+        UpdateHandlers();
     }
 
     public override void PostUpdate(GameTime gameTime)
     {
         if(player.AnimationIdentifier == AnimationDataHandler.AnimationIdentifier.Run)
         {
-            if(!EntityHandler.EntityList.Contains(slime))
+            if(!Globals.entityHandler.GetEntityList().Contains(slime))
             {
-                AnimationDataHandler.LoadSlimeAnimationDictionary();
-                EntityHandler.AddEntityToList(slime);
+                //AnimationDataHandler.LoadSlimeAnimationDictionary();
+                Globals.entityHandler.AddEntityToList(slime);
             }
-                
-
         }
     }
 
@@ -63,8 +55,20 @@ public class GameState : State
 
         Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        animationHandler.DrawAnimations();
+        Globals.animationHandler.DrawAnimations();
+
+        if(Globals.enableDebugs)
+        {
+            Globals.collisionHandler.Draw(main);
+        }
 
         Globals.spriteBatch.End();
+    }
+
+    public void UpdateHandlers()
+    {
+        Globals.collisionHandler.Update();
+        Globals.animationHandler.UpdateAnimationList();
+        Globals.animationHandler.UpdateAnimations();
     }
 }

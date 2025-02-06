@@ -4,7 +4,7 @@ class MoveCommand : Command
 {
     #region Values
 
-    private string direction;
+    private Globals.Directions direction;
 
     private bool isRunning = false;
 
@@ -12,11 +12,11 @@ class MoveCommand : Command
 
     #region Constructors
 
-    public MoveCommand(string direction)
+    public MoveCommand(Globals.Directions direction) : base(CommandTypes.MoveCommand)
     {
         this.direction = direction;
     }
-    public MoveCommand(string direction, bool isRunning)
+    public MoveCommand(Globals.Directions direction, bool isRunning) : base(CommandTypes.MoveCommand)
     {
         this.direction = direction;
         this.isRunning = isRunning;
@@ -31,13 +31,36 @@ class MoveCommand : Command
         entity.Direction = direction;
         if(isRunning)
         {
-            entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Run;
-            entity.Move(direction,true);
+            if(entity.Move(direction,true))
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Run;
+            else 
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
         }
         else
         {
-            entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Walk;
-            entity.Move(direction,false);
+            if(entity.Move(direction,false))
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Walk;
+            else 
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
+        }
+    }
+
+    public override void Execute(Player entity)
+    {
+        entity.Direction = direction;
+        if(isRunning)
+        {
+            if(entity.Move(direction,true))
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Run;
+            else 
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
+        }
+        else
+        {
+            if(entity.Move(direction,false))
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Walk;
+            else 
+                entity.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
         }
     }
 

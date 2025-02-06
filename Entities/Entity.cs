@@ -20,15 +20,15 @@ public abstract class Entity
         set{texture = value;}
     }
 
-    private Globals.EntityTypes name;
-    public Globals.EntityTypes Name
+    private string name;
+    public string Name
     {
         get{return name;}
         set{name = value;}
     }
 
-    private string direction;
-    public string Direction
+    private Globals.Directions direction;
+    public Globals.Directions Direction
     {
         get{return direction;}
         set{direction = value;}
@@ -45,12 +45,12 @@ public abstract class Entity
 
     #region Constructors
     public Entity(){}
-    public Entity(Globals.EntityTypes entityName, Texture2D texture, Vector2 position)
+    public Entity(string entityName, Texture2D texture, Vector2 position)
     {
         Name = entityName;
         Position = position;
         Texture = texture;
-        InitiallizeAnimationVariables();
+        InitiallizeGraphicalValues();
 
     }
 
@@ -62,16 +62,12 @@ public abstract class Entity
 
     public virtual void Draw(){}
 
-    public virtual void MeleeAttack(){}
-
-    public virtual void RangeAttack(){}
-
-    public void InitiallizeAnimationVariables()
+    public void InitiallizeGraphicalValues()
     {
         if((float)Globals.TotalSeconds <= 1.0)
         {
             AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
-            Direction = "S";
+            Direction = Globals.Directions.Down;
         }
     }
 

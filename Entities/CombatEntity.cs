@@ -1,12 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace _2D_RPG;
 
-
-
-public class EnemyEntity : MovingEntity
+public class CombatEntity : MovingEntity
 {
     #region Enums
 
@@ -44,13 +41,12 @@ public class EnemyEntity : MovingEntity
         set{attackPower = value;}
     }
 
-    public EnemyEntity(Globals.EntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
+    public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped;
+
+    public CombatEntity(string entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
         AssignAttributes();
     }
-
-
-
 
     public void AssignAttributes()
     { 
@@ -58,6 +54,18 @@ public class EnemyEntity : MovingEntity
         base.RunningSpeed = 4;
         HP = 100;
         AttackPower = 10;
+        MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
+    }
+
+    public void MeleeAttack()
+    {
+        Rectangle attackHitbox = ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
+        Entity entityGettingHit = CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        
+        if(entityGettingHit != null)
+        {
+            //remove health from entity base on weapon damage.
+        }
     }
 }
 

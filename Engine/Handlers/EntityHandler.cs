@@ -4,13 +4,7 @@ namespace _2D_RPG;
 
 public class EntityHandler
 {
-    
-    private static List<Entity> entityList;
-    public static List<Entity> EntityList 
-    {
-        get{return entityList;}
-        set{entityList = value;}
-    }
+    private static List<Entity> EntityList {get; set;}
     public EntityHandler()
     {
         EntityList = new List<Entity>{};
@@ -25,7 +19,7 @@ public class EntityHandler
     /// <remarks>
     /// This method adds an <see cref="Entity"/> object to the <see cref="EntityList"/> List.
     /// </remarks>
-    public static void AddEntityToList(Entity entity)
+    public void AddEntityToList(Entity entity)
     {
         EntityList.Add(entity);
     }
@@ -39,9 +33,14 @@ public class EntityHandler
     /// <remarks>
     /// This method remove an <see cref="Entity"/> object from the <see cref="EntityList"/> List.
     /// </remarks>
-    public static void RemoveEntityFromList(Entity entity)
+    public void RemoveEntityFromList(Entity entity)
     {
-            EntityList.Remove(entity);
-    }    
+        EntityList.Remove(entity);
+    }  
+
+    public List<Entity> GetEntityList()
+    {
+        return EntityList;
+    }  
 
 }
