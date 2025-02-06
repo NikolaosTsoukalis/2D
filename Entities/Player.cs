@@ -64,7 +64,7 @@ public class Player : CombatEntity
         
         if(entityGettingHit != null)
         {
-            //remove health from entity base on weapon damage.
+            Globals.entityHandler.HandleEntityAttacked(this.AttackPower,entityGettingHit);
         }
     }
 }
