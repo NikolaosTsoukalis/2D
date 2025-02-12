@@ -15,18 +15,6 @@ public class CombatEntity : MovingEntity
         AttackPower
     }
     #endregion Enums
-    private float speed;
-    public float Speed 
-    {
-        get{ return speed;}
-        set{speed = value;}
-    }
-    private float runningSpeed;
-    public float RunningSpeed 
-    {
-        get{ return runningSpeed;}
-        set{runningSpeed = value;}
-    }
 
     private float hp;
     public float HP 
