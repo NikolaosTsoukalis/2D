@@ -192,6 +192,8 @@ public class Globals
 
     public static float TotalSeconds { get; set; }
 
+    public static float FPS = 60f;
+
     public static bool enableDebugs = false;
 
     #endregion Values

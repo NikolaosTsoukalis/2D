@@ -205,3 +205,17 @@ C:\Users\ntosu\Desktop\2D_RPG\obj\Release\net8.0\win-x64\refint\2D_RPG.dll
 C:\Users\ntosu\Desktop\2D_RPG\obj\Release\net8.0\win-x64\2D_RPG.pdb
 C:\Users\ntosu\Desktop\2D_RPG\obj\Release\net8.0\win-x64\2D_RPG.genruntimeconfig.cache
 C:\Users\ntosu\Desktop\2D_RPG\obj\Release\net8.0\win-x64\ref\2D_RPG.dll
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Button_Back.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Button_Controls.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Button_Exit.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Button_Settings.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Button_StartGame.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Button_WindowFormat_Borderless.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Button_WindowFormat_Fullscreen.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Button_WindowFormat_Windowed.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Character_Walk_strip80.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Controls_Menu.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Cup_Coffee_Animation2.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\Content\Slime_Walk_strip48.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\2D_RPG.xml
+C:\Users\ntosu\Desktop\2D_RPG\obj\Release\net8.0\win-x64\2D_RPG.xml

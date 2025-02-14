@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace _2D_RPG;
@@ -36,6 +37,8 @@ public class Main : Game
 
         IsMouseVisible = true;
 
+        IsFixedTimeStep = true;
+        TargetElapsedTime = TimeSpan.FromMilliseconds(16.67);
         Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 600;
         Globals.GraphicsDeviceManager.PreferredBackBufferWidth = 800;
     }
