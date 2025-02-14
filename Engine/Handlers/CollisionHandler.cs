@@ -136,9 +136,9 @@ public class CollisionHandler
         //return true;
     }
 
-    public void Draw(Main main) // for testing purposes
+    public void DebugDraw(Main main) // for testing purposes
     {
-        entityCollisionMap.Draw(main,"Entity");
+        entityCollisionMap.DebugDraw(main,"Entity");
         //tileCollisionMap.Draw(main,"Entity");
     }
 }

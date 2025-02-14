@@ -42,7 +42,7 @@ public class CollisionMap
     {
         Map = new();
     }
-    public void Draw(Game game,string mapType)
+    public void DebugDraw(Game game,string mapType)
     {
 
         foreach(Tuple<string,Rectangle> rect in Map)

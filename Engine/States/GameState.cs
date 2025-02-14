@@ -59,7 +59,7 @@ public class GameState : State
 
         if(Globals.enableDebugs)
         {
-            Globals.CollisionHandler.Draw(main);
+            Globals.CollisionHandler.DebugDraw(main);
         }
 
         Globals.SpriteBatch.End();
