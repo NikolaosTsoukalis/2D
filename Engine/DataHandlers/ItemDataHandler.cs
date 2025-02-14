@@ -1,7 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
@@ -19,7 +18,29 @@ public class ItemDataHandler
     }
 
     public enum Materials{}
+
+    public enum EquipableItemTypes
+    {
+        Helmet,
+        Chestpiece,
+        Legguard,
+        Boots
+    }
+
+    public enum SpecialItems{}
+
+    #endregion Enums
     
+
+    #region MeleeWeaponData
+
+    public enum WeaponTypes
+    {
+        Melee,
+        Ranged,
+        Magic
+    }
+
     public enum MeleeWeapons
     {
         ShortSword
@@ -29,24 +50,10 @@ public class ItemDataHandler
 
     public enum MagicWeapons{}
 
-    public enum WeaponTypes
+    private static Dictionary<string,int[]> meleeWeaponAttributeData;
+    public static Dictionary<string,int[]> MeleeWeaponAttributeData
     {
-        Melee,
-        Ranged,
-        Magic
-    }
-
-    public enum SpecialItems{}
-
-    #endregion Enums
-    
-
-    #region MeleeWeaponDictionaries
-    private static Dictionary<string,string[]> meleeWeaponData;
-    public static Dictionary<string,string[]> MeleeWeaponData
-    {
-        get{return meleeWeaponData;}
-        
+        get{return meleeWeaponAttributeData;}
     }
 
     private static Dictionary<string,int[]> meleeWeaponHitboxData;
@@ -60,30 +67,15 @@ public class ItemDataHandler
     public static Dictionary<string,int[]> MeleeWeaponInventoryData
     {
         get{return meleeWeaponInventoryData;}
-        
     }
 
-    #endregion MeleeWeaponDictionaries
-
-    private static Dictionary<string,string[]> foodData;
-    public static Dictionary<string,string[]> FoodData
-    {
-        get{return foodData;}
-        
-    }
-
-    public ItemDataHandler()
-    {
-        LoadMeleeWeaponDictionary();
-        LoadMeleeWeaponHitboxDictionary();
-        LoadFoodDictionary();
-    }
+    #endregion MeleeWeaponData
 
     #region MeleeWeaponFunctions
 
-    public static void LoadMeleeWeaponDictionary()
+    public static void LoadMeleeWeaponDictionary() // {damage, x, y, z}
     {
-        meleeWeaponData = new Dictionary<string, string[]> {};
+        meleeWeaponAttributeData = new Dictionary<string, int[]> {};
     }
 
     public static void LoadMeleeWeaponHitboxDictionary() // x,y,width,height
@@ -98,30 +90,87 @@ public class ItemDataHandler
     {
         meleeWeaponInventoryData = new Dictionary<string, int[]> 
         {
-            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] }
+            { MeleeWeapons.ShortSword.ToString(),[] }
         };
     }
     
     #endregion MeleeWeaponFunctions
+
+    #region ChestpieceData
+
+    public enum ChestpieceTypes
+    {
+        LeatherTunic,
+        IronChestPlate
+    }
+
+    private static Dictionary<string,int[]> chestpieceAttributeData;
+    public static Dictionary<string,int[]> ChestpieceAttributeData
+    {
+        get{return chestpieceAttributeData;}
+    }
+
+    private static Dictionary<string,int[]> chestpieceInventoryData;
+    public static Dictionary<string,int[]> ChestpieceInventoryData
+    {
+        get{return chestpieceInventoryData;} 
+    }
+
+    #endregion ChestpieceData
+
+    #region ChestpieceFunctions
+
+    public static void LoadChestpieceDictionary() // {defence, x, y, z}
+    {
+        chestpieceAttributeData = new Dictionary<string, int[]> 
+        {
+            { ChestpieceTypes.LeatherTunic.ToString(),[50] }
+        };
+    }
+
+    #endregion ChestpieceFunctions
+
+    private static Dictionary<string,string[]> foodData;
+    public static Dictionary<string,string[]> FoodData
+    {
+        get{return foodData;}
+        
+    }
+
+    public ItemDataHandler()
+    {
+        //Weapons
+        LoadMeleeWeaponDictionary();
+        LoadMeleeWeaponHitboxDictionary();
+
+        //Armor
+        LoadChestpieceDictionary();
+
+        //Consumables
+        LoadFoodDictionary();
+    }
+
+    #region GeneralFunctions
 
     public static void LoadFoodDictionary()
     {
         foodData = new Dictionary<string, string[]> {};
     }    
 
-    public static string[] getItemData(string itemName)
+    public int[] GetEquippableItemAttributeData(string itemName)
     {
         
         if (Enum.TryParse(itemName, true, out MeleeWeapons meleeWeapons))
         {
             //LoadMeleeWeaponDictionary();
-            return MeleeWeaponData.FirstOrDefault( item => item.Key == itemName ).Value;
+            return MeleeWeaponAttributeData.FirstOrDefault( item => item.Key == itemName ).Value;
         }
-        else if (Enum.TryParse(itemName, true, out Food food))
+        else if (Enum.TryParse(itemName, true, out ChestpieceTypes chestpieceTypes))
         {
-            //LoadFoodDictionary();
-            return FoodData.FirstOrDefault( item => item.Key == itemName ).Value;
+            //LoadMeleeWeaponDictionary();
+            return ChestpieceAttributeData.FirstOrDefault( item => item.Key == itemName ).Value;
         }
+            
         return null;
     }
 
@@ -167,4 +216,6 @@ public class ItemDataHandler
             return null;
         }
     }
+
+        #endregion GeneralFunctions
 }

@@ -51,13 +51,6 @@ public class Player : CombatEntity
     public override void AssignAttributes()
     {
         base.AssignAttributes();
-        /* 
-        base.Speed = 3;
-        base.RunningSpeed = 4;
-        HP = 100;
-        AttackPower = 10;
-        MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
-        */
     }
 
     public override void MeleeAttack()
