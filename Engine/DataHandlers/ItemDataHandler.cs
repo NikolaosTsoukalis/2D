@@ -73,12 +73,15 @@ public class ItemDataHandler
 
     #region MeleeWeaponFunctions
 
-    public static void LoadMeleeWeaponDictionary() // {damage, x, y, z}
+    public static void LoadMeleeWeaponAttributeDataDictionary() // {damage, x, y, z}
     {
-        meleeWeaponAttributeData = new Dictionary<string, int[]> {};
+        meleeWeaponAttributeData = new Dictionary<string, int[]> 
+        {
+            {MeleeWeapons.ShortSword.ToString(),[10] }
+        };
     }
 
-    public static void LoadMeleeWeaponHitboxDictionary() // x,y,width,height
+    public static void LoadMeleeWeaponHitboxDataDictionary() // x,y,width,height
     {
         meleeWeaponHitboxData = new Dictionary<string, int[]> 
         {
@@ -86,7 +89,7 @@ public class ItemDataHandler
         };
     }
 
-    public static void LoadMeleeWeaponInventoryDictionary() // x,y,width,height
+    public static void LoadMeleeWeaponInventoryDataDictionary() // x,y,width,height
     {
         meleeWeaponInventoryData = new Dictionary<string, int[]> 
         {
@@ -140,8 +143,8 @@ public class ItemDataHandler
     public ItemDataHandler()
     {
         //Weapons
-        LoadMeleeWeaponDictionary();
-        LoadMeleeWeaponHitboxDictionary();
+        LoadMeleeWeaponAttributeDataDictionary();
+        LoadMeleeWeaponHitboxDataDictionary();
 
         //Armor
         LoadChestpieceDictionary();
@@ -159,19 +162,20 @@ public class ItemDataHandler
 
     public int[] GetEquippableItemAttributeData(string itemName)
     {
-        
+        int[] tempData = null;
+
         if (Enum.TryParse(itemName, true, out MeleeWeapons meleeWeapons))
         {
             //LoadMeleeWeaponDictionary();
-            return MeleeWeaponAttributeData.FirstOrDefault( item => item.Key == itemName ).Value;
+            tempData = MeleeWeaponAttributeData.FirstOrDefault( item => item.Key == itemName ).Value;
         }
         else if (Enum.TryParse(itemName, true, out ChestpieceTypes chestpieceTypes))
         {
             //LoadMeleeWeaponDictionary();
-            return ChestpieceAttributeData.FirstOrDefault( item => item.Key == itemName ).Value;
+            tempData = ChestpieceAttributeData.FirstOrDefault( item => item.Key == itemName ).Value;
         }
             
-        return null;
+        return tempData;
     }
 
     public Rectangle getWeaponHitBox(Globals.Directions direction,Vector2 position, string itemName) 

@@ -48,18 +48,18 @@ public class CombatEntity : MovingEntity
     public virtual void MeleeAttack()
     {
         Rectangle attackHitbox = Globals.ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
-        CombatEntity entityGettingHit = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        CombatEntity entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
         
-        if(entityGettingHit != null)
+        if(entityGettingAttacked != null)
         {
-
-
-            entityGettingHit.GetAttacked(Globals.ItemDataHandler.GetEquippableItemAttributeData(MeleeWeaponEquiped.ToString())[0]);
+            entityGettingAttacked.GetAttacked(Globals.ItemDataHandler.GetEquippableItemAttributeData(this.MeleeWeaponEquiped.ToString())[0]);
         }
     }
 
     public virtual bool GetAttacked(float damageTaken)
     {
+
+        HP -= damageTaken;
         return true;
     }
 }

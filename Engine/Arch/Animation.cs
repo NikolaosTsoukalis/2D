@@ -56,6 +56,10 @@ public class Animation
                 sourceRectangles.Add(new(i * frameWidth, 0, frameWidth,frameHeight));
             }
         }
+        else
+        {
+            Console.Out.WriteLine("Error : This animation is not present in the animation data handler" );
+        }
     }
 
     #endregion Constructors

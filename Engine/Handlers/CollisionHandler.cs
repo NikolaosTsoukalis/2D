@@ -111,7 +111,7 @@ public class CollisionHandler
             {
                 foreach(Entity entity in Globals.EntityHandler.GetEntityList())
                 {
-                    if(entityName == entity.Name)
+                    if(tempTuple.Item1 == entity.Name)
                     {
                         return entity;
                     }
