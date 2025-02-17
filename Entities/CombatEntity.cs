@@ -15,18 +15,6 @@ public class CombatEntity : MovingEntity
         AttackPower
     }
     #endregion Enums
-    private float speed;
-    public float Speed 
-    {
-        get{ return speed;}
-        set{speed = value;}
-    }
-    private float runningSpeed;
-    public float RunningSpeed 
-    {
-        get{ return runningSpeed;}
-        set{runningSpeed = value;}
-    }
 
     private float hp;
     public float HP 
@@ -60,12 +48,19 @@ public class CombatEntity : MovingEntity
     public virtual void MeleeAttack()
     {
         Rectangle attackHitbox = Globals.ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
-        Entity entityGettingHit = Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        CombatEntity entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
         
-        if(entityGettingHit != null)
+        if(entityGettingAttacked != null)
         {
-            //remove health from entity base on weapon damage.
+            entityGettingAttacked.GetAttacked(Globals.ItemDataHandler.GetEquippableItemAttributeData(this.MeleeWeaponEquiped.ToString())[0]);
         }
+    }
+
+    public virtual bool GetAttacked(float damageTaken)
+    {
+
+        HP -= damageTaken;
+        return true;
     }
 }
 

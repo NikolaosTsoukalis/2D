@@ -20,6 +20,11 @@ public class MovingEntity : Entity
         set{runningSpeed = value;}
     }
 
+    private Vector2 newPosition;
+
+    private Vector2 pastPosition;
+    private Vector2 currentPosition;
+
     #endregion Values
     
     #region Constructors
@@ -33,7 +38,9 @@ public class MovingEntity : Entity
 
     public bool Move(Globals.Directions direction, bool isRunning)
     {
-        Vector2 newPosition = new();
+        this.newPosition = new();
+        this.currentPosition = Position;
+
         switch(direction)
         {
             case Globals.Directions.Up:
@@ -41,8 +48,7 @@ public class MovingEntity : Entity
                 {                   
                     newPosition.Y -= runningSpeed;
                 }
-                else
-                    
+                else    
                     newPosition.Y -= Speed;
                 break;
             case Globals.Directions.UpLeft:
@@ -108,7 +114,6 @@ public class MovingEntity : Entity
                     newPosition.X -= runningSpeed;
                 }
                 else
-                    
                     newPosition.X -= Speed;
                 break;
             case Globals.Directions.Right:
@@ -120,19 +125,14 @@ public class MovingEntity : Entity
                     newPosition.X += Speed;
                 break;
         }
-
-        if(!Globals.CollisionHandler.IsCollidingWithEntity(this) && !CollisionHandler.IsCollidingWithStructure(this))
+        //this.pastPosition = Position;
+        this.Position += newPosition;
+        if(Globals.CollisionHandler.IsCollidingWithEntity(this) || CollisionHandler.IsCollidingWithStructure(this))
         {
-            Position += newPosition;
-            return true;
-        }
-        else
-        {
-            //play Collision case. handleCollidingBehaviour
-            //Position -= newPosition;
+            this.Position = currentPosition;
             return false;
         }
-            
+        return true;        
     }
  
     public Vector2 AdjustDiagonalPosition(Vector2 newPosition)

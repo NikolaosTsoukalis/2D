@@ -111,7 +111,7 @@ public class CollisionHandler
             {
                 foreach(Entity entity in Globals.EntityHandler.GetEntityList())
                 {
-                    if(entityName == entity.Name)
+                    if(tempTuple.Item1 == entity.Name)
                     {
                         return entity;
                     }
@@ -136,9 +136,9 @@ public class CollisionHandler
         //return true;
     }
 
-    public void Draw(Main main) // for testing purposes
+    public void DebugDraw(Main main) // for testing purposes
     {
-        entityCollisionMap.Draw(main,"Entity");
-        //tileCollisionMap.Draw(main,"Entity");
+        entityCollisionMap.DebugDraw(main,"Entity");
+        //tileCollisionMap.DebugDraw(main,"Entity");
     }
 }

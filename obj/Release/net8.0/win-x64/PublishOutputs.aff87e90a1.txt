@@ -1,6 +1,18 @@
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\2D_RPG.exe
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Button_Back.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Button_Controls.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Button_Exit.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Button_Settings.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Button_StartGame.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Button_WindowFormat_Borderless.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Button_WindowFormat_Fullscreen.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Button_WindowFormat_Windowed.xnb
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Character_Idle_strip32.xnb
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Character_Walk_strip32.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Character_Walk_strip80.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Controls_Menu.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Cup_Coffee_Animation2.xnb
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/Slime_Walk_strip48.xnb
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/testSprite1.xnb
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\Content/testSpriteWalk_strip32.xnb
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\2D_RPG.dll
@@ -193,3 +205,4 @@ C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\MonoGame.Framew
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\NVorbis.dll
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\soft_oal.dll
 C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\SDL2.dll
+C:\Users\ntosu\Desktop\2D_RPG\bin\Release\net8.0\win-x64\publish\2D_RPG.xml

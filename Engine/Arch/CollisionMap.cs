@@ -42,9 +42,8 @@ public class CollisionMap
     {
         Map = new();
     }
-    public void Draw(Game game,string mapType)
+    public void DebugDraw(Game game,string mapType)
     {
-
         foreach(Tuple<string,Rectangle> rect in Map)
         {
             Texture2D mapTexture = new Texture2D(game.GraphicsDevice, 1,1);
