@@ -47,7 +47,7 @@ public class CombatEntity : MovingEntity
 
     public virtual void MeleeAttack()
     {
-        Rectangle attackHitbox = Globals.ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
+        Rectangle attackHitbox = Globals.ItemDataHandler.getHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
         CombatEntity entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
         
         if(entityGettingAttacked != null)

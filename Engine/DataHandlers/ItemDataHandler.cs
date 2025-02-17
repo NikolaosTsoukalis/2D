@@ -43,7 +43,8 @@ public class ItemDataHandler
 
     public enum MeleeWeapons
     {
-        ShortSword
+        ShortSword,
+        Fist
     }
 
     public enum RangedWeapons{}
@@ -77,7 +78,8 @@ public class ItemDataHandler
     {
         meleeWeaponAttributeData = new Dictionary<string, int[]> 
         {
-            {MeleeWeapons.ShortSword.ToString(),[10] }
+            { MeleeWeapons.ShortSword.ToString(),[10] },
+            { MeleeWeapons.Fist.ToString(),[2] }
         };
     }
 
@@ -85,7 +87,8 @@ public class ItemDataHandler
     {
         meleeWeaponHitboxData = new Dictionary<string, int[]> 
         {
-            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] }
+            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] },
+            { MeleeWeapons.Fist.ToString(),[20,20,20,40] }
         };
     }
 
@@ -178,7 +181,7 @@ public class ItemDataHandler
         return tempData;
     }
 
-    public Rectangle getWeaponHitBox(Globals.Directions direction,Vector2 position, string itemName) 
+    public Rectangle getHitBox(Globals.Directions direction,Vector2 position, string itemName) 
     {
         int[] variables = ItemDataHandler.getItemHitboxData(itemName); // pass player weapon 
         
@@ -194,10 +197,20 @@ public class ItemDataHandler
                 return new Rectangle((int)(position.X),(int)(position.Y + variables[1]),variables[2],variables[3]);
                 
             case Globals.Directions.Right:
-                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);
-                
+                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);  
+
             case Globals.Directions.UpLeft:
                 return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.UpRight:
+                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.DownLeft:
+                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y + variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.DownRight:
+                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+                
             default:
                 return new();
         }
@@ -221,5 +234,5 @@ public class ItemDataHandler
         }
     }
 
-        #endregion GeneralFunctions
+    #endregion GeneralFunctions
 }

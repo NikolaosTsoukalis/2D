@@ -63,6 +63,11 @@ public class Player : CombatEntity
         base.GetAttacked(damageTaken);
         return true;
     }
+
+    public override void Interact()
+    {
+        
+    }
 }
 
 
