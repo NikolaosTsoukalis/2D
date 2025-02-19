@@ -1,3 +1,5 @@
+using System;
+using System.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -47,18 +49,26 @@ public class CombatEntity : MovingEntity
 
     public virtual void MeleeAttack()
     {
+        CombatEntity entityGettingAttacked = null;
         Rectangle attackHitbox = Globals.ItemDataHandler.getHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
-        CombatEntity entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        if(Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox).GetType() == typeof(CombatEntity))
+        {
+            entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        }
         
         if(entityGettingAttacked != null)
         {
             entityGettingAttacked.GetAttacked(Globals.ItemDataHandler.GetEquippableItemAttributeData(this.MeleeWeaponEquiped.ToString())[0]);
         }
+        else
+        {
+            Console.WriteLine("THIS CANNOT BE ATTACKED!");
+        }
     }
 
     public virtual bool GetAttacked(float damageTaken)
     {
-
+        //damage taken should be overriden by a method that takes into account all attributes/abillities.
         HP -= damageTaken;
         return true;
     }

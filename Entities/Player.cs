@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -66,7 +68,21 @@ public class Player : CombatEntity
 
     public override void Interact()
     {
+        var entityGettingInteracted = new(null);
+        Rectangle interactHitbox = Globals.ItemDataHandler.getHitBox(this.Direction,this.Position, ItemDataHandler.MeleeWeapons.Fist.ToString());
+        if(Globals.CollisionHandler.getCollidingEntity(this.Name,interactHitbox).IsInteractable)
+        {
+            var entityGettingInteracted = Globals.CollisionHandler.getCollidingEntity(this.Name,interactHitbox);
+        }
         
+        if(entityGettingInteracted != null)
+        {
+            entityGettingAttacked.GetAttacked(Globals.ItemDataHandler.GetEquippableItemAttributeData(this.MeleeWeaponEquiped.ToString())[0]);
+        }
+        else
+        {
+            Console.WriteLine("THIS CANNOT BE ATTACKED!");
+        }
     }
 }
 

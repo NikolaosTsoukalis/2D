@@ -51,24 +51,9 @@ public class ItemDataHandler
 
     public enum MagicWeapons{}
 
-    private static Dictionary<string,int[]> meleeWeaponAttributeData;
-    public static Dictionary<string,int[]> MeleeWeaponAttributeData
-    {
-        get{return meleeWeaponAttributeData;}
-    }
-
-    private static Dictionary<string,int[]> meleeWeaponHitboxData;
-    public static Dictionary<string,int[]> MeleeWeaponHitboxData
-    {
-        get{return meleeWeaponHitboxData;}
-        
-    }
-
-    private static Dictionary<string,int[]> meleeWeaponInventoryData;
-    public static Dictionary<string,int[]> MeleeWeaponInventoryData
-    {
-        get{return meleeWeaponInventoryData;}
-    }
+    private static Dictionary<string,int[]> MeleeWeaponAttributeData {get;set;}
+    private static Dictionary<string,int[]> MeleeWeaponHitboxData {get;set;}
+    private static Dictionary<string,int[]> MeleeWeaponInventoryData {get;set;}
 
     #endregion MeleeWeaponData
 
@@ -76,7 +61,7 @@ public class ItemDataHandler
 
     public static void LoadMeleeWeaponAttributeDataDictionary() // {damage, x, y, z}
     {
-        meleeWeaponAttributeData = new Dictionary<string, int[]> 
+        MeleeWeaponAttributeData = new Dictionary<string, int[]> 
         {
             { MeleeWeapons.ShortSword.ToString(),[10] },
             { MeleeWeapons.Fist.ToString(),[2] }
@@ -85,7 +70,7 @@ public class ItemDataHandler
 
     public static void LoadMeleeWeaponHitboxDataDictionary() // x,y,width,height
     {
-        meleeWeaponHitboxData = new Dictionary<string, int[]> 
+        MeleeWeaponHitboxData = new Dictionary<string, int[]> 
         {
             { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] },
             { MeleeWeapons.Fist.ToString(),[20,20,20,40] }
@@ -94,7 +79,7 @@ public class ItemDataHandler
 
     public static void LoadMeleeWeaponInventoryDataDictionary() // x,y,width,height
     {
-        meleeWeaponInventoryData = new Dictionary<string, int[]> 
+        MeleeWeaponInventoryData = new Dictionary<string, int[]> 
         {
             { MeleeWeapons.ShortSword.ToString(),[] }
         };
@@ -110,17 +95,8 @@ public class ItemDataHandler
         IronChestPlate
     }
 
-    private static Dictionary<string,int[]> chestpieceAttributeData;
-    public static Dictionary<string,int[]> ChestpieceAttributeData
-    {
-        get{return chestpieceAttributeData;}
-    }
-
-    private static Dictionary<string,int[]> chestpieceInventoryData;
-    public static Dictionary<string,int[]> ChestpieceInventoryData
-    {
-        get{return chestpieceInventoryData;} 
-    }
+    private static Dictionary<string,int[]> ChestpieceAttributeData {get;set;}
+    private static Dictionary<string,int[]> ChestpieceInventoryData {get;set;}
 
     #endregion ChestpieceData
 
@@ -128,7 +104,7 @@ public class ItemDataHandler
 
     public static void LoadChestpieceDictionary() // {defence, x, y, z}
     {
-        chestpieceAttributeData = new Dictionary<string, int[]> 
+        ChestpieceAttributeData = new Dictionary<string, int[]> 
         {
             { ChestpieceTypes.LeatherTunic.ToString(),[50] }
         };
@@ -136,12 +112,7 @@ public class ItemDataHandler
 
     #endregion ChestpieceFunctions
 
-    private static Dictionary<string,string[]> foodData;
-    public static Dictionary<string,string[]> FoodData
-    {
-        get{return foodData;}
-        
-    }
+    public static Dictionary<string,string[]> FoodData {get;set;}
 
     public ItemDataHandler()
     {

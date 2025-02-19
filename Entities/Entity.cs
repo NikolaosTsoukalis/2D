@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,6 +8,13 @@ namespace _2D_RPG;
 public abstract class Entity
 {
     #region Values
+
+    private bool isInteractable;
+    public bool IsInteractable 
+    {
+        get{return isInteractable;}
+        set{isInteractable = value;}
+    }
 
     private Vector2 position;
     public Vector2 Position 
@@ -51,7 +60,7 @@ public abstract class Entity
         Position = position;
         Texture = texture;
         InitiallizeGraphicalValues();
-
+        IsInteractable = (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEntityTypes entity)); // THIS HAS TO CHANGE TO FIND AN INTERACTABLE SIGNATURE ON THE ENTITY.
     }
 
     #endregion Constructors
@@ -70,6 +79,8 @@ public abstract class Entity
             Direction = Globals.Directions.Down;
         }
     }
+
+    public virtual void Interact(){}
 
     #endregion Functions
 }
