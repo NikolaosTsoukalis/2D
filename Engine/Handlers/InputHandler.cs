@@ -44,6 +44,10 @@ public class InputHandler
         {
             return HandleCommandType("Space",false);
         }
+        if(ks.IsKeyDown(Keys.E))
+        {
+            return HandleCommandType("E",false);
+        }
         return null;
     }
 
@@ -286,6 +290,9 @@ public class InputHandler
             case "Space":
                 MeleeAttackCommand meleeAttackCommand = new MeleeAttackCommand();
                 return meleeAttackCommand;
+            case "E":
+                InteractCommand InteractCommand = new InteractCommand();
+                return InteractCommand;
         }
         return null;
     }

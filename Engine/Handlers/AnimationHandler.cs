@@ -79,24 +79,31 @@ public class AnimationHandler
     }
    public void UpdateAnimationList()
     {
-        List<Animation> toBeRemoved = [];
-        foreach(Entity entity in Globals.EntityHandler.GetEntityList())
+        try
         {
-            foreach(Animation animation in CurrentAnimations)
+            List<Animation> toBeRemoved = [];
+            foreach(Entity entity in Globals.EntityHandler.GetEntityList())
             {
-                if (animation.AnimationIdentifier != entity.AnimationIdentifier && animation.Entity.Name == entity.Name)
+                foreach(Animation animation in CurrentAnimations)
                 {
-                    toBeRemoved.Add(animation);
+                    if (animation.AnimationIdentifier != entity.AnimationIdentifier && animation.Entity.Name == entity.Name)
+                    {
+                        toBeRemoved.Add(animation);
+                    }
+                }
+                if (CurrentAnimations.FirstOrDefault(animation => animation.AnimationIdentifier == entity.AnimationIdentifier && animation.Entity.Name == entity.Name) == null )
+                {
+                    addNewAnimation(new Animation(entity,entity.AnimationIdentifier));
                 }
             }
-            if (CurrentAnimations.FirstOrDefault(animation => animation.AnimationIdentifier == entity.AnimationIdentifier && animation.Entity.Name == entity.Name) == null )
+            foreach(Animation animation in toBeRemoved)
             {
-                addNewAnimation(new Animation(entity,entity.AnimationIdentifier));
+                removeAnimation(animation);
             }
         }
-        foreach(Animation animation in toBeRemoved)
+        catch(Exception e)
         {
-            removeAnimation(animation);
+            Console.WriteLine("ERROR: " + e);
         }
     }
     #endregion Functions

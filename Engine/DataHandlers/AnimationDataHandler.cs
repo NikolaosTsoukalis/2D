@@ -12,7 +12,8 @@ public class AnimationDataHandler
         Walk,
         Run,
         MeleeAttack,
-        RangedAttack
+        RangedAttack,
+        Interact
     }
 
     private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> playerAnimationData;
@@ -45,7 +46,8 @@ public class AnimationDataHandler
         {
             { AnimationIdentifier.Walk,new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"])},
             { AnimationIdentifier.Idle,new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"])},
-            { AnimationIdentifier.Run,new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])}
+            { AnimationIdentifier.Run,new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])},
+            { AnimationIdentifier.Interact,new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"])}
         };
     }
 

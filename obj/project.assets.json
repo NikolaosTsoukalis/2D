@@ -243,11 +243,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\ntosu\\Desktop\\2D_RPG\\2D_RPG.csproj",
+      "projectUniqueName": "C:\\Users\\ntosu\\Desktop\\2D_RPG\\2D_RPG.csproj",
       "projectName": "2D_RPG",
-      "projectPath": "c:\\Users\\ntosu\\Desktop\\2D_RPG\\2D_RPG.csproj",
+      "projectPath": "C:\\Users\\ntosu\\Desktop\\2D_RPG\\2D_RPG.csproj",
       "packagesPath": "C:\\Users\\ntosu\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\ntosu\\Desktop\\2D_RPG\\obj\\",
+      "outputPath": "C:\\Users\\ntosu\\Desktop\\2D_RPG\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ntosu\\AppData\\Roaming\\NuGet\\NuGet.Config"

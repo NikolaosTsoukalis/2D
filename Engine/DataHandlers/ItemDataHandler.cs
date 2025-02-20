@@ -19,7 +19,7 @@ public class ItemDataHandler
 
     public enum Materials{}
 
-    public enum EquipableItemTypes
+    public enum ArmorItemTypes
     {
         Helmet,
         Chestpiece,
@@ -28,6 +28,10 @@ public class ItemDataHandler
     }
 
     public enum SpecialItems{}
+
+    public enum RangedWeapons{}
+
+    public enum MagicWeapons{}
 
     #endregion Enums
     
@@ -43,31 +47,13 @@ public class ItemDataHandler
 
     public enum MeleeWeapons
     {
-        ShortSword
+        ShortSword,
+        Fist
     }
 
-    public enum RangedWeapons{}
-
-    public enum MagicWeapons{}
-
-    private static Dictionary<string,int[]> meleeWeaponAttributeData;
-    public static Dictionary<string,int[]> MeleeWeaponAttributeData
-    {
-        get{return meleeWeaponAttributeData;}
-    }
-
-    private static Dictionary<string,int[]> meleeWeaponHitboxData;
-    public static Dictionary<string,int[]> MeleeWeaponHitboxData
-    {
-        get{return meleeWeaponHitboxData;}
-        
-    }
-
-    private static Dictionary<string,int[]> meleeWeaponInventoryData;
-    public static Dictionary<string,int[]> MeleeWeaponInventoryData
-    {
-        get{return meleeWeaponInventoryData;}
-    }
+    private static Dictionary<string,int[]> MeleeWeaponAttributeData {get;set;}
+    private static Dictionary<string,int[]> MeleeWeaponHitboxData {get;set;}
+    private static Dictionary<string,int[]> MeleeWeaponInventoryData {get;set;}
 
     #endregion MeleeWeaponData
 
@@ -75,23 +61,25 @@ public class ItemDataHandler
 
     public static void LoadMeleeWeaponAttributeDataDictionary() // {damage, x, y, z}
     {
-        meleeWeaponAttributeData = new Dictionary<string, int[]> 
+        MeleeWeaponAttributeData = new Dictionary<string, int[]> 
         {
-            {MeleeWeapons.ShortSword.ToString(),[10] }
+            { MeleeWeapons.ShortSword.ToString(),[10] },
+            { MeleeWeapons.Fist.ToString(),[2] }
         };
     }
 
     public static void LoadMeleeWeaponHitboxDataDictionary() // x,y,width,height
     {
-        meleeWeaponHitboxData = new Dictionary<string, int[]> 
+        MeleeWeaponHitboxData = new Dictionary<string, int[]> 
         {
-            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] }
+            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] },
+            { MeleeWeapons.Fist.ToString(),[20,20,20,40] }
         };
     }
 
     public static void LoadMeleeWeaponInventoryDataDictionary() // x,y,width,height
     {
-        meleeWeaponInventoryData = new Dictionary<string, int[]> 
+        MeleeWeaponInventoryData = new Dictionary<string, int[]> 
         {
             { MeleeWeapons.ShortSword.ToString(),[] }
         };
@@ -107,17 +95,8 @@ public class ItemDataHandler
         IronChestPlate
     }
 
-    private static Dictionary<string,int[]> chestpieceAttributeData;
-    public static Dictionary<string,int[]> ChestpieceAttributeData
-    {
-        get{return chestpieceAttributeData;}
-    }
-
-    private static Dictionary<string,int[]> chestpieceInventoryData;
-    public static Dictionary<string,int[]> ChestpieceInventoryData
-    {
-        get{return chestpieceInventoryData;} 
-    }
+    private static Dictionary<string,int[]> ChestpieceAttributeData {get;set;}
+    private static Dictionary<string,int[]> ChestpieceInventoryData {get;set;}
 
     #endregion ChestpieceData
 
@@ -125,7 +104,7 @@ public class ItemDataHandler
 
     public static void LoadChestpieceDictionary() // {defence, x, y, z}
     {
-        chestpieceAttributeData = new Dictionary<string, int[]> 
+        ChestpieceAttributeData = new Dictionary<string, int[]> 
         {
             { ChestpieceTypes.LeatherTunic.ToString(),[50] }
         };
@@ -133,12 +112,7 @@ public class ItemDataHandler
 
     #endregion ChestpieceFunctions
 
-    private static Dictionary<string,string[]> foodData;
-    public static Dictionary<string,string[]> FoodData
-    {
-        get{return foodData;}
-        
-    }
+    public static Dictionary<string,string[]> FoodData {get;set;}
 
     public ItemDataHandler()
     {
@@ -157,7 +131,7 @@ public class ItemDataHandler
 
     public static void LoadFoodDictionary()
     {
-        foodData = new Dictionary<string, string[]> {};
+        FoodData = new Dictionary<string, string[]> {};
     }    
 
     public int[] GetEquippableItemAttributeData(string itemName)
@@ -178,7 +152,7 @@ public class ItemDataHandler
         return tempData;
     }
 
-    public Rectangle getWeaponHitBox(Globals.Directions direction,Vector2 position, string itemName) 
+    public Rectangle getItemHitbox(Globals.Directions direction,Vector2 position, string itemName) 
     {
         int[] variables = ItemDataHandler.getItemHitboxData(itemName); // pass player weapon 
         
@@ -194,10 +168,20 @@ public class ItemDataHandler
                 return new Rectangle((int)(position.X),(int)(position.Y + variables[1]),variables[2],variables[3]);
                 
             case Globals.Directions.Right:
-                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);
-                
+                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);  
+
             case Globals.Directions.UpLeft:
                 return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.UpRight:
+                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.DownLeft:
+                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y + variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.DownRight:
+                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+                
             default:
                 return new();
         }
@@ -221,5 +205,5 @@ public class ItemDataHandler
         }
     }
 
-        #endregion GeneralFunctions
+    #endregion GeneralFunctions
 }

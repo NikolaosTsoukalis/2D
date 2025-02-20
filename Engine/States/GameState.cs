@@ -61,6 +61,10 @@ public class GameState : State
         {
             Globals.CollisionHandler.DebugDraw(main);
         }
+        if(Globals.drawInteraction)
+        {
+            Globals.SpriteBatch.DrawString(main.MyFont, "Fuck you!", new Vector2(200, 300), Color.White);
+        }
 
         Globals.SpriteBatch.End();
     }

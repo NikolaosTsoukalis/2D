@@ -21,8 +21,6 @@ public class MovingEntity : Entity
     }
 
     private Vector2 newPosition;
-
-    private Vector2 pastPosition;
     private Vector2 currentPosition;
 
     #endregion Values
@@ -35,6 +33,22 @@ public class MovingEntity : Entity
     #endregion Constructors
 
     #region Functions
+
+    public virtual void AssignAttributes(int[] attributes)
+    { 
+        //{HostileEnemyType},string[{"HP","DMG","SPEED","RUNNINGSPEED","ATTACKPOWER"}]
+        try
+        {
+            //int[] attributes = Globals.EntityDataHandler.GetEntityAttributeData(this.Name);
+            this.Speed = attributes[2];
+            this.RunningSpeed = attributes[3];
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+        }
+
+    }
 
     public bool Move(Globals.Directions direction, bool isRunning)
     {

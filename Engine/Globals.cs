@@ -29,6 +29,15 @@ public class Globals
         DownLeft
     }
 
+    public enum AttributesTypes
+    {
+        Speed,
+        RunningSpeed,
+        HP,
+        AttackPower,
+        
+    }
+
     #endregion Enums
 
     #region Values
@@ -195,6 +204,8 @@ public class Globals
     public static float FPS = 60f;
 
     public static bool enableDebugs = false;
+
+    public static bool drawInteraction = false;
 
     #endregion Values
 

@@ -1,3 +1,5 @@
+using System;
+using System.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -33,32 +35,46 @@ public class CombatEntity : MovingEntity
 
     public CombatEntity(string entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-        AssignAttributes();
+        AssignAttributes(Globals.EntityDataHandler.GetHostileEntityAttributeData(this.Name));
     }
 
-    public virtual void AssignAttributes()
+    public override void AssignAttributes(int[] attributes)
     { 
-        base.Speed = 3;
-        base.RunningSpeed = 4;
-        HP = 100;
-        AttackPower = 10;
-        MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
+        try
+        {
+            base.AssignAttributes(attributes); //GET DATA FROM SAVE FILES.
+            HP = attributes[1];
+            AttackPower = attributes[4];
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+        
     }
 
     public virtual void MeleeAttack()
     {
-        Rectangle attackHitbox = Globals.ItemDataHandler.getWeaponHitBox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
-        CombatEntity entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        CombatEntity entityGettingAttacked = null;
+        Rectangle attackHitbox = Globals.EntityDataHandler.getHostileEntityAttackHitBox(this.Direction,this.Position, this.Name.ToString());
+        if(Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox).GetType() == typeof(CombatEntity))
+        {
+            entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        }
         
         if(entityGettingAttacked != null)
         {
-            entityGettingAttacked.GetAttacked(Globals.ItemDataHandler.GetEquippableItemAttributeData(this.MeleeWeaponEquiped.ToString())[0]);
+            entityGettingAttacked.GetAttacked(this.AttackPower);
+        }
+        else
+        {
+            Console.WriteLine("THIS CANNOT BE ATTACKED!");
         }
     }
 
     public virtual bool GetAttacked(float damageTaken)
     {
-
+        //damage taken should be overriden by a method that takes into account all attributes/abillities.
         HP -= damageTaken;
         return true;
     }

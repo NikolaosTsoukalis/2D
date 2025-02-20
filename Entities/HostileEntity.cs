@@ -7,18 +7,21 @@ public class HostileEntity : CombatEntity
 
     public HostileEntity(EntityDataHandler.HostileEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(), texture, position)
     {
-        AssignAttributes();
+        AssignAttributes(Globals.EntityDataHandler.GetHostileEntityAttributeData(this.Name));
     }
 
-    public override void AssignAttributes()
+    public override void AssignAttributes(int[] attributes)
     {
-        base.AssignAttributes();
-        /* 
-        base.Speed = 3;
-        base.RunningSpeed = 4;
-        HP = 100;
-        AttackPower = 10;
-        MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
-        */
+        base.AssignAttributes(attributes);
+    }
+
+    public override void getInteractedWith()
+    {
+        Globals.drawInteraction = !Globals.drawInteraction;
+    }
+
+    public override void MeleeAttack()
+    {
+        base.MeleeAttack();
     }
 }

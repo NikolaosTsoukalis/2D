@@ -169,6 +169,13 @@
 /processorParam:TextureFormat=Color
 /build:Cup_Coffee_Animation2.gif
 
+#begin MyFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:MyFont.spritefont
+
 #begin Slime_Walk_strip48.png
 /importer:TextureImporter
 /processor:TextureProcessor

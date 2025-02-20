@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
@@ -20,37 +22,102 @@ public class EntityDataHandler
         Wolf
     }
 
-    private static Dictionary<HostileEntityTypes,string[]> hostileEntityData;
+    private static Dictionary<HostileEntityTypes,int[]> hostileEntityData;
 
-    public static Dictionary<HostileEntityTypes,string[]> HostileEntityData
+    public static Dictionary<HostileEntityTypes,int[]> HostileEntityData
     {
         get{return hostileEntityData;}
         set{hostileEntityData = value;}
     }
 
+    private static Dictionary<HostileEntityTypes,int[]> hostileEntityHitboxData;
+
+    public static Dictionary<HostileEntityTypes,int[]> HostileEntityHitboxData
+    {
+        get{return hostileEntityHitboxData;}
+        set{hostileEntityHitboxData = value;}
+    }
+
     public EntityDataHandler(GameTime gameTime, Game game){}
 
-/*
-    public static void LoadPlayerVariables()
+    public static void LoadHostileEntityAttributeDictionary()
     {
-        //Format : {Texture2D},string[{"entityName","totalFrames","timeOfEachFrame"}]
-        EntityData = new Dictionary<GeneralEntityTypes,string[]>
+        //{HostileEnemyType},string[{"HP","DMG","SPEED","RUNNINGSPEED","ATTACKPOWER"}]
+        HostileEntityData = new Dictionary<HostileEntityTypes,int[]>
         {
-            { GeneralEntityTypes.Player,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"])},
-            { GeneralEntityTypes.Slime,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"])},
-            { GeneralEntityTypes.Run,new Tuple<Texture2D,string[]>(Globals.content.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"])}
+            { HostileEntityTypes.Slime,[100,1,3,4,10]},
+            { HostileEntityTypes.Skeleton,[32,32]},
+            { HostileEntityTypes.Wolf,[32,32]}
         };
     }
-*/
-    public static void LoadHostileEntityDictionary()
+
+    public static void LoadEntityHitboxDataDictionary() // x,y,width,height
     {
-        //Format : {HostileEnemyType},string[{"HP","DMG","ATTSPD","DEFENCE","MOVSPEED"}]
-        HostileEntityData = new Dictionary<HostileEntityTypes,string[]>
+        HostileEntityHitboxData = new Dictionary<HostileEntityTypes, int[]> 
         {
-            { HostileEntityTypes.Slime,["1","1","1","1"]},
-            { HostileEntityTypes.Skeleton,["32","0.3"]},
-            { HostileEntityTypes.Wolf,["32","0.3"]}
+            { HostileEntityTypes.Slime,[50,50,50,100] },
+            { HostileEntityTypes.Skeleton,[20,20,20,40] }
         };
     }
-    
+
+    public int[] GetHostileEntityAttributeData(string entityName)
+    {
+        int[] tempData = null;
+
+        if (Enum.TryParse(entityName, true, out HostileEntityTypes entity))
+        {
+            //LoadMeleeWeaponDictionary();
+            tempData = HostileEntityData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
+        }
+            
+        return tempData;
+    }
+
+    public int[] GetHostileEntityAttackHitboxData(string entityName)
+    {
+        int[] tempData = null;
+
+        if (Enum.TryParse(entityName, true, out HostileEntityTypes entity))
+        {
+            //LoadMeleeWeaponDictionary();
+            tempData = HostileEntityHitboxData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
+        }
+            
+        return tempData;
+    }
+
+    public Rectangle getHostileEntityAttackHitBox(Globals.Directions direction,Vector2 position, string entityName) 
+    {
+        int[] variables = GetHostileEntityAttackHitboxData(entityName); // pass player weapon 
+        
+        switch(direction)
+        {
+            case Globals.Directions.Up:
+                return new Rectangle((int)(position.X),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.Left:
+                return new Rectangle((int)(position.X - variables[0]),(int)(position.Y),variables[2],variables[3]);
+
+            case Globals.Directions.Down:
+                return new Rectangle((int)(position.X),(int)(position.Y + variables[1]),variables[2],variables[3]);
+                
+            case Globals.Directions.Right:
+                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);  
+
+            case Globals.Directions.UpLeft:
+                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.UpRight:
+                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.DownLeft:
+                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y + variables[1]),variables[2],variables[3]);
+
+            case Globals.Directions.DownRight:
+                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+                
+            default:
+                return new();
+        }
+    }
 }

@@ -10,10 +10,13 @@ public abstract class Command
         EnableDebugsCommand,
         ExitCommand,
         FullScreenCommand,
-        MeleeAttackCommand
+        MeleeAttackCommand,
+        ToggleInventoryCommand,
+        InteractCommand
     }
 
     public CommandTypes commandType;
+    
     public Command(CommandTypes commandType)
     {
         this.commandType = commandType;
