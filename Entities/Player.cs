@@ -7,57 +7,36 @@ namespace _2D_RPG;
 
 public class Player : CombatEntity
 {
-    #region Enums
-
-    private enum AttributesTypes
-    {
-        Speed,
-        runningSpeed,
-        HP,
-        AttackPower
-    }
-    #endregion Enums
-    private float speed;
-    public float Speed 
-    {
-        get{ return speed;}
-        set{speed = value;}
-    }
-    private float runningSpeed;
-    public float RunningSpeed 
-    {
-        get{ return runningSpeed;}
-        set{runningSpeed = value;}
-    }
-
-    private float hp;
-    public float HP 
-    {
-        get{ return hp;}
-        set{hp = value;}
-    }
-    private float attackPower;
-    public float AttackPower 
-    {
-        get{ return attackPower;}
-        set{attackPower = value;}
-    }
-
     public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped;
 
     public Player(EntityDataHandler.GeneralEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
-        AssignAttributes();
+        //AssignAttributes(Globals.EntityDataHandler.GetEntityAttributeData(this.Name)); //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES
     }
 
-    public override void AssignAttributes()
+    public override void AssignAttributes(int[] attributes)
     {
-        base.AssignAttributes();
+        base.AssignAttributes(attributes);
+        MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword; //GET DATA FROM SAVE FILES.
     }
 
     public override void MeleeAttack()
     {
-        base.MeleeAttack();
+        CombatEntity entityGettingAttacked = null;
+        Rectangle attackHitbox = Globals.ItemDataHandler.getItemHitbox(this.Direction,this.Position, this.MeleeWeaponEquiped.ToString());
+        if(Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox).GetType() == typeof(CombatEntity))
+        {
+            entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+        }
+        
+        if(entityGettingAttacked != null)
+        {
+            entityGettingAttacked.GetAttacked(Globals.ItemDataHandler.GetEquippableItemAttributeData(this.MeleeWeaponEquiped.ToString())[0]);
+        }
+        else
+        {
+            Console.WriteLine("THIS CANNOT BE ATTACKED!");
+        }
     }
 
     public override bool GetAttacked(float damageTaken)
@@ -68,20 +47,17 @@ public class Player : CombatEntity
 
     public override void Interact()
     {
-        var entityGettingInteracted = new(null);
-        Rectangle interactHitbox = Globals.ItemDataHandler.getHitBox(this.Direction,this.Position, ItemDataHandler.MeleeWeapons.Fist.ToString());
-        if(Globals.CollisionHandler.getCollidingEntity(this.Name,interactHitbox).IsInteractable)
+        Rectangle interactHitbox = Globals.ItemDataHandler.getItemHitbox(this.Direction,this.Position, ItemDataHandler.MeleeWeapons.Fist.ToString());
+
+        var entityGettingInteracted = Globals.CollisionHandler.getCollidingEntity(this.Name,interactHitbox);
+
+        if(entityGettingInteracted != null && entityGettingInteracted.IsInteractable)
         {
-            var entityGettingInteracted = Globals.CollisionHandler.getCollidingEntity(this.Name,interactHitbox);
-        }
-        
-        if(entityGettingInteracted != null)
-        {
-            entityGettingAttacked.GetAttacked(Globals.ItemDataHandler.GetEquippableItemAttributeData(this.MeleeWeaponEquiped.ToString())[0]);
+            entityGettingInteracted.getInteractedWith();
         }
         else
         {
-            Console.WriteLine("THIS CANNOT BE ATTACKED!");
+            Console.WriteLine("Nothing to Interact with!");
         }
     }
 }

@@ -82,5 +82,7 @@ public abstract class Entity
 
     public virtual void Interact(){}
 
+    public virtual void getInteractedWith(){}
+
     #endregion Functions
 }

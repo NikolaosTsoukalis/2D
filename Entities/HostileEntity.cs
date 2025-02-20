@@ -21,4 +21,9 @@ public class HostileEntity : CombatEntity
         MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword;
         */
     }
+
+    public override void getInteractedWith()
+    {
+        Globals.drawInteraction = !Globals.drawInteraction;
+    }
 }

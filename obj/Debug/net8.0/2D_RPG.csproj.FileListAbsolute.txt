@@ -85,3 +85,4 @@ c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Slime_Walk_strip48.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Controls_Menu.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Cup_Coffee_Animation2.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Slime_Walk_strip48.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\MyFont.xnb

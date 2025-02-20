@@ -21,8 +21,6 @@ public class MovingEntity : Entity
     }
 
     private Vector2 newPosition;
-
-    private Vector2 pastPosition;
     private Vector2 currentPosition;
 
     #endregion Values

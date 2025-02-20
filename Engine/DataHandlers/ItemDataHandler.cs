@@ -19,7 +19,7 @@ public class ItemDataHandler
 
     public enum Materials{}
 
-    public enum EquipableItemTypes
+    public enum ArmorItemTypes
     {
         Helmet,
         Chestpiece,
@@ -28,6 +28,10 @@ public class ItemDataHandler
     }
 
     public enum SpecialItems{}
+
+    public enum RangedWeapons{}
+
+    public enum MagicWeapons{}
 
     #endregion Enums
     
@@ -46,10 +50,6 @@ public class ItemDataHandler
         ShortSword,
         Fist
     }
-
-    public enum RangedWeapons{}
-
-    public enum MagicWeapons{}
 
     private static Dictionary<string,int[]> MeleeWeaponAttributeData {get;set;}
     private static Dictionary<string,int[]> MeleeWeaponHitboxData {get;set;}
@@ -131,7 +131,7 @@ public class ItemDataHandler
 
     public static void LoadFoodDictionary()
     {
-        foodData = new Dictionary<string, string[]> {};
+        FoodData = new Dictionary<string, string[]> {};
     }    
 
     public int[] GetEquippableItemAttributeData(string itemName)
