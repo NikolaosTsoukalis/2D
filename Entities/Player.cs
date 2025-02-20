@@ -11,7 +11,7 @@ public class Player : CombatEntity
 
     public Player(EntityDataHandler.GeneralEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
-        //AssignAttributes(Globals.EntityDataHandler.GetEntityAttributeData(this.Name)); //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES
+        //AssignAttributes(Globals.EntityDataHandler.GetEntityAttributeData(this.Name)); //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES.
     }
 
     public override void AssignAttributes(int[] attributes)

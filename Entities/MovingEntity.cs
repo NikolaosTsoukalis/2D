@@ -34,6 +34,22 @@ public class MovingEntity : Entity
 
     #region Functions
 
+    public virtual void AssignAttributes(int[] attributes)
+    { 
+        //{HostileEnemyType},string[{"HP","DMG","SPEED","RUNNINGSPEED","ATTACKPOWER"}]
+        try
+        {
+            //int[] attributes = Globals.EntityDataHandler.GetEntityAttributeData(this.Name);
+            this.Speed = attributes[2];
+            this.RunningSpeed = attributes[3];
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+        }
+
+    }
+
     public bool Move(Globals.Directions direction, bool isRunning)
     {
         this.newPosition = new();

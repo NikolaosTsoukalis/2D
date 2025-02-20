@@ -86,9 +86,9 @@ public class EntityDataHandler
         return tempData;
     }
 
-    public Rectangle getHostileEntityAttackHitBox(Globals.Directions direction,Vector2 position, string itemName) 
+    public Rectangle getHostileEntityAttackHitBox(Globals.Directions direction,Vector2 position, string entityName) 
     {
-        int[] variables = GetHostileEntityAttackHitboxData(itemName); // pass player weapon 
+        int[] variables = GetHostileEntityAttackHitboxData(entityName); // pass player weapon 
         
         switch(direction)
         {
