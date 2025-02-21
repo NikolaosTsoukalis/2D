@@ -36,11 +36,11 @@ public class CombatEntity : MovingEntity
 
     public CombatEntity(string entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-        AssignAttributes(Globals.EntityDataHandler.GetEntityAttributeData(this.Name));
-        AssignHitbox(this,null);
+        AssignAttributes();
+        AssignHitbox(null);
     }
 
-    public override void AssignAttributes(int[] attributes)
+    public override void AssignAttributes()
     { 
         try
         {
@@ -48,9 +48,9 @@ public class CombatEntity : MovingEntity
             //intellect
             //stamina?
             //etc (everything that in not assign at parent method calls.)   
-            this.ModifyAttribute(Globals.AttributeTypes.HP,attributes[1]);  
-            this.ModifyAttribute(Globals.AttributeTypes.AttackPower,attributes[4]);          
-            base.AssignAttributes(attributes);
+            this.ModifyAttribute(Globals.AttributeTypes.HP,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.HP));  
+            this.ModifyAttribute(Globals.AttributeTypes.AttackPower,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.AttackPower));          
+            base.AssignAttributes();
         }
         catch(Exception e)
         {
@@ -84,9 +84,9 @@ public class CombatEntity : MovingEntity
         return true;
     }
 
-    public void AssignHitbox(Entity entity,string weaponName)
+    public void AssignHitbox(string weaponName)
     {
-        if(entity.GetType() == typeof(Player))
+        if(weaponName != null)
         {
             AttackHitbox = Globals.ItemDataHandler.getItemHitbox(this.Direction,this.Position, weaponName);
         }

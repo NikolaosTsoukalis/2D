@@ -93,10 +93,7 @@ public abstract class Entity
 
     public virtual void getInteractedWith(){}
 
-    public virtual void AssignAttributes(int[] attributes)
-    {
-        LoadAttributes();
-    }
+    public virtual void AssignAttributes(){}
 
     public int GetAttribute(Globals.AttributeTypes type)
     {
@@ -111,24 +108,6 @@ public abstract class Entity
         {
             int currentValue = (int)prop.GetValue(this);
             prop.SetValue(this, currentValue + amount);
-        }
-    }
-
-    public void LoadAttributes()
-    {
-        try
-        {
-            if(this.Attributes != null)
-            {
-                foreach(var item in this.Attributes)
-                {
-                    ModifyAttribute(item.Key,item.Value);
-                }
-            }   
-        }
-        catch(Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
         }
     }
 

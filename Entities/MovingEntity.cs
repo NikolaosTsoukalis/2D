@@ -8,18 +8,8 @@ namespace _2D_RPG;
 public class MovingEntity : Entity
 {
     #region Values
-    private float speed;
-    public float Speed 
-    {
-        get{ return speed;}
-        set{speed = value;}
-    }
-    private float runningSpeed;
-    public float RunningSpeed 
-    {
-        get{ return runningSpeed;}
-        set{runningSpeed = value;}
-    }
+    private float Speed {get;set;}
+    private float RunningSpeed {get;set;}
 
     private Vector2 newPosition;
     private Vector2 currentPosition;
@@ -31,33 +21,25 @@ public class MovingEntity : Entity
 
     public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-        AssignAttributes(Globals.EntityDataHandler.GetEntityAttributeData(this.Name));
+        AssignAttributes();
     }
 
     #endregion Constructors
 
     #region Functions
 
-    public override void AssignAttributes(int[] attributes)
+    public override void AssignAttributes()
     { 
         try
         {
-            if(!this.Attributes.ContainsKey(Globals.AttributeTypes.Speed))
-            {
-                this.Attributes.Add(Globals.AttributeTypes.Speed,attributes[2]);
-                this.ModifyAttribute(Globals.AttributeTypes.Speed,Attributes.GetValueOrDefault(Globals.AttributeTypes.Speed));
-            }
-            if(!this.Attributes.ContainsKey(Globals.AttributeTypes.RunningSpeed))
-            {
-                this.Attributes.Add(Globals.AttributeTypes.RunningSpeed,attributes[3]);
-                this.ModifyAttribute(Globals.AttributeTypes.Speed,Attributes.GetValueOrDefault(Globals.AttributeTypes.RunningSpeed));
-            }
+            this.ModifyAttribute(Globals.AttributeTypes.Speed,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.Speed));
+            this.ModifyAttribute(Globals.AttributeTypes.RunningSpeed,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.RunningSpeed));
         }
         catch(Exception e)
         {
             Console.WriteLine("ERROR: " + e);
         }
-        base.AssignAttributes(attributes);
+        base.AssignAttributes();
     }
 
     public bool Move(Globals.Directions direction, bool isRunning)
@@ -90,8 +72,8 @@ public class MovingEntity : Entity
             case Globals.Directions.UpRight:
                 if(isRunning)
                 {          
-                    newPosition.Y -= runningSpeed;
-                    newPosition.X += runningSpeed;
+                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else     

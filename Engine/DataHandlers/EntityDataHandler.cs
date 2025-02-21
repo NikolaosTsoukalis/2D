@@ -22,32 +22,19 @@ public class EntityDataHandler
         Wolf
     }
 
-    private static Dictionary<HostileEntityTypes,int[]> hostileEntityData;
-
-    public static Dictionary<HostileEntityTypes,int[]> HostileEntityData
-    {
-        get{return hostileEntityData;}
-        set{hostileEntityData = value;}
-    }
-
-    private static Dictionary<HostileEntityTypes,int[]> hostileEntityHitboxData;
-
-    public static Dictionary<HostileEntityTypes,int[]> HostileEntityHitboxData
-    {
-        get{return hostileEntityHitboxData;}
-        set{hostileEntityHitboxData = value;}
-    }
+    private static Dictionary<HostileEntityTypes,Dictionary<Globals.AttributeTypes, int>> HostileEntityAttributeData {get;set;}
+    private static Dictionary<HostileEntityTypes,int[]> HostileEntityHitboxData {get;set;}
 
     public EntityDataHandler(GameTime gameTime, Game game){}
 
     public static void LoadHostileEntityAttributeDictionary()
     {
         //{HostileEnemyType},string[{"HP","DMG","SPEED","RUNNINGSPEED","ATTACKPOWER"}]
-        HostileEntityData = new Dictionary<HostileEntityTypes,int[]>
+        HostileEntityAttributeData = new Dictionary<HostileEntityTypes,Dictionary<Globals.AttributeTypes, int>>
         {
-            { HostileEntityTypes.Slime,[100,1,3,4,10]},
-            { HostileEntityTypes.Skeleton,[32,32]},
-            { HostileEntityTypes.Wolf,[32,32]}
+            { HostileEntityTypes.Slime,GetSpecificEntityAttributeDictionary(HostileEntityTypes.Slime.ToString())},
+            { HostileEntityTypes.Skeleton,GetSpecificEntityAttributeDictionary(HostileEntityTypes.Skeleton.ToString())},
+            { HostileEntityTypes.Wolf,GetSpecificEntityAttributeDictionary(HostileEntityTypes.Wolf.ToString())}
         };
     }
 
@@ -60,17 +47,67 @@ public class EntityDataHandler
         };
     }
 
-    public int[] GetEntityAttributeData(string entityName)
+    public Dictionary<Globals.AttributeTypes, int> GetEntityAttributeData(string entityName)
     {
-        int[] tempData = null;
+        Dictionary<Globals.AttributeTypes, int> tempData = null;
 
         if (Enum.TryParse(entityName, true, out HostileEntityTypes entity))
         {
             //LoadMeleeWeaponDictionary();
-            tempData = HostileEntityData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
+            tempData = HostileEntityAttributeData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
         }
             
         return tempData;
+    }
+
+    //Return a specific attirbute ( ex. HP ) of an Entity.
+    //First it looks for the correct Dictionary of the entity, then inside the dictionary there is
+    //another dicionary that has all the attirbutes. There it looks for the attribute that is asked as the parameter.
+    public int GetSpecificEntityAttributeData(string entityName, Globals.AttributeTypes type) 
+    {
+        Dictionary<Globals.AttributeTypes, int> tempData = null;
+        int attribute = 0;
+
+        if (Enum.TryParse(entityName, true, out HostileEntityTypes entity))
+        {
+            tempData = HostileEntityAttributeData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
+            attribute = tempData.FirstOrDefault(attribute => attribute.Key.ToString() == type.ToString() ).Value;
+        }
+        return attribute;
+    }
+
+    public static Dictionary<Globals.AttributeTypes, int> GetSpecificEntityAttributeDictionary(string entityName)
+    {
+        try
+        {
+            switch(entityName)
+            {
+                case "Slime":
+                    return new Dictionary<Globals.AttributeTypes, int> ()
+                    {
+                        {Globals.AttributeTypes.HP,100},
+                        {Globals.AttributeTypes.AttackPower,10},
+                        {Globals.AttributeTypes.Speed,3},
+                        {Globals.AttributeTypes.RunningSpeed,4}
+                    };
+                    
+                case "Skeleton":
+                    return new Dictionary<Globals.AttributeTypes, int> ()
+                    {
+                        {Globals.AttributeTypes.HP,200},
+                        {Globals.AttributeTypes.AttackPower,20},
+                        {Globals.AttributeTypes.Speed,2},
+                        {Globals.AttributeTypes.RunningSpeed,3}
+                    };
+                default:
+                    return null;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.Write("THERE IS NO ENTITY WITH THE NAME : " + entityName);
+            return null;
+        }
     }
 
     public int[] GetEntityAttackHitboxData(string entityName)

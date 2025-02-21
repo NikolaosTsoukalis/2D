@@ -16,13 +16,13 @@ public class Player : CombatEntity
 
     public Player(EntityDataHandler.GeneralEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
-        //AssignAttributes(Globals.EntityDataHandler.GetEntityAttributeData(this.Name)); //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES.
+        AssignAttributes(); //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES.
         AssignIteractHitbox();    
     }
 
-    public override void AssignAttributes(int[] attributes)
+    public override void AssignAttributes()
     {
-        base.AssignAttributes(attributes); // not needed
+        base.AssignAttributes(); // not needed unless we add more attibutes here or do some attribute logic magic
         this.MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword; //GET DATA FROM SAVE FILES.
     }
 
