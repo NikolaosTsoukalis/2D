@@ -51,7 +51,7 @@ public class EntityDataHandler
         };
     }
 
-    public static void LoadEntityHitboxDataDictionary() // x,y,width,height
+    public static void LoadHostileEntityHitboxDataDictionary() // x,y,width,height
     {
         HostileEntityHitboxData = new Dictionary<HostileEntityTypes, int[]> 
         {
@@ -60,7 +60,7 @@ public class EntityDataHandler
         };
     }
 
-    public int[] GetHostileEntityAttributeData(string entityName)
+    public int[] GetEntityAttributeData(string entityName)
     {
         int[] tempData = null;
 
@@ -73,7 +73,7 @@ public class EntityDataHandler
         return tempData;
     }
 
-    public int[] GetHostileEntityAttackHitboxData(string entityName)
+    public int[] GetEntityAttackHitboxData(string entityName)
     {
         int[] tempData = null;
 
@@ -86,9 +86,9 @@ public class EntityDataHandler
         return tempData;
     }
 
-    public Rectangle getHostileEntityAttackHitBox(Globals.Directions direction,Vector2 position, string entityName) 
+    public Rectangle getEntityAttackHitBox(Globals.Directions direction,Vector2 position, string entityName) 
     {
-        int[] variables = GetHostileEntityAttackHitboxData(entityName); // pass player weapon 
+        int[] variables = GetEntityAttackHitboxData(entityName); // pass player weapon 
         
         switch(direction)
         {

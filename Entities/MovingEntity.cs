@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace _2D_RPG;
 
@@ -28,26 +29,35 @@ public class MovingEntity : Entity
     #region Constructors
     public MovingEntity(){}
 
-    public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position){}
+    public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
+    {
+        AssignAttributes(Globals.EntityDataHandler.GetEntityAttributeData(this.Name));
+    }
 
     #endregion Constructors
 
     #region Functions
 
-    public virtual void AssignAttributes(int[] attributes)
+    public override void AssignAttributes(int[] attributes)
     { 
-        //{HostileEnemyType},string[{"HP","DMG","SPEED","RUNNINGSPEED","ATTACKPOWER"}]
         try
         {
-            //int[] attributes = Globals.EntityDataHandler.GetEntityAttributeData(this.Name);
-            this.Speed = attributes[2];
-            this.RunningSpeed = attributes[3];
+            if(!this.Attributes.ContainsKey(Globals.AttributeTypes.Speed))
+            {
+                this.Attributes.Add(Globals.AttributeTypes.Speed,attributes[2]);
+                this.ModifyAttribute(Globals.AttributeTypes.Speed,Attributes.GetValueOrDefault(Globals.AttributeTypes.Speed));
+            }
+            if(!this.Attributes.ContainsKey(Globals.AttributeTypes.RunningSpeed))
+            {
+                this.Attributes.Add(Globals.AttributeTypes.RunningSpeed,attributes[3]);
+                this.ModifyAttribute(Globals.AttributeTypes.Speed,Attributes.GetValueOrDefault(Globals.AttributeTypes.RunningSpeed));
+            }
         }
         catch(Exception e)
         {
             Console.WriteLine("ERROR: " + e);
         }
-
+        base.AssignAttributes(attributes);
     }
 
     public bool Move(Globals.Directions direction, bool isRunning)
@@ -60,21 +70,21 @@ public class MovingEntity : Entity
             case Globals.Directions.Up:
                 if(isRunning)
                 {                   
-                    newPosition.Y -= runningSpeed;
+                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
                 }
                 else    
-                    newPosition.Y -= Speed;
+                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.Speed);
                 break;
             case Globals.Directions.UpLeft:
                 if(isRunning)
                 {                   
-                    newPosition.Y -= runningSpeed;
-                    newPosition.X -= runningSpeed;
+                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else                
-                    newPosition.Y -= Speed;
-                    newPosition.X -= Speed;
+                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.Speed);
                     newPosition = AdjustDiagonalPosition(newPosition);                    
                 break;
             case Globals.Directions.UpRight:
@@ -85,58 +95,58 @@ public class MovingEntity : Entity
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else     
-                    newPosition.Y -= Speed;
-                    newPosition.X += Speed;
+                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.Speed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 break;
             case Globals.Directions.Down:
                 if(isRunning)
                 {   
-                    newPosition.Y += runningSpeed;
+                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
                 }
                 else
                     
-                    newPosition.Y += Speed;
+                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.Speed);
                 break;
             case Globals.Directions.DownLeft:
                 if(isRunning)
                 {    
-                    newPosition.Y += runningSpeed;
-                    newPosition.X -= runningSpeed;
+                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else  
-                    newPosition.Y += Speed;
-                    newPosition.X -= Speed;
+                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.Speed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 break;
             case Globals.Directions.DownRight:
                 if(isRunning)
                 {     
-                    newPosition.Y += runningSpeed;
-                    newPosition.X += runningSpeed;
+                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else    
-                    newPosition.Y += Speed;
-                    newPosition.X += Speed;
+                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.Speed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 break;
             case Globals.Directions.Left:
                 if(isRunning)
                 {    
-                    newPosition.X -= runningSpeed;
+                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
                 }
                 else
-                    newPosition.X -= Speed;
+                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.Speed);
                 break;
             case Globals.Directions.Right:
                 if(isRunning)
                 {    
-                    newPosition.X += runningSpeed;
+                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
                 }
                 else    
-                    newPosition.X += Speed;
+                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.Speed);
                 break;
         }
         //this.pastPosition = Position;
@@ -152,7 +162,7 @@ public class MovingEntity : Entity
     public Vector2 AdjustDiagonalPosition(Vector2 newPosition)
     {
         float diagonalBuffer = (float)(1/Math.Sqrt(2));
-        if(newPosition.LengthSquared() > Speed * Speed || newPosition.LengthSquared() > runningSpeed * runningSpeed) // _speed*_speed = 1 with a _speed = 1
+        if(newPosition.LengthSquared() > this.GetAttribute(Globals.AttributeTypes.Speed) * this.GetAttribute(Globals.AttributeTypes.Speed) || newPosition.LengthSquared() > this.GetAttribute(Globals.AttributeTypes.RunningSpeed) * this.GetAttribute(Globals.AttributeTypes.RunningSpeed)) // _speed*_speed = 1 with a _speed = 1
         {
             newPosition *= diagonalBuffer; // adjust for 2 directions pressed at same time.
         }

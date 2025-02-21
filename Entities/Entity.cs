@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,6 +11,12 @@ public abstract class Entity
 {
     #region Values
 
+    private Dictionary<Globals.AttributeTypes,int> attributes;
+    public Dictionary<Globals.AttributeTypes,int> Attributes
+    {
+        get{return attributes;}
+        set{attributes = value;}
+    }
     private bool isInteractable;
     public bool IsInteractable 
     {
@@ -59,6 +67,7 @@ public abstract class Entity
         Name = entityName;
         Position = position;
         Texture = texture;
+        Attributes = new();
         InitiallizeGraphicalValues();
         IsInteractable = (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEntityTypes entity)); // THIS HAS TO CHANGE TO FIND AN INTERACTABLE SIGNATURE ON THE ENTITY.
     }
@@ -83,6 +92,45 @@ public abstract class Entity
     public virtual void Interact(){}
 
     public virtual void getInteractedWith(){}
+
+    public virtual void AssignAttributes(int[] attributes)
+    {
+        LoadAttributes();
+    }
+
+    public int GetAttribute(Globals.AttributeTypes type)
+    {
+        PropertyInfo prop = GetType().GetProperty(type.ToString());
+        return prop != null ? (int)prop.GetValue(this) : 0;
+    }
+
+    public void ModifyAttribute(Globals.AttributeTypes type, int amount)
+    {
+        PropertyInfo prop = GetType().GetProperty(type.ToString());
+        if (prop != null && prop.CanWrite)
+        {
+            int currentValue = (int)prop.GetValue(this);
+            prop.SetValue(this, currentValue + amount);
+        }
+    }
+
+    public void LoadAttributes()
+    {
+        try
+        {
+            if(this.Attributes != null)
+            {
+                foreach(var item in this.Attributes)
+                {
+                    ModifyAttribute(item.Key,item.Value);
+                }
+            }   
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+    }
 
     #endregion Functions
 }

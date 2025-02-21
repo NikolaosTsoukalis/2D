@@ -7,17 +7,6 @@ namespace _2D_RPG;
 
 public class CombatEntity : MovingEntity
 {
-    #region Enums
-
-    private enum AttributesTypes
-    {
-        Speed,
-        runningSpeed,
-        HP,
-        AttackPower
-    }
-    #endregion Enums
-
     private float hp;
     public float HP 
     {
@@ -31,20 +20,37 @@ public class CombatEntity : MovingEntity
         set{attackPower = value;}
     }
 
-    public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped;
+    private ItemDataHandler.MeleeWeapons meleeWeaponEquiped;
+    public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped 
+    {
+        get{ return meleeWeaponEquiped;}
+        set{meleeWeaponEquiped = value;}
+    }
+
+    private Rectangle attackHitBox;
+    public Rectangle AttackHitbox 
+    {
+        get{ return attackHitBox;}
+        set{attackHitBox = value;}
+    }
 
     public CombatEntity(string entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-        AssignAttributes(Globals.EntityDataHandler.GetHostileEntityAttributeData(this.Name));
+        AssignAttributes(Globals.EntityDataHandler.GetEntityAttributeData(this.Name));
+        AssignHitbox(this,null);
     }
 
     public override void AssignAttributes(int[] attributes)
     { 
         try
         {
-            base.AssignAttributes(attributes); //GET DATA FROM SAVE FILES.
-            HP = attributes[1];
-            AttackPower = attributes[4];
+            //defence
+            //intellect
+            //stamina?
+            //etc (everything that in not assign at parent method calls.)   
+            this.ModifyAttribute(Globals.AttributeTypes.HP,attributes[1]);  
+            this.ModifyAttribute(Globals.AttributeTypes.AttackPower,attributes[4]);          
+            base.AssignAttributes(attributes);
         }
         catch(Exception e)
         {
@@ -56,10 +62,9 @@ public class CombatEntity : MovingEntity
     public virtual void MeleeAttack()
     {
         CombatEntity entityGettingAttacked = null;
-        Rectangle attackHitbox = Globals.EntityDataHandler.getHostileEntityAttackHitBox(this.Direction,this.Position, this.Name.ToString());
-        if(Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox).GetType() == typeof(CombatEntity))
+        if(Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox).GetType() == typeof(CombatEntity))
         {
-            entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,attackHitbox);
+            entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox);
         }
         
         if(entityGettingAttacked != null)
@@ -77,6 +82,16 @@ public class CombatEntity : MovingEntity
         //damage taken should be overriden by a method that takes into account all attributes/abillities.
         HP -= damageTaken;
         return true;
+    }
+
+    public void AssignHitbox(Entity entity,string weaponName)
+    {
+        if(entity.GetType() == typeof(Player))
+        {
+            AttackHitbox = Globals.ItemDataHandler.getItemHitbox(this.Direction,this.Position, weaponName);
+        }
+        else
+            AttackHitbox = Globals.EntityDataHandler.getEntityAttackHitBox(this.Direction,this.Position, this.Name.ToString());
     }
 }
 

@@ -29,13 +29,14 @@ public class Globals
         DownLeft
     }
 
-    public enum AttributesTypes
+    public enum AttributeTypes
     {
         Speed,
         RunningSpeed,
         HP,
         AttackPower,
-        
+        Defence,
+        Intellect
     }
 
     #endregion Enums
