@@ -7,12 +7,13 @@ public class HostileEntity : CombatEntity
 
     public HostileEntity(EntityDataHandler.HostileEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(), texture, position)
     {
-        AssignAttributes(Globals.EntityDataHandler.GetHostileEntityAttributeData(this.Name));
+        AssignAttributes();
     }
 
-    public override void AssignAttributes(int[] attributes)
+    public override void AssignAttributes()
     {
-        base.AssignAttributes(attributes);
+        //add extras?
+        base.AssignAttributes();
     }
 
     public override void getInteractedWith()

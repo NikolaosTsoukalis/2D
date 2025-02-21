@@ -63,7 +63,7 @@ public class GameState : State
         }
         if(Globals.drawInteraction)
         {
-            Globals.SpriteBatch.DrawString(main.MyFont, "Fuck you!", new Vector2(200, 300), Color.White);
+            Globals.SpriteBatch.DrawString(main.MyFont, "FUCK OFF!", new Vector2(200, 300), Color.White);
         }
 
         Globals.SpriteBatch.End();

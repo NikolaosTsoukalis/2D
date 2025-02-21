@@ -18,10 +18,6 @@ public abstract class State
     public State(Main game)
     {
         main = game;
-
-        //graphicsDevice = game.GraphicsDevice;
-
-        //content = Globals.ContentManager;
     }
 
     #endregion Constructors
