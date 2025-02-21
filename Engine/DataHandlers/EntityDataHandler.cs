@@ -83,7 +83,7 @@ public class EntityDataHandler
     {
         NonHostileEntityHitboxData = new Dictionary<NonHostileEntityTypes, int[]> 
         {
-            { NonHostileEntityTypes.Player,[50,50,50,100] },
+            { NonHostileEntityTypes.Player,[20,20,20,40] },
             { NonHostileEntityTypes.Companion,[20,20,20,40] },
             { NonHostileEntityTypes.NPC,[20,20,20,40] }
         };
