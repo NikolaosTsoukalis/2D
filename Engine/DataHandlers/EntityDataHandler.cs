@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
 public class EntityDataHandler
-{
-    public enum GeneralEntityTypes
+{ 
+    #region Enums
+
+    public enum NonHostileEntityTypes
     {
         Player,
-        Enemy,
         NPC,
-        Item,
-        Environment
+        Companion
     }
 
     public enum HostileEntityTypes
@@ -22,19 +22,37 @@ public class EntityDataHandler
         Wolf
     }
 
+    #endregion Enums
+
+    #region Values
+
     private static Dictionary<HostileEntityTypes,Dictionary<Globals.AttributeTypes, int>> HostileEntityAttributeData {get;set;}
     private static Dictionary<HostileEntityTypes,int[]> HostileEntityHitboxData {get;set;}
 
-    public EntityDataHandler(GameTime gameTime, Game game){}
+    
+    private static Dictionary<NonHostileEntityTypes,Dictionary<Globals.AttributeTypes, int>> NonHostileEntityAttributeData {get;set;}
+    private static Dictionary<NonHostileEntityTypes,int[]> NonHostileEntityHitboxData {get;set;}
+
+    #endregion Values
+
+    #region Constructors
+
+    public EntityDataHandler(GameTime gameTime, Game game)
+    {
+        LoadHostileEntityAttributeDictionary();
+    }
+
+    #endregion Constructors    
+
+    #region HostileEntityFunctions
 
     public static void LoadHostileEntityAttributeDictionary()
     {
-        //{HostileEnemyType},string[{"HP","DMG","SPEED","RUNNINGSPEED","ATTACKPOWER"}]
         HostileEntityAttributeData = new Dictionary<HostileEntityTypes,Dictionary<Globals.AttributeTypes, int>>
         {
-            { HostileEntityTypes.Slime,GetSpecificEntityAttributeDictionary(HostileEntityTypes.Slime.ToString())},
-            { HostileEntityTypes.Skeleton,GetSpecificEntityAttributeDictionary(HostileEntityTypes.Skeleton.ToString())},
-            { HostileEntityTypes.Wolf,GetSpecificEntityAttributeDictionary(HostileEntityTypes.Wolf.ToString())}
+            { HostileEntityTypes.Slime,GetEntityAttributeDictionary(HostileEntityTypes.Slime.ToString())},
+            { HostileEntityTypes.Skeleton,GetEntityAttributeDictionary(HostileEntityTypes.Skeleton.ToString())},
+            { HostileEntityTypes.Wolf,GetEntityAttributeDictionary(HostileEntityTypes.Wolf.ToString())}
         };
     }
 
@@ -47,23 +65,38 @@ public class EntityDataHandler
         };
     }
 
-    public Dictionary<Globals.AttributeTypes, int> GetEntityAttributeData(string entityName)
-    {
-        Dictionary<Globals.AttributeTypes, int> tempData = null;
+    #endregion HostileEntityFunctions
 
-        if (Enum.TryParse(entityName, true, out HostileEntityTypes entity))
+    #region NonHostileEntityFunctions
+
+    public static void LoadNonHostileEntityAttributeDictionary()
+    {
+        NonHostileEntityAttributeData = new Dictionary<NonHostileEntityTypes,Dictionary<Globals.AttributeTypes, int>>
         {
-            //LoadMeleeWeaponDictionary();
-            tempData = HostileEntityAttributeData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
-        }
-            
-        return tempData;
+            { NonHostileEntityTypes.Player,GetEntityAttributeDictionary(NonHostileEntityTypes.Player.ToString())},
+            { NonHostileEntityTypes.Companion,GetEntityAttributeDictionary(NonHostileEntityTypes.Companion.ToString())},
+            { NonHostileEntityTypes.NPC,GetEntityAttributeDictionary(NonHostileEntityTypes.NPC.ToString())}
+        };
     }
+
+    public static void LoadNonHostileEntityHitboxDataDictionary() // x,y,width,height
+    {
+        NonHostileEntityHitboxData = new Dictionary<NonHostileEntityTypes, int[]> 
+        {
+            { NonHostileEntityTypes.Player,[50,50,50,100] },
+            { NonHostileEntityTypes.Companion,[20,20,20,40] },
+            { NonHostileEntityTypes.NPC,[20,20,20,40] }
+        };
+    }
+
+    #endregion NonHostileEntityFunctions
+    
+    #region GeneralPurposeFunctions
 
     //Return a specific attirbute ( ex. HP ) of an Entity.
     //First it looks for the correct Dictionary of the entity, then inside the dictionary there is
     //another dicionary that has all the attirbutes. There it looks for the attribute that is asked as the parameter.
-    public int GetSpecificEntityAttributeData(string entityName, Globals.AttributeTypes type) 
+    public int GetSpecificEntityAttributeValue(string entityName, Globals.AttributeTypes type) 
     {
         Dictionary<Globals.AttributeTypes, int> tempData = null;
         int attribute = 0;
@@ -76,7 +109,7 @@ public class EntityDataHandler
         return attribute;
     }
 
-    public static Dictionary<Globals.AttributeTypes, int> GetSpecificEntityAttributeDictionary(string entityName)
+    public static Dictionary<Globals.AttributeTypes, int> GetEntityAttributeDictionary(string entityName)
     {
         try
         {
@@ -157,4 +190,6 @@ public class EntityDataHandler
                 return new();
         }
     }
+    
+    #endregion GeneralPurposeFunctions
 }

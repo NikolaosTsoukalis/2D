@@ -72,8 +72,8 @@ public class ItemDataHandler
     {
         MeleeWeaponHitboxData = new Dictionary<string, int[]> 
         {
-            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] },
-            { MeleeWeapons.Fist.ToString(),[20,20,20,40] }
+            { MeleeWeapons.Fist.ToString(),[20,20,20,40] },
+            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] }
         };
     }
 

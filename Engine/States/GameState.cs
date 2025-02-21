@@ -6,7 +6,7 @@ namespace _2D_RPG;
 public class GameState : State
 {
     private Command command;
-    readonly Player player = new Player(EntityDataHandler.GeneralEntityTypes.Player,null,Vector2.Zero);
+    readonly Player player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,Vector2.Zero);
     readonly HostileEntity slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
 
     public GameState(Main main) : base(main)

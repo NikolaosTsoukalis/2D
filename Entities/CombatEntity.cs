@@ -48,8 +48,8 @@ public class CombatEntity : MovingEntity
             //intellect
             //stamina?
             //etc (everything that in not assign at parent method calls.)   
-            this.ModifyAttribute(Globals.AttributeTypes.HP,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.HP));  
-            this.ModifyAttribute(Globals.AttributeTypes.AttackPower,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.AttackPower));          
+            this.ModifyAttribute(Globals.AttributeTypes.HP,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.HP));  
+            this.ModifyAttribute(Globals.AttributeTypes.AttackPower,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.AttackPower));          
             base.AssignAttributes();
         }
         catch(Exception e)

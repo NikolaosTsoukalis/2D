@@ -14,7 +14,7 @@ public class Player : CombatEntity
         set{interactHitBox = value;}
     }
 
-    public Player(EntityDataHandler.GeneralEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
+    public Player(EntityDataHandler.NonHostileEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
         AssignAttributes(); //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES.
         AssignIteractHitbox();    

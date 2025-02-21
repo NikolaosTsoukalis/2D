@@ -75,11 +75,11 @@ public class AnimationDataHandler
     public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> GetAnimationDictionary(string entityName)
     {
         
-        if (Enum.TryParse(entityName, true, out EntityDataHandler.GeneralEntityTypes generalEntityType))
+        if (Enum.TryParse(entityName, true, out EntityDataHandler.NonHostileEntityTypes generalEntityType))
         {
             switch (generalEntityType)
             {
-                case EntityDataHandler.GeneralEntityTypes.Player:
+                case EntityDataHandler.NonHostileEntityTypes.Player:
                     return AnimationDataHandler.PlayerAnimationData;
             }
         }

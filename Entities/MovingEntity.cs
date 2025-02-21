@@ -32,8 +32,8 @@ public class MovingEntity : Entity
     { 
         try
         {
-            this.ModifyAttribute(Globals.AttributeTypes.Speed,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.Speed));
-            this.ModifyAttribute(Globals.AttributeTypes.RunningSpeed,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.RunningSpeed));
+            this.ModifyAttribute(Globals.AttributeTypes.Speed,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.Speed));
+            this.ModifyAttribute(Globals.AttributeTypes.RunningSpeed,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.RunningSpeed));
         }
         catch(Exception e)
         {
