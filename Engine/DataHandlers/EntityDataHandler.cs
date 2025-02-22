@@ -37,9 +37,15 @@ public class EntityDataHandler
 
     #region Constructors
 
-    public EntityDataHandler(GameTime gameTime, Game game)
+    public EntityDataHandler()
     {
+        //Load attribute dictionaries
         LoadHostileEntityAttributeDictionary();
+        LoadNonHostileEntityAttributeDictionary();
+
+        //Load hitbox dicitonaries
+        LoadHostileEntityHitboxDataDictionary();
+        LoadNonHostileEntityHitboxDataDictionary();
     }
 
     #endregion Constructors    
@@ -50,9 +56,9 @@ public class EntityDataHandler
     {
         HostileEntityAttributeData = new Dictionary<HostileEntityTypes,Dictionary<Globals.AttributeTypes, int>>
         {
-            { HostileEntityTypes.Slime,GetEntityAttributeDictionary(HostileEntityTypes.Slime.ToString())},
-            { HostileEntityTypes.Skeleton,GetEntityAttributeDictionary(HostileEntityTypes.Skeleton.ToString())},
-            { HostileEntityTypes.Wolf,GetEntityAttributeDictionary(HostileEntityTypes.Wolf.ToString())}
+            { HostileEntityTypes.Slime,GetEntityAttributeDictionary(HostileEntityTypes.Slime.ToString(),"Hostile")},
+            { HostileEntityTypes.Skeleton,GetEntityAttributeDictionary(HostileEntityTypes.Skeleton.ToString(),"Hostile")},
+            { HostileEntityTypes.Wolf,GetEntityAttributeDictionary(HostileEntityTypes.Wolf.ToString(),"Hostile")}
         };
     }
 
@@ -73,9 +79,9 @@ public class EntityDataHandler
     {
         NonHostileEntityAttributeData = new Dictionary<NonHostileEntityTypes,Dictionary<Globals.AttributeTypes, int>>
         {
-            { NonHostileEntityTypes.Player,GetEntityAttributeDictionary(NonHostileEntityTypes.Player.ToString())},
-            { NonHostileEntityTypes.Companion,GetEntityAttributeDictionary(NonHostileEntityTypes.Companion.ToString())},
-            { NonHostileEntityTypes.NPC,GetEntityAttributeDictionary(NonHostileEntityTypes.NPC.ToString())}
+            { NonHostileEntityTypes.Player,GetEntityAttributeDictionary(NonHostileEntityTypes.Player.ToString(),"NonHostile")},
+            { NonHostileEntityTypes.Companion,GetEntityAttributeDictionary(NonHostileEntityTypes.Companion.ToString(),"NonHostile")},
+            { NonHostileEntityTypes.NPC,GetEntityAttributeDictionary(NonHostileEntityTypes.NPC.ToString(),"NonHostile")}
         };
     }
 
@@ -101,40 +107,67 @@ public class EntityDataHandler
         Dictionary<Globals.AttributeTypes, int> tempData = null;
         int attribute = 0;
 
-        if (Enum.TryParse(entityName, true, out HostileEntityTypes entity))
+        if (Enum.TryParse(entityName, true, out HostileEntityTypes hostileEntity))
         {
             tempData = HostileEntityAttributeData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
             attribute = tempData.FirstOrDefault(attribute => attribute.Key.ToString() == type.ToString() ).Value;
         }
+        if (Enum.TryParse(entityName, true, out NonHostileEntityTypes nonHostileEntity))
+        {
+            tempData = NonHostileEntityAttributeData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
+            attribute = tempData.FirstOrDefault(attribute => attribute.Key.ToString() == type.ToString() ).Value;
+        }
+        
         return attribute;
     }
 
-    public static Dictionary<Globals.AttributeTypes, int> GetEntityAttributeDictionary(string entityName)
+    public static Dictionary<Globals.AttributeTypes, int> GetEntityAttributeDictionary(string entityName,string entityType)
     {
         try
         {
-            switch(entityName)
+            if(entityType == "Hostile")
             {
-                case "Slime":
-                    return new Dictionary<Globals.AttributeTypes, int> ()
-                    {
-                        {Globals.AttributeTypes.HP,100},
-                        {Globals.AttributeTypes.AttackPower,10},
-                        {Globals.AttributeTypes.Speed,3},
-                        {Globals.AttributeTypes.RunningSpeed,4}
-                    };
-                    
-                case "Skeleton":
-                    return new Dictionary<Globals.AttributeTypes, int> ()
-                    {
-                        {Globals.AttributeTypes.HP,200},
-                        {Globals.AttributeTypes.AttackPower,20},
-                        {Globals.AttributeTypes.Speed,2},
-                        {Globals.AttributeTypes.RunningSpeed,3}
-                    };
-                default:
-                    return null;
+                switch(entityName)
+                {
+                    case "Slime":
+                        return new Dictionary<Globals.AttributeTypes, int> ()
+                        {
+                            {Globals.AttributeTypes.HP,100},
+                            {Globals.AttributeTypes.AttackPower,10},
+                            {Globals.AttributeTypes.Speed,3},
+                            {Globals.AttributeTypes.RunningSpeed,4}
+                        };
+                        
+                    case "Skeleton":
+                        return new Dictionary<Globals.AttributeTypes, int> ()
+                        {
+                            {Globals.AttributeTypes.HP,200},
+                            {Globals.AttributeTypes.AttackPower,20},
+                            {Globals.AttributeTypes.Speed,2},
+                            {Globals.AttributeTypes.RunningSpeed,3}
+                        };
+                    default:
+                        return null;
+                }
             }
+            else if(entityType == "NonHostile")
+            {
+                switch(entityName)
+                {
+                    case "Player":
+                        return new Dictionary<Globals.AttributeTypes, int> ()
+                        {
+                            {Globals.AttributeTypes.HP,100},
+                            {Globals.AttributeTypes.AttackPower,20},
+                            {Globals.AttributeTypes.Speed,3},
+                            {Globals.AttributeTypes.RunningSpeed,4}
+                        };
+                    default:
+                        return null;
+                }
+            }
+            else
+                return null;
         }
         catch (Exception e)
         {
@@ -147,10 +180,15 @@ public class EntityDataHandler
     {
         int[] tempData = null;
 
-        if (Enum.TryParse(entityName, true, out HostileEntityTypes entity))
+        if (Enum.TryParse(entityName, true, out HostileEntityTypes hostileEntity))
         {
             //LoadMeleeWeaponDictionary();
             tempData = HostileEntityHitboxData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
+        }
+        if (Enum.TryParse(entityName, true, out NonHostileEntityTypes nonHostileEntity))
+        {
+            //LoadMeleeWeaponDictionary();
+            tempData = NonHostileEntityHitboxData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
         }
             
         return tempData;

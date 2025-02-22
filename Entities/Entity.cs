@@ -70,6 +70,7 @@ public abstract class Entity
         Attributes = new();
         InitiallizeGraphicalValues();
         IsInteractable = (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEntityTypes entity)); // THIS HAS TO CHANGE TO FIND AN INTERACTABLE SIGNATURE ON THE ENTITY.
+        this.AssignAttributes();
     }
 
     #endregion Constructors

@@ -21,7 +21,7 @@ public class MovingEntity : Entity
 
     public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-        AssignAttributes();
+        //this.AssignAttributes();
     }
 
     #endregion Constructors
@@ -39,7 +39,7 @@ public class MovingEntity : Entity
         {
             Console.WriteLine("ERROR: " + e);
         }
-        base.AssignAttributes();
+        //base.AssignAttributes();
     }
 
     public bool Move(Globals.Directions direction, bool isRunning)

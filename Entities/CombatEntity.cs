@@ -36,12 +36,13 @@ public class CombatEntity : MovingEntity
 
     public CombatEntity(string entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-        AssignAttributes();
-        AssignHitbox(null);
+        //this.AssignAttributes();
+        this.AssignHitbox(null);
     }
 
     public override void AssignAttributes()
     { 
+        base.AssignAttributes();
         try
         {
             //defence
@@ -56,7 +57,6 @@ public class CombatEntity : MovingEntity
         {
             Console.WriteLine("ERROR : " + e);
         }
-        
     }
 
     public virtual void MeleeAttack()
