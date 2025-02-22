@@ -59,6 +59,8 @@ public class Animation
         else
         {
             Console.Out.WriteLine("Error : This animation is not present in the animation data handler" );
+            //AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
+            //entity.AnimationIdentifier = AnimationIdentifier;
         }
     }
 

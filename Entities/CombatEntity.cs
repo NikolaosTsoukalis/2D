@@ -41,7 +41,6 @@ public class CombatEntity : MovingEntity
             //etc (everything that in not assign at parent method calls.)   
             this.ModifyAttribute(Globals.AttributeTypes.HP,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.HP));  
             this.ModifyAttribute(Globals.AttributeTypes.AttackPower,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.AttackPower));          
-            base.AssignAttributes();
         }
         catch(Exception e)
         {
@@ -52,11 +51,13 @@ public class CombatEntity : MovingEntity
     public virtual void MeleeAttack()
     {
         CombatEntity entityGettingAttacked = null;
-        if(Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox).GetType() == typeof(CombatEntity))
-        {
-            entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox);
+        if(Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox) != null)
+        {    
+            if(Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox).GetType() == typeof(CombatEntity))
+            {
+                entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox);
+            }
         }
-        
         if(entityGettingAttacked != null)
         {
             entityGettingAttacked.GetAttacked(this.GetAttribute(Globals.AttributeTypes.AttackPower));

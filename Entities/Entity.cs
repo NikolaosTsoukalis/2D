@@ -58,6 +58,8 @@ public abstract class Entity
         set{animationIdentifier = value;}
     }
 
+    private FieldInfo FieldInfo;
+
     #endregion Values
 
     #region Constructors
@@ -98,20 +100,20 @@ public abstract class Entity
 
     public int GetAttribute(Globals.AttributeTypes type)
     {
-        FieldInfo field = GetType().GetField(type.ToString(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
-        return field != null ? (int)field.GetValue(this) : 0;
+        FieldInfo = GetType().GetField(type.ToString(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+        return FieldInfo != null ? (int)FieldInfo.GetValue(this) : 0;
     }
 
     public void ModifyAttribute(Globals.AttributeTypes type, int amount)
     {
-        FieldInfo field = this.GetType().GetField(type.ToString(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
-        if (field != null)
+        FieldInfo = this.GetType().GetField(type.ToString(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+        if (FieldInfo != null)
         {
-            int currentValue = (int)field.GetValue(this);
-            field.SetValue(this, currentValue + amount);
+            int currentValue = (int)FieldInfo.GetValue(this);
+            FieldInfo.SetValue(this, currentValue + amount);
         }
         else
-            Console.WriteLine("The object '" + this.Name +"' doe not have a field '" + field.ToString() +"'.");
+            Console.WriteLine("The object '" + this.Name +"' doe not have a field '" + FieldInfo.ToString() +"'.");
     }
 
     #endregion Functions

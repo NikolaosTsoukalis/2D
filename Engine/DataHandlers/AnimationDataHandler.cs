@@ -16,21 +16,8 @@ public class AnimationDataHandler
         Interact
     }
 
-    private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> playerAnimationData;
-
-    public static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> PlayerAnimationData
-    {
-        get{return playerAnimationData;}
-        set{playerAnimationData = value;}
-    }
-
-    private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> slimeAnimationData;
-
-    public static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> SlimeAnimationData
-    {
-        get{return slimeAnimationData;}
-        set{slimeAnimationData = value;}
-    }
+    private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> PlayerAnimationData;
+    private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> SlimeAnimationData;
 
     public AnimationDataHandler()
     {
@@ -75,9 +62,9 @@ public class AnimationDataHandler
     public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> GetAnimationDictionary(string entityName)
     {
         
-        if (Enum.TryParse(entityName, true, out EntityDataHandler.NonHostileEntityTypes generalEntityType))
+        if (Enum.TryParse(entityName, true, out EntityDataHandler.NonHostileEntityTypes nonHostileEntityType))
         {
-            switch (generalEntityType)
+            switch (nonHostileEntityType)
             {
                 case EntityDataHandler.NonHostileEntityTypes.Player:
                     return AnimationDataHandler.PlayerAnimationData;
