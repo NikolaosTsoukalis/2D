@@ -31,7 +31,7 @@ public class Player : CombatEntity
         base.MeleeAttack();
     }
 
-    public override bool GetAttacked(float damageTaken)
+    public override bool GetAttacked(int damageTaken)
     {
         base.GetAttacked(damageTaken);
         return true;

@@ -7,18 +7,8 @@ namespace _2D_RPG;
 
 public class CombatEntity : MovingEntity
 {
-    private float hp;
-    public float HP 
-    {
-        get{ return hp;}
-        set{hp = value;}
-    }
-    private float attackPower;
-    public float AttackPower 
-    {
-        get{ return attackPower;}
-        set{attackPower = value;}
-    }
+    protected int HP;
+    protected int AttackPower;
 
     private ItemDataHandler.MeleeWeapons meleeWeaponEquiped;
     public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped 
@@ -69,7 +59,7 @@ public class CombatEntity : MovingEntity
         
         if(entityGettingAttacked != null)
         {
-            entityGettingAttacked.GetAttacked(this.AttackPower);
+            entityGettingAttacked.GetAttacked(this.GetAttribute(Globals.AttributeTypes.AttackPower));
         }
         else
         {
@@ -77,10 +67,12 @@ public class CombatEntity : MovingEntity
         }
     }
 
-    public virtual bool GetAttacked(float damageTaken)
+    public virtual bool GetAttacked(int damageTaken)
     {
         //damage taken should be overriden by a method that takes into account all attributes/abillities.
-        HP -= damageTaken;
+        int currentHp = GetAttribute(Globals.AttributeTypes.HP) - damageTaken;  
+        ModifyAttribute(Globals.AttributeTypes.HP,currentHp);
+        
         return true;
     }
 

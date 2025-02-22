@@ -98,18 +98,20 @@ public abstract class Entity
 
     public int GetAttribute(Globals.AttributeTypes type)
     {
-        PropertyInfo prop = GetType().GetProperty(type.ToString());
-        return prop != null ? (int)prop.GetValue(this) : 0;
+        FieldInfo field = GetType().GetField(type.ToString(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+        return field != null ? (int)field.GetValue(this) : 0;
     }
 
     public void ModifyAttribute(Globals.AttributeTypes type, int amount)
     {
-        PropertyInfo prop = GetType().GetProperty(type.ToString());
-        if (prop != null && prop.CanWrite)
+        FieldInfo field = this.GetType().GetField(type.ToString(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+        if (field != null)
         {
-            int currentValue = (int)prop.GetValue(this);
-            prop.SetValue(this, currentValue + amount);
+            int currentValue = (int)field.GetValue(this);
+            field.SetValue(this, currentValue + amount);
         }
+        else
+            Console.WriteLine("The object '" + this.Name +"' doe not have a field '" + field.ToString() +"'.");
     }
 
     #endregion Functions

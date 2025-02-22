@@ -8,8 +8,8 @@ namespace _2D_RPG;
 public class MovingEntity : Entity
 {
     #region Values
-    private float Speed {get;set;}
-    private float RunningSpeed {get;set;}
+    protected int Speed;
+    protected int RunningSpeed;
 
     private Vector2 newPosition;
     private Vector2 currentPosition;
