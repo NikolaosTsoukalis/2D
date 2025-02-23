@@ -10,8 +10,6 @@ public class GameState : State
     readonly Player player;
     readonly HostileEntity slime;
 
-    //HELLO
-    
     public GameState(Main main) : base(main)
     {
         //Handler Initiallization 
