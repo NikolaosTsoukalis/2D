@@ -50,6 +50,7 @@ public class CombatEntity : MovingEntity
 
     public virtual void MeleeAttack()
     {
+        AssignHitbox(this.MeleeWeaponEquiped.ToString());
         CombatEntity entityGettingAttacked = null;
         if(Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox) != null)
         {    
@@ -71,8 +72,8 @@ public class CombatEntity : MovingEntity
     public virtual bool GetAttacked(int damageTaken)
     {
         //damage taken should be overriden by a method that takes into account all attributes/abillities.
-        int currentHp = GetAttribute(Globals.AttributeTypes.HP) - damageTaken;  
-        ModifyAttribute(Globals.AttributeTypes.HP,currentHp);
+        int currentHp = this.GetAttribute(Globals.AttributeTypes.HP) - damageTaken;  
+        this.ModifyAttribute(Globals.AttributeTypes.HP,currentHp);
         
         return true;
     }

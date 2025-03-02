@@ -12,28 +12,6 @@
             This class handles all Global variables.
             </remarks>
         </member>
-        <member name="M:_2D_RPG.EntityHandler.AddEntityToList(_2D_RPG.Entity)">
-            <summary>
-            Adds an entity to the Entity List.
-            </summary>
-            <param name="entity">
-            This object resembles an entity.
-            </param>
-            <remarks>
-            This method adds an <see cref="T:_2D_RPG.Entity"/> object to the <see cref="P:_2D_RPG.EntityHandler.EntityList"/> List.
-            </remarks>
-        </member>
-        <member name="M:_2D_RPG.EntityHandler.RemoveEntityFromList(_2D_RPG.Entity)">
-            <summary>
-            Removes an entity from the Entity List.
-            </summary>
-            <param name="entity">
-            This object resembles an entity.
-            </param>
-            <remarks>
-            This method remove an <see cref="T:_2D_RPG.Entity"/> object from the <see cref="P:_2D_RPG.EntityHandler.EntityList"/> List.
-            </remarks>
-        </member>
         <member name="T:_2D_RPG.Main">
             <summary>
             Main class

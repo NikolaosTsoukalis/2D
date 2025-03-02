@@ -39,7 +39,8 @@ public class Player : CombatEntity
 
     public override void Interact()
     {
-        var entityGettingInteracted = Globals.CollisionHandler.getCollidingEntity(this.Name,InteractHitbox);
+        AssignIteractHitbox();
+        var entityGettingInteracted = Globals.CollisionHandler.getCollidingEntity(this.Name,this.InteractHitbox);
 
         if(entityGettingInteracted != null && entityGettingInteracted.IsInteractable)
         {
