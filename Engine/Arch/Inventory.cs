@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
 public class Inventory
 {
-    private Tuple<int,int> Size;
-    private Tuple<int,int> InventoryPosition;
+    private Tuple<int,int> InventorySize;
     private Dictionary<string,Tuple<int,int>> BaseInventoryData; // item name,position(x,y)
     private Dictionary<string,string> EquippedInventoryData; // item name, item position.
     private Texture2D InventoryTexture;
+    
+    private Rectangle Position;
     public Inventory()
     {
         LoadInventoryData();// here we create the inventory base on saved data or as a new Dictionary of items and positions.
@@ -21,15 +23,15 @@ public class Inventory
         bool inventorySavedData = false; // this is the marker for loding the inventory saved holdings
         if(inventorySavedData == false)
         {
-            BaseInventoryData = new Dictionary<string,Tuple<int,int>>();
+            LoadEmptyInventory();
         }
-
     }
 
     public Tuple<int,int> GetInventorySize()
     {
         //HERE CALCULATE SIZE
-        return this.Size;
+        this.InventorySize = new Tuple<int, int> (10,10);
+        return this.InventorySize;
     }
 
     public Tuple<int,int> GetItemPosition(string itemName)
@@ -37,9 +39,16 @@ public class Inventory
         return BaseInventoryData.GetValueOrDefault(itemName);
     }
 
-    public string GetItemPosition(Tuple<int,int> itemLocation)
+    public string GetItemAtLocation(Tuple<int,int> itemLocation)
     {
-        return BaseInventoryData.GetValueOrDefault(itemLocation).ToString();
+        foreach(var item in BaseInventoryData)
+        {
+            if(item.Value == itemLocation)
+            {
+                return item.Key;
+            }
+        }
+        return null;
     }
 
     public bool SetInventoryTexture(Texture2D texture)
@@ -49,7 +58,7 @@ public class Inventory
         return true;
     }
 
-    public Dictionary<string,Tuple<int,int>> LoadEmptyInventory()
+    public bool LoadEmptyInventory()
     {
         BaseInventoryData = new Dictionary<string,Tuple<int,int>>();
         for(int x = 0; x < GetInventorySize().Item1; x++)
@@ -59,9 +68,16 @@ public class Inventory
                 BaseInventoryData.Add(("Item X: " + x + " Y: " + y ),new Tuple<int,int>(x,y));
             }
         }
-        return null;
+        return true;
     }
-    public void Update(){}
+    public void Update()
+    {
+        
+    }
 
-    public void Draw(){}
+    public void Draw()
+    {
+        Position = new Rectangle(400,400,this.InventoryTexture.Width,this.InventoryTexture.Height);
+        Globals.SpriteBatch.Draw(this.InventoryTexture, Position, Color.White);
+    }
 }

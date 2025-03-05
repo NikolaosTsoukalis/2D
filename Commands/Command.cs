@@ -30,5 +30,7 @@ public abstract class Command
 
     public virtual void Execute(Player entity){}
     public virtual void Execute(Game game){}
+
+    public virtual void Execute(Main main){}
     
 }

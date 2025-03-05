@@ -6,10 +6,14 @@ namespace _2D_RPG;
 
 public class GameState : State
 {
+
+    public bool DebugMode = false;
     private Command command;
     readonly Player player;
     readonly HostileEntity slime;
 
+
+    private Inventory Inventory;
 
     //HELLO
     public GameState(Main main) : base(main)
@@ -25,7 +29,8 @@ public class GameState : State
         Globals.ItemDataHandler = new();
         Globals.EntityDataHandler = new();
         
-        //
+        //Game State specific
+        Inventory = new();
         
         player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,Vector2.Zero);
         slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
