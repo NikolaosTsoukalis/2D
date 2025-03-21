@@ -23,7 +23,7 @@ public class Player : CombatEntity
     public override void AssignAttributes()
     {
         base.AssignAttributes(); // not needed unless we add more attibutes here or do some attribute logic magic
-        this.MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword; //GET DATA FROM SAVE FILES.
+        this.MeleeWeaponEquiped = ItemDataHandler.MeleeWeaponTypes.ShortSword; //GET DATA FROM SAVE FILES.
     }
 
     public override void MeleeAttack()
@@ -55,7 +55,7 @@ public class Player : CombatEntity
     public void AssignIteractHitbox()
     {
         //add extra pros cons based on consumables/items equipped/buffs etc.
-        InteractHitbox = Globals.ItemDataHandler.getItemHitbox(this.Direction,this.Position, ItemDataHandler.MeleeWeapons.Fist.ToString());
+        InteractHitbox = Globals.ItemDataHandler.getWeaponHitbox(this.Direction,this.Position, ItemDataHandler.MeleeWeaponTypes.Fist.ToString());
     }
 }
 

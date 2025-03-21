@@ -40,8 +40,10 @@ public class Animation
     #region Constructors
     public Animation(Entity entity, AnimationDataHandler.AnimationIdentifier identifier)
     {
-        if(Globals.AnimationDataHandler.GetAnimationDictionary(entity.Name.ToString()).TryGetValue(identifier, out var tuple))
-        {
+        Tuple <Texture2D,string[]> tuple;
+        tuple = Globals.AnimationDataHandler.GetAnimationData(entity.Name.ToString(), identifier); 
+        if(tuple.Item1 != null)
+        {   
             entity.Texture = tuple.Item1;
             frameTime = (float) Convert.ToDouble(tuple.Item2[1]);
             totalFrames = Convert.ToInt32(tuple.Item2[0]);

@@ -16,15 +16,86 @@ public class AnimationDataHandler
         Interact
     }
 
-    private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> PlayerAnimationData;
-    private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> SlimeAnimationData;
+    private Tuple<Texture2D,string[]> data;
 
     public AnimationDataHandler()
     {
-        LoadPlayerAnimationDictionary();
-        LoadSlimeAnimationDictionary();
+        data = new Tuple<Texture2D, string[]>(null,null);
     }
 
+    private Tuple<Texture2D,string[]> GetPlayerAnimationData(AnimationIdentifier identifier)
+    {
+        try
+        {
+            switch(identifier)
+            {
+                case(AnimationIdentifier.Idle):  
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Walk):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip32"),["80","0.1"]);
+                    break;
+                    
+                case(AnimationIdentifier.Run):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Interact):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"]);
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            data = new Tuple<Texture2D, string[]>(null,null);
+        }
+        return data; 
+    }
+
+    private Tuple<Texture2D,string[]> GetSlimeAnimationData(AnimationIdentifier identifier)
+    {
+        try
+        {
+            switch(identifier)
+            {
+                case(AnimationIdentifier.Idle):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Walk):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Run):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Interact):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            data = new Tuple<Texture2D, string[]>(null,null);
+        }
+        return data; 
+    }
+
+    /* OLDER DICTIONARY SOLUTION(TEMPORARY/MUST REMOVE)
+
+    private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> PlayerAnimationData;
+    private static Dictionary<AnimationIdentifier,Tuple<Texture2D,string[]>> SlimeAnimationData;
+    
 
     public static void LoadPlayerAnimationDictionary()
     {
@@ -59,7 +130,8 @@ public class AnimationDataHandler
         SlimeAnimationData = new();
     }
 
-    public Dictionary<AnimationDataHandler.AnimationIdentifier,Tuple<Texture2D,string[]>> GetAnimationDictionary(string entityName)
+    */
+    public Tuple<Texture2D, string[]> GetAnimationData(string entityName, AnimationIdentifier identifier)
     {
         
         if (Enum.TryParse(entityName, true, out EntityDataHandler.NonHostileEntityTypes nonHostileEntityType))
@@ -67,7 +139,7 @@ public class AnimationDataHandler
             switch (nonHostileEntityType)
             {
                 case EntityDataHandler.NonHostileEntityTypes.Player:
-                    return AnimationDataHandler.PlayerAnimationData;
+                    return GetPlayerAnimationData(identifier);
             }
         }
         else if (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEntityTypes hostileEnemyType))
@@ -75,7 +147,7 @@ public class AnimationDataHandler
             switch (hostileEnemyType)
             {
                 case EntityDataHandler.HostileEntityTypes.Slime:
-                    return AnimationDataHandler.SlimeAnimationData;
+                    return GetSlimeAnimationData(identifier);
             }
         }
         return null;

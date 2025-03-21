@@ -10,8 +10,8 @@ public class CombatEntity : MovingEntity
     protected int HP;
     protected int AttackPower;
 
-    private ItemDataHandler.MeleeWeapons meleeWeaponEquiped;
-    public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped 
+    private ItemDataHandler.MeleeWeaponTypes meleeWeaponEquiped;
+    public ItemDataHandler.MeleeWeaponTypes MeleeWeaponEquiped 
     {
         get{ return meleeWeaponEquiped;}
         set{meleeWeaponEquiped = value;}
@@ -82,7 +82,7 @@ public class CombatEntity : MovingEntity
     {
         if(weaponName != null)
         {
-            AttackHitbox = Globals.ItemDataHandler.getItemHitbox(this.Direction,this.Position, weaponName);
+            AttackHitbox = Globals.ItemDataHandler.getWeaponHitbox(this.Direction,this.Position, weaponName);
         }
         else
             AttackHitbox = Globals.EntityDataHandler.getEntityAttackHitBox(this.Direction,this.Position, this.Name.ToString());
