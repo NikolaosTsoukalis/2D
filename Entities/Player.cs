@@ -55,7 +55,9 @@ public class Player : CombatEntity
     public void AssignIteractHitbox()
     {
         //add extra pros cons based on consumables/items equipped/buffs etc.
-        InteractHitbox = Globals.ItemDataHandler.getWeaponHitbox(this.Direction,this.Position, ItemDataHandler.MeleeWeaponTypes.Fist.ToString());
+        //HITBOX IS PULLED FROM THE ENTITY DATA HANDLER AS IT IS NOT BASED ON A WEAPON/ITEM. 
+        //LOGIC CAN BE ADDED TO INFLUENCE THE INTERACT HITBOX BUT IT WILL NEVER BE BASED ON AN ITEM.
+        InteractHitbox = Globals.EntityDataHandler.GetEntityAttackHitBox(this.Direction,this.Position, this.Name);
     }
 }
 

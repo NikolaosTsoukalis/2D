@@ -1,5 +1,4 @@
 using System;
-using System.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -85,7 +84,7 @@ public class CombatEntity : MovingEntity
             AttackHitbox = Globals.ItemDataHandler.getWeaponHitbox(this.Direction,this.Position, weaponName);
         }
         else
-            AttackHitbox = Globals.EntityDataHandler.getEntityAttackHitBox(this.Direction,this.Position, this.Name.ToString());
+            AttackHitbox = Globals.EntityDataHandler.GetEntityAttackHitBox(this.Direction,this.Position, this.Name.ToString());
     }
 }
 

@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _2D_RPG;
 public class AnimationDataHandler
 {
+    #region Enums
+
     public enum AnimationIdentifier 
     {
         Idle,
@@ -16,80 +18,24 @@ public class AnimationDataHandler
         Interact
     }
 
+    #endregion Enums
+
+    #region Fields
+
     private Tuple<Texture2D,string[]> data;
+
+    #endregion Fields
+
+    #region Constructors
 
     public AnimationDataHandler()
     {
-        data = new Tuple<Texture2D, string[]>(null,null);
+        data = null;
     }
 
-    private Tuple<Texture2D,string[]> GetPlayerAnimationData(AnimationIdentifier identifier)
-    {
-        try
-        {
-            switch(identifier)
-            {
-                case(AnimationIdentifier.Idle):  
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"]);
-                    break;
-                    
-                case(AnimationIdentifier.Walk):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip32"),["80","0.1"]);
-                    break;
-                    
-                case(AnimationIdentifier.Run):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"]);
-                    break;
-                    
-                case(AnimationIdentifier.Interact):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"]);
-                    break;
-                
-                default:
-                    break;
-            }
-        }
-        catch(Exception e)
-        {
-            Console.WriteLine("ERROR: " + e);
-            data = new Tuple<Texture2D, string[]>(null,null);
-        }
-        return data; 
-    }
+    #endregion Constructors
 
-    private Tuple<Texture2D,string[]> GetSlimeAnimationData(AnimationIdentifier identifier)
-    {
-        try
-        {
-            switch(identifier)
-            {
-                case(AnimationIdentifier.Idle):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
-                    break;
-                    
-                case(AnimationIdentifier.Walk):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
-                    break;
-                    
-                case(AnimationIdentifier.Run):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
-                    break;
-                    
-                case(AnimationIdentifier.Interact):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
-                    break;
-                
-                default:
-                    break;
-            }
-        }
-        catch(Exception e)
-        {
-            Console.WriteLine("ERROR: " + e);
-            data = new Tuple<Texture2D, string[]>(null,null);
-        }
-        return data; 
-    }
+    #region General Functions
 
     /* OLDER DICTIONARY SOLUTION(TEMPORARY/MUST REMOVE)
 
@@ -133,24 +79,121 @@ public class AnimationDataHandler
     */
     public Tuple<Texture2D, string[]> GetAnimationData(string entityName, AnimationIdentifier identifier)
     {
-        
-        if (Enum.TryParse(entityName, true, out EntityDataHandler.NonHostileEntityTypes nonHostileEntityType))
-        {
-            switch (nonHostileEntityType)
+        try
+        {                
+            if (Enum.TryParse(entityName, true, out EntityDataHandler.NonHostileEntityTypes nonHostileEntityType))
             {
-                case EntityDataHandler.NonHostileEntityTypes.Player:
-                    return GetPlayerAnimationData(identifier);
+                switch (nonHostileEntityType)
+                {
+                    case EntityDataHandler.NonHostileEntityTypes.Player:
+                        if(AssignPlayerAnimationData(identifier))
+                        {
+                            return data;
+                        }
+                        break;
+                }
+            }
+            if (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEntityTypes hostileEnemyType))
+            {
+                switch (hostileEnemyType)
+                {
+                    case EntityDataHandler.HostileEntityTypes.Slime:
+                        if(AssignSlimeAnimationData(identifier))
+                        {
+                            return data;
+                        }
+                        break;
+                }
             }
         }
-        else if (Enum.TryParse(entityName, true, out EntityDataHandler.HostileEntityTypes hostileEnemyType))
+        catch(Exception e)
         {
-            switch (hostileEnemyType)
-            {
-                case EntityDataHandler.HostileEntityTypes.Slime:
-                    return GetSlimeAnimationData(identifier);
-            }
+            Console.WriteLine("ERROR : " + e);
+            return null;
         }
+
+        Console.WriteLine("Entity Name : " + entityName + " or Animation Identifier: " + identifier + " is invalid.");
         return null;
     }
 
+    #endregion General Functions
+
+    #region Assign Data Functions
+    
+    private bool AssignPlayerAnimationData(AnimationIdentifier identifier)
+    {
+        data = null;
+        try
+        {
+            switch(identifier)
+            {
+                case(AnimationIdentifier.Idle):  
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Walk):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip32"),["80","0.1"]);
+                    break;
+                    
+                case(AnimationIdentifier.Run):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("testSpriteWalk_strip32"),["32","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Interact):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"]);
+                    break;
+                
+                default:
+                    break;
+            }
+            if(data != null)
+            {
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            return false;
+        }
+        return false; 
+    }
+
+    private bool AssignSlimeAnimationData(AnimationIdentifier identifier)
+    {
+        data = null;
+        try
+        {
+            switch(identifier)
+            {
+                case(AnimationIdentifier.Idle):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Walk):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Run):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
+                    break;
+                    
+                case(AnimationIdentifier.Interact):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Slime_Walk_strip48"),["48","0.3"]);
+                    break;
+                
+                default:
+                    break;
+            }
+            if(data != null)
+                return true;
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            return false;
+        }
+        return false; 
+    }
+    #endregion Assign Data Functions
 }

@@ -37,7 +37,8 @@ public class ItemDataHandler
     
     #region Fields
 
-    private int[] data;
+    private int[] hitboxData;
+    private Rectangle hitbox;
 
     #endregion Fields
 
@@ -60,11 +61,11 @@ public class ItemDataHandler
             switch(identifier)
             {
                 case MeleeWeaponTypes.Fist:
-                    data = [2];
+                    hitboxData = [2];
                     break;
                 
                 case MeleeWeaponTypes.ShortSword:
-                    data = [10];
+                    hitboxData = [10];
                     break;
             }
         }
@@ -72,21 +73,22 @@ public class ItemDataHandler
         {
             Console.WriteLine("ERROR : " + e);
         }
-        return data;
+        return hitboxData;
     }
 
     public int[] GetMeleeWeaponHitboxData(MeleeWeaponTypes identifier)
     {
+        hitboxData = null;
         try
         {
             switch(identifier)
             {
                 case MeleeWeaponTypes.Fist:
-                    data = [20,20,20,40];
+                    hitboxData = [20,20,20,40];
                     break;
                 
                 case MeleeWeaponTypes.ShortSword:
-                    data = [50,50,50,100];
+                    hitboxData = [50,50,50,100];
                     break;
             }
         }
@@ -94,7 +96,7 @@ public class ItemDataHandler
         {
             Console.WriteLine("ERROR : " + e);
         }
-        return data;
+        return hitboxData;
     }
     
     #endregion MeleeWeaponFunctions
@@ -118,11 +120,11 @@ public class ItemDataHandler
             switch(identifier)
             {
                 case ChestpieceTypes.LeatherTunic:
-                    data = [10];
+                    hitboxData = [10];
                     break;
                 
                 case ChestpieceTypes.IronChestPlate:
-                    data = [30];
+                    hitboxData = [30];
                     break;
             }
         }
@@ -130,7 +132,7 @@ public class ItemDataHandler
         {
             Console.WriteLine("ERROR : " + e);
         }
-        return data;
+        return hitboxData;
     }
 
     #endregion ChestpieceFunctions
@@ -139,8 +141,9 @@ public class ItemDataHandler
 
     public ItemDataHandler()
     {
-        //Data array initiallization
-        data = null;
+        //hitboxData array initiallization
+        hitboxData = null;
+        hitbox = new();
 
         //Consumables
         //LoadFoodDictionary();
@@ -157,74 +160,99 @@ public class ItemDataHandler
             if (Enum.TryParse(itemName, true, out MeleeWeaponTypes MeleeWeaponTypes))
             {
                 //LoadMeleeWeaponDictionary();
-                data = GetMeleeWeaponAttributeData(MeleeWeaponTypes);
+                hitboxData = GetMeleeWeaponAttributeData(MeleeWeaponTypes);
             }
             else if (Enum.TryParse(itemName, true, out ChestpieceTypes chestpieceTypes))
             {
                 //LoadMeleeWeaponDictionary();
-                data = GetChestpieceAttributeData(chestpieceTypes);
+                hitboxData = GetChestpieceAttributeData(chestpieceTypes);
             }
         }
         catch(Exception e)
         {
             Console.WriteLine("ERROR : " + e);
-            data = null;
+            hitboxData = null;
         }
-        return data;
+        return hitboxData;
     }
 
     public Rectangle getWeaponHitbox(Globals.Directions direction,Vector2 position, string itemName) 
     {
-        int[] variables = GetWeaponHitboxData(itemName); // pass player weapon 
-        
-        switch(direction)
-        {
-            case Globals.Directions.Up:
-                return new Rectangle((int)(position.X),(int)(position.Y - variables[1]),variables[2],variables[3]);
+        hitbox = new();
+        if(AssignWeaponHitboxData(itemName)) // pass player weapon 
+        {      
+            hitbox.Width = hitboxData[2];
+            hitbox.Height = hitboxData[3];    
+            switch(direction)
+            {
+                case Globals.Directions.Up:
+                    hitbox.X = (int)position.X;
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
 
-            case Globals.Directions.Left:
-                return new Rectangle((int)(position.X - variables[0]),(int)(position.Y),variables[2],variables[3]);
+                case Globals.Directions.Left:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y;
+                    break;
 
-            case Globals.Directions.Down:
-                return new Rectangle((int)(position.X),(int)(position.Y + variables[1]),variables[2],variables[3]);
-                
-            case Globals.Directions.Right:
-                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);  
+                case Globals.Directions.Down:
+                    hitbox.X = (int)position.X;
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
+                    
+                case Globals.Directions.Right:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y;
+                    break;
 
-            case Globals.Directions.UpLeft:
-                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+                case Globals.Directions.UpLeft:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
 
-            case Globals.Directions.UpRight:
-                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+                case Globals.Directions.UpRight:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
 
-            case Globals.Directions.DownLeft:
-                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y + variables[1]),variables[2],variables[3]);
+                case Globals.Directions.DownLeft:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
 
-            case Globals.Directions.DownRight:
-                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
-                
-            default:
-                return new();
+                case Globals.Directions.DownRight:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
+                    
+                default:
+                    break;
+            }
+            return hitbox;
         }
+        return hitbox;
     }
+    
 
-    public int[] GetWeaponHitboxData(string itemName)
+    public bool AssignWeaponHitboxData(string itemName)
     {
+        hitboxData = null;
         try
         {
             //ADD ALL ENUM IFS HERE:
             if (Enum.TryParse(itemName, true, out MeleeWeaponTypes MeleeWeaponTypes))
             {
                 //LoadMeleeWeaponDictionary();
-                data = GetMeleeWeaponHitboxData(MeleeWeaponTypes);
+                hitboxData = GetMeleeWeaponHitboxData(MeleeWeaponTypes);
+                return true;
             }
         }
         catch(Exception e)
         {
             Microsoft.Xna.Framework.Input.MessageBox.Show("Error",e.ToString(),new List<string> {"OK"});
-            data = null;
+            hitboxData = null;
         }
-        return data;
+        return false;
     }
 
     #endregion GeneralFunctions

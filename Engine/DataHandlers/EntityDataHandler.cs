@@ -26,12 +26,11 @@ public class EntityDataHandler
 
     #region Values
 
+    private int[] hitboxData;
+    private Rectangle hitbox;
     private static Dictionary<HostileEntityTypes,Dictionary<Globals.AttributeTypes, int>> HostileEntityAttributeData {get;set;}
-    private static Dictionary<HostileEntityTypes,int[]> HostileEntityHitboxData {get;set;}
-
     
     private static Dictionary<NonHostileEntityTypes,Dictionary<Globals.AttributeTypes, int>> NonHostileEntityAttributeData {get;set;}
-    private static Dictionary<NonHostileEntityTypes,int[]> NonHostileEntityHitboxData {get;set;}
 
     #endregion Values
 
@@ -39,13 +38,13 @@ public class EntityDataHandler
 
     public EntityDataHandler()
     {
-        //Load attribute dictionaries
+        //Load attribute dictionaries ( THESE DICTIONARIES MIGHT NEED TO BE REPLACED WITH A SWITCH CASE STRUCTURE) 
         LoadHostileEntityAttributeDictionary();
         LoadNonHostileEntityAttributeDictionary();
 
-        //Load hitbox dicitonaries
-        LoadHostileEntityHitboxDataDictionary();
-        LoadNonHostileEntityHitboxDataDictionary();
+        //Load hitboxData int array empty.
+        hitboxData = null;
+        hitbox = new();
     }
 
     #endregion Constructors    
@@ -62,13 +61,31 @@ public class EntityDataHandler
         };
     }
 
-    public static void LoadHostileEntityHitboxDataDictionary() // x,y,width,height
+    private int[] GetHostileEntityAttackHitboxData(HostileEntityTypes identifier)
     {
-        HostileEntityHitboxData = new Dictionary<HostileEntityTypes, int[]> 
+        hitboxData = null;
+        try
         {
-            { HostileEntityTypes.Slime,[50,50,50,100] },
-            { HostileEntityTypes.Skeleton,[20,20,20,40] }
-        };
+            switch(identifier)
+            {
+                case(HostileEntityTypes.Slime):
+                    hitboxData = [50,50,50,100];
+                    break;
+                
+                case(HostileEntityTypes.Skeleton):
+                    hitboxData = [20,20,20,20];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            hitboxData = null;
+        }
+        return hitboxData; 
     }
 
     #endregion HostileEntityFunctions
@@ -85,15 +102,34 @@ public class EntityDataHandler
         };
     }
 
-    public static void LoadNonHostileEntityHitboxDataDictionary() // x,y,width,height
+    private int[] GetNonHostileEntityAttackHitboxData(NonHostileEntityTypes identifier)
     {
-        NonHostileEntityHitboxData = new Dictionary<NonHostileEntityTypes, int[]> 
+        hitboxData = null;
+        try
         {
-            { NonHostileEntityTypes.Player,[20,20,20,40] },
-            { NonHostileEntityTypes.Companion,[20,20,20,40] },
-            { NonHostileEntityTypes.NPC,[20,20,20,40] }
-        };
+            switch(identifier)
+            {
+                case(NonHostileEntityTypes.Player):
+                    hitboxData = [50,50,50,100];
+                    break;
+                
+                case(NonHostileEntityTypes.Companion):
+                    hitboxData = [20,20,20,20];
+                    break;
+                    
+                default:
+                    hitboxData = null;
+                    break;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            hitboxData = null;
+        }
+        return hitboxData; 
     }
+
 
     #endregion NonHostileEntityFunctions
     
@@ -101,7 +137,7 @@ public class EntityDataHandler
 
     //Return a specific attirbute ( ex. HP ) of an Entity.
     //First it looks for the correct Dictionary of the entity, then inside the dictionary there is
-    //another dicionary that has all the attirbutes. There it looks for the attribute that is asked as the parameter.
+    //another dicionary that has all the attributes. There it looks for the attribute that is asked as the parameter.
     public int GetSpecificEntityAttributeValue(string entityName, Globals.AttributeTypes type) 
     {
         Dictionary<Globals.AttributeTypes, int> tempData = null;
@@ -176,57 +212,80 @@ public class EntityDataHandler
         }
     }
 
-    public int[] GetEntityAttackHitboxData(string entityName)
+    public bool AssignEntityAttackHitboxData(string entityName)
     {
-        int[] tempData = null;
-
+        hitboxData = null;
         if (Enum.TryParse(entityName, true, out HostileEntityTypes hostileEntity))
         {
             //LoadMeleeWeaponDictionary();
-            tempData = HostileEntityHitboxData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
+            hitboxData = GetHostileEntityAttackHitboxData(hostileEntity);
+            return true;
         }
         if (Enum.TryParse(entityName, true, out NonHostileEntityTypes nonHostileEntity))
         {
             //LoadMeleeWeaponDictionary();
-            tempData = NonHostileEntityHitboxData.FirstOrDefault(entity => entity.Key.ToString() == entityName ).Value;
+            hitboxData = GetNonHostileEntityAttackHitboxData(nonHostileEntity);
+            return true;
         }
             
-        return tempData;
+        return false;
     }
 
-    public Rectangle getEntityAttackHitBox(Globals.Directions direction,Vector2 position, string entityName) 
+    public Rectangle GetEntityAttackHitBox(Globals.Directions direction,Vector2 position, string entityName) 
     {
-        int[] variables = GetEntityAttackHitboxData(entityName); // pass player weapon 
-        
-        switch(direction)
-        {
-            case Globals.Directions.Up:
-                return new Rectangle((int)(position.X),(int)(position.Y - variables[1]),variables[2],variables[3]);
+        hitbox = new();
+        if(AssignEntityAttackHitboxData(entityName)) // pass player weapon 
+        {      
+            hitbox.Width = hitboxData[2];
+            hitbox.Height = hitboxData[3];    
+            switch(direction)
+            {
+                case Globals.Directions.Up:
+                    hitbox.X = (int)position.X;
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
 
-            case Globals.Directions.Left:
-                return new Rectangle((int)(position.X - variables[0]),(int)(position.Y),variables[2],variables[3]);
+                case Globals.Directions.Left:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y;
+                    break;
 
-            case Globals.Directions.Down:
-                return new Rectangle((int)(position.X),(int)(position.Y + variables[1]),variables[2],variables[3]);
-                
-            case Globals.Directions.Right:
-                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);  
+                case Globals.Directions.Down:
+                    hitbox.X = (int)position.X;
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
+                    
+                case Globals.Directions.Right:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y;
+                    break;
 
-            case Globals.Directions.UpLeft:
-                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+                case Globals.Directions.UpLeft:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
 
-            case Globals.Directions.UpRight:
-                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
+                case Globals.Directions.UpRight:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
 
-            case Globals.Directions.DownLeft:
-                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y + variables[1]),variables[2],variables[3]);
+                case Globals.Directions.DownLeft:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
 
-            case Globals.Directions.DownRight:
-                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
-                
-            default:
-                return new();
+                case Globals.Directions.DownRight:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
+                    
+                default:
+                    break;
+            }
+            return hitbox;
         }
+        return hitbox;
     }
     
     #endregion GeneralPurposeFunctions
