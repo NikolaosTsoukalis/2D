@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -132,7 +133,7 @@ public class AnimationDataHandler
                     break;
                     
                 case(AnimationIdentifier.Walk):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip32"),["80","0.1"]);
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"]);
                     break;
                     
                 case(AnimationIdentifier.Run):
