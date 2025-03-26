@@ -206,6 +206,8 @@ public class Globals
 
     public static bool enableDebugs = false;
 
+    public static bool ToggleInventory = false;
+
     public static bool drawInteraction = false;
 
     #endregion Values

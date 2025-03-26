@@ -8,7 +8,7 @@ namespace _2D_RPG;
 
 public class ItemDataHandler
 {
-    #region Enums
+    #region General Enums
     public enum Potions{}
 
     public enum Food
@@ -19,7 +19,7 @@ public class ItemDataHandler
 
     public enum Materials{}
 
-    public enum ArmorItemTypes
+    public enum ArmorTypes
     {
         Helmet,
         Chestpiece,
@@ -33,56 +33,70 @@ public class ItemDataHandler
 
     public enum MagicWeapons{}
 
-    #endregion Enums
+    #endregion General Enums
     
+    #region Fields
+
+    private int[] hitboxData;
+    private Rectangle hitbox;
+
+    #endregion Fields
 
     #region MeleeWeaponData
 
-    public enum WeaponTypes
-    {
-        Melee,
-        Ranged,
-        Magic
-    }
-
-    public enum MeleeWeapons
+    public enum MeleeWeaponTypes
     {
         ShortSword,
         Fist
     }
 
-    private static Dictionary<string,int[]> MeleeWeaponAttributeData {get;set;}
-    private static Dictionary<string,int[]> MeleeWeaponHitboxData {get;set;}
-    private static Dictionary<string,int[]> MeleeWeaponInventoryData {get;set;}
-
     #endregion MeleeWeaponData
 
     #region MeleeWeaponFunctions
 
-    public static void LoadMeleeWeaponAttributeDataDictionary() // {damage, x, y, z}
+    public int[] GetMeleeWeaponAttributeData(MeleeWeaponTypes identifier)  // {damage, x, y, z}
     {
-        MeleeWeaponAttributeData = new Dictionary<string, int[]> 
+        try
         {
-            { MeleeWeapons.ShortSword.ToString(),[10] },
-            { MeleeWeapons.Fist.ToString(),[2] }
-        };
+            switch(identifier)
+            {
+                case MeleeWeaponTypes.Fist:
+                    hitboxData = [2];
+                    break;
+                
+                case MeleeWeaponTypes.ShortSword:
+                    hitboxData = [10];
+                    break;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+        return hitboxData;
     }
 
-    public static void LoadMeleeWeaponHitboxDataDictionary() // x,y,width,height
+    public int[] GetMeleeWeaponHitboxData(MeleeWeaponTypes identifier)
     {
-        MeleeWeaponHitboxData = new Dictionary<string, int[]> 
+        hitboxData = null;
+        try
         {
-            { MeleeWeapons.ShortSword.ToString(),[50,50,50,100] },
-            { MeleeWeapons.Fist.ToString(),[20,20,20,40] }
-        };
-    }
-
-    public static void LoadMeleeWeaponInventoryDataDictionary() // x,y,width,height
-    {
-        MeleeWeaponInventoryData = new Dictionary<string, int[]> 
+            switch(identifier)
+            {
+                case MeleeWeaponTypes.Fist:
+                    hitboxData = [20,20,20,40];
+                    break;
+                
+                case MeleeWeaponTypes.ShortSword:
+                    hitboxData = [50,50,50,100];
+                    break;
+            }
+        }
+        catch(Exception e)
         {
-            { MeleeWeapons.ShortSword.ToString(),[] }
-        };
+            Console.WriteLine("ERROR : " + e);
+        }
+        return hitboxData;
     }
     
     #endregion MeleeWeaponFunctions
@@ -95,114 +109,150 @@ public class ItemDataHandler
         IronChestPlate
     }
 
-    private static Dictionary<string,int[]> ChestpieceAttributeData {get;set;}
-    private static Dictionary<string,int[]> ChestpieceInventoryData {get;set;}
-
     #endregion ChestpieceData
 
     #region ChestpieceFunctions
 
-    public static void LoadChestpieceDictionary() // {defence, x, y, z}
+    public int[] GetChestpieceAttributeData(ChestpieceTypes identifier)  // {defence, x, y, z}
     {
-        ChestpieceAttributeData = new Dictionary<string, int[]> 
+        try
         {
-            { ChestpieceTypes.LeatherTunic.ToString(),[50] }
-        };
+            switch(identifier)
+            {
+                case ChestpieceTypes.LeatherTunic:
+                    hitboxData = [10];
+                    break;
+                
+                case ChestpieceTypes.IronChestPlate:
+                    hitboxData = [30];
+                    break;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+        return hitboxData;
     }
 
     #endregion ChestpieceFunctions
 
-    public static Dictionary<string,string[]> FoodData {get;set;}
+    #region Compilers 
 
     public ItemDataHandler()
     {
-        //Weapons
-        LoadMeleeWeaponAttributeDataDictionary();
-        LoadMeleeWeaponHitboxDataDictionary();
-
-        //Armor
-        LoadChestpieceDictionary();
+        //hitboxData array initiallization
+        hitboxData = null;
+        hitbox = new();
 
         //Consumables
-        LoadFoodDictionary();
+        //LoadFoodDictionary();
     }
+
+    #endregion Compilers
 
     #region GeneralFunctions
 
-    public static void LoadFoodDictionary()
-    {
-        FoodData = new Dictionary<string, string[]> {};
-    }    
-
     public int[] GetEquippableItemAttributeData(string itemName)
-    {
-        int[] tempData = null;
-
-        if (Enum.TryParse(itemName, true, out MeleeWeapons meleeWeapons))
-        {
-            //LoadMeleeWeaponDictionary();
-            tempData = MeleeWeaponAttributeData.FirstOrDefault( item => item.Key == itemName ).Value;
-        }
-        else if (Enum.TryParse(itemName, true, out ChestpieceTypes chestpieceTypes))
-        {
-            //LoadMeleeWeaponDictionary();
-            tempData = ChestpieceAttributeData.FirstOrDefault( item => item.Key == itemName ).Value;
-        }
-            
-        return tempData;
-    }
-
-    public Rectangle getItemHitbox(Globals.Directions direction,Vector2 position, string itemName) 
-    {
-        int[] variables = ItemDataHandler.getItemHitboxData(itemName); // pass player weapon 
-        
-        switch(direction)
-        {
-            case Globals.Directions.Up:
-                return new Rectangle((int)(position.X),(int)(position.Y - variables[1]),variables[2],variables[3]);
-
-            case Globals.Directions.Left:
-                return new Rectangle((int)(position.X - variables[0]),(int)(position.Y),variables[2],variables[3]);
-
-            case Globals.Directions.Down:
-                return new Rectangle((int)(position.X),(int)(position.Y + variables[1]),variables[2],variables[3]);
-                
-            case Globals.Directions.Right:
-                return new Rectangle((int)(position.X + variables[0]),(int)(position.Y),variables[2],variables[3]);  
-
-            case Globals.Directions.UpLeft:
-                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
-
-            case Globals.Directions.UpRight:
-                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
-
-            case Globals.Directions.DownLeft:
-                return new Rectangle((int)(position.X - variables[0] ),(int)(position.Y + variables[1]),variables[2],variables[3]);
-
-            case Globals.Directions.DownRight:
-                return new Rectangle((int)(position.X + variables[0] ),(int)(position.Y - variables[1]),variables[2],variables[3]);
-                
-            default:
-                return new();
-        }
-    }
-
-    public static int[] getItemHitboxData(string itemName)
     {
         try
         {
-            if (Enum.TryParse(itemName, true, out MeleeWeapons meleeWeapons))
+            if (Enum.TryParse(itemName, true, out MeleeWeaponTypes MeleeWeaponTypes))
             {
                 //LoadMeleeWeaponDictionary();
-                return MeleeWeaponHitboxData.FirstOrDefault( item => item.Key == itemName ).Value;
+                hitboxData = GetMeleeWeaponAttributeData(MeleeWeaponTypes);
             }
-            return null;
+            else if (Enum.TryParse(itemName, true, out ChestpieceTypes chestpieceTypes))
+            {
+                //LoadMeleeWeaponDictionary();
+                hitboxData = GetChestpieceAttributeData(chestpieceTypes);
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+            hitboxData = null;
+        }
+        return hitboxData;
+    }
+
+    public Rectangle getWeaponHitbox(Globals.Directions direction,Vector2 position, string itemName) 
+    {
+        hitbox = new();
+        if(AssignWeaponHitboxData(itemName)) // pass player weapon 
+        {      
+            hitbox.Width = hitboxData[2];
+            hitbox.Height = hitboxData[3];    
+            switch(direction)
+            {
+                case Globals.Directions.Up:
+                    hitbox.X = (int)position.X;
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
+
+                case Globals.Directions.Left:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y;
+                    break;
+
+                case Globals.Directions.Down:
+                    hitbox.X = (int)position.X;
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
+                    
+                case Globals.Directions.Right:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y;
+                    break;
+
+                case Globals.Directions.UpLeft:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
+
+                case Globals.Directions.UpRight:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y - hitboxData[1];
+                    break;
+
+                case Globals.Directions.DownLeft:
+                    hitbox.X = (int)position.X - hitboxData[0];
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
+
+                case Globals.Directions.DownRight:
+                    hitbox.X = (int)position.X + hitboxData[0];
+                    hitbox.Y = (int)position.Y + hitboxData[1];
+                    break;
+                    
+                default:
+                    break;
+            }
+            return hitbox;
+        }
+        return hitbox;
+    }
+    
+
+    public bool AssignWeaponHitboxData(string itemName)
+    {
+        hitboxData = null;
+        try
+        {
+            //ADD ALL ENUM IFS HERE:
+            if (Enum.TryParse(itemName, true, out MeleeWeaponTypes MeleeWeaponTypes))
+            {
+                //LoadMeleeWeaponDictionary();
+                hitboxData = GetMeleeWeaponHitboxData(MeleeWeaponTypes);
+                return true;
+            }
         }
         catch(Exception e)
         {
             Microsoft.Xna.Framework.Input.MessageBox.Show("Error",e.ToString(),new List<string> {"OK"});
-            return null;
+            hitboxData = null;
         }
+        return false;
     }
 
     #endregion GeneralFunctions

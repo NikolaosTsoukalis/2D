@@ -8,8 +8,8 @@ namespace _2D_RPG;
 public class MovingEntity : Entity
 {
     #region Values
-    private float Speed {get;set;}
-    private float RunningSpeed {get;set;}
+    protected int Speed;
+    protected int RunningSpeed;
 
     private Vector2 newPosition;
     private Vector2 currentPosition;
@@ -21,7 +21,7 @@ public class MovingEntity : Entity
 
     public MovingEntity(string entityName, Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-        AssignAttributes();
+        //this.AssignAttributes();
     }
 
     #endregion Constructors
@@ -32,14 +32,14 @@ public class MovingEntity : Entity
     { 
         try
         {
-            this.ModifyAttribute(Globals.AttributeTypes.Speed,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.Speed));
-            this.ModifyAttribute(Globals.AttributeTypes.RunningSpeed,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.RunningSpeed));
+            this.ModifyAttribute(Globals.AttributeTypes.Speed,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.Speed));
+            this.ModifyAttribute(Globals.AttributeTypes.RunningSpeed,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.RunningSpeed));
         }
         catch(Exception e)
         {
             Console.WriteLine("ERROR: " + e);
         }
-        base.AssignAttributes();
+        //base.AssignAttributes();
     }
 
     public bool Move(Globals.Directions direction, bool isRunning)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 
@@ -18,10 +19,11 @@ public class CollisionHandler
 
     public static void handleEntityCollisionMap()
     {
+        Tuple<Texture2D,string[]> data;
         foreach(Entity currentEntity in Globals.EntityHandler.GetEntityList())
         {
-            Globals.AnimationDataHandler.GetAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
-            var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(tuple.Item2[0]);
+            data = Globals.AnimationDataHandler.GetAnimationData(currentEntity.Name.ToString(),currentEntity.AnimationIdentifier);
+            var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(data.Item2[0]);
             Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
             var x = entityCollisionMap.Map.Find(x => x.Item1 == currentEntity.Name.ToString()); // Tuple(Name,Rectangle)
             
@@ -53,8 +55,8 @@ public class CollisionHandler
 
     public bool IsCollidingWithEntity(Entity currentEntity)
     {
-        Globals.AnimationDataHandler.GetAnimationDictionary(currentEntity.Name.ToString()).TryGetValue(currentEntity.AnimationIdentifier, out var tuple);
-        var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(tuple.Item2[0]);
+        Tuple<Texture2D, string[]> data = Globals.AnimationDataHandler.GetAnimationData(currentEntity.Name.ToString(),currentEntity.AnimationIdentifier);
+        var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(data.Item2[0]);
         Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
         string entityName = currentEntity.Name;
         Tuple<string,Rectangle> currentEntityTuple = new Tuple<string,Rectangle> (entityName,currentEntityRectangle);

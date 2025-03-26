@@ -1,5 +1,4 @@
 using System;
-using System.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,21 +6,11 @@ namespace _2D_RPG;
 
 public class CombatEntity : MovingEntity
 {
-    private float hp;
-    public float HP 
-    {
-        get{ return hp;}
-        set{hp = value;}
-    }
-    private float attackPower;
-    public float AttackPower 
-    {
-        get{ return attackPower;}
-        set{attackPower = value;}
-    }
+    protected int HP;
+    protected int AttackPower;
 
-    private ItemDataHandler.MeleeWeapons meleeWeaponEquiped;
-    public ItemDataHandler.MeleeWeapons MeleeWeaponEquiped 
+    private ItemDataHandler.MeleeWeaponTypes meleeWeaponEquiped;
+    public ItemDataHandler.MeleeWeaponTypes MeleeWeaponEquiped 
     {
         get{ return meleeWeaponEquiped;}
         set{meleeWeaponEquiped = value;}
@@ -36,40 +25,42 @@ public class CombatEntity : MovingEntity
 
     public CombatEntity(string entityName,Texture2D texture,Vector2 position) : base(entityName,texture,position)
     {
-        AssignAttributes();
-        AssignHitbox(null);
+        //this.AssignAttributes();
+        this.AssignHitbox(null);
     }
 
     public override void AssignAttributes()
     { 
+        base.AssignAttributes();
         try
         {
             //defence
             //intellect
             //stamina?
             //etc (everything that in not assign at parent method calls.)   
-            this.ModifyAttribute(Globals.AttributeTypes.HP,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.HP));  
-            this.ModifyAttribute(Globals.AttributeTypes.AttackPower,Globals.EntityDataHandler.GetSpecificEntityAttributeData(this.Name,Globals.AttributeTypes.AttackPower));          
-            base.AssignAttributes();
+            this.ModifyAttribute(Globals.AttributeTypes.HP,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.HP));  
+            this.ModifyAttribute(Globals.AttributeTypes.AttackPower,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.AttackPower));          
         }
         catch(Exception e)
         {
             Console.WriteLine("ERROR : " + e);
         }
-        
     }
 
     public virtual void MeleeAttack()
     {
+        AssignHitbox(this.MeleeWeaponEquiped.ToString());
         CombatEntity entityGettingAttacked = null;
-        if(Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox).GetType() == typeof(CombatEntity))
-        {
-            entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox);
+        if(Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox) != null)
+        {    
+            if(Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox).GetType() == typeof(CombatEntity))
+            {
+                entityGettingAttacked = (CombatEntity)Globals.CollisionHandler.getCollidingEntity(this.Name,AttackHitbox);
+            }
         }
-        
         if(entityGettingAttacked != null)
         {
-            entityGettingAttacked.GetAttacked(this.AttackPower);
+            entityGettingAttacked.GetAttacked(this.GetAttribute(Globals.AttributeTypes.AttackPower));
         }
         else
         {
@@ -77,10 +68,12 @@ public class CombatEntity : MovingEntity
         }
     }
 
-    public virtual bool GetAttacked(float damageTaken)
+    public virtual bool GetAttacked(int damageTaken)
     {
         //damage taken should be overriden by a method that takes into account all attributes/abillities.
-        HP -= damageTaken;
+        int currentHp = this.GetAttribute(Globals.AttributeTypes.HP) - damageTaken;  
+        this.ModifyAttribute(Globals.AttributeTypes.HP,currentHp);
+        
         return true;
     }
 
@@ -88,10 +81,10 @@ public class CombatEntity : MovingEntity
     {
         if(weaponName != null)
         {
-            AttackHitbox = Globals.ItemDataHandler.getItemHitbox(this.Direction,this.Position, weaponName);
+            AttackHitbox = Globals.ItemDataHandler.getWeaponHitbox(this.Direction,this.Position, weaponName);
         }
         else
-            AttackHitbox = Globals.EntityDataHandler.getEntityAttackHitBox(this.Direction,this.Position, this.Name.ToString());
+            AttackHitbox = Globals.EntityDataHandler.GetEntityAttackHitBox(this.Direction,this.Position, this.Name.ToString());
     }
 }
 

@@ -14,16 +14,16 @@ public class Player : CombatEntity
         set{interactHitBox = value;}
     }
 
-    public Player(EntityDataHandler.GeneralEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
+    public Player(EntityDataHandler.NonHostileEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
-        AssignAttributes(); //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES.
-        AssignIteractHitbox();    
+         //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES.
+        this.AssignIteractHitbox();    
     }
 
     public override void AssignAttributes()
     {
         base.AssignAttributes(); // not needed unless we add more attibutes here or do some attribute logic magic
-        this.MeleeWeaponEquiped = ItemDataHandler.MeleeWeapons.ShortSword; //GET DATA FROM SAVE FILES.
+        this.MeleeWeaponEquiped = ItemDataHandler.MeleeWeaponTypes.ShortSword; //GET DATA FROM SAVE FILES.
     }
 
     public override void MeleeAttack()
@@ -31,7 +31,7 @@ public class Player : CombatEntity
         base.MeleeAttack();
     }
 
-    public override bool GetAttacked(float damageTaken)
+    public override bool GetAttacked(int damageTaken)
     {
         base.GetAttacked(damageTaken);
         return true;
@@ -39,7 +39,8 @@ public class Player : CombatEntity
 
     public override void Interact()
     {
-        var entityGettingInteracted = Globals.CollisionHandler.getCollidingEntity(this.Name,InteractHitbox);
+        AssignIteractHitbox();
+        var entityGettingInteracted = Globals.CollisionHandler.getCollidingEntity(this.Name,this.InteractHitbox);
 
         if(entityGettingInteracted != null && entityGettingInteracted.IsInteractable)
         {
@@ -54,7 +55,9 @@ public class Player : CombatEntity
     public void AssignIteractHitbox()
     {
         //add extra pros cons based on consumables/items equipped/buffs etc.
-        InteractHitbox = Globals.ItemDataHandler.getItemHitbox(this.Direction,this.Position, ItemDataHandler.MeleeWeapons.Fist.ToString());
+        //HITBOX IS PULLED FROM THE ENTITY DATA HANDLER AS IT IS NOT BASED ON A WEAPON/ITEM. 
+        //LOGIC CAN BE ADDED TO INFLUENCE THE INTERACT HITBOX BUT IT WILL NEVER BE BASED ON AN ITEM.
+        InteractHitbox = Globals.EntityDataHandler.GetEntityAttackHitBox(this.Direction,this.Position, this.Name);
     }
 }
 

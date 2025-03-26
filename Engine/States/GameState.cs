@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -5,19 +6,36 @@ namespace _2D_RPG;
 
 public class GameState : State
 {
-    private Command command;
-    readonly Player player = new Player(EntityDataHandler.GeneralEntityTypes.Player,null,Vector2.Zero);
-    readonly HostileEntity slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
 
+    public bool DebugMode = false;
+    private Command command;
+    readonly Player player;
+    readonly HostileEntity slime;
+
+
+    private Inventory Inventory;
+
+    //HELLO
     public GameState(Main main) : base(main)
     {
+        //Handler Initiallization 
         Globals.EntityHandler = new();
         Globals.AnimationHandler = new();
-        Globals.AnimationDataHandler = new();
         Globals.Inputhandler = new();
         Globals.CollisionHandler = new(main);
+
+        //Data Handler Initiallization
+        Globals.AnimationDataHandler = new();
         Globals.ItemDataHandler = new();
+        Globals.EntityDataHandler = new();
+        
+        //Game State specific
+        Inventory = new();
+        
+        player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,Vector2.Zero);
+        slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
         Globals.EntityHandler.AddEntityToList(player);
+
     }
 
     public override void Update(GameTime gameTime)
