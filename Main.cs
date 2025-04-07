@@ -32,7 +32,7 @@ public class Main : Game
     /// </remarks>
     public Main()
     {
-
+        // notice me senpai !!!! UwU !!!! <3 <3 <3
         Globals.GraphicsDeviceManager = new GraphicsDeviceManager(this);
 
         Content.RootDirectory = "Content";
