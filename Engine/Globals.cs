@@ -192,6 +192,36 @@ public class Globals
             return;
         }
     }
+    private static TileDataHandler tileDataHandler;
+    public static TileDataHandler TileDataHandler
+    {
+        get{return tileDataHandler;}
+        set
+        {
+            if(tileDataHandler == null)
+            {
+                tileDataHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + tileDataHandler.GetType().ToString() + ".");
+            return;
+        }
+    }
+    private static TileMapHandler tileMapHandler;
+    public static TileMapHandler TileMapHandler
+    {
+        get{return tileMapHandler;}
+        set
+        {
+            if(tileMapHandler == null)
+            {
+                tileMapHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + tileMapHandler.GetType().ToString() + ".");
+            return;
+        }
+    }
     private static Dictionary<Command.CommandTypes,Keys> keyBindings;
 
     public static Dictionary<Command.CommandTypes,Keys> KeyBindings
@@ -209,6 +239,10 @@ public class Globals
     public static bool ToggleInventory = false;
 
     public static bool drawInteraction = false;
+
+    public static int seed = 5; 
+
+    public static int TileSize = 32;
 
     #endregion Values
 

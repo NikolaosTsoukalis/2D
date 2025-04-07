@@ -5,32 +5,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
-public class TileHandler
+public class TileMapHandler
 {
     #region Fields
-    private List<Tile> CurrentTiles { get; set; }
-    private int MapWidth, MapHeight;
-    private Dictionary<TileDataHandler.TileType, Tuple<int, int>> x;
-
-    #endregion
+    private TileMap tileMap;
+    #endregion Fields
 
     #region Constructors
-    public TileHandler()
+    public TileMapHandler()
     {
-        CurrentTiles = new List<Tile>();
-        
-        MapWidth = Globals.GraphicsDeviceManager.PreferredBackBufferWidth / Globals.TILE_SIZE;
-        MapHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight / Globals.TILE_SIZE;
-        // fucntion for tilling map
-    }
-    #endregion
+        tileMap = new TileMap();
+    }    
+
+    #endregion Constructors
 
     #region Functions
-    public void UpdateTiles()
+    public void Update()
     {
         try
         {
             // If any tile needs updating (e.g., animations or interactions), implement that logic here
+            tileMap.Update();
         }
         catch (Exception e)
         {
@@ -38,30 +33,61 @@ public class TileHandler
         }
     }
 
-    public void DrawTiles()
+    public void Draw()
     {
-
-    foreach (Tile tile in CurrentTiles)
-    {
-        tile.Draw();
-    }
-
-    }
-
-    public void AddTile(Tile tile)
-    {
-        if (!CurrentTiles.Contains(tile))
+        try
         {
-            CurrentTiles.Add(tile);
+            tileMap.Draw();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
         }
     }
 
-    public void RemoveTile(Tile tile)
+    public TileMap GetTileMap()
     {
-        if (CurrentTiles.Contains(tile))
+        try
         {
-            CurrentTiles.Remove(tile);
+            if (AssignTileMap())
+            {    
+                return tileMap;
+            }
+            else
+            {
+                return null;
+            }
         }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error" + e.ToString());
+            return tileMap;
+        }
+    }
+
+    public bool AssignTileMap() // proper bool logic (use bool instead of void) 
+    {
+        try
+        {
+            if (true) // >: ^)
+            {
+                tileMap = new TileMap(); 
+            }
+            else
+            {
+                // tileMap = get map from folder
+            }
+            if (tileMap != null || tileMap.tileMapSize != 0) // >:^)
+            {
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error" + e.ToString());
+            return false;
+        }
+        return false;
     }
     #endregion
 }

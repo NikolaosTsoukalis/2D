@@ -41,7 +41,7 @@ public class Main : Game
 
         IsFixedTimeStep = true;
         TargetElapsedTime = TimeSpan.FromMilliseconds(16.67);
-        Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 600;
+        Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 640;
         Globals.GraphicsDeviceManager.PreferredBackBufferWidth = 800;
     }
 

@@ -23,11 +23,15 @@ public class GameState : State
         Globals.AnimationHandler = new();
         Globals.Inputhandler = new();
         Globals.CollisionHandler = new(main);
+        
+        Globals.TileMapHandler = new();
 
         //Data Handler Initiallization
         Globals.AnimationDataHandler = new();
         Globals.ItemDataHandler = new();
         Globals.EntityDataHandler = new();
+
+        Globals.TileDataHandler = new();
         
         //Game State specific
         Inventory = new();
@@ -73,6 +77,7 @@ public class GameState : State
 
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
+        Globals.TileMapHandler.Draw();
         Globals.AnimationHandler.DrawAnimations();
 
         if(Globals.enableDebugs)
@@ -89,6 +94,7 @@ public class GameState : State
 
     public void UpdateHandlers()
     {
+        Globals.TileMapHandler.Update();
         Globals.CollisionHandler.Update();
         Globals.AnimationHandler.UpdateAnimationList();
         Globals.AnimationHandler.UpdateAnimations();
