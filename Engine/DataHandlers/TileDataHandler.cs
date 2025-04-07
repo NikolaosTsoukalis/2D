@@ -24,7 +24,8 @@ public class TileDataHandler
 
     #region Fields
 
-    private Texture2D data;
+    private Texture2D TextureData;
+    private bool? IsCollidable;
 
     #endregion Fields
 
@@ -32,59 +33,41 @@ public class TileDataHandler
 
     public TileDataHandler()
     {
-        data = null;
+        TextureData = null;
+        IsCollidable = false;
     }
 
     #endregion Constructors
 
     #region General Functions
 
-    /*
-    private static Dictionary<TileType, Tuple<Texture2D, bool>> TileData;
 
-    public TileDataHandler()
-    {
-        LoadTileData();
-    }
-
-    public static void LoadTileData()
-    {
-        // Format: {Texture2D}, bool (IsWalkable)
-        TileData = new Dictionary<TileType, Tuple<Texture2D, bool>> // split dictionaries to name-texture and all the other abilities (walkability dmg)
-        {
-            { TileType.Grass, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Grass"), true) },
-            { TileType.Grass1, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Grass1"), true) },
-            { TileType.Grass2, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Grass2"), true) },
-            { TileType.Grass3, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Grass3"), true) },
-            { TileType.Water, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Water"), false) },
-            { TileType.Sand, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Sand"), true) },
-            { TileType.Wall, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Wall"), false) },
-            { TileType.Stone, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Stone"), true) },
-            { TileType.Wood, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Wood"), true) }
-        };
-    }
-
-    public static void UnloadTileData()
-    {
-        TileData = new();
-    }
-
-    public static Tuple<Texture2D, bool> GetTileData(TileType tileType)
-    {
-        if (TileData.TryGetValue(tileType, out var tileData))
-        {
-            return tileData;
-        }
-        return null;
-    }
-    */
     public Texture2D GetTileTextureData(int tileType)
     {
         try
         {
             if (AssignTileTextureData(tileType))
             {
-                return data;
+                return TextureData;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            return null;
+        }
+
+        Console.WriteLine("Tile Name: " + tileType.ToString() + " is invalid.");
+        return null;
+    }
+
+    public bool? GetTileIsCollidable(int tileType)
+    {
+        try
+        {
+            if (AssignTileIsCollidable(tileType))
+            {
+                return IsCollidable;
             }
         }
         catch (Exception e)
@@ -106,36 +89,36 @@ public class TileDataHandler
             switch(type)
             {
                 case (int)TileType.Grass:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Grass");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Grass");
                     break;
                 case (int)TileType.Grass1:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Grass1");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Grass1");
                     break;
                 case (int)TileType.Grass2:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Grass2");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Grass2");
                     break;
                 case (int)TileType.Grass3:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Grass3");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Grass3");
                     break;
                 case (int)TileType.Sand:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Sand");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Sand");
                     break;
                 case (int)TileType.Stone:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Stone");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Stone");
                     break;
                 case (int)TileType.Wall:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Wall");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Wall");
                     break;
                 case (int)TileType.Water:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Water");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Water");
                     break;
                 case (int)TileType.Wood:
-                    data = Globals.ContentManager.Load<Texture2D>("Tiles/Wood");
+                    TextureData = Globals.ContentManager.Load<Texture2D>("Tiles/Wood");
                     break;
                 default:
                     return false;
             }
-            if(data != null)
+            if(TextureData != null)
             {
                 return true;
             }
@@ -146,6 +129,45 @@ public class TileDataHandler
             return false;
         }
         return false;
+    }
+
+    private bool? AssignTileIsCollidable(int type)
+    {
+        try
+        {
+            switch(type)
+            {
+                case (int)TileType.Grass:
+                case (int)TileType.Grass1:
+                case (int)TileType.Grass2:
+                case (int)TileType.Grass3:
+                    IsCollidable = false;
+                    break;
+                case (int)TileType.Sand:
+                    IsCollidable = false;
+                    break;
+                case (int)TileType.Stone:
+                    IsCollidable = false;
+                    break;
+                case (int)TileType.Wall:
+                    IsCollidable = true;
+                    break;
+                case (int)TileType.Water:
+                    IsCollidable = true;
+                    break;
+                case (int)TileType.Wood:
+                    IsCollidable = false;
+                    break;
+                default:
+                    return null;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            return null;
+        }
+        return null;
     }
     #endregion Assign Data Functions
 
