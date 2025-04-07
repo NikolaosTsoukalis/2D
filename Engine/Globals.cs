@@ -240,7 +240,7 @@ public class Globals
 
     public static bool drawInteraction = false;
 
-    public static int seed = 5; 
+    public static int seed = 6; 
 
     public static int TileSize = 32;
 
