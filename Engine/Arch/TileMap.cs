@@ -1,14 +1,21 @@
 using System;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
 
 public class TileMap
 {
+    #region Fields
     public int worldHeight;
     public int worldWidth;
     private int[,] tileMapMatrix; // >: ^)
     public int tileMapSize;
+
+    #endregion Fields
+
+    #region Constructor
 
     public TileMap()
     {
@@ -22,6 +29,8 @@ public class TileMap
         GenerateMap();
     }
 
+    #endregion Constructor
+
     public void GenerateMap()
     {
         try
@@ -33,7 +42,7 @@ public class TileMap
                 {
                     for (int x = 0; x < worldWidth; x++)
                     {
-                        GenerateLushGrass4(tileMapMatrix, x, y);
+                        GenerateLushGrass4(x, y);
                     }
                 }
             }
@@ -58,12 +67,12 @@ public class TileMap
                         if (isRiver)
                         {
                             // If it's the river area, use water tiles
-                            GenerateWater1(tileMapMatrix, x, y);
+                            GenerateWater1(x, y);
                         }
                         else
                         {
                             // Randomly place rocks on non-river areas
-                            GenerateRocksInGrassV0(tileMapMatrix, x, y);
+                            GenerateRocksInGrassV0(x, y);
                         }
                     }
                 }
@@ -139,7 +148,7 @@ public class TileMap
                         }
                         else  // Otherwise, use grass
                         { 
-                            GenerateLushGrass4(tileMapMatrix, x, y);
+                            GenerateLushGrass4(x, y);
                         }
                     }
                 }
@@ -235,7 +244,7 @@ public class TileMap
                         }
                         else
                         {
-                            GenerateLushGrass4(tileMapMatrix, x, y);
+                            GenerateLushGrass4(x, y);
                         }
                     }
                 }
@@ -310,7 +319,7 @@ public class TileMap
                     for (int x = 0; x < worldWidth; x++)
                     {
                         // Check if the current position is within the river's area
-                        bool isRiver = x >= riverArea.X && x <= riverArea.Right && y >= riverArea.Y && y <= riverArea.Bottom; //done
+                        bool isRiver = x >= riverArea.X && x <= riverArea.Right && y >= riverArea.Y && y <= riverArea.Bottom;
                         // Check if the current position is within the path's inner area
                         bool isInnerPath = (x >= pathA.X + 1 && x <= pathA.Right - 1 && y >= pathA.Y + 1 && y <= pathA.Bottom - 1) ||
                                        (x >= pathB.X + 1 && x <= pathB.Right - 1 && y >= pathB.Y + 1 && y <= pathB.Bottom - 1) ||
@@ -321,7 +330,7 @@ public class TileMap
                                        (x >= pathB.X && x <= pathB.Right && y >= pathB.Y && y <= pathB.Bottom) ||
                                        (x >= pathC.X && x <= pathC.Right && y >= pathC.Y && y <= pathC.Bottom) ||
                                        (x >= pathD.X && x <= pathD.Right && y >= pathD.Y && y <= pathD.Bottom);
-                        // Check if near a path but not on path
+                        // Check if next to a path but not on path
                         bool isCloserToPath = (x >= pathA.X - 1 && x <= pathA.Right + 1 && y >= pathA.Y - 1 && y <= pathA.Bottom + 1) ||
                                              (x >= pathB.X - 1 && x <= pathB.Right + 1 && y >= pathB.Y - 1 && y <= pathB.Bottom + 1) ||
                                              (x >= pathC.X - 1 && x <= pathC.Right + 1 && y >= pathC.Y - 1 && y <= pathC.Bottom + 1) ||
@@ -332,33 +341,33 @@ public class TileMap
                                              (x >= pathC.X - 2 && x <= pathC.Right + 2 && y >= pathC.Y - 2 && y <= pathC.Bottom + 2) ||
                                              (x >= pathD.X - 2 && x <= pathD.Right + 2 && y >= pathD.Y - 2 && y <= pathD.Bottom + 2);
 
-                        if (isRiver && isPath)
+                        if (IsInRectangle(x, y, riverArea) && IsInRectangles(x, y, pathA, pathB, pathC, pathD))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Wood;
                         }
-                        else if (isRiver)
+                        else if (IsInRectangle(x, y, riverArea))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Water;
                         }
                         else if (isInnerPath)
                         {
-                            GeneratePathWithPercentage(tileMapMatrix, x, y, 100);
+                            GeneratePathWithPercentage(x, y, 100);
                         }
                         else if (isPath)
                         {
-                            GeneratePathWithPercentage(tileMapMatrix, x, y, 95);
+                            GeneratePathWithPercentage(x, y, 95);
                         }
                         else if (isCloserToPath)
                         {
-                            GeneratePathWithPercentage(tileMapMatrix, x, y, 20);
+                            GeneratePathWithPercentage(x, y, 20);
                         }
                         else if (isCloseToPath)
                         {
-                            GeneratePathWithPercentage(tileMapMatrix, x, y, 5);
+                            GeneratePathWithPercentage(x, y, 5);
                         }
                         else 
                         {
-                            GenerateLushGrass4(tileMapMatrix, x, y);
+                            GenerateLushGrass4(x, y);
                         }
                     }
                 }
@@ -370,23 +379,33 @@ public class TileMap
             Console.WriteLine("ERROR: " + e);
         }
     }
+
     public void ChangeTile(int x, int y, TileDataHandler.TileType newTile) // >: ^)
     {
         tileMapMatrix[x, y] = 0;
         tileMapMatrix[x, y] = (int)newTile; // >:    ^)
-    } 
+    }
+
     public void RemoveTile(int x, int y)
     {
         tileMapMatrix[x, y] = 0;
     }
+
     public void AddTile(int x, int y, TileDataHandler.TileType newType)
     {
         tileMapMatrix[x, y] = (int)newType;
     }
+
+    public int GetTileTypeAt(int x, int y)
+    {
+        return tileMapMatrix[x, y];
+    }
+
     public void Update()
     {
         // check all the tiles that need updating, ότι αλλάζει στο tileMapMatrix ΕΔΩ
     }
+
     public void Draw()
     {
         Vector2 Position = new Vector2 (0, 0);
@@ -402,19 +421,20 @@ public class TileMap
     }
 
     #region Gen Functions
-    private void GenerateLushGrass4(int[,] tileMapMatrix, int x, int y)
+
+    private void GenerateLushGrass4(int x, int y)
     {
         Random rnd = new Random();
         int flag = rnd.Next(0, 100);
         tileMapMatrix[x, y] = flag < 50 ? flag < 25 ? (int)TileDataHandler.TileType.Grass : (int)TileDataHandler.TileType.Grass1 : flag < 75 ? (int)TileDataHandler.TileType.Grass1 : (int)TileDataHandler.TileType.Grass3;
     }
 
-    private void GenerateWater1(int[,] tileMapMatrix, int x, int y)
+    private void GenerateWater1(int x, int y)
     {   
         tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Water;
     }
 
-    private void GenerateRocksInGrassV0(int[,] tileMapMatrix, int x, int y)
+    private void GenerateRocksInGrassV0(int x, int y)
     { 
         if (new Random().Next(0, 10) > 8)  // 20% chance of placing a rock
         {
@@ -422,11 +442,11 @@ public class TileMap
         }
         else 
         {
-            GenerateLushGrass4(tileMapMatrix, x, y);
+            GenerateLushGrass4(x, y);
         }
     }
 
-    private void GeneratePathWithPercentage(int[,] tileMapMatrix, int x, int y, int z)
+    private void GeneratePathWithPercentage(int x, int y, int z)
     { 
         Random rnd = new Random();
         int flag = rnd.Next(0, 100);
@@ -436,8 +456,23 @@ public class TileMap
         }
         else 
         {
-            GenerateLushGrass4(tileMapMatrix, x, y);
+            GenerateLushGrass4(x, y);
         }
+    }
+
+    private bool IsInRectangle(int x, int y, Rectangle rectangle)
+    { 
+        return x >= rectangle.X && x <= rectangle.Right && y >= rectangle.Y && y <= rectangle.Bottom;
+    }
+
+    private bool IsInRectangles(int x, int y, params Rectangle[] rectangles)
+    {
+        foreach (var rect in rectangles)
+        {
+            if (IsInRectangle(x, y, rect))
+                return true;
+        }
+        return false;
     }
 
     #endregion Gen Functions
