@@ -133,7 +133,7 @@ public class MovingEntity : Entity
         }
         //this.pastPosition = Position;
         this.Position += newPosition;
-        if(Globals.CollisionHandler.IsCollidingWithEntity(this) || CollisionHandler.IsCollidingWithStructure(this))
+        if(Globals.CollisionHandler.IsCollidingWithEntity(this) || Globals.CollisionHandler.IsCollidingWithTile(this))
         {
             this.Position = currentPosition;
             return false;

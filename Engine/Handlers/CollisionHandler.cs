@@ -41,17 +41,12 @@ public class CollisionHandler
             entityCollisionMap.AddToCollisionMap(currentEntity.Name.ToString(),currentEntityRectangle);
         }
     }
-/*
-    public static void handleTileCollisionMap()
+
+    public static void handleTileCollisionMap(Vector2 playerPosition)
     {
-        foreach(Entity currentEntity in EntityHandler.TileList)
-        {
-            Texture2D currentEntityTexture = currentEntity.Texture;
-            Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
-        }
+        //MIGHT NOT BE NEEDED
         //tileCollisionMap.AddToCollisionMap(tile)
     }
-    */
 
     public bool IsCollidingWithEntity(Entity currentEntity)
     {
@@ -87,29 +82,39 @@ public class CollisionHandler
         return false;
     }
 
-    public static bool IsCollidingWithStructure(Entity currentEntity)
+    public bool IsCollidingWithTile(Entity currentEntity)
     {
-        //Texture2D currentEntityTexture = currentEntity.Texture;
-        Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
-
-        foreach(Tuple<string,Rectangle> tempTuple in tileCollisionMap.Map)
+        try
         {
-            if(currentEntityRectangle.Intersects(tempTuple.Item2))
+            bool? isTileCollidable = Globals.TileDataHandler.GetTileCollidability(Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)currentEntity.Position.X,(int)currentEntity.Position.Y));
+            if(isTileCollidable == true)
             {
                 return true;
             }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
             return false;
         }
-
+        
         // Map is empty
         return false;
     }
 
-    public Entity getCollidingEntity(string entityName,Rectangle hitbox)
+    public Entity getCollidingEntity(string entityName,Rectangle hitbox)  //Mainly use for interact/attack and not collision
     {
         foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
         {
-            if(hitbox.Intersects(tempTuple.Item2) && entityName != tempTuple.Item1)
+            Rectangle actualCollidingHitbox = tempTuple.Item2;
+            
+            int newX = actualCollidingHitbox.X + actualCollidingHitbox.Width/3;
+            int newY = actualCollidingHitbox.Y + actualCollidingHitbox.Height/6;
+            int newWidth = actualCollidingHitbox.Width - 2*actualCollidingHitbox.Width/3;
+            int newHeight = actualCollidingHitbox.Height - 2*actualCollidingHitbox.Height/6;
+
+            actualCollidingHitbox = new Rectangle(newX,newY, newWidth,newHeight);
+            if(hitbox.Intersects(actualCollidingHitbox) && entityName != tempTuple.Item1)
             {
                 foreach(Entity entity in Globals.EntityHandler.GetEntityList())
                 {

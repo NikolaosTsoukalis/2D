@@ -61,7 +61,7 @@ public class TileDataHandler
         return null;
     }
 
-    public bool? GetTileIsCollidable(int tileType)
+    public bool? GetTileCollidability(int tileType)
     {
         try
         {
@@ -131,10 +131,11 @@ public class TileDataHandler
         return false;
     }
 
-    private bool? AssignTileIsCollidable(int type)
+    private bool AssignTileIsCollidable(int type)
     {
         try
         {
+            IsCollidable = null;
             switch(type)
             {
                 case (int)TileType.Grass:
@@ -159,15 +160,19 @@ public class TileDataHandler
                     IsCollidable = false;
                     break;
                 default:
-                    return null;
+                    return false;
+            }
+            if(IsCollidable != null)
+            {
+                return true;
             }
         }
         catch(Exception e)
         {
             Console.WriteLine("ERROR: " + e);
-            return null;
+            return false;
         }
-        return null;
+        return false;
     }
     #endregion Assign Data Functions
 
