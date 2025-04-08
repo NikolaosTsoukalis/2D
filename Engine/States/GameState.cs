@@ -4,9 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
+///<Summary>
+/// State where the gameplay unfolds
+///</Summary>
 public class GameState : State
 {
 
+    ///<Summary>
+    /// testing debug mode
+    ///</Summary>
     public bool DebugMode = false;
     private Command command;
     readonly Player player;
@@ -15,7 +21,9 @@ public class GameState : State
 
     private Inventory Inventory;
 
-    //HELLO
+    ///<Summary>
+    /// initialize all handlers in constructor
+    ///</Summary>
     public GameState(Main main) : base(main)
     {
         //Handler Initiallization 
@@ -38,12 +46,15 @@ public class GameState : State
         Globals.Camera = new();
         Globals.Camera.LookAt(Vector2.Zero);
         
-        player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,new Vector2(400, 320));
-        slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
+        player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,new Vector2(500, 500));
+        slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300, 400));
         Globals.EntityHandler.AddEntityToList(player);
 
     }
 
+    ///<Summary>
+    /// Update
+    ///</Summary>
     public override void Update(GameTime gameTime)
     {
         Globals.Camera.LookAt(player.Position);
@@ -63,6 +74,9 @@ public class GameState : State
         UpdateHandlers();
     }
 
+    ///<Summary>
+    /// post update processing
+    ///</Summary>
     public override void PostUpdate(GameTime gameTime)
     {
         if(player.AnimationIdentifier == AnimationDataHandler.AnimationIdentifier.Run)
@@ -75,11 +89,14 @@ public class GameState : State
         }
     }
 
+    ///<Summary>
+    /// get camera -> draw map around camera and inside -> draw animations
+    ///</Summary>
     public override void Draw(GameTime gameTime)
     { 
 
         Globals.SpriteBatch.Begin(transformMatrix: Globals.Camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
-        Globals.TileMapHandler.Draw();
+        Globals.TileMapHandler.DrawTileMap(Globals.Camera.GetViewMatrix());
         Globals.AnimationHandler.DrawAnimations();
 
         if(Globals.enableDebugs)
@@ -94,6 +111,9 @@ public class GameState : State
         Globals.SpriteBatch.End();
     }
 
+    ///<Summary>
+    /// update all handlers needed
+    ///</Summary>
     public void UpdateHandlers()
     {
         Globals.TileMapHandler.Update();

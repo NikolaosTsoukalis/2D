@@ -2,8 +2,9 @@ namespace _2D_RPG;
 
 class MeleeAttackCommand : Command 
 {
-    #region Values
-    #endregion Values
+    #region Fields
+
+    #endregion Fields
 
     #region Constructors
 

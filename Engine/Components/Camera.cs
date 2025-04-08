@@ -1,6 +1,9 @@
 using _2D_RPG;
 using Microsoft.Xna.Framework;
 
+///<Summary>
+/// Camera controls  
+///</Summary>
 public class Camera2D
 {
     private Matrix _transform;
@@ -8,6 +11,9 @@ public class Camera2D
     private float _zoom;
     private float _rotation;
 
+    ///<Summary>
+    /// camera constructor  
+    ///</Summary>
     public Camera2D()
     {
         _zoom = 1f;
@@ -15,6 +21,9 @@ public class Camera2D
         _position = Vector2.Zero;
     }
 
+    ///<Summary>
+    /// matrix to get the transform function of the camera with the inverted of cells 14 24 being the coordinates of the camera at lookat
+    ///</Summary>
     public Matrix GetViewMatrix()
     {
         _transform =
@@ -26,31 +35,45 @@ public class Camera2D
     }
 
     // Properties to control the camera
-    public Vector2 Position
+    private Vector2 Position
     {
         get => _position;
         set => _position = value;
     }
 
-    public float Zoom
+    private float Zoom
     {
         get => _zoom;
         set => _zoom = MathHelper.Clamp(value, 0.1f, 10f);
     }
 
-    public float Rotation
+    private float Rotation
     {
         get => _rotation;
         set => _rotation = value;
     }
 
-    public void Move(Vector2 amount)
-    {
-        _position += amount;
-    }
-
+    ///<Summary>
+    /// Sets the camera to follow the player movement up until the edges of the map where it stays in bounds  
+    ///</Summary>
     public void LookAt(Vector2 target)
     {
-        _position = target;
+        int screenWidth = Globals.GraphicsDeviceManager.PreferredBackBufferWidth;
+        int screenHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight;
+        bool isAtLimitX = target.X - screenWidth / 2 - 32 < 0 || target.X + screenWidth / 2 + 32 > Globals.WorldSize.X;
+        bool isAtLimitY = target.Y - screenHeight / 2 - 32 < 0 || target.Y + screenHeight / 2 + 32 > Globals.WorldSize.X;
+        if (isAtLimitX && isAtLimitY){}
+        else if (isAtLimitX)
+        {
+            _position.Y = target.Y;
+        }
+        else if (isAtLimitY)
+        {
+            _position.X = target.X;
+        }
+        else
+        {
+            _position = target;
+        }
     }
 }

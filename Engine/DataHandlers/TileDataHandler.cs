@@ -5,9 +5,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
+///<Summary>
+/// class to handle all tile data shenanigans
+///</Summary>
 public class TileDataHandler
 {
     #region Enums
+
+    ///<Summary>
+    /// tiletypes to differenciate tiles by name a value stored in tilematrix   
+    ///</Summary>
     public enum TileType
     {
         Grass,
@@ -30,6 +37,9 @@ public class TileDataHandler
 
     #region Constructors
 
+    ///<Summary>
+    /// constructor with data initialization 
+    ///</Summary>
     public TileDataHandler()
     {
         data = null;
@@ -39,45 +49,9 @@ public class TileDataHandler
 
     #region General Functions
 
-    /*
-    private static Dictionary<TileType, Tuple<Texture2D, bool>> TileData;
-
-    public TileDataHandler()
-    {
-        LoadTileData();
-    }
-
-    public static void LoadTileData()
-    {
-        // Format: {Texture2D}, bool (IsWalkable)
-        TileData = new Dictionary<TileType, Tuple<Texture2D, bool>> // split dictionaries to name-texture and all the other abilities (walkability dmg)
-        {
-            { TileType.Grass, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Grass"), true) },
-            { TileType.Grass1, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Grass1"), true) },
-            { TileType.Grass2, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Grass2"), true) },
-            { TileType.Grass3, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Grass3"), true) },
-            { TileType.Water, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Water"), false) },
-            { TileType.Sand, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Sand"), true) },
-            { TileType.Wall, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Wall"), false) },
-            { TileType.Stone, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Stone"), true) },
-            { TileType.Wood, new Tuple<Texture2D, bool>(Globals.ContentManager.Load<Texture2D>("Tiles/Wood"), true) }
-        };
-    }
-
-    public static void UnloadTileData()
-    {
-        TileData = new();
-    }
-
-    public static Tuple<Texture2D, bool> GetTileData(TileType tileType)
-    {
-        if (TileData.TryGetValue(tileType, out var tileData))
-        {
-            return tileData;
-        }
-        return null;
-    }
-    */
+    ///<Summary>
+    /// Get the tile texture data 
+    ///</Summary>
     public Texture2D GetTileTextureData(int tileType)
     {
         try

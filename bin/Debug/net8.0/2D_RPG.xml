@@ -4,6 +4,11 @@
         <name>2D_RPG</name>
     </assembly>
     <members>
+        <member name="T:_2D_RPG.TileMap">
+            <Summary>
+             Generation, Tile functions and Generation functions
+            </Summary>
+        </member>
         <member name="T:_2D_RPG.Globals">
             <summary>
             Global class

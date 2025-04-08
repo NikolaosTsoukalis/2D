@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Design;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.VisualBasic;
 
 namespace _2D_RPG;
+///<Summary>
+/// settings state for volume etc
+///</Summary>
 public class SettingsMainMenuState : State 
 {
     private List<Component> components;
     Button windowFormatButton;
     Button backButton;
     
+    ///<Summary>
+    /// constructor for all the buttons in settings
+    ///</Summary>
     public SettingsMainMenuState(Main main) : base (main)
     {
         var controlsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Controls"))
@@ -44,14 +48,23 @@ public class SettingsMainMenuState : State
         };
     }
 
+    ///<Summary>
+    /// Update
+    ///</Summary>
     public override void Update(GameTime gameTime)
     {
         foreach (var component in components)
             component.Update(gameTime);
     }
 
+    ///<Summary>
+    /// Post Update
+    ///</Summary>
     public override void PostUpdate(GameTime gameTime){}
 
+    ///<Summary>
+    /// Draw
+    ///</Summary>
     public override void Draw(GameTime gameTime)
     {
         Globals.SpriteBatch.Begin();
@@ -106,6 +119,9 @@ public class SettingsMainMenuState : State
             main.ChangeState(new MainMenuState(main));
     }
 
+    ///<Summary>
+    /// window setting
+    ///</Summary>
     public Texture2D GetWindowFormatButton()
     {
         if(Globals.GraphicsDeviceManager.IsFullScreen)
