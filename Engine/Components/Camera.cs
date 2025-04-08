@@ -30,7 +30,8 @@ public class Camera2D
             Matrix.CreateTranslation(new Vector3(-_position, 0)) *
             Matrix.CreateRotationZ(_rotation) *
             Matrix.CreateScale(_zoom, _zoom, 1) *
-            Matrix.CreateTranslation(new Vector3(Globals.GraphicsDeviceManager.PreferredBackBufferWidth * 0.5f, Globals.GraphicsDeviceManager.PreferredBackBufferHeight * 0.5f, 0));
+            //Matrix.CreateTranslation(new Vector3(Globals.GraphicsDeviceManager.PreferredBackBufferWidth * 0.5f, Globals.GraphicsDeviceManager.PreferredBackBufferHeight * 0.5f, 0));
+            Matrix.CreateTranslation(new Vector3(Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width * 0.5f, Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height * 0.5f, 0));
         return _transform;
     }
 
@@ -58,10 +59,12 @@ public class Camera2D
     ///</Summary>
     public void LookAt(Vector2 target)
     {
-        int screenWidth = Globals.GraphicsDeviceManager.PreferredBackBufferWidth;
-        int screenHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight;
-        bool isAtLimitX = target.X - screenWidth / 2 - 32 < 0 || target.X + screenWidth / 2 + 32 > Globals.WorldSize.X;
-        bool isAtLimitY = target.Y - screenHeight / 2 - 32 < 0 || target.Y + screenHeight / 2 + 32 > Globals.WorldSize.X;
+        int screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
+        int screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
+        //int screenWidth = Globals.GraphicsDeviceManager.PreferredBackBufferWidth;
+        //int screenHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight;
+        bool isAtLimitX = target.X - screenWidth / 2 - 64 < 0 || target.X + screenWidth / 2 + 64 > Globals.WorldSize.X;
+        bool isAtLimitY = target.Y - screenHeight / 2 - 64 < 0 || target.Y + screenHeight / 2 + 64 > Globals.WorldSize.X;
         if (isAtLimitX && isAtLimitY){}
         else if (isAtLimitX)
         {

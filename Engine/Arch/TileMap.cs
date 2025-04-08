@@ -23,7 +23,7 @@ public class TileMap
     #region Constructor
 
     ///<Summary>
-    /// everything about tile generation and private handling 
+    /// everything about tile generation and private 
     ///</Summary>
     public TileMap()
     {
@@ -435,8 +435,8 @@ public class TileMap
     public void Draw(Matrix cameraMatrix)
     {
         Vector2 Position = new Vector2 (0, 0);
-        int percievedWidth = Globals.GraphicsDeviceManager.PreferredBackBufferWidth;
-        int percievedHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight;
+        int percievedWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
+        int percievedHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
 
         Matrix inverseView = Matrix.Invert(cameraMatrix);
         Vector2 topLeftWorld = Vector2.Transform(Vector2.Zero, inverseView);
@@ -444,9 +444,9 @@ public class TileMap
         int x_flag = (int)topLeftWorld.X / 32; 
         int y_flag = (int)topLeftWorld.Y / 32;
 
-        for (int y = y_flag - 1; y < percievedHeight/32 + y_flag + 1; y ++)
+        for (int y = y_flag - 2; y < percievedHeight/32 + y_flag + 2; y ++)
         {
-            for (int x = x_flag - 1; x < percievedWidth/32 + x_flag + 1; x ++)
+            for (int x = x_flag - 2; x < percievedWidth/32 + x_flag + 2; x ++)
             {
                 Position.X = x * Globals.TileSize;
                 Position.Y = y * Globals.TileSize;

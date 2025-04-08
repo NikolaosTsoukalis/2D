@@ -88,7 +88,7 @@ public class SettingsMainMenuState : State
         if(Globals.GraphicsDeviceManager.IsFullScreen)
         {
             Globals.GraphicsDeviceManager.IsFullScreen = false;
-            Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 600;
+            Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 640;
             Globals.GraphicsDeviceManager.PreferredBackBufferWidth = 800;
             Globals.GraphicsDeviceManager.ApplyChanges();
             windowFormatButton.Texture = GetWindowFormatButton();
