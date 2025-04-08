@@ -23,6 +23,8 @@ public class TileMap
     {
         worldWidth = Globals.GraphicsDeviceManager.PreferredBackBufferWidth / Globals.TileSize;
         worldHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight / Globals.TileSize;
+        //worldWidth = 80;
+        //worldHeight = 80; // >: ^)
         // WorldSize = new Tuple<int, int>(x, y);
         tileMapMatrix = new int[worldWidth, worldHeight];
 

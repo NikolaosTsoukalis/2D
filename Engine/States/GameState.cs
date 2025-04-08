@@ -35,8 +35,10 @@ public class GameState : State
         
         //Game State specific
         Inventory = new();
+        Globals.Camera = new();
+        Globals.Camera.LookAt(Vector2.Zero);
         
-        player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,Vector2.Zero);
+        player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,new Vector2(400, 320));
         slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300,400));
         Globals.EntityHandler.AddEntityToList(player);
 
@@ -44,6 +46,7 @@ public class GameState : State
 
     public override void Update(GameTime gameTime)
     {
+        Globals.Camera.LookAt(player.Position);
         Globals.UpdateTimeForAnimations(gameTime, main);
         command = Globals.Inputhandler.HandleInput();
         if(command != null)
@@ -75,8 +78,7 @@ public class GameState : State
     public override void Draw(GameTime gameTime)
     { 
 
-        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
+        Globals.SpriteBatch.Begin(transformMatrix: Globals.Camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
         Globals.TileMapHandler.Draw();
         Globals.AnimationHandler.DrawAnimations();
 

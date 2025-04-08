@@ -222,6 +222,22 @@ public class Globals
             return;
         }
     }
+
+    private static Camera2D camera;
+    public static Camera2D Camera
+    {
+        get{return camera;}
+        set
+        {
+            if(camera == null)
+            {
+                camera = value;
+                return;
+            }
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + camera.GetType().ToString() + ".");
+            return;
+        }
+    }
     private static Dictionary<Command.CommandTypes,Keys> keyBindings;
 
     public static Dictionary<Command.CommandTypes,Keys> KeyBindings

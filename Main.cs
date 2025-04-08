@@ -20,6 +20,11 @@ public class Main : Game
 
     public SpriteFont MyFont;
 
+
+    public Camera2D camera;
+
+
+
     #endregion Values
 
     #region Constructors
@@ -55,9 +60,9 @@ public class Main : Game
     /// This method initiallizes non graphical resources once before the LoadContent call and the game loop, and calls the base class'
     /// <see cref="Game.Initialize()"/> method.
     /// </remarks>
+
     protected override void Initialize()
     {
-        
         // TODO: Add your initialization logic here
         base.Initialize();
     }
