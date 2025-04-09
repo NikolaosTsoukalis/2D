@@ -5,10 +5,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
+///<Summary>
+/// main menu state to access the settings, the game and everything else
+///</Summary>
 public class MainMenuState : State
 {
     private List<Component> components;
 
+    ///<Summary>
+    /// Constructor of main menu state with buttons for settings play game etc
+    ///</Summary>
     public MainMenuState(Main main) : base(main)
     {
 
@@ -41,6 +47,9 @@ public class MainMenuState : State
         };
     }
 
+    ///<Summary>
+    /// draw buttons of settings
+    ///</Summary>
     public override void Draw(GameTime gameTime)
     {
         Globals.SpriteBatch.Begin();
@@ -61,11 +70,17 @@ public class MainMenuState : State
         main.ChangeState(new GameState(main));
     }
 
+    ///<Summary>
+    /// post updates
+    ///</Summary>
     public override void PostUpdate(GameTime gameTime)
     {
         // remove sprites if they're not needed
     }
 
+    ///<Summary>
+    /// Update
+    ///</Summary>
     public override void Update(GameTime gameTime)
     {
         foreach (var component in components)

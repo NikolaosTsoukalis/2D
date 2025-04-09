@@ -12,13 +12,12 @@ namespace _2D_RPG;
 /// </remarks>
 public class Main : Game
 {
-
     #region Values
 
     public State currentGameState;
     public State nextGameState;
-
     public SpriteFont MyFont;
+    public Camera2D camera;
 
     #endregion Values
 
@@ -39,9 +38,11 @@ public class Main : Game
         IsMouseVisible = true;
 
         IsFixedTimeStep = true;
-        TargetElapsedTime = TimeSpan.FromMilliseconds(16.67);
-        Globals.GraphicsDeviceManager.PreferredBackBufferHeight = 640;
+
+        Window.AllowUserResizing = true;
+        Globals.GraphicsDeviceManager.PreferredBackBufferWidth = 640;
         Globals.GraphicsDeviceManager.PreferredBackBufferWidth = 800;
+        TargetElapsedTime = TimeSpan.FromMilliseconds(16.67);
     }
 
     #endregion Constructors
@@ -55,9 +56,9 @@ public class Main : Game
     /// This method initiallizes non graphical resources once before the LoadContent call and the game loop, and calls the base class'
     /// <see cref="Game.Initialize()"/> method.
     /// </remarks>
+
     protected override void Initialize()
     {
-        
         // TODO: Add your initialization logic here
         base.Initialize();
     }
@@ -118,7 +119,6 @@ public class Main : Game
     /// </remarks>
     protected override void Draw(GameTime gameTime)
     {
-        
         Color colour = gameTime.IsRunningSlowly? Color.Red : Color.CornflowerBlue;
         GraphicsDevice.Clear(colour);
 

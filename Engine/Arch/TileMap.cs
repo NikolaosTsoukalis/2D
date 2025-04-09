@@ -1,28 +1,35 @@
 using System;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
 
+///<Summary>
+/// Generation, Tile functions and Generation functions
+///</Summary>
 public class TileMap
 {
     #region Fields
-    public int worldHeight;
-    public int worldWidth;
+
+    private Vector2 worldSize;
     private int[,] tileMapMatrix; // >: ^)
+    ///<Summary>
+    /// Size of world map in tiles 
+    ///</Summary>
     public int tileMapSize;
 
     #endregion Fields
 
     #region Constructor
 
+    ///<Summary>
+    /// everything about tile generation and private 
+    ///</Summary>
     public TileMap()
     {
-        worldWidth = Globals.GraphicsDeviceManager.PreferredBackBufferWidth / Globals.TileSize;
-        worldHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight / Globals.TileSize;
-        // WorldSize = new Tuple<int, int>(x, y);
-        tileMapMatrix = new int[worldWidth, worldHeight];
+        worldSize.X = (int)Globals.WorldSize.X;
+        worldSize.Y = (int)Globals.WorldSize.Y;
+        tileMapMatrix = new int[(int)worldSize.X, (int)worldSize.Y];
 
         tileMapSize = tileMapMatrix.Length;
 
@@ -31,6 +38,9 @@ public class TileMap
 
     #endregion Constructor
 
+    ///<Summary>
+    /// Generation with seeds 1 through X from plains to rivers with paths 
+    ///</Summary>
     public void GenerateMap()
     {
         try
@@ -38,9 +48,9 @@ public class TileMap
             #region grass only
             if (Globals.seed == 1)
             {
-                for (int y = 0; y < worldHeight; y++)
+                for (int y = 0; y < worldSize.Y; y++)
                 {
-                    for (int x = 0; x < worldWidth; x++)
+                    for (int x = 0; x < worldSize.X; x++)
                     {
                         GenerateLushGrass4(x, y);
                     }
@@ -50,112 +60,33 @@ public class TileMap
             #region river w/rocks
             else if (Globals.seed == 2)
             {
-                // Define the river area (in the middle)
-                int riverStartX = 0;
-                int riverEndX = worldWidth;
-                int riverStartY = 2 * worldHeight / 6;
-                int riverEndY = 3 * worldHeight / 6;
+                Random rnd = new Random();
+                int riverHeightRand = rnd.Next(5, 8);
 
-                // Create the map with river and random rocks
-                for (int y = 0; y < worldHeight; y++)
+                // river logic Here
+                Rectangle riverArea = new Rectangle(0, riverHeightRand, 25, rnd.Next(3, 7));
+
+                for (int y = 0; y < worldSize.Y; y++)
                 {
-                    for (int x = 0; x < worldWidth; x++)
+                    for (int x = 0; x < worldSize.X; x++)
                     {
-                        // Check if the current position is within the river's area
-                        bool isRiver = x >= riverStartX && x <= riverEndX && y >= riverStartY && y <= riverEndY;
-
-                        if (isRiver)
+                        if (IsInRectangles(x, 0, y, 0, riverArea))
                         {
-                            // If it's the river area, use water tiles
                             GenerateWater1(x, y);
                         }
                         else
                         {
-                            // Randomly place rocks on non-river areas
                             GenerateRocksInGrassV0(x, y);
                         }
                     }
                 }
             }
+
             #endregion
-            #region river path
-            else if (Globals.seed == 3) // random bridge path with 4 rectangles starting from north west and ending at south
-            {
-                Random rnd = new Random();
-                int riverHeightRand = rnd.Next(5, 8);
-                int riverSizeRand = rnd.Next(riverHeightRand + 2, riverHeightRand + 5);
-
-                // Define the river area rectangle
-                int riverStartX = 0;
-                int riverEndX = worldWidth;
-                int riverStartY = riverHeightRand;
-                int riverEndY = riverSizeRand;
-
-                // path logic here
-                int pathRecStartAX = 0;
-                int pathRecEndAX = rnd.Next(14, 23);
-                int pathRecStartAY = rnd.Next(1, riverStartY - 3);
-                int pathSize = rnd.Next(1, 3);
-                int pathRecEndAY = pathRecStartAY + pathSize;
-                // vertical path
-                int pathRecStartBX = pathRecEndAX - pathSize;
-                int pathRecEndBX = pathRecEndAX;
-                int pathRecStartBY = pathRecStartAY;
-                int pathRecEndBY = rnd.Next(riverEndY + 2, 17);
-                // horizontal path 2
-                int pathRecEndCX = rnd.Next(8, 23); // can you rando it ? instead of abs ? [condition ? value_if_true : value_if_false;]
-                int pathRecStartCX = pathRecEndCX < pathRecStartBX ? pathRecEndBX : pathRecStartBX;
-                int pathRecStartCY = pathRecEndBY;
-                int pathRecEndCY = pathRecStartCY + pathSize;
-                // vertical path 2
-                int pathRecStartDX = pathRecEndCX < pathRecStartCX ? pathRecEndCX : pathRecEndCX - pathSize;
-                // int pathRecStartDX = pathRecEndCX - pathSize;
-                int pathRecEndDX = pathRecEndCX < pathRecStartCX ? pathRecEndCX + pathSize : pathRecEndCX;
-                // int pathRecEndDX = pathRecEndCX;
-                int pathRecStartDY = pathRecStartCY;
-                int pathRecEndDY = 20;
-                if (pathRecStartCX > pathRecEndCX)
-                {
-                    int flag = pathRecEndCX;
-                    pathRecEndCX = pathRecStartCX;
-                    pathRecStartCX = flag;
-                }
-
-                // Create the map with river and random rocks
-                for (int y = 0; y < worldHeight; y++)
-                {
-                    for (int x = 0; x < worldWidth; x++)
-                    {
-                        // Check if the current position is within the river's area
-                        bool isRiver = x >= riverStartX && x <= riverEndX && y >= riverStartY && y <= riverEndY;
-                        // Check if the current position is within the path's area
-                        bool isPath = (x >= pathRecStartAX && x <= pathRecEndAX && y >= pathRecStartAY && y <= pathRecEndAY) ||
-                                       (x >= pathRecStartBX && x <= pathRecEndBX && y >= pathRecStartBY && y <= pathRecEndBY) ||
-                                       (x >= pathRecStartCX && x <= pathRecEndCX && y >= pathRecStartCY && y <= pathRecEndCY) ||
-                                       (x >= pathRecStartDX && x <= pathRecEndDX && y >= pathRecStartDY && y <= pathRecEndDY);
-
-                        if (isRiver && isPath)
-                        {
-                            tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Wood;
-                        }
-                        else if (isRiver)
-                        {
-                            tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Water;
-                        }
-                        else if(isPath)
-                        {
-                            tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Stone;
-                        }
-                        else  // Otherwise, use grass
-                        { 
-                            GenerateLushGrass4(x, y);
-                        }
-                    }
-                }
-            }
-            #endregion
+            
             #region rnd river path
-            else if (Globals.seed == 4) // random bridge path with 4 rectangles starting from north west and ending at south
+
+            else if (Globals.seed == 3) // random bridge path with 4 rectangles starting from north west and ending at south
             {
                 Random rnd = new Random();
                 int riverHeightRand = rnd.Next(5, 8);
@@ -163,11 +94,8 @@ public class TileMap
                 // river logic Here
                 Rectangle riverArea = new Rectangle(0, riverHeightRand, 25, rnd.Next(3, 7));
 
-                // path logic here
-                int startOfPath = 1;
-                //          int endOfPath = rnd.Next(0, 4); 
+                int startOfPath = 2;
                 int pathSize = rnd.Next(1, 3);
-                // public Rectangle(int x, int y, int width, int height); coords of top left corner + the width and height
 
                 // Declare rectangles first (default values to prevent errors)
                 Rectangle pathA = new Rectangle(0, 0, 0, 0);
@@ -208,37 +136,58 @@ public class TileMap
                         pathD = new Rectangle(pathC.X, 0, pathSize, pathC.Bottom);
                     }
                 }
-                else if (startOfPath == 2)
+                else if (startOfPath == 2) // bottom-right to top
                 {
-
+                    int flag1 = rnd.Next(16, 21);
+                    pathA = new Rectangle(25 - flag1, rnd.Next(riverArea.Bottom + 2, 17), flag1, pathSize);
+                    int pathSizeB = pathA.Bottom - rnd.Next(3, riverArea.Y - 2);
+                    pathB = new Rectangle(pathA.X, pathA.Y - pathSizeB, pathSize, pathSizeB);
+                    if (pathB.Right >= 12)
+                    {
+                        int flag2 = rnd.Next(2, 25 - pathB.X);
+                        pathC = new Rectangle(25 - flag2, pathB.Y, flag2, pathSize);
+                        pathD = new Rectangle(pathC.X, 0, pathSize, pathC.Bottom);
+                    }
+                    else
+                    {
+                        int pathSizeC = rnd.Next(2, 25 - pathB.Right);
+                        pathC = new Rectangle(pathB.X, pathB.Y, pathSizeC, pathSize);
+                        pathD = new Rectangle(pathC.Right - pathSize, 0, pathSize, pathC.Bottom);
+                    }
                 }
-                else if (startOfPath == 3)
+                else if (startOfPath == 3) // top-right to bottom
                 {
-
+                    int flag1 = rnd.Next(5, 21);
+                    pathA = new Rectangle(25 - flag1, rnd.Next(1, riverArea.Y - 4), flag1, pathSize);
+                    pathB = new Rectangle(pathA.X, pathA.Bottom, pathSize, rnd.Next(riverArea.Bottom + 1, 18));
+                    if (pathB.Right >= 12)
+                    {
+                        int flag2 = rnd.Next(2, pathB.X);
+                        pathC = new Rectangle(25 - flag2, pathB.Bottom, flag2, pathSize);
+                        pathD = new Rectangle(pathC.X, pathC.Bottom, pathSize, 25 - pathC.Bottom);
+                    }
+                    else
+                    {
+                        int pathSizeC = rnd.Next(2, 25 - pathB.Right);
+                        pathC = new Rectangle(pathB.Right, pathB.Bottom + 1, pathSizeC, pathSize);
+                        pathD = new Rectangle(pathC.X, pathC.Bottom, pathSize, 25 - pathC.Bottom);
+                    }
                 }
 
                 // Create the map with river and random rocks
-                for (int y = 0; y < worldHeight; y++)
+                for (int y = 0; y < worldSize.Y; y++)
                 {
-                    for (int x = 0; x < worldWidth; x++)
+                    for (int x = 0; x < worldSize.X; x++)
                     {
-                        // Check if the current position is within the river's area
-                        bool isRiver = x >= riverArea.X && x <= riverArea.Right && y >= riverArea.Y && y <= riverArea.Bottom; //done
-                        // Check if the current position is within the path's area
-                        bool isPath = (x >= pathA.X && x <= pathA.Right && y >= pathA.Y && y <= pathA.Bottom) ||
-                                       (x >= pathB.X && x <= pathB.Right && y >= pathB.Y && y <= pathB.Bottom) ||
-                                       (x >= pathC.X && x <= pathC.Right && y >= pathC.Y && y <= pathC.Bottom) ||
-                                       (x >= pathD.X && x <= pathD.Right && y >= pathD.Y && y <= pathD.Bottom);
-
-                        if (isRiver && isPath)
+                        if (IsInRectangle(x, 0, y, 0, riverArea) && IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Wood;
                         }
-                        else if (isRiver)
+                        else if (IsInRectangle(x, 0, y, 0, riverArea))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Water;
                         }
-                        else if(isPath)
+                        else if(IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Stone;
                         }
@@ -249,9 +198,12 @@ public class TileMap
                     }
                 }
             }
+
             #endregion
+
             #region textured path
-            else if (Globals.seed == 5) // random bridge path with 4 rectangles starting from north west and ending at south + randomed path
+
+            else if (Globals.seed == 4) // random bridge path with 4 rectangles starting from north west and ending at south + randomed path
             {
                 Random rnd = new Random();
                 int riverHeightRand = rnd.Next(5, 8);
@@ -259,7 +211,7 @@ public class TileMap
                 // river logic Here
                 Rectangle riverArea = new Rectangle(0, riverHeightRand, 25, rnd.Next(3, 7));
 
-                // path logic here
+                // path seed here
                 int startOfPath = 1;
                 //          int endOfPath = rnd.Next(0, 4); 
                 int pathSize = rnd.Next(1, 3);
@@ -314,54 +266,35 @@ public class TileMap
                 }
 
                 // Create the map with river and random rocks
-                for (int y = 0; y < worldHeight; y++)
+                for (int y = 0; y < worldSize.Y; y++)
                 {
-                    for (int x = 0; x < worldWidth; x++)
+                    for (int x = 0; x < worldSize.X; x++)
                     {
-                        // Check if the current position is within the river's area
-                        bool isRiver = x >= riverArea.X && x <= riverArea.Right && y >= riverArea.Y && y <= riverArea.Bottom;
-                        // Check if the current position is within the path's inner area
-                        bool isInnerPath = (x >= pathA.X + 1 && x <= pathA.Right - 1 && y >= pathA.Y + 1 && y <= pathA.Bottom - 1) ||
-                                       (x >= pathB.X + 1 && x <= pathB.Right - 1 && y >= pathB.Y + 1 && y <= pathB.Bottom - 1) ||
-                                       (x >= pathC.X + 1 && x <= pathC.Right - 1 && y >= pathC.Y + 1 && y <= pathC.Bottom - 1) ||
-                                       (x >= pathD.X + 1 && x <= pathD.Right - 1 && y >= pathD.Y + 1 && y <= pathD.Bottom - 1);
-                        // Check if the current position is within the path's area
-                        bool isPath = (x >= pathA.X && x <= pathA.Right && y >= pathA.Y && y <= pathA.Bottom) ||
-                                       (x >= pathB.X && x <= pathB.Right && y >= pathB.Y && y <= pathB.Bottom) ||
-                                       (x >= pathC.X && x <= pathC.Right && y >= pathC.Y && y <= pathC.Bottom) ||
-                                       (x >= pathD.X && x <= pathD.Right && y >= pathD.Y && y <= pathD.Bottom);
-                        // Check if next to a path but not on path
-                        bool isCloserToPath = (x >= pathA.X - 1 && x <= pathA.Right + 1 && y >= pathA.Y - 1 && y <= pathA.Bottom + 1) ||
-                                             (x >= pathB.X - 1 && x <= pathB.Right + 1 && y >= pathB.Y - 1 && y <= pathB.Bottom + 1) ||
-                                             (x >= pathC.X - 1 && x <= pathC.Right + 1 && y >= pathC.Y - 1 && y <= pathC.Bottom + 1) ||
-                                             (x >= pathD.X - 1 && x <= pathD.Right + 1 && y >= pathD.Y - 1 && y <= pathD.Bottom + 1);
-                        // Check if near a path but not on path
-                        bool isCloseToPath = (x >= pathA.X - 2 && x <= pathA.Right + 2 && y >= pathA.Y - 2 && y <= pathA.Bottom + 2) ||
-                                             (x >= pathB.X - 2 && x <= pathB.Right + 2 && y >= pathB.Y - 2 && y <= pathB.Bottom + 2) ||
-                                             (x >= pathC.X - 2 && x <= pathC.Right + 2 && y >= pathC.Y - 2 && y <= pathC.Bottom + 2) ||
-                                             (x >= pathD.X - 2 && x <= pathD.Right + 2 && y >= pathD.Y - 2 && y <= pathD.Bottom + 2);
-
-                        if (IsInRectangle(x, y, riverArea) && IsInRectangles(x, y, pathA, pathB, pathC, pathD))
+                        // Check to see for river + path to place wood tile 
+                        if (IsInRectangle(x, 0, y, 0, riverArea) && IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Wood;
                         }
-                        else if (IsInRectangle(x, y, riverArea))
+                        // Check to see if river to place water tile
+                        else if (IsInRectangle(x, 0, y, 0, riverArea))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Water;
                         }
-                        else if (isInnerPath)
+                        // Check to see if in the inside of path
+                        else if (IsInRectangles(x, 1, y, 1, pathA, pathB, pathC, pathD))
                         {
                             GeneratePathWithPercentage(x, y, 100);
                         }
-                        else if (isPath)
+                        // Check to see if on the path
+                        else if (IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
                         {
                             GeneratePathWithPercentage(x, y, 95);
                         }
-                        else if (isCloserToPath)
+                        else if (IsInRectangles(x, -1, y, -1, pathA, pathB, pathC, pathD))
                         {
                             GeneratePathWithPercentage(x, y, 20);
                         }
-                        else if (isCloseToPath)
+                        else if (IsInRectangles(x, -2, y, -2, pathA, pathB, pathC, pathD))
                         {
                             GeneratePathWithPercentage(x, y, 5);
                         }
@@ -372,7 +305,78 @@ public class TileMap
                     }
                 }
             }
-            #endregion
+            else if (Globals.seed == 5) // random path without river
+            {
+                var rnd = new Random();                
+                var start = new Point(5, 20);
+                var directions = new[] { 0, 3, 0, 2 }; // up:0 down:1 left:2 right:3
+                var pathRects = GeneratePath(start, rnd.Next(2, 4), directions, rnd);
+
+                Rectangle pathA = pathRects[0];
+                Rectangle pathB = pathRects[1];
+                Rectangle pathC = pathRects[2];
+                Rectangle pathD = pathRects[3];
+
+                // Create the map with river and random rocks
+                for (int y = 0; y < worldSize.Y; y++)
+                {
+                    for (int x = 0; x < worldSize.X; x++)
+                    {
+                        if (IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
+                        {
+                            GeneratePathWithPercentage(x, y, 100);
+                        }
+                        else 
+                        {
+                            GenerateLushGrass4(x, y);
+                        }
+                    }
+                }
+            }
+            else if (Globals.seed == 6) // random bridge path 
+            {
+                var rnd = new Random();
+                int riverHeightRand = rnd.Next(5, 8);
+
+                // river logic Here
+                Rectangle riverArea = new Rectangle(0, riverHeightRand, 25, rnd.Next(3, 7));
+
+                var start = new Point(15, 0);
+                //var directions = new[] { 0, 3, 0, 2 }; // up:0 down:1 left:2 right:3
+                //var directions = new[] { 0, 2, 0, 3 }; // up:0 down:1 right:3 left:2
+                //var directions = new[] { 1, 3, 1, 2 }; // up:0 down:1 right:3 left:2
+                var directions = new[] { 1, 2, 1, 3 }; // up:0 down:1 right:3 left:2
+                
+                var pathRects = GeneratePathThroughRiver(start, rnd.Next(1,3), directions, rnd, riverArea);
+
+                Rectangle pathA = pathRects[0];
+                Rectangle pathB = pathRects[1];
+                Rectangle pathC = pathRects[2];
+                Rectangle pathD = pathRects[3];
+
+                for (int y = 0; y < worldSize.Y; y++)
+                {
+                    for (int x = 0; x < worldSize.X; x++)
+                    {
+                        if (IsInRectangle(x, 0, y, 0, riverArea) && IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
+                        {
+                            tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Wood;
+                        }
+                        else if (IsInRectangle(x, 0, y, 0, riverArea))
+                        {
+                            tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Water;
+                        }
+                        else if(IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
+                        {
+                            tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Stone;
+                        }
+                        else
+                        {
+                            GenerateLushGrass4(x, y);
+                        }
+                    }
+                }
+            }
         }
         catch (Exception e)
         {
@@ -380,38 +384,69 @@ public class TileMap
         }
     }
 
+    #endregion
+
+    #region Functions
+
+    ///<Summary>
+    /// Change tile to new tile 
+    ///</Summary>
     public void ChangeTile(int x, int y, TileDataHandler.TileType newTile) // >: ^)
     {
         tileMapMatrix[x, y] = 0;
         tileMapMatrix[x, y] = (int)newTile; // >:    ^)
     }
 
+    ///<Summary>
+    /// remove tile
+    ///</Summary>
     public void RemoveTile(int x, int y)
     {
         tileMapMatrix[x, y] = 0;
     }
 
+    ///<Summary>
+    /// add a tile
+    ///</Summary>
     public void AddTile(int x, int y, TileDataHandler.TileType newType)
     {
         tileMapMatrix[x, y] = (int)newType;
     }
 
+    ///<Summary>
+    /// get the type of a tile in x position
+    ///</Summary>
     public int GetTileTypeAt(int x, int y)
     {
         return tileMapMatrix[x, y];
     }
 
+    ///<Summary>
+    /// check all the tiles that need updating
+    ///</Summary>
     public void Update()
     {
-        // check all the tiles that need updating, ότι αλλάζει στο tileMapMatrix ΕΔΩ
+        // ότι αλλάζει στο tileMapMatrix ΕΔΩ
     }
 
-    public void Draw()
+    ///<Summary>
+    /// Draws the tilemap only seen by the camera and one radius larger
+    ///</Summary>
+    public void Draw(Matrix cameraMatrix)
     {
         Vector2 Position = new Vector2 (0, 0);
-        for (int y = 0; y < worldHeight; y++)
+        int percievedWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
+        int percievedHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
+
+        Matrix inverseView = Matrix.Invert(cameraMatrix);
+        Vector2 topLeftWorld = Vector2.Transform(Vector2.Zero, inverseView);
+
+        int x_flag = (int)topLeftWorld.X / 32; 
+        int y_flag = (int)topLeftWorld.Y / 32;
+
+        for (int y = y_flag - 2; y < percievedHeight/32 + y_flag + 2; y ++)
         {
-            for (int x = 0; x < worldWidth; x++)
+            for (int x = x_flag - 2; x < percievedWidth/32 + x_flag + 2; x ++)
             {
                 Position.X = x * Globals.TileSize;
                 Position.Y = y * Globals.TileSize;
@@ -419,6 +454,8 @@ public class TileMap
             }
         }
     }
+
+    #endregion Functions
 
     #region Gen Functions
 
@@ -460,19 +497,187 @@ public class TileMap
         }
     }
 
-    private bool IsInRectangle(int x, int y, Rectangle rectangle)
+    private bool IsInRectangle(int x, int offsetx, int y, int offsety, Rectangle rectangle) // offset > 0 => smaller rectangle, offset < 0 => larger
     { 
-        return x >= rectangle.X && x <= rectangle.Right && y >= rectangle.Y && y <= rectangle.Bottom;
+        return x >= rectangle.X + offsetx && x <= rectangle.Right - offsetx && y >= rectangle.Y + offsety && y <= rectangle.Bottom - offsety;
     }
 
-    private bool IsInRectangles(int x, int y, params Rectangle[] rectangles)
+    private bool IsInRectangles(int x, int offsetx, int y, int offsety, params Rectangle[] rectangles)
     {
         foreach (var rect in rectangles)
         {
-            if (IsInRectangle(x, y, rect))
+            if (IsInRectangle(x, offsetx, y, offsety, rect))
                 return true;
         }
         return false;
+    }
+
+    private List<Rectangle> GeneratePath(Point start, int pathSize, int[] directions, Random rnd)
+    {
+        var path = new List<Rectangle>();
+        var current = start;
+        int last_dir = -1;
+
+        foreach (int dir in directions)
+        {
+            Rectangle segment;
+            int a = 6;
+            int b = 16;
+            if (dir == 0) // up
+            {
+                if (last_dir == 3)
+                {
+                    current.X -= pathSize;
+                }
+
+                int height = rnd.Next(a, b);
+                segment = new Rectangle(current.X, current.Y - height, pathSize, height);
+                current.Y -= height;
+
+                last_dir = 0;
+            }
+            else if (dir == 1) // down
+            {
+                int height = rnd.Next(a, b);
+                segment = new Rectangle(current.X, current.Y, pathSize, height);
+                current.Y += height;
+
+                last_dir = 1;
+            }
+            else if (dir == 2) // left
+            {
+                if (last_dir == 1)
+                {
+                    current.X += pathSize;
+                }
+
+                int width = rnd.Next(a, b);
+                segment = new Rectangle(current.X - width, current.Y, width, pathSize);
+                current.X -= width;
+
+                last_dir = 2;
+            }
+            else if (dir == 3) // right
+            {
+                int width = rnd.Next(a, b);
+                segment = new Rectangle(current.X, current.Y, width, pathSize);
+                current.X += width;
+
+                last_dir = 3;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid direction. Use 0=up, 1=right, 2=down, 3=left");
+            }
+            path.Add(segment);
+        }
+    return path;
+    }
+
+    private List<Rectangle> GeneratePathThroughRiver(Point start, int pathSize, int[] directions, Random rnd, Rectangle riverArea)
+    {
+        var path = new List<Rectangle>();
+        var current = start;
+        int last_dir = -1;
+        int index = 0;
+
+        foreach (int dir in directions)
+        {
+            index += 1;
+            Rectangle segment;
+            int a = 6;
+            int b = 16;
+            
+            if (dir == 0) // up
+            {
+                int height = rnd.Next(a, b);
+                int rndSpace = rnd.Next(2, 4);
+
+                if (last_dir == -1)
+                {
+                    height = current.Y - riverArea.Bottom - rndSpace;
+                }
+                else if (last_dir == 2)
+                {
+                    height = current.Y - riverArea.Y + rnd.Next(2 + pathSize, 4 + pathSize);                    
+                }
+                else if (last_dir == 3)
+                {
+                    current.X -= pathSize;
+                    height = current.Y - riverArea.Y + rnd.Next(2 + pathSize, 4 + pathSize);
+                }
+                
+                if (index == directions.Length)
+                {
+                    current.Y = height;
+                }
+
+                segment = new Rectangle(current.X, current.Y - height, pathSize, height);
+                current.Y -= height;
+
+                last_dir = 0;
+            }
+            else if (dir == 1) // down
+            {
+                int height = rnd.Next(a, b);
+
+                if (last_dir == -1)
+                {
+                    height = riverArea.Y - rnd.Next(2, 4) - pathSize;
+                }
+                else if (last_dir == 2)
+                {
+                    height = rnd.Next(riverArea.Bottom + 1, 20 - pathSize) - current.Y;                     
+                }
+                else if (last_dir == 3)
+                {
+                    height = rnd.Next(riverArea.Bottom + 1, 20 - pathSize) - current.Y; 
+                }
+
+                segment = new Rectangle(current.X, current.Y, pathSize, height);
+                current.Y += height;
+
+                last_dir = 1;
+            }
+            else if (dir == 2) // left
+            {
+                int width = rnd.Next(a, b);
+                if (last_dir == 1)
+                {
+                    current.X += pathSize;
+                }
+
+                if (index == directions.Length)
+                {
+                    width = current.X;
+                    //current.X = current.X + width;
+                }
+                
+                segment = new Rectangle(current.X - width, current.Y, width, pathSize);
+                current.X -= width;
+
+                last_dir = 2;
+            }
+            else if (dir == 3) // right
+            {
+                int width = rnd.Next(a, b);
+                if (index == directions.Length)
+                {
+                    width = 25 - current.X;
+                }
+
+                segment = new Rectangle(current.X, current.Y, width, pathSize);
+                current.X += width;
+
+                last_dir = 3;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid direction. Use 0=up, 1=right, 2=down, 3=left");
+            }
+            path.Add(segment);
+        }
+    return path;
     }
 
     #endregion Gen Functions

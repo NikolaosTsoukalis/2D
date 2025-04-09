@@ -2,13 +2,21 @@ using System;
 
 namespace _2D_RPG;
 
+///<Summary>
+/// Magic of the tilemap handling
+///</Summary>
 public class TileMapHandler
 {
     #region Fields
     private TileMap tileMap;
+
     #endregion Fields
 
     #region Constructors
+
+    ///<Summary>
+    /// constructor with new tilemap
+    ///</Summary>
     public TileMapHandler()
     {
         tileMap = new TileMap();
@@ -17,6 +25,9 @@ public class TileMapHandler
     #endregion Constructors
 
     #region Functions
+    ///<Summary>
+    /// update 
+    ///</Summary>
     public void Update()
     {
         try
@@ -30,11 +41,14 @@ public class TileMapHandler
         }
     }
 
-    public void Draw()
+    ///<Summary>
+    /// request to draw tilemap
+    ///</Summary>
+    public void DrawTileMap(Matrix cameraMatrix)
     {
         try
         {
-            tileMap.Draw();
+            tileMap.Draw(cameraMatrix);
         }
         catch (Exception e)
         {
@@ -42,6 +56,9 @@ public class TileMapHandler
         }
     }
 
+    ///<Summary>
+    /// get the tile map data
+    ///</Summary>
     public TileMap GetTileMap()
     {
         try
@@ -62,7 +79,10 @@ public class TileMapHandler
         }
     }
 
-    public bool AssignTileMap() // proper bool logic (use bool instead of void) 
+    ///<Summary>
+    /// proper bool logic, try catch included, gets map from folder TODO
+    ///</Summary>
+    public bool AssignTileMap()
     {
         try
         {

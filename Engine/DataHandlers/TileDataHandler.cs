@@ -5,9 +5,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
+///<Summary>
+/// class to handle all tile data shenanigans
+///</Summary>
 public class TileDataHandler
 {
     #region Enums
+
+    ///<Summary>
+    /// tiletypes to differenciate tiles by name a value stored in tilematrix   
+    ///</Summary>
     public enum TileType
     {
         Grass,
@@ -31,6 +38,9 @@ public class TileDataHandler
 
     #region Constructors
 
+    ///<Summary>
+    /// constructor with data initialization 
+    ///</Summary>
     public TileDataHandler()
     {
         TextureData = null;

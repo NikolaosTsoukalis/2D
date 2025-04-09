@@ -222,6 +222,22 @@ public class Globals
             return;
         }
     }
+
+    private static Camera2D camera;
+    public static Camera2D Camera
+    {
+        get{return camera;}
+        set
+        {
+            if(camera == null)
+            {
+                camera = value;
+                return;
+            }
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + camera.GetType().ToString() + ".");
+            return;
+        }
+    }
     private static Dictionary<Command.CommandTypes,Keys> keyBindings;
 
     public static Dictionary<Command.CommandTypes,Keys> KeyBindings
@@ -240,9 +256,11 @@ public class Globals
 
     public static bool drawInteraction = false;
 
-    public static int seed = 5; 
+    public static int seed = 6; 
 
     public static int TileSize = 32;
+
+    public static Vector2 WorldSize = new Vector2(3200, 3200);
 
     #endregion Values
 

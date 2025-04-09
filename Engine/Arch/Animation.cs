@@ -6,12 +6,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
+///<Summary>
+/// the core of processing animation texture strips   
+///</Summary>
 public class Animation
 {
-    #region Values
+    #region Fields
 
     private readonly List<Rectangle> sourceRectangles = new();
     private int totalFrames;
+    
+    ///<Summary>
+    /// Frame properties
+    ///</Summary>
     public int TotalFrames
     {
         get{return totalFrames;}
@@ -21,6 +28,9 @@ public class Animation
     private float frameTimeLeft;
     private Entity entity;
 
+    ///<Summary>
+    /// Entity properties 
+    ///</Summary>
     public Entity Entity 
     {
         get{return entity;}
@@ -29,6 +39,9 @@ public class Animation
 
     private AnimationDataHandler.AnimationIdentifier animationIdentifier;
 
+    ///<Summary>
+    /// 
+    ///</Summary>
     public AnimationDataHandler.AnimationIdentifier AnimationIdentifier 
     {
         get{return animationIdentifier;}
@@ -38,6 +51,10 @@ public class Animation
     #endregion Values
 
     #region Constructors
+
+    ///<Summary>
+    /// animation constructor
+    ///</Summary>
     public Animation(Entity entity, AnimationDataHandler.AnimationIdentifier identifier)
     {
         Tuple <Texture2D,string[]> tuple;
@@ -70,12 +87,18 @@ public class Animation
 
     #region Functions
 
+    ///<Summary>
+    /// reset current frame  
+    ///</Summary>
     public void Reset()
     {
         currentFrame = 0;
         frameTimeLeft = frameTime;
     }
 
+    ///<Summary>
+    /// update function  
+    ///</Summary>
     public void Update()
     {
         try
@@ -141,6 +164,9 @@ public class Animation
         }
     }
 
+    ///<Summary>
+    /// draw function  
+    ///</Summary>
     public void Draw()
     {
         Globals.SpriteBatch.Draw(entity.Texture, entity.Position, sourceRectangles[currentFrame], Color.White, 0,Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
