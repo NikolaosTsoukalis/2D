@@ -44,7 +44,6 @@ public class GameState : State
         //Game State specific
         Inventory = new();
         Globals.Camera = new();
-        Globals.Camera.LookAt(Vector2.Zero);
         
         player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,new Vector2(500, 500));
         slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300, 400));
@@ -96,13 +95,19 @@ public class GameState : State
     { 
 
         Globals.SpriteBatch.Begin(transformMatrix: Globals.Camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
-        Globals.TileMapHandler.DrawTileMap(Globals.Camera.GetViewMatrix());
-        Globals.AnimationHandler.DrawAnimations();
 
         if(Globals.enableDebugs)
         {
+            Globals.TileMapHandler.DebugDraw(main, Globals.Camera.GetViewMatrix());
             Globals.CollisionHandler.DebugDraw(main);
         }
+        else
+        {
+            Globals.TileMapHandler.DrawTileMap(Globals.Camera.GetViewMatrix());
+        }
+
+        Globals.AnimationHandler.DrawAnimations();
+
         if(Globals.drawInteraction)
         {
             Globals.SpriteBatch.DrawString(main.MyFont, "FUCK OFF!", new Vector2(200, 300), Color.White);

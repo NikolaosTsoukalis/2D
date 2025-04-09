@@ -86,7 +86,7 @@ public class CollisionHandler
     {
         try
         {
-            bool? isTileCollidable = Globals.TileDataHandler.GetTileCollidability(Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)currentEntity.Position.X,(int)currentEntity.Position.Y));
+            bool? isTileCollidable = Globals.TileDataHandler.GetTileCollidability(Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)currentEntity.Position.X / 32 + 1,(int)currentEntity.Position.Y / 32 + 1));
             if(isTileCollidable == true)
             {
                 return true;
@@ -145,7 +145,6 @@ public class CollisionHandler
 
     public void DebugDraw(Main main) // for testing purposes
     {
-        entityCollisionMap.DebugDraw(main,"Entity");
-        //tileCollisionMap.DebugDraw(main,"Entity");
+        entityCollisionMap.DebugDraw(main);
     }
 }

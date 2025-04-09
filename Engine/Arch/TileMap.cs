@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
@@ -451,6 +452,38 @@ public class TileMap
                 Position.X = x * Globals.TileSize;
                 Position.Y = y * Globals.TileSize;
                 Globals.SpriteBatch.Draw(Globals.TileDataHandler.GetTileTextureData(tileMapMatrix[x, y]), Position, Color.White);
+            }
+        }
+    }
+
+    public void DebugDraw(Game game,Matrix cameraMatrix)
+    {
+        Vector2 Position = new Vector2 (0, 0);
+        int percievedWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
+        int percievedHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
+
+        Matrix inverseView = Matrix.Invert(cameraMatrix);
+        Vector2 topLeftWorld = Vector2.Transform(Vector2.Zero, inverseView);
+
+        int x_flag = (int)topLeftWorld.X / 32; 
+        int y_flag = (int)topLeftWorld.Y / 32;
+
+        for (int y = y_flag - 2; y < percievedHeight/32 + y_flag + 2; y ++)
+        {
+            for (int x = x_flag - 2; x < percievedWidth/32 + x_flag + 2; x ++)
+            {
+                Position.X = x * Globals.TileSize;
+                Position.Y = y * Globals.TileSize;
+                if(Globals.TileDataHandler.GetTileCollidability(GetTileTypeAt(x, y)) == true)
+                {
+                    Texture2D tileTexture = Globals.TileDataHandler.GetTileTextureData(tileMapMatrix[x, y]);
+                    Texture2D tileDebugTexture = new Texture2D(game.GraphicsDevice, 1,1);
+                    Rectangle tileDebugRectangle = new Rectangle((int)Position.X,(int)Position.Y,tileTexture.Width, tileTexture.Height);
+                    tileDebugTexture.SetData(new[] { Color.Yellow });
+                    Globals.SpriteBatch.Draw(tileDebugTexture,tileDebugRectangle, Color.Yellow);
+                }
+                else
+                    Globals.SpriteBatch.Draw(Globals.TileDataHandler.GetTileTextureData(tileMapMatrix[x, y]), Position, Color.White);
             }
         }
     }

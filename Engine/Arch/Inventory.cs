@@ -14,6 +14,7 @@ public class Inventory
 
     private Tuple<int,int> InventorySize;
     private Dictionary<string,Tuple<int,int>> BaseInventoryData; // item name,position(x,y)
+    private Dictionary<string,string> EquippedInventoryData; // item name, item position.
     private Texture2D InventoryTexture;
 
     #endregion Fields

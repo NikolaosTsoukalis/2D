@@ -42,23 +42,13 @@ public class CollisionMap
     {
         Map = new();
     }
-    public void DebugDraw(Game game,string mapType)
+    public void DebugDraw(Game game)
     {
         foreach(Tuple<string,Rectangle> rect in Map)
         {
             Texture2D mapTexture = new Texture2D(game.GraphicsDevice, 1,1);
-            if(mapType == "Entity" )
-            {
-                
-                mapTexture.SetData(new[] { Color.Yellow });
-                Globals.SpriteBatch.Draw(mapTexture,rect.Item2, Color.White);
-            }
-            else if(mapType == "Structure" )
-            {
-                mapTexture.SetData(new[] { Color.Black });
-                Globals.SpriteBatch.Draw(mapTexture,rect.Item2, Color.White);
-            }
-            
+            mapTexture.SetData(new[] { Color.Yellow });
+            Globals.SpriteBatch.Draw(mapTexture,rect.Item2, Color.White);   
         }
     }
 }

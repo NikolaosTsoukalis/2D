@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
 
@@ -56,6 +57,12 @@ public class TileMapHandler
         }
     }
 
+    public void DebugDraw(Game game, Matrix cameraMatrix) // for testing purposes
+    {
+        tileMap.DebugDraw(game,cameraMatrix);
+        //tileCollisionMap.DebugDraw(main,"Entity");
+    }
+
     ///<Summary>
     /// get the tile map data
     ///</Summary>
@@ -86,15 +93,11 @@ public class TileMapHandler
     {
         try
         {
-            if (true) // >: ^)
+            if (tileMap == null || tileMap.tileMapSize == 0) // >: ^)
             {
                 tileMap = new TileMap(); 
             }
             else
-            {
-                // tileMap = get map from folder
-            }
-            if (tileMap != null || tileMap.tileMapSize != 0) // >:^)
             {
                 return true;
             }
@@ -106,6 +109,6 @@ public class TileMapHandler
         }
         return false;
     }
-    
+
     #endregion
 }

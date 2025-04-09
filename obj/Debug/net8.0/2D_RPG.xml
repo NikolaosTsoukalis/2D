@@ -159,11 +159,6 @@
              constructor with data initialization 
             </Summary>
         </member>
-        <member name="M:_2D_RPG.TileDataHandler.GetTileTextureData(System.Int32)">
-            <Summary>
-             Get the tile texture data 
-            </Summary>
-        </member>
         <member name="T:_2D_RPG.Globals">
             <summary>
             Global class
