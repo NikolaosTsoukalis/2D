@@ -415,7 +415,7 @@ public class TileMap
     }
 
     ///<Summary>
-    /// get the type of a tile in x position
+    /// get the type of a tile at position x,y
     ///</Summary>
     public int GetTileTypeAt(int x, int y)
     {
@@ -481,6 +481,7 @@ public class TileMap
                     Rectangle tileDebugRectangle = new Rectangle((int)Position.X,(int)Position.Y,tileTexture.Width, tileTexture.Height);
                     tileDebugTexture.SetData(new[] { Color.Yellow });
                     Globals.SpriteBatch.Draw(tileDebugTexture,tileDebugRectangle, Color.Yellow);
+                    Globals.SpriteBatch.DrawString(Main.MyFont,GetTileTypeAt(x, y).ToString(),new Vector2 (tileDebugRectangle.X,tileDebugRectangle.Y), Color.White);
                 }
                 else
                     Globals.SpriteBatch.Draw(Globals.TileDataHandler.GetTileTextureData(tileMapMatrix[x, y]), Position, Color.White);

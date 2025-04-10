@@ -1,3 +1,5 @@
+using System;
+using System.Net;
 using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -95,29 +97,20 @@ public class GameState : State
     { 
 
         Globals.SpriteBatch.Begin(transformMatrix: Globals.Camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
-
-        if(Globals.enableDebugs)
+        try
         {
-            Globals.TileMapHandler.DebugDraw(main, Globals.Camera.GetViewMatrix());
-            Globals.CollisionHandler.DebugDraw(main);
+            if(CallDrawFuctions()){} // conditionals in case a Draw function doesnt get called correctly.
         }
-        else
+        catch(Exception e)
         {
-            Globals.TileMapHandler.DrawTileMap(Globals.Camera.GetViewMatrix());
-        }
-
-        Globals.AnimationHandler.DrawAnimations();
-
-        if(Globals.drawInteraction)
-        {
-            Globals.SpriteBatch.DrawString(main.MyFont, "FUCK OFF!", new Vector2(200, 300), Color.White);
+            Console.WriteLine("ERROR :" + e);
         }
 
         Globals.SpriteBatch.End();
     }
 
     ///<Summary>
-    /// update all handlers needed
+    /// Call Handler Update Functions
     ///</Summary>
     public void UpdateHandlers()
     {
@@ -125,5 +118,40 @@ public class GameState : State
         Globals.CollisionHandler.Update();
         Globals.AnimationHandler.UpdateAnimationList();
         Globals.AnimationHandler.UpdateAnimations();
+    }
+
+    
+    ///<Summary>
+    /// Call Draw Functions
+    ///</Summary>
+    public bool CallDrawFuctions()
+    {
+        try
+        {
+            if(Globals.enableDebugs)
+            {
+                Globals.TileMapHandler.DebugDraw(main, Globals.Camera.GetViewMatrix());
+                Globals.CollisionHandler.DebugDraw(main);
+                Globals.SpriteBatch.DrawString(Main.MyFont,Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)player.Position.X / 32 , (int)player.Position.Y).ToString(),new Vector2((int)player.Position.X / 32 + 150, (int)player.Position.Y + 150), Color.White);
+            }
+            else
+            {
+                Globals.TileMapHandler.DrawTileMap(Globals.Camera.GetViewMatrix());
+            }
+
+            Globals.AnimationHandler.DrawAnimations();
+
+            if(Globals.drawInteraction)
+            {
+                Globals.SpriteBatch.DrawString(Main.MyFont, "FUCK OFF!", new Vector2(200, 300), Color.White);
+            }
+            return true;
+
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+            return false;
+        }
     }
 }

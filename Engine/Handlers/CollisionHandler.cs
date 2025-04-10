@@ -84,9 +84,27 @@ public class CollisionHandler
 
     public bool IsCollidingWithTile(Entity currentEntity)
     {
+        /*
+        Tuple<Texture2D, string[]> data = Globals.AnimationDataHandler.GetAnimationData(currentEntity.Name.ToString(),currentEntity.AnimationIdentifier);
+        var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(data.Item2[0]);
+        Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
+        string entityName = currentEntity.Name;
+        Tuple<string,Rectangle> currentEntityTuple = new Tuple<string,Rectangle> (entityName,currentEntityRectangle);
+
+        Vector2 tilePosition = new Vector2(currentEntity.Position.X / Globals.TileSize,currentEntity.Position.Y / Globals.TileSize); 
+        bool? isTileCollidable = Globals.TileDataHandler.GetTileCollidability(Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)tilePosition.X ,(int)tilePosition.Y));
+        Rectangle tileRectangle = new Rectangle(Globals.TileSize,Globals.TileSize,(int)currentEntity.Position.X,(int)currentEntity.Position.Y);
+        if(currentEntityTuple.Item2.Intersects(tileRectangle) && isTileCollidable == true)
+        {
+            return true;
+        }
+        return false;
+        */
+        
         try
         {
-            bool? isTileCollidable = Globals.TileDataHandler.GetTileCollidability(Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)currentEntity.Position.X / 32 + 1,(int)currentEntity.Position.Y / 32 + 1));
+            Vector2 tilePosition = new Vector2(currentEntity.Position.X / Globals.TileSize,currentEntity.Position.Y / Globals.TileSize); 
+            bool? isTileCollidable = Globals.TileDataHandler.GetTileCollidability(Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)tilePosition.X ,(int)tilePosition.Y));
             if(isTileCollidable == true)
             {
                 return true;
@@ -97,6 +115,7 @@ public class CollisionHandler
             Console.WriteLine("ERROR : " + e);
             return false;
         }
+        
         
         // Map is empty
         return false;

@@ -16,7 +16,7 @@ public class Main : Game
 
     public State currentGameState;
     public State nextGameState;
-    public SpriteFont MyFont;
+    public static SpriteFont MyFont;
     public Camera2D camera;
 
     #endregion Values

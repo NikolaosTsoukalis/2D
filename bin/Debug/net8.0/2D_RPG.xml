@@ -131,7 +131,7 @@
         </member>
         <member name="M:_2D_RPG.TileMap.GetTileTypeAt(System.Int32,System.Int32)">
             <Summary>
-             get the type of a tile in x position
+             get the type of a tile at position x,y
             </Summary>
         </member>
         <member name="M:_2D_RPG.TileMap.Update">
