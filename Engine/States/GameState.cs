@@ -17,7 +17,7 @@ public class GameState : State
     ///</Summary>
     public bool DebugMode = false;
     private Command command;
-    readonly Player player;
+    public readonly Player player;
     readonly HostileEntity slime;
 
 
@@ -47,6 +47,7 @@ public class GameState : State
         Inventory = new();
         Globals.Camera = new();
         
+        //Temporary Entity Initiallization
         player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,new Vector2(500, 500));
         slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300, 400));
         Globals.EntityHandler.AddEntityToList(player);
@@ -130,20 +131,17 @@ public class GameState : State
         {
             if(Globals.enableDebugs)
             {
-                Globals.TileMapHandler.DebugDraw(main, Globals.Camera.GetViewMatrix());
-                Globals.CollisionHandler.DebugDraw(main);
-                Globals.SpriteBatch.DrawString(Main.MyFont,Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)player.Position.X / 32 , (int)player.Position.Y).ToString(),new Vector2((int)player.Position.X / 32 + 150, (int)player.Position.Y + 150), Color.White);
+                Debugger.Debug(this,main);    
             }
             else
             {
                 Globals.TileMapHandler.DrawTileMap(Globals.Camera.GetViewMatrix());
+                Globals.AnimationHandler.DrawAnimations();
             }
-
-            Globals.AnimationHandler.DrawAnimations();
 
             if(Globals.drawInteraction)
             {
-                Globals.SpriteBatch.DrawString(Main.MyFont, "FUCK OFF!", new Vector2(200, 300), Color.White);
+                Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), "FUCK OFF!", new Vector2(200, 300), Color.White);
             }
             return true;
 

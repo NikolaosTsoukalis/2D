@@ -16,8 +16,6 @@ public class Main : Game
 
     public State currentGameState;
     public State nextGameState;
-    public static SpriteFont MyFont;
-    public Camera2D camera;
 
     #endregion Values
 
@@ -78,7 +76,7 @@ public class Main : Game
         Texture2D customCursorTexture = Content.Load<Texture2D>("Cup_Coffee_Animation2");
         MouseCursor customCursor = MouseCursor.FromTexture2D(customCursorTexture, 0, 0);
         Mouse.SetCursor(customCursor);
-        MyFont = Content.Load<SpriteFont>("MyFont");
+        //MyFont = Content.Load<SpriteFont>("MyFont");
         // TODO: use this.Content to load your game content here
     }
 

@@ -238,6 +238,7 @@ public class Globals
             return;
         }
     }
+    
     private static Dictionary<Command.CommandTypes,Keys> keyBindings;
 
     public static Dictionary<Command.CommandTypes,Keys> KeyBindings
