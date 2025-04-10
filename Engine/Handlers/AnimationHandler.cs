@@ -6,11 +6,11 @@ namespace _2D_RPG;
 
 public class AnimationHandler
 {
-    #region Values
+    #region Fields
 
     private List<Animation> CurrentAnimations {get;set;}
 
-    #endregion Values
+    #endregion Fields
     
     #region Constructors
 

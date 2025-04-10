@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
-public class CollisionMap
+public class EntityCollisionMap
 {
     private List<Tuple<string, Rectangle>> map;
     public List<Tuple<string, Rectangle>> Map
@@ -15,7 +15,7 @@ public class CollisionMap
         get{return map;}
         set{map = value;}
     }
-    public CollisionMap()
+    public EntityCollisionMap()
     {
         Map = new();
     }
@@ -42,23 +42,13 @@ public class CollisionMap
     {
         Map = new();
     }
-    public void DebugDraw(Game game,string mapType)
+    public void DebugDraw(Game game)
     {
         foreach(Tuple<string,Rectangle> rect in Map)
         {
             Texture2D mapTexture = new Texture2D(game.GraphicsDevice, 1,1);
-            if(mapType == "Entity" )
-            {
-                
-                mapTexture.SetData(new[] { Color.Yellow });
-                Globals.SpriteBatch.Draw(mapTexture,rect.Item2, Color.White);
-            }
-            else if(mapType == "Structure" )
-            {
-                mapTexture.SetData(new[] { Color.Black });
-                Globals.SpriteBatch.Draw(mapTexture,rect.Item2, Color.White);
-            }
-            
+            mapTexture.SetData(new[] { Color.Yellow });
+            Globals.SpriteBatch.Draw(mapTexture,rect.Item2, Color.Yellow);   
         }
     }
 }

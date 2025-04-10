@@ -4,6 +4,161 @@
         <name>2D_RPG</name>
     </assembly>
     <members>
+        <member name="T:_2D_RPG.Animation">
+            <Summary>
+             the core of processing animation texture strips   
+            </Summary>
+        </member>
+        <member name="P:_2D_RPG.Animation.TotalFrames">
+            <Summary>
+             Frame properties
+            </Summary>
+        </member>
+        <member name="P:_2D_RPG.Animation.Entity">
+            <Summary>
+             Entity properties 
+            </Summary>
+        </member>
+        <member name="P:_2D_RPG.Animation.AnimationIdentifier">
+            <Summary>
+             
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Animation.#ctor(_2D_RPG.Entity,_2D_RPG.AnimationDataHandler.AnimationIdentifier)">
+            <Summary>
+             animation constructor
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Animation.Reset">
+            <Summary>
+             reset current frame  
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Animation.Update">
+            <Summary>
+             update function  
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Animation.Draw">
+            <Summary>
+             draw function  
+            </Summary>
+        </member>
+        <member name="T:_2D_RPG.Inventory">
+            <Summary>
+             inventory class to determine proper size/texture   
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.#ctor">
+            <Summary>
+             Inventory Constructor
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.LoadInventoryData">
+            <Summary>
+             load all the data saved for the player
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.GetInventorySize">
+            <Summary>
+             calculate and get the proper inventory size 
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.GetItemPosition(System.String)">
+            <Summary>
+             get item's position
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.GetItemAtLocation(System.Tuple{System.Int32,System.Int32})">
+            <Summary>
+             check for item's location
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.SetInventoryTexture(Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <Summary>
+             sets the inventory texture and calculates its size
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.LoadEmptyInventory">
+            <Summary>
+             loads an empty inventory for the starting player
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.Update">
+            <Summary>
+             Update function
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.Inventory.Draw">
+            <Summary>
+             Draw function 
+            </Summary>
+        </member>
+        <member name="T:_2D_RPG.TileMap">
+            <Summary>
+             Generation, Tile functions and Generation functions
+            </Summary>
+        </member>
+        <member name="F:_2D_RPG.TileMap.tileMapSize">
+            <Summary>
+             Size of world map in tiles 
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMap.#ctor">
+            <Summary>
+             everything about tile generation and private 
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMap.GenerateMap">
+            <Summary>
+             Generation with seeds 1 through X from plains to rivers with paths 
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMap.ChangeTile(System.Int32,System.Int32,_2D_RPG.TileDataHandler.TileType)">
+            <Summary>
+             Change tile to new tile 
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMap.RemoveTile(System.Int32,System.Int32)">
+            <Summary>
+             remove tile
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMap.AddTile(System.Int32,System.Int32,_2D_RPG.TileDataHandler.TileType)">
+            <Summary>
+             add a tile
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMap.GetTileTypeAt(System.Int32,System.Int32)">
+            <Summary>
+             get the type of a tile at position x,y
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMap.Update">
+            <Summary>
+             check all the tiles that need updating
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMap.Draw(Microsoft.Xna.Framework.Matrix)">
+            <Summary>
+             Draws the tilemap only seen by the camera and one radius larger
+            </Summary>
+        </member>
+        <member name="T:_2D_RPG.TileDataHandler">
+            <Summary>
+             class to handle all tile data shenanigans
+            </Summary>
+        </member>
+        <member name="T:_2D_RPG.TileDataHandler.TileType">
+            <Summary>
+             tiletypes to differenciate tiles by name a value stored in tilematrix   
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileDataHandler.#ctor">
+            <Summary>
+             constructor with data initialization 
+            </Summary>
+        </member>
         <member name="T:_2D_RPG.Globals">
             <summary>
             Global class
@@ -11,6 +166,156 @@
             <remarks>
             This class handles all Global variables.
             </remarks>
+        </member>
+        <member name="T:_2D_RPG.EntityHandler">
+            <Summary>
+             entity handling magic  
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.EntityHandler.#ctor">
+            <Summary>
+             entity handler 
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.EntityHandler.AddEntityToList(_2D_RPG.Entity)">
+            <Summary>
+             add entity to the list
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.EntityHandler.RemoveEntityFromList(_2D_RPG.Entity)">
+            <Summary>
+             kill unwanted entity
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.EntityHandler.GetEntityList">
+            <Summary>
+             return an entity list
+            </Summary>
+        </member>
+        <member name="T:_2D_RPG.TileMapHandler">
+            <Summary>
+             Magic of the tilemap handling
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMapHandler.#ctor">
+            <Summary>
+             constructor with new tilemap
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMapHandler.Update">
+            <Summary>
+             update 
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMapHandler.DrawTileMap(Microsoft.Xna.Framework.Matrix)">
+            <Summary>
+             request to draw tilemap
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMapHandler.GetTileMap">
+            <Summary>
+             get the tile map data
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.TileMapHandler.AssignTileMap">
+            <Summary>
+             proper bool logic, try catch included, gets map from folder TODO
+            </Summary>
+        </member>
+        <member name="T:_2D_RPG.GameState">
+            <Summary>
+             State where the gameplay unfolds
+            </Summary>
+        </member>
+        <member name="F:_2D_RPG.GameState.DebugMode">
+            <Summary>
+             testing debug mode
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.GameState.#ctor(_2D_RPG.Main)">
+            <Summary>
+             initialize all handlers in constructor
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.GameState.Update(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             Update
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.GameState.PostUpdate(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             post update processing
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.GameState.Draw(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             get camera -> draw map around camera and inside -> draw animations
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.GameState.UpdateHandlers">
+            <Summary>
+             Call Handler Update Functions
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.GameState.CallDrawFuctions">
+            <Summary>
+             Call Draw Functions
+            </Summary>
+        </member>
+        <member name="T:_2D_RPG.MainMenuState">
+            <Summary>
+             main menu state to access the settings, the game and everything else
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.MainMenuState.#ctor(_2D_RPG.Main)">
+            <Summary>
+             Constructor of main menu state with buttons for settings play game etc
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.MainMenuState.Draw(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             draw buttons of settings
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.MainMenuState.PostUpdate(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             post updates
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.MainMenuState.Update(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             Update
+            </Summary>
+        </member>
+        <member name="T:_2D_RPG.SettingsMainMenuState">
+            <Summary>
+             settings state for volume etc
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.SettingsMainMenuState.#ctor(_2D_RPG.Main)">
+            <Summary>
+             constructor for all the buttons in settings
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.SettingsMainMenuState.Update(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             Update
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.SettingsMainMenuState.PostUpdate(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             Post Update
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.SettingsMainMenuState.Draw(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             Draw
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.SettingsMainMenuState.GetWindowFormatButton">
+            <Summary>
+             window setting
+            </Summary>
         </member>
         <member name="T:_2D_RPG.Main">
             <summary>
@@ -70,6 +375,26 @@
             and handles animations before ending the sprite batch. Finally, it invokes the base class' 
             <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)"/> method.
             </remarks>
+        </member>
+        <member name="T:Camera2D">
+            <Summary>
+             Camera controls  
+            </Summary>
+        </member>
+        <member name="M:Camera2D.#ctor">
+            <Summary>
+             camera constructor  
+            </Summary>
+        </member>
+        <member name="M:Camera2D.GetViewMatrix">
+            <Summary>
+             matrix to get the transform function of the camera with the inverted of cells 14 24 being the coordinates of the camera at lookat
+            </Summary>
+        </member>
+        <member name="M:Camera2D.LookAt(Microsoft.Xna.Framework.Vector2)">
+            <Summary>
+             Sets the camera to follow the player movement up until the edges of the map where it stays in bounds  
+            </Summary>
         </member>
     </members>
 </doc>

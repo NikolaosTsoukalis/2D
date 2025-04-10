@@ -9,13 +9,23 @@ namespace _2D_RPG;
 
 public class CollisionHandler
 {
-    private static CollisionMap entityCollisionMap {get;set;}
-    private static CollisionMap tileCollisionMap {get;set;}
+
+    #region Fields
+
+    private static EntityCollisionMap entityCollisionMap {get;set;}
+
+    #endregion Fields
+
+    #region Constructor
+
     public CollisionHandler(Main main)
     {
-        tileCollisionMap = new();
         entityCollisionMap = new();
     }
+
+    #endregion Constructor
+
+    #region EntityCollisionMap Functions
 
     public static void handleEntityCollisionMap()
     {
@@ -41,17 +51,6 @@ public class CollisionHandler
             entityCollisionMap.AddToCollisionMap(currentEntity.Name.ToString(),currentEntityRectangle);
         }
     }
-/*
-    public static void handleTileCollisionMap()
-    {
-        foreach(Entity currentEntity in EntityHandler.TileList)
-        {
-            Texture2D currentEntityTexture = currentEntity.Texture;
-            Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
-        }
-        //tileCollisionMap.AddToCollisionMap(tile)
-    }
-    */
 
     public bool IsCollidingWithEntity(Entity currentEntity)
     {
@@ -87,29 +86,19 @@ public class CollisionHandler
         return false;
     }
 
-    public static bool IsCollidingWithStructure(Entity currentEntity)
-    {
-        //Texture2D currentEntityTexture = currentEntity.Texture;
-        Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,currentEntity.Texture.Width,currentEntity.Texture.Height );
-
-        foreach(Tuple<string,Rectangle> tempTuple in tileCollisionMap.Map)
-        {
-            if(currentEntityRectangle.Intersects(tempTuple.Item2))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        // Map is empty
-        return false;
-    }
-
-    public Entity getCollidingEntity(string entityName,Rectangle hitbox)
+        public Entity getCollidingEntity(string entityName,Rectangle hitbox)  //Mainly use for interact/attack and not collision
     {
         foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
         {
-            if(hitbox.Intersects(tempTuple.Item2) && entityName != tempTuple.Item1)
+            Rectangle actualCollidingHitbox = tempTuple.Item2;
+            
+            int newX = actualCollidingHitbox.X + actualCollidingHitbox.Width/3;
+            int newY = actualCollidingHitbox.Y + actualCollidingHitbox.Height/6;
+            int newWidth = actualCollidingHitbox.Width - 2*actualCollidingHitbox.Width/3;
+            int newHeight = actualCollidingHitbox.Height - 2*actualCollidingHitbox.Height/6;
+
+            actualCollidingHitbox = new Rectangle(newX,newY, newWidth,newHeight);
+            if(hitbox.Intersects(actualCollidingHitbox) && entityName != tempTuple.Item1)
             {
                 foreach(Entity entity in Globals.EntityHandler.GetEntityList())
                 {
@@ -123,6 +112,53 @@ public class CollisionHandler
         // Entity doesnt exist in the entity list.
         return null;
     }
+
+    #endregion EntityCollisionMap Functions
+
+    #region TileCollision Functions
+
+    public bool IsCollidingWithTile(Entity currentEntity)
+    {
+        /*
+        Tuple<Texture2D, string[]> data = Globals.AnimationDataHandler.GetAnimationData(currentEntity.Name.ToString(),currentEntity.AnimationIdentifier);
+        var entityTextureWidth = currentEntity.Texture.Width / Convert.ToInt32(data.Item2[0]);
+        Rectangle currentEntityRectangle = new Rectangle((int)currentEntity.Position.X,(int)currentEntity.Position.Y,entityTextureWidth,currentEntity.Texture.Height );
+        string entityName = currentEntity.Name;
+        Tuple<string,Rectangle> currentEntityTuple = new Tuple<string,Rectangle> (entityName,currentEntityRectangle);
+
+        Vector2 tilePosition = new Vector2(currentEntity.Position.X / Globals.TileSize,currentEntity.Position.Y / Globals.TileSize); 
+        bool? isTileCollidable = Globals.TileDataHandler.GetTileCollidability(Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)tilePosition.X ,(int)tilePosition.Y));
+        Rectangle tileRectangle = new Rectangle(Globals.TileSize,Globals.TileSize,(int)currentEntity.Position.X,(int)currentEntity.Position.Y);
+        if(currentEntityTuple.Item2.Intersects(tileRectangle) && isTileCollidable == true)
+        {
+            return true;
+        }
+        return false;
+        */
+        
+        try
+        {
+            Vector2 tilePosition = new Vector2(currentEntity.Position.X / Globals.TileSize,currentEntity.Position.Y / Globals.TileSize); 
+            bool? isTileCollidable = Globals.TileDataHandler.GetTileCollidability(Globals.TileMapHandler.GetTileMap().GetTileTypeAt((int)tilePosition.X ,(int)tilePosition.Y));
+            if(isTileCollidable == true)
+            {
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+            return false;
+        }
+        
+        
+        // Map is empty
+        return false;
+    }
+
+    #endregion TileCollision Functions
+
+    #region GeneralPurpose Functions
 
     public void Update()
     {
@@ -140,7 +176,8 @@ public class CollisionHandler
 
     public void DebugDraw(Main main) // for testing purposes
     {
-        entityCollisionMap.DebugDraw(main,"Entity");
-        //tileCollisionMap.DebugDraw(main,"Entity");
+        entityCollisionMap.DebugDraw(main);
     }
+
+    #endregion GeneralPurpose Functions
 }

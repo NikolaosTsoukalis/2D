@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
+
 public class EntityDataHandler
 { 
     #region Enums
@@ -29,7 +30,6 @@ public class EntityDataHandler
     private int[] hitboxData;
     private Rectangle hitbox;
     private static Dictionary<HostileEntityTypes,Dictionary<Globals.AttributeTypes, int>> HostileEntityAttributeData {get;set;}
-    
     private static Dictionary<NonHostileEntityTypes,Dictionary<Globals.AttributeTypes, int>> NonHostileEntityAttributeData {get;set;}
 
     #endregion Values
@@ -196,7 +196,7 @@ public class EntityDataHandler
                             {Globals.AttributeTypes.HP,100},
                             {Globals.AttributeTypes.AttackPower,20},
                             {Globals.AttributeTypes.Speed,3},
-                            {Globals.AttributeTypes.RunningSpeed,4}
+                            {Globals.AttributeTypes.RunningSpeed,10}
                         };
                     default:
                         return null;
