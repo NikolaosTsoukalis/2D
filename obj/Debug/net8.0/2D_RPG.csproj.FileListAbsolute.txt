@@ -158,3 +158,8 @@ c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Tiles\Wall.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Tiles\Water.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Tiles\Wood.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\IdleAnimation_strip80.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_MeleeAttaack_strip56.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_Walk_strip80.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_Idle_strip80.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_MeleeAttack_strip56.xnb

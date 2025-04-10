@@ -129,11 +129,11 @@ public class AnimationDataHandler
             switch(identifier)
             {
                 case(AnimationIdentifier.Idle):  
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Idle_strip32"),["32","0.3"]);
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Entity/Character_Idle_strip80"),["80","0.3"]);
                     break;
                     
                 case(AnimationIdentifier.Walk):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"]);
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Entity/Character_Walk_strip80"),["80","0.1"]);
                     break;
                     
                 case(AnimationIdentifier.Run):
@@ -141,7 +141,11 @@ public class AnimationDataHandler
                     break;
                     
                 case(AnimationIdentifier.Interact):
-                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Character_Walk_strip80"),["80","0.1"]);
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Entity/Character_Walk_strip80"),["80","0.1"]);
+                    break;
+
+                case(AnimationIdentifier.MeleeAttack):
+                    data = new Tuple<Texture2D,string[]>(Globals.ContentManager.Load<Texture2D>("Entity/Character_MeleeAttack_strip56"),["56","0.1"]);
                     break;
                 
                 default:
