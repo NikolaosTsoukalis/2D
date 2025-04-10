@@ -196,7 +196,7 @@ public class EntityDataHandler
                             {Globals.AttributeTypes.HP,100},
                             {Globals.AttributeTypes.AttackPower,20},
                             {Globals.AttributeTypes.Speed,3},
-                            {Globals.AttributeTypes.RunningSpeed,4}
+                            {Globals.AttributeTypes.RunningSpeed,10}
                         };
                     default:
                         return null;

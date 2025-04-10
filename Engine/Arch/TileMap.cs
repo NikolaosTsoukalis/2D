@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
@@ -354,7 +356,7 @@ public class TileMap
                 Rectangle pathC = pathRects[2];
                 Rectangle pathD = pathRects[3];
 
-                for (int y = 0; y < worldSize.Y; y++)
+                Parallel.For(0, (int)worldSize.Y, y =>
                 {
                     for (int x = 0; x < worldSize.X; x++)
                     {
@@ -375,7 +377,36 @@ public class TileMap
                             GenerateLushGrass4(x, y);
                         }
                     }
-                }
+                });
+            }
+
+            #endregion
+
+            #region w/noise
+
+            else if (Globals.seed == 10)
+            {
+                int seed = 1;
+                float scale = 0.001f;
+                PerlinNoise perlin = new PerlinNoise(seed); // Seed for randomness
+                Parallel.For(0, (int)worldSize.X, x =>
+                {
+                    for (int y = 0; y < worldSize.Y; y++)
+                    {
+                        float biomeNoiseValue = (float)perlin.Noise(x * scale, y * scale);
+
+                        if (biomeNoiseValue < 0.1f)
+                            GenerateLushGrass4((int)x, y);
+                        else if (biomeNoiseValue < 0.5f)
+                            tileMapMatrix[(int)x, y] = (int)TileDataHandler.TileType.Water;
+                        else if (biomeNoiseValue < 0.7f)
+                            tileMapMatrix[(int)x, y] = (int)TileDataHandler.TileType.Sand;
+                        else if (biomeNoiseValue < 0.9f)
+                            tileMapMatrix[(int)x, y] = (int)TileDataHandler.TileType.Wall;
+                        else
+                            tileMapMatrix[(int)x, y] = (int)TileDataHandler.TileType.Stone;
+                    }
+                });
             }
         }
         catch (Exception e)
@@ -444,9 +475,9 @@ public class TileMap
         int x_flag = (int)topLeftWorld.X / 32; 
         int y_flag = (int)topLeftWorld.Y / 32;
 
-        for (int y = y_flag - 2; y < percievedHeight/32 + y_flag + 2; y ++)
+        for (int y = y_flag; y < percievedHeight/32 + y_flag + 2; y ++)
         {
-            for (int x = x_flag - 2; x < percievedWidth/32 + x_flag + 2; x ++)
+            for (int x = x_flag; x < percievedWidth/32 + x_flag + 2; x ++)
             {
                 Position.X = x * Globals.TileSize;
                 Position.Y = y * Globals.TileSize;
@@ -680,5 +711,87 @@ public class TileMap
     return path;
     }
 
-    #endregion Gen Functions
+    #endregion
+
+    #region Perlin Noise
+
+    public class PerlinNoise
+    {
+        private static int[] permutation = new int[512];
+        private static Random rand = new Random();
+
+        // Constructor to initialize the permutation array
+        public PerlinNoise(int seed)
+        {
+            // Generate a random seed if not provided
+            rand = new Random(seed);
+            for (int i = 0; i < 256; i++)
+            {
+                permutation[i] = rand.Next(256);
+            }
+
+            // Duplicate the permutation table to avoid overflow
+            for (int i = 0; i < 256; i++)
+            {
+                permutation[256 + i] = permutation[i];
+            }
+        }
+
+        // The Perlin Noise function (1D)
+        public double Noise(double x)
+        {
+            int xi = (int)Math.Floor(x) & 255;
+            double xf = x - Math.Floor(x);
+            double u = Fade(xf);
+            return Lerp(Grad(permutation[xi], xf), Grad(permutation[xi + 1], xf - 1), u);
+        }
+
+        // The Perlin Noise function (2D)
+        public double Noise(double x, double y)
+        {
+            int xi = (int)Math.Floor(x) & 255;
+            int yi = (int)Math.Floor(y) & 255;
+
+            double xf = x - Math.Floor(x);
+            double yf = y - Math.Floor(y);
+
+            double u = Fade(xf);
+            double v = Fade(yf);
+
+            int aa = permutation[xi] + yi;
+            int ab = permutation[xi + 1] + yi;
+            int ba = permutation[xi] + yi + 1;
+            int bb = permutation[xi + 1] + yi + 1;
+
+            return Lerp(
+                Lerp(Grad(permutation[aa], xf, yf), Grad(permutation[ba], xf - 1, yf), u),
+                Lerp(Grad(permutation[ab], xf, yf - 1), Grad(permutation[bb], xf - 1, yf - 1), u),
+                v
+            );
+        }
+
+        // Fade function as described by Ken Perlin
+        private double Fade(double t) => t * t * t * (t * (t * 6 - 15) + 10);
+
+        // Linear interpolation (lerp)
+        private double Lerp(double a, double b, double t) => a + t * (b - a);
+
+        // Gradient function
+        private double Grad(int hash, double x)
+        {
+            int h = hash & 15; // Convert low 4 bits of hash code to 16 simple gradient directions.
+            double grad = 1.0 + (h & 7);  // Gradient value between 1 and 8
+            return (h < 8 ? 1.0 : -1.0) * grad * x;  // Randomize sign
+        }
+
+        // Gradient function for 2D
+        private double Grad(int hash, double x, double y)
+        {
+            int h = hash & 15; // Convert low 4 bits of hash code to 16 simple gradient directions.
+            double grad = 1.0 + (h & 7);  // Gradient value between 1 and 8
+            return (h < 8 ? 1.0 : -1.0) * grad * x + (h >= 8 ? 1.0 : -1.0) * grad * y;
+        }
+    }
+
+    #endregion
 }   
