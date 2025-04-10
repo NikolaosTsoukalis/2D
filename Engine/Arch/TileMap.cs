@@ -355,9 +355,9 @@ public class TileMap
                 Rectangle pathC = pathRects[2];
                 Rectangle pathD = pathRects[3];
 
-                for (int y = 0; y < worldSize.Y; y++)
+                for (int y = 1; y < worldSize.Y; y++)
                 {
-                    for (int x = 0; x < worldSize.X; x++)
+                    for (int x = 1; x < worldSize.X; x++)
                     {
                         if (IsInRectangle(x, 0, y, 0, riverArea) && IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
                         {
@@ -445,9 +445,9 @@ public class TileMap
         int x_flag = (int)topLeftWorld.X / 32; 
         int y_flag = (int)topLeftWorld.Y / 32;
 
-        for (int y = y_flag - 2; y < percievedHeight/32 + y_flag + 2; y ++)
+        for (int y = y_flag; y < percievedHeight/32 + y_flag + 1; y ++)
         {
-            for (int x = x_flag - 2; x < percievedWidth/32 + x_flag + 2; x ++)
+            for (int x = x_flag; x < percievedWidth/32 + x_flag + 1; x ++)
             {
                 Position.X = x * Globals.TileSize;
                 Position.Y = y * Globals.TileSize;
@@ -468,9 +468,9 @@ public class TileMap
         int x_flag = (int)topLeftWorld.X / 32; 
         int y_flag = (int)topLeftWorld.Y / 32;
 
-        for (int y = y_flag - 2; y < percievedHeight/32 + y_flag + 2; y ++)
+        for (int y = y_flag; y < percievedHeight/32 + y_flag + 1; y ++)
         {
-            for (int x = x_flag - 2; x < percievedWidth/32 + x_flag + 2; x ++)
+            for (int x = x_flag; x < percievedWidth/32 + x_flag + 1; x ++)
             {
                 Position.X = x * Globals.TileSize;
                 Position.Y = y * Globals.TileSize;
@@ -479,8 +479,8 @@ public class TileMap
                     Texture2D tileTexture = Globals.TileDataHandler.GetTileTextureData(tileMapMatrix[x, y]);
                     Texture2D tileDebugTexture = new Texture2D(game.GraphicsDevice, 1,1);
                     Rectangle tileDebugRectangle = new Rectangle((int)Position.X,(int)Position.Y,tileTexture.Width, tileTexture.Height);
-                    tileDebugTexture.SetData(new[] { Color.Yellow });
-                    Globals.SpriteBatch.Draw(tileDebugTexture,tileDebugRectangle, Color.Yellow);
+                    tileDebugTexture.SetData(new[] { Color.Black });
+                    Globals.SpriteBatch.Draw(tileDebugTexture,tileDebugRectangle, Color.Black);
                     Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"),GetTileTypeAt(x, y).ToString(),new Vector2 (tileDebugRectangle.X,tileDebugRectangle.Y), Color.White);
                 }
                 else

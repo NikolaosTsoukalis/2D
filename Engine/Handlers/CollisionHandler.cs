@@ -9,13 +9,23 @@ namespace _2D_RPG;
 
 public class CollisionHandler
 {
-    private static CollisionMap entityCollisionMap {get;set;}
-    private static CollisionMap tileCollisionMap {get;set;}
+
+    #region Fields
+
+    private static EntityCollisionMap entityCollisionMap {get;set;}
+
+    #endregion Fields
+
+    #region Constructor
+
     public CollisionHandler(Main main)
     {
-        tileCollisionMap = new();
         entityCollisionMap = new();
     }
+
+    #endregion Constructor
+
+    #region EntityCollisionMap Functions
 
     public static void handleEntityCollisionMap()
     {
@@ -40,12 +50,6 @@ public class CollisionHandler
             }
             entityCollisionMap.AddToCollisionMap(currentEntity.Name.ToString(),currentEntityRectangle);
         }
-    }
-
-    public static void handleTileCollisionMap(Vector2 playerPosition)
-    {
-        //MIGHT NOT BE NEEDED
-        //tileCollisionMap.AddToCollisionMap(tile)
     }
 
     public bool IsCollidingWithEntity(Entity currentEntity)
@@ -81,6 +85,37 @@ public class CollisionHandler
         // Map is empty
         return false;
     }
+
+        public Entity getCollidingEntity(string entityName,Rectangle hitbox)  //Mainly use for interact/attack and not collision
+    {
+        foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
+        {
+            Rectangle actualCollidingHitbox = tempTuple.Item2;
+            
+            int newX = actualCollidingHitbox.X + actualCollidingHitbox.Width/3;
+            int newY = actualCollidingHitbox.Y + actualCollidingHitbox.Height/6;
+            int newWidth = actualCollidingHitbox.Width - 2*actualCollidingHitbox.Width/3;
+            int newHeight = actualCollidingHitbox.Height - 2*actualCollidingHitbox.Height/6;
+
+            actualCollidingHitbox = new Rectangle(newX,newY, newWidth,newHeight);
+            if(hitbox.Intersects(actualCollidingHitbox) && entityName != tempTuple.Item1)
+            {
+                foreach(Entity entity in Globals.EntityHandler.GetEntityList())
+                {
+                    if(tempTuple.Item1 == entity.Name)
+                    {
+                        return entity;
+                    }
+                }
+            }
+        }
+        // Entity doesnt exist in the entity list.
+        return null;
+    }
+
+    #endregion EntityCollisionMap Functions
+
+    #region TileCollision Functions
 
     public bool IsCollidingWithTile(Entity currentEntity)
     {
@@ -121,32 +156,9 @@ public class CollisionHandler
         return false;
     }
 
-    public Entity getCollidingEntity(string entityName,Rectangle hitbox)  //Mainly use for interact/attack and not collision
-    {
-        foreach(Tuple<string,Rectangle> tempTuple in entityCollisionMap.Map)
-        {
-            Rectangle actualCollidingHitbox = tempTuple.Item2;
-            
-            int newX = actualCollidingHitbox.X + actualCollidingHitbox.Width/3;
-            int newY = actualCollidingHitbox.Y + actualCollidingHitbox.Height/6;
-            int newWidth = actualCollidingHitbox.Width - 2*actualCollidingHitbox.Width/3;
-            int newHeight = actualCollidingHitbox.Height - 2*actualCollidingHitbox.Height/6;
+    #endregion TileCollision Functions
 
-            actualCollidingHitbox = new Rectangle(newX,newY, newWidth,newHeight);
-            if(hitbox.Intersects(actualCollidingHitbox) && entityName != tempTuple.Item1)
-            {
-                foreach(Entity entity in Globals.EntityHandler.GetEntityList())
-                {
-                    if(tempTuple.Item1 == entity.Name)
-                    {
-                        return entity;
-                    }
-                }
-            }
-        }
-        // Entity doesnt exist in the entity list.
-        return null;
-    }
+    #region GeneralPurpose Functions
 
     public void Update()
     {
@@ -166,4 +178,6 @@ public class CollisionHandler
     {
         entityCollisionMap.DebugDraw(main);
     }
+
+    #endregion GeneralPurpose Functions
 }

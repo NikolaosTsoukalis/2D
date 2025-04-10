@@ -254,7 +254,12 @@
         </member>
         <member name="M:_2D_RPG.GameState.UpdateHandlers">
             <Summary>
-             update all handlers needed
+             Call Handler Update Functions
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.GameState.CallDrawFuctions">
+            <Summary>
+             Call Draw Functions
             </Summary>
         </member>
         <member name="T:_2D_RPG.MainMenuState">

@@ -1,6 +1,4 @@
 using System;
-using System.Net;
-using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,17 +9,21 @@ namespace _2D_RPG;
 ///</Summary>
 public class GameState : State
 {
-
+    #region Fields
     ///<Summary>
     /// testing debug mode
     ///</Summary>
     public bool DebugMode = false;
     private Command command;
-    public readonly Player player;
+    readonly Player player;
     readonly HostileEntity slime;
 
 
     private Inventory Inventory;
+
+    #endregion Fields
+
+    #region Constructors
 
     ///<Summary>
     /// initialize all handlers in constructor
@@ -54,24 +56,20 @@ public class GameState : State
 
     }
 
+    #endregion Constructors
+
+    #region GameLoopFunctions
+
     ///<Summary>
     /// Update
     ///</Summary>
     public override void Update(GameTime gameTime)
     {
         Globals.Camera.LookAt(player.Position);
+
         Globals.UpdateTimeForAnimations(gameTime, main);
-        command = Globals.Inputhandler.HandleInput();
-        if(command != null)
-        {
-            if(command.commandType == Command.CommandTypes.ExitCommand || command.commandType == Command.CommandTypes.FullScreenCommand || command.commandType == Command.CommandTypes.EnableDebugsCommand) 
-            {
-                command.Execute(main);
-            }
-            command.Execute(player);
-        }
-        else
-            player.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
+
+        HandlePlayerInput();
 
         UpdateHandlers();
     }
@@ -101,6 +99,10 @@ public class GameState : State
         try
         {
             if(CallDrawFuctions()){} // conditionals in case a Draw function doesnt get called correctly.
+            Texture2D tileDebugTexture = new Texture2D(main.GraphicsDevice, 1,1);
+            tileDebugTexture.SetData(new[] { Color.Black });
+                    
+            Globals.SpriteBatch.Draw(tileDebugTexture, new Vector2(0, 0), Color.Black); // top-left with no offset
         }
         catch(Exception e)
         {
@@ -109,6 +111,10 @@ public class GameState : State
 
         Globals.SpriteBatch.End();
     }
+
+    #endregion GameLoopFunctions
+
+    #region GeneralPurposeFunctions
 
     ///<Summary>
     /// Call Handler Update Functions
@@ -131,7 +137,7 @@ public class GameState : State
         {
             if(Globals.enableDebugs)
             {
-                Debugger.Debug(this,main);    
+                Debugger.Draw(this, main, player);    
             }
             else
             {
@@ -152,4 +158,21 @@ public class GameState : State
             return false;
         }
     }
+
+    public void HandlePlayerInput()
+    {
+        command = Globals.Inputhandler.HandleInput();
+        if(command != null)
+        {
+            if(command.commandType == Command.CommandTypes.ExitCommand || command.commandType == Command.CommandTypes.FullScreenCommand || command.commandType == Command.CommandTypes.EnableDebugsCommand) 
+            {
+                command.Execute(main);
+            }
+            command.Execute(player);
+        }
+        else
+            player.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
+    }
+
+    #endregion GeneralPurposeFunctions
 }
