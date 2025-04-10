@@ -238,25 +238,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\v-ntsoukalis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Γιώργος\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\v-ntsoukalis\\OneDrive - Eurobank S.A\\Desktop\\Project 1\\2D\\2D_RPG.csproj",
+      "projectUniqueName": "C:\\Users\\Γιώργος\\Desktop\\2D repositories\\newFromMain\\2D_RPG.csproj",
       "projectName": "2D_RPG",
-      "projectPath": "C:\\Users\\v-ntsoukalis\\OneDrive - Eurobank S.A\\Desktop\\Project 1\\2D\\2D_RPG.csproj",
-      "packagesPath": "C:\\Users\\v-ntsoukalis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\v-ntsoukalis\\OneDrive - Eurobank S.A\\Desktop\\Project 1\\2D\\obj\\",
+      "projectPath": "C:\\Users\\Γιώργος\\Desktop\\2D repositories\\newFromMain\\2D_RPG.csproj",
+      "packagesPath": "C:\\Users\\Γιώργος\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Γιώργος\\Desktop\\2D repositories\\newFromMain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\v-ntsoukalis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Γιώργος\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -281,8 +279,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
-      }
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -313,7 +312,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -64,8 +64,8 @@ public class Camera2D
         int screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
         //int screenWidth = Globals.GraphicsDeviceManager.PreferredBackBufferWidth;
         //int screenHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight;
-        bool isAtLimitX = target.X - screenWidth / 2 - 64 < 0 || target.X + screenWidth / 2 + 64 > Globals.WorldSize.X;
-        bool isAtLimitY = target.Y - screenHeight / 2 - 64 < 0 || target.Y + screenHeight / 2 + 64 > Globals.WorldSize.X;
+        bool isAtLimitX = target.X - screenWidth / 2 < 0 || target.X + screenWidth / 2 > Globals.WorldSize.X;
+        bool isAtLimitY = target.Y - screenHeight / 2 < 0 || target.Y + screenHeight / 2 > Globals.WorldSize.X;
         //bool isAtInnerX = Math.Abs(_position.X - target.X) < 5 * 32; 
         //bool isAtInnerY = Math.Abs(_position.Y - target.Y) < 5 * 32;
         //if (isAtInnerX && isAtInnerY){}
