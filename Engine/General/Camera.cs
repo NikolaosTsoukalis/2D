@@ -1,3 +1,4 @@
+using System;
 using _2D_RPG;
 using Microsoft.Xna.Framework;
 
@@ -18,7 +19,7 @@ public class Camera2D
     {
         _zoom = 1f;
         _rotation = 0f;
-        _position = Vector2.Zero;
+        _position = new Vector2(500, 500);
     }
 
     ///<Summary>
@@ -65,18 +66,25 @@ public class Camera2D
         //int screenHeight = Globals.GraphicsDeviceManager.PreferredBackBufferHeight;
         bool isAtLimitX = target.X - screenWidth / 2 - 64 < 0 || target.X + screenWidth / 2 + 64 > Globals.WorldSize.X;
         bool isAtLimitY = target.Y - screenHeight / 2 - 64 < 0 || target.Y + screenHeight / 2 + 64 > Globals.WorldSize.X;
-        if (isAtLimitX && isAtLimitY){}
-        else if (isAtLimitX)
-        {
-            _position.Y = target.Y;
-        }
-        else if (isAtLimitY)
-        {
-            _position.X = target.X;
-        }
+        //bool isAtInnerX = Math.Abs(_position.X - target.X) < 5 * 32; 
+        //bool isAtInnerY = Math.Abs(_position.Y - target.Y) < 5 * 32;
+        //if (isAtInnerX && isAtInnerY){}
+        if (false){}
         else
         {
-            _position = target;
+            if (isAtLimitX && isAtLimitY){}
+            else if (isAtLimitX)
+            {
+                _position.Y = target.Y;
+            }
+            else if (isAtLimitY)
+            {
+                _position.X = target.X;
+            }
+            else
+            {
+                _position = target;
+            }
         }
     }
 }
