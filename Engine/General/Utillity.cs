@@ -12,9 +12,19 @@ public class Utillity
 
 
 
-    #region Functions
+    #region Functions for World Saves
 
-    public void SaveTileMapToBinary(string worldName, int[,] map)
+    public static string[] GetWorldFiles()
+    {
+        return Directory.GetFiles(Path.Combine(AppContext.BaseDirectory,"/save/worlds/"), ".bat", SearchOption.AllDirectories);
+    }
+    
+    public static int GetNumberOfWorldFiles()
+    {
+        return Directory.GetFiles(Path.Combine(AppContext.BaseDirectory,"/save/worlds/"), ".bat", SearchOption.AllDirectories).Length;
+    }
+
+    public static void SaveTileMapToBinary(string worldName, int[,] map)
     {
         string folderPath = Path.Combine(AppContext.BaseDirectory,"/save/worlds/" + worldName);
         Directory.CreateDirectory(folderPath);
@@ -34,7 +44,7 @@ public class Utillity
         }
     }
 
-    int[,] LoadTileMapFromBinarySaveFile(string path)
+    public static int[,] LoadTileMapFromBinarySaveFile(string path)
     {
         BinaryReader reader = new BinaryReader(File.OpenRead(path));
         
@@ -49,11 +59,11 @@ public class Utillity
                 map[i, j] = reader.ReadInt32();
             }
         }
-        
+
         return map;
     }
 
-    #endregion Functions
+    #endregion Functions for World Saves
 
 
 }

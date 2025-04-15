@@ -62,6 +62,34 @@ public class Button : Component
         Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
     }
 
+    public override void DrawWithText(GameTime gameTime,string text)
+    {
+        var colour = Color.White;
+
+        if (_isHovering)
+            colour = Color.Gray;
+        
+         if (!string.IsNullOrEmpty(text) && Globals.ContentManager.Load<SpriteFont>("MyFont") != null)
+        {
+            // Measure the size of the text
+            Vector2 textSize = Globals.ContentManager.Load<SpriteFont>("MyFont").MeasureString(text);
+
+            // Center the text within the button rectangle
+            Vector2 textPosition = new Vector2(
+                Rectangle.X + (Rectangle.Width / 2) - (textSize.X / 2),
+                Rectangle.Y + (Rectangle.Height / 2) - (textSize.Y / 2)
+            );
+
+            // Draw the text
+            Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
+            Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), text, textPosition, Color.Black);
+        }
+        else
+        {
+            Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
+        }
+    }
+
     public override void Update(GameTime gameTime)
     {
         _previousMouse = _currentMouse;

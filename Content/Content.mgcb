@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:Button_Exit.png
 
+#begin Button_NewWorld.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Button_NewWorld.png
+
 #begin Button_Settings.png
 /importer:TextureImporter
 /processor:TextureProcessor
