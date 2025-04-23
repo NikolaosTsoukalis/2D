@@ -14,14 +14,14 @@ public class Utillity
 
     #region Functions for World Saves
 
+    public TileMap createTileMap()
+    {
+        
+    }
+
     public static string[] GetWorldFiles()
     {
         return Directory.GetFiles(Path.Combine(AppContext.BaseDirectory,"/save/worlds/"), ".bat", SearchOption.AllDirectories);
-    }
-    
-    public static int GetNumberOfWorldFiles()
-    {
-        return Directory.GetFiles(Path.Combine(AppContext.BaseDirectory,"/save/worlds/"), ".bat", SearchOption.AllDirectories).Length;
     }
 
     public static void SaveTileMapToBinary(string worldName, int[,] map)

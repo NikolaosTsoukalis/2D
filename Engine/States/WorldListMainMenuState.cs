@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -22,14 +24,7 @@ public class WorldListMainMenuState : State
         lastButtonPosition = firstButtonPosition;
         worldList = Utillity.GetWorldFiles();
         components = new List<Component>();
-        /*
-        var startGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_StartGame"))
-        {
-            Position = new Vector2(300, 200),
-        };
-
-        startGameButton.Click += StartGameButton_Click;
-        */
+        
         var newWorldButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_NewWorld"))
         {
             Position = firstButtonPosition,
@@ -37,14 +32,9 @@ public class WorldListMainMenuState : State
         components.Add(newWorldButton);
         newWorldButton.Click += newWorldButton_Click;
 
-        /*
-        var settingsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Settings"))
-        {
-            Position = new Vector2(300, 250),
-        };
+        createWorldButtons();
+        newWorldButton.Click += newWorldButton_Click;
 
-        settingsButton.Click += SettingsButton_Click;
-        */
         var backButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Back"))
         {
             Position = new Vector2(300, 300),
@@ -55,14 +45,25 @@ public class WorldListMainMenuState : State
 
     #region General Functions
 
-    public List<Component> manageWorldButtons()
+    public void createWorldButtons()
     {
-
-        for(int i = 0; i < worldList.Length; i++)
+        try
         {
-            components.Add(new Button(Globals.ContentManager.Load<Texture2D>("Button_Empty")){ Position = lastButtonPosition});   
+            if(worldList.Length > 0)
+            {
+                for(int i = 0; i < worldList.Length; i++)
+                {
+                    components.Add(new Button(Globals.ContentManager.Load<Texture2D>("Button_Empty")){ Position = lastButtonPosition, Text = worldList[i].ToString()});   
+                    components[i].Click += 
+                    lastButtonPosition.Y += 50;
+                }
+            }
         }
-        return null;
+        catch(Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+
     }
 
     #endregion General Functions
@@ -78,6 +79,11 @@ public class WorldListMainMenuState : State
     }
 
     private void newWorldButton_Click(object sender, EventArgs e)
+    {
+        if(worldList.Length > 10){}
+    }
+
+    private void loadWorldButton_Click(object sender, EventArgs e)
     {
         if(worldList.Length > 10){}
     }

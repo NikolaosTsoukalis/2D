@@ -8,6 +8,7 @@ namespace _2D_RPG;
 public class Button : Component
 {
     #region Fields
+    public string Text;
 
     private MouseState _currentMouse;
 
@@ -24,10 +25,6 @@ public class Button : Component
         get{return _texture;}
         set{_texture = value;}
     }
-
-    #endregion
-
-    #region Properties
 
     public event EventHandler Click;
 
@@ -56,8 +53,14 @@ public class Button : Component
     {
         var colour = Color.White;
 
+        if(this.Text != null)
+        {
+            Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), this.Text, new Vector2(Rectangle.X, Rectangle.Y), Color.Black);
+        }
         if (_isHovering)
+        {
             colour = Color.Gray;
+        }
 
         Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
     }
