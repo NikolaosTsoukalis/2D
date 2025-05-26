@@ -14,9 +14,10 @@ public class Utillity
 
     #region Functions for World Saves
 
-    public TileMap createTileMap()
+    public TileMap createTileMapFiles(TileMap tilemap,string worldName)
     {
-        
+        tilemap = new TileMap();
+        SaveTileMapToBinary(worldName,tilemap.GenerateMap());
     }
 
     public static string[] GetWorldFiles()
