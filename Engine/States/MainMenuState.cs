@@ -17,14 +17,14 @@ public class MainMenuState : State
     ///</Summary>
     public MainMenuState(Main main) : base(main)
     {
-
+        /*
         var startGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_StartGame"))
         {
             Position = new Vector2(300, 200),
         };
 
         startGameButton.Click += StartGameButton_Click;
-
+        */
         var settingsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Settings"))
         {
             Position = new Vector2(300, 250),
@@ -41,7 +41,7 @@ public class MainMenuState : State
 
         components = new List<Component>()
         {
-            startGameButton,
+            //startGameButton,
             settingsButton,
             quitGameButton,
         };
@@ -65,11 +65,12 @@ public class MainMenuState : State
         main.ChangeState(new SettingsMainMenuState(main));
     }
 
+    /*
     private void StartGameButton_Click(object sender, EventArgs e)
     {
         main.ChangeState(new GameState(main));
     }
-
+    */
     ///<Summary>
     /// post updates
     ///</Summary>

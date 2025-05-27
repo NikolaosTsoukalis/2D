@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Linq.Expressions;
 
 namespace _2D_RPG;
 
@@ -22,8 +23,8 @@ public class Button : Component
 
     public Texture2D Texture
     {
-        get{return _texture;}
-        set{_texture = value;}
+        get { return _texture; }
+        set { _texture = value; }
     }
 
     public event EventHandler Click;
@@ -40,6 +41,9 @@ public class Button : Component
         }
     }
 
+    private bool Disabled;
+     private bool Enabled;
+
     #endregion
 
     #region Methods
@@ -53,7 +57,7 @@ public class Button : Component
     {
         var colour = Color.White;
 
-        if(this.Text != null)
+        if (this.Text != null)
         {
             Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), this.Text, new Vector2(Rectangle.X, Rectangle.Y), Color.Black);
         }
@@ -65,14 +69,23 @@ public class Button : Component
         Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
     }
 
-    public override void DrawWithText(GameTime gameTime,string text)
+    public override void DrawWithText(GameTime gameTime, string text)
     {
-        var colour = Color.White;
+        var colour = Color.Blue;
+        if (Disabled)
+        {
+            colour = Color.White;
+        }
+        else
+        {
+            colour = Color.Red;
+        }
 
-        if (_isHovering)
+
+        if (_isHovering && !Disabled)
             colour = Color.Gray;
-        
-         if (!string.IsNullOrEmpty(text) && Globals.ContentManager.Load<SpriteFont>("MyFont") != null)
+
+        if (!string.IsNullOrEmpty(text) && Globals.ContentManager.Load<SpriteFont>("MyFont") != null)
         {
             // Measure the size of the text
             Vector2 textSize = Globals.ContentManager.Load<SpriteFont>("MyFont").MeasureString(text);
@@ -95,6 +108,7 @@ public class Button : Component
 
     public override void Update(GameTime gameTime)
     {
+
         _previousMouse = _currentMouse;
         _currentMouse = Mouse.GetState();
 
@@ -106,12 +120,39 @@ public class Button : Component
         {
             _isHovering = true;
 
-            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed && !Disabled)
             {
                 Click?.Invoke(this, new EventArgs());
             }
         }
     }
 
+    public bool Disable()
+    {
+        try
+        {
+            this.Disabled = true;
+            return true;
+        }
+        catch (Exception e)
+        {
+            this.Disabled = false;
+            return false;
+        }
+    }
+
+        public bool Enable()
+    {
+        try
+        {
+            this.Enabled = true;
+            return true;
+        }
+        catch (Exception e)
+        {
+            this.Enabled = false;
+            return false;
+        }
+    }
     #endregion
 }

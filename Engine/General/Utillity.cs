@@ -14,15 +14,29 @@ public class Utillity
 
     #region Functions for World Saves
 
-    public TileMap createTileMapFiles(TileMap tilemap,string worldName)
+    public bool createTileMapFiles(TileMap tilemap, string worldName)
     {
-        tilemap = new TileMap();
-        SaveTileMapToBinary(worldName,tilemap.GenerateMap());
+        try
+        {
+            tilemap = new TileMap();
+            SaveTileMapToBinary(worldName, tilemap.GetTileMapMatrix());
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR " + e.ToString);
+            return false;
+        } 
     }
 
-    public static string[] GetWorldFiles()
+    public static int[,] GetWorldBinaryFile(string worldName)
     {
-        return Directory.GetFiles(Path.Combine(AppContext.BaseDirectory,"/save/worlds/"), ".bat", SearchOption.AllDirectories);
+        string folderPath = Path.Combine(AppContext.BaseDirectory,"/save/worlds/" + worldName);
+        return LoadTileMapFromBinarySaveFile(folderPath);
+    }
+    public static string[] GetWorldFileNames()
+    {
+        return Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "/save/worlds/"), ".bat", SearchOption.AllDirectories);
     }
 
     public static void SaveTileMapToBinary(string worldName, int[,] map)

@@ -38,6 +38,15 @@ public class TileMap
 
         GenerateMap();
     }
+    
+    public TileMap(int[,] tileMap)  //GIORGOOOOOOOO TIN EINAI TO WORLDSIZE KAI TI EINAI TO TILEMAPMATRIX LENGTH?
+    {
+        worldSize.X = (int)Globals.WorldSize.X;
+        worldSize.Y = (int)Globals.WorldSize.Y;
+        tileMapMatrix = tileMap;
+        
+        tileMapSize = tileMapMatrix.Length;
+    }
 
     #endregion Constructor
 
@@ -86,7 +95,7 @@ public class TileMap
             }
 
             #endregion
-            
+
             #region rnd river path
 
             else if (Globals.seed == 3) // random bridge path with 4 rectangles starting from north west and ending at south
@@ -114,7 +123,7 @@ public class TileMap
                     {
                         pathC = new Rectangle(pathB.X, pathB.Bottom, rnd.Next(2, 25 - 2 - pathA.Right), pathSize);
                         pathD = new Rectangle(pathC.Right - pathSize, pathC.Bottom, pathSize, 25 - pathC.Bottom);
-                    } 
+                    }
                     else
                     {
                         int pathSizeC = rnd.Next(2, pathB.Right);
@@ -131,7 +140,7 @@ public class TileMap
                     {
                         pathC = new Rectangle(pathB.X, pathB.Y, rnd.Next(2, 25 - 2 - pathB.Right), pathSize);
                         pathD = new Rectangle(pathC.Right - pathSize, 0, pathSize, pathC.Bottom);
-                    } 
+                    }
                     else
                     {
                         int pathSizeC = rnd.Next(2, pathB.Right);
@@ -190,7 +199,7 @@ public class TileMap
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Water;
                         }
-                        else if(IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
+                        else if (IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Stone;
                         }
@@ -234,7 +243,7 @@ public class TileMap
                     {
                         pathC = new Rectangle(pathB.X, pathB.Bottom, rnd.Next(2, 25 - 2 - pathA.Right), pathSize);
                         pathD = new Rectangle(pathC.Right - pathSize, pathC.Bottom, pathSize, 25 - pathC.Bottom);
-                    } 
+                    }
                     else
                     {
                         int pathSizeC = rnd.Next(2, pathB.Right);
@@ -251,7 +260,7 @@ public class TileMap
                     {
                         pathC = new Rectangle(pathB.X, pathB.Y, rnd.Next(2, 25 - 2 - pathB.Right), pathSize);
                         pathD = new Rectangle(pathC.Right - pathSize, 0, pathSize, pathC.Bottom);
-                    } 
+                    }
                     else
                     {
                         int pathSizeC = rnd.Next(2, pathB.Right);
@@ -301,7 +310,7 @@ public class TileMap
                         {
                             GeneratePathWithPercentage(x, y, 5);
                         }
-                        else 
+                        else
                         {
                             GenerateLushGrass4(x, y);
                         }
@@ -310,7 +319,7 @@ public class TileMap
             }
             else if (Globals.seed == 5) // random path without river
             {
-                var rnd = new Random();                
+                var rnd = new Random();
                 var start = new Point(5, 20);
                 var directions = new[] { 0, 3, 0, 2 }; // up:0 down:1 left:2 right:3
                 var pathRects = GeneratePath(start, rnd.Next(2, 4), directions, rnd);
@@ -329,7 +338,7 @@ public class TileMap
                         {
                             GeneratePathWithPercentage(x, y, 100);
                         }
-                        else 
+                        else
                         {
                             GenerateLushGrass4(x, y);
                         }
@@ -349,8 +358,8 @@ public class TileMap
                 //var directions = new[] { 0, 2, 0, 3 }; // up:0 down:1 right:3 left:2
                 //var directions = new[] { 1, 3, 1, 2 }; // up:0 down:1 right:3 left:2
                 var directions = new[] { 1, 2, 1, 3 }; // up:0 down:1 right:3 left:2
-                
-                var pathRects = GeneratePathThroughRiver(start, rnd.Next(1,3), directions, rnd, riverArea);
+
+                var pathRects = GeneratePathThroughRiver(start, rnd.Next(1, 3), directions, rnd, riverArea);
 
                 Rectangle pathA = pathRects[0];
                 Rectangle pathB = pathRects[1];
@@ -369,7 +378,7 @@ public class TileMap
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Water;
                         }
-                        else if(IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
+                        else if (IsInRectangles(x, 0, y, 0, pathA, pathB, pathC, pathD))
                         {
                             tileMapMatrix[x, y] = (int)TileDataHandler.TileType.Stone;
                         }
@@ -418,7 +427,7 @@ public class TileMap
 
     #endregion
 
-    #region Functions
+    #region General Functions
 
     ///<Summary>
     /// Change tile to new tile 
@@ -460,25 +469,30 @@ public class TileMap
     {
         // ότι αλλάζει στο tileMapMatrix ΕΔΩ
     }
+    
+    public int[,] GetTileMapMatrix() // >: ^)
+    {
+        return tileMapMatrix;
+    }
 
     ///<Summary>
     /// Draws the tilemap only seen by the camera and one radius larger
     ///</Summary>
     public void Draw(Matrix cameraMatrix)
     {
-        Vector2 Position = new Vector2 (0, 0);
+        Vector2 Position = new Vector2(0, 0);
         int percievedWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
         int percievedHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
 
         Matrix inverseView = Matrix.Invert(cameraMatrix);
         Vector2 topLeftWorld = Vector2.Transform(Vector2.Zero, inverseView);
 
-        int x_flag = (int)topLeftWorld.X / 32; 
+        int x_flag = (int)topLeftWorld.X / 32;
         int y_flag = (int)topLeftWorld.Y / 32;
 
-        for (int y = y_flag; y < percievedHeight/32 + y_flag + 2; y ++)
+        for (int y = y_flag; y < percievedHeight / 32 + y_flag + 2; y++)
         {
-            for (int x = x_flag; x < percievedWidth/32 + x_flag + 2; x ++)
+            for (int x = x_flag; x < percievedWidth / 32 + x_flag + 2; x++)
             {
                 Position.X = x * Globals.TileSize;
                 Position.Y = y * Globals.TileSize;
@@ -522,7 +536,7 @@ public class TileMap
 
     #endregion Functions
 
-    #region Gen Functions
+    #region Generation Functions
 
     private void GenerateLushGrass4(int x, int y)
     {
