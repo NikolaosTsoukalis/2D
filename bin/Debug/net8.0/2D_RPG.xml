@@ -197,7 +197,7 @@
              Magic of the tilemap handling
             </Summary>
         </member>
-        <member name="M:_2D_RPG.TileMapHandler.#ctor">
+        <member name="M:_2D_RPG.TileMapHandler.#ctor(_2D_RPG.TileMap)">
             <Summary>
              constructor with new tilemap
             </Summary>
@@ -232,7 +232,7 @@
              testing debug mode
             </Summary>
         </member>
-        <member name="M:_2D_RPG.GameState.#ctor(_2D_RPG.Main)">
+        <member name="M:_2D_RPG.GameState.#ctor(_2D_RPG.Main,_2D_RPG.TileMap)">
             <Summary>
              initialize all handlers in constructor
             </Summary>

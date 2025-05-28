@@ -42,8 +42,7 @@ public class Button : Component
     }
 
     private bool Disabled;
-     private bool Enabled;
-
+    private bool Enabled;
     #endregion
 
     #region Methods
@@ -141,16 +140,30 @@ public class Button : Component
         }
     }
 
-        public bool Enable()
+    public bool Enable()
     {
         try
         {
             this.Enabled = true;
+            this.Disabled = false;
             return true;
         }
         catch (Exception e)
         {
             this.Enabled = false;
+            this.Disabled = true;
+            return false;
+        }
+    }
+
+    public bool isEnabled()
+    {
+        if (Enabled || !Disabled)
+        {
+            return true;
+        }
+        else
+        {
             return false;
         }
     }

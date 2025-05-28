@@ -163,3 +163,5 @@ c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_MeleeAtt
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_Walk_strip80.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_Idle_strip80.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_MeleeAttack_strip56.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_NewWorld.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_Empty.xnb

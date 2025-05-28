@@ -1,7 +1,10 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
@@ -14,12 +17,12 @@ public class Utillity
 
     #region Functions for World Saves
 
-    public bool createTileMapFiles(TileMap tilemap, string worldName)
+    public static bool createTileMapFiles(string worldName)
     {
         try
         {
-            tilemap = new TileMap();
-            SaveTileMapToBinary(worldName, tilemap.GetTileMapMatrix());
+            TileMap tilemap = new TileMap();
+            SaveTileMapToBinary(worldName, tilemap.GetTileMapMatrix(),true);
             return true;
         }
         catch (Exception e)
@@ -34,14 +37,57 @@ public class Utillity
         string folderPath = Path.Combine(AppContext.BaseDirectory,"/save/worlds/" + worldName);
         return LoadTileMapFromBinarySaveFile(folderPath);
     }
-    public static string[] GetWorldFileNames()
+    public static string[] GetWorldFileNames(bool isTesting)
     {
-        return Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "/save/worlds/"), ".bat", SearchOption.AllDirectories);
+        string folderPath;
+
+        if (isTesting)
+        {
+            string directory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+            folderPath = Path.Combine(directory, "save\\worlds");
+        }
+        else
+        {
+            folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "save\\worlds");
+        }
+        //return Directory.GetFiles(folderPath, "*.bat", SearchOption.AllDirectories);
+        string[] directories = Directory.GetDirectories(folderPath);
+        
+        List<string> worldNameList = new List<string>();
+        foreach (string directory in directories)
+        {
+            string tempName = "";
+            for (int i = 0; i < directory.Length; i++)
+            {
+                char charToAdd = directory[directory.Length - 1 - i];
+                if (charToAdd != '\\')
+                {
+                    tempName = charToAdd + tempName;
+                }
+                else
+                {
+                    break;
+                }
+                 
+            }
+            worldNameList.Add(tempName);
+        }
+        return worldNameList.ToArray();
     }
 
-    public static void SaveTileMapToBinary(string worldName, int[,] map)
+    public static void SaveTileMapToBinary(string worldName, int[,] map, bool isTesting)
     {
-        string folderPath = Path.Combine(AppContext.BaseDirectory,"/save/worlds/" + worldName);
+        string folderPath;
+        if (isTesting)
+        {
+            string directory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+            folderPath = Path.Combine(directory, "save\\worlds\\" + worldName);
+        }
+        else
+        {
+            folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "save\\worlds" + worldName);
+        }
+        
         Directory.CreateDirectory(folderPath);
         BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(folderPath,"Tilemap.dat") , FileMode.Create));
         
