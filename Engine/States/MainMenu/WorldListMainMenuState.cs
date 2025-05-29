@@ -95,7 +95,7 @@ public class WorldListMainMenuState : State
     {
         if (newWorldButton.isEnabled())
         {
-            string name = "";
+            string name = "test";
             if (!worldList.Contains(name))
             {
                 Utillity.createTileMapFiles("test");
@@ -110,7 +110,7 @@ public class WorldListMainMenuState : State
 
     private void loadWorldButton_Click(object sender, EventArgs e)
     {  
-        int [,]tileMapMatrix = Utillity.GetWorldBinaryFile(WorldClicked);
+        int [,]tileMapMatrix = Utillity.GetWorldBinaryFile(WorldClicked, true);
         TileMap tileMap = new TileMap(tileMapMatrix);
         main.ChangeState(new GameState(main,tileMap));
     }

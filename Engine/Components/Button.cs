@@ -56,16 +56,28 @@ public class Button : Component
     {
         var colour = Color.White;
 
-        if (this.Text != null)
-        {
-            Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), this.Text, new Vector2(Rectangle.X, Rectangle.Y), Color.Black);
-        }
+
         if (_isHovering)
         {
             colour = Color.Gray;
         }
 
         Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
+        if (this.Text != null)
+        {
+            Vector2 textSize = Globals.ContentManager.Load<SpriteFont>("MyFont").MeasureString(this.Text);
+
+            // Center the text within the button rectangle
+            Vector2 textPosition = new Vector2(
+                Rectangle.X + (Rectangle.Width / 2) - (textSize.X / 2),
+                Rectangle.Y + (Rectangle.Height / 2) - (textSize.Y / 2)
+            );
+
+            // Draw the text
+            Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
+            Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), this.Text, textPosition, Color.Black);
+            
+        }
     }
 
     public override void DrawWithText(GameTime gameTime, string text)
