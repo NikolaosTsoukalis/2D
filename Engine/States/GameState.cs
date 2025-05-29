@@ -14,6 +14,7 @@ public class GameState : State
     /// testing debug mode
     ///</Summary>
     public bool DebugMode = false;
+    public TileMap tileMap;
     private Command command;
     readonly Player player;
     readonly HostileEntity slime;
@@ -28,7 +29,7 @@ public class GameState : State
     ///<Summary>
     /// initialize all handlers in constructor
     ///</Summary>
-    public GameState(Main main) : base(main)
+    public GameState(Main main, TileMap tilemap) : base(main)
     {
         //Handler Initiallization 
         Globals.EntityHandler = new();
@@ -36,7 +37,7 @@ public class GameState : State
         Globals.Inputhandler = new();
         Globals.CollisionHandler = new(main);
         
-        Globals.TileMapHandler = new();
+        Globals.TileMapHandler = new(tilemap);
 
         //Data Handler Initiallization
         Globals.AnimationDataHandler = new();

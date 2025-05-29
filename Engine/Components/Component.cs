@@ -8,4 +8,6 @@ public abstract class Component
     public abstract void Draw(GameTime gameTime);
 
     public abstract void Update(GameTime gameTime);
+
+    public abstract void DrawWithText(GameTime gameTime,string text);
 }

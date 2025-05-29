@@ -261,7 +261,7 @@ public class Globals
 
     public static int TileSize = 32;
 
-    public static Vector2 WorldSize = new Vector2(10000, 10000);
+    public static Vector2 WorldSize = new Vector2(3200, 3200);
 
     #endregion Values
 

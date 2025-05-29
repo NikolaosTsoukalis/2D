@@ -18,9 +18,9 @@ public class TileMapHandler
     ///<Summary>
     /// constructor with new tilemap
     ///</Summary>
-    public TileMapHandler()
+    public TileMapHandler(TileMap tilemap)
     {
-        tileMap = new TileMap();
+        this.tileMap = tilemap;
     }    
 
     #endregion Constructors
