@@ -22,20 +22,30 @@ public class Utillity
         try
         {
             TileMap tilemap = new TileMap();
-            SaveTileMapToBinary(worldName, tilemap.GetTileMapMatrix(),true);
+            SaveTileMap(worldName, tilemap.GetTileMapMatrix(), true);
             return true;
         }
         catch (Exception e)
         {
             Console.WriteLine("ERROR " + e.ToString);
             return false;
-        } 
+        }
     }
 
-    public static int[,] GetWorldBinaryFile(string worldName)
+    public static int[,] GetWorldBinaryFile(string worldName, bool isTesting)
     {
-        string folderPath = Path.Combine(AppContext.BaseDirectory,"/save/worlds/" + worldName);
-        return LoadTileMapFromBinarySaveFile(folderPath);
+        string pathToFile;
+
+        if (isTesting)
+        {
+            string directory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+            pathToFile = Path.Combine(directory, "save\\worlds\\" + worldName + "\\" + "TileMap.dat");
+        }
+        else
+        {
+            pathToFile = Path.Combine(AppContext.BaseDirectory, "\\save\\worlds\\" + worldName + "TileMap.dat");
+        }
+        return ReadTileMapFromBinaryFile(pathToFile);
     }
     public static string[] GetWorldFileNames(bool isTesting)
     {
@@ -52,7 +62,7 @@ public class Utillity
         }
         //return Directory.GetFiles(folderPath, "*.bat", SearchOption.AllDirectories);
         string[] directories = Directory.GetDirectories(folderPath);
-        
+
         List<string> worldNameList = new List<string>();
         foreach (string directory in directories)
         {
@@ -68,14 +78,14 @@ public class Utillity
                 {
                     break;
                 }
-                 
+
             }
             worldNameList.Add(tempName);
         }
         return worldNameList.ToArray();
     }
 
-    public static void SaveTileMapToBinary(string worldName, int[,] map, bool isTesting)
+    public static void SaveTileMap(string worldName, int[,] map, bool isTesting)
     {
         string folderPath;
         if (isTesting)
@@ -85,44 +95,67 @@ public class Utillity
         }
         else
         {
-            folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "save\\worlds" + worldName);
+            folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "save\\worlds\\" + worldName);
         }
-        
-        Directory.CreateDirectory(folderPath);
-        BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(folderPath,"Tilemap.dat") , FileMode.Create));
-        
-        int rows = map.GetLength(0);
-        int cols = map.GetLength(1);
-        writer.Write(rows);
-        writer.Write(cols);
 
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                writer.Write(map[i, j]);
-            }    
-        }
+        Directory.CreateDirectory(folderPath);
+        WriteTileMapToBinaryFile(folderPath, map);
     }
 
-    public static int[,] LoadTileMapFromBinarySaveFile(string path)
+    public static int[,] ReadTileMapFromBinaryFile(string path)
     {
-        BinaryReader reader = new BinaryReader(File.OpenRead(path));
-        
-        int rows = reader.ReadInt32();
-        int cols = reader.ReadInt32();
-        int[,] map = new int[rows, cols];
-
-        for (int i = 0; i < rows; i++)
+        try
         {
-            for (int j = 0; j < cols; j++)
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
             {
-                map[i, j] = reader.ReadInt32();
+                int rows = reader.ReadInt32();
+                int cols = reader.ReadInt32();
+                int[,] map = new int[rows, cols];
+
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < cols; j++)
+                    {
+                        map[i, j] = reader.ReadInt32();
+                    }
+                }
+                return map;
             }
         }
-
-        return map;
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR IN FILE READER: " + e);
+            return null;
+        }
     }
+
+    public static void WriteTileMapToBinaryFile(string folderPath, int[,] tileMap)
+    {
+        try
+        {
+            using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(folderPath, "TileMap.dat"), FileMode.Create)))
+            {
+                int rows = tileMap.GetLength(0);
+                int cols = tileMap.GetLength(1);
+                writer.Write(rows);
+                writer.Write(cols);
+
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < cols; j++)
+                    {
+                        writer.Write(tileMap[i, j]);
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR IN FILE WRITER: " + e);    
+        }
+        
+    }
+
 
     #endregion Functions for World Saves
 
