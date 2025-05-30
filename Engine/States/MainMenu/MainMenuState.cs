@@ -17,25 +17,15 @@ public class MainMenuState : State
     ///</Summary>
     public MainMenuState(Main main) : base(main)
     {
-        
-        var startGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_StartGame"))
-        {
-            Position = new Vector2(300, 200),
-        };
-
+        //Menu menu = new Menu();
+        var startGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Top_Button_Unpressed"), new Vector2(300, 100)){ Text = "Start Game"};
         startGameButton.Click += StartGameButton_Click;
-        
-        var settingsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Settings"))
-        {
-            Position = new Vector2(300, 250),
-        };
+
+        var settingsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Settings"),new Vector2(300, 250));
 
         settingsButton.Click += SettingsButton_Click;
 
-        var quitGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Exit"))
-        {
-            Position = new Vector2(300, 300),
-        };
+        var quitGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Exit"), new Vector2(300, 300));
 
         quitGameButton.Click += QuitGameButton_Click;
 
@@ -85,7 +75,9 @@ public class MainMenuState : State
     public override void Update(GameTime gameTime)
     {
         foreach (var component in components)
+        {
             component.Update(gameTime);
+        }
     }
 
     private void QuitGameButton_Click(object sender, EventArgs e)

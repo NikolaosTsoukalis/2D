@@ -18,25 +18,17 @@ public class SettingsMainMenuState : State
     ///</Summary>
     public SettingsMainMenuState(Main main) : base (main)
     {
-        var controlsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Controls"))
-        {
-            Position = new Vector2(300, 200),
-        };
+        var controlsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Controls"), new Vector2(300, 200));
 
         controlsButton.Click += ControlsButton_Click;
 
-        windowFormatButton = new Button(null)
-        {
-            Position = new Vector2(300,250)
-        };
+        windowFormatButton = new Button(null, new Vector2(300, 250));
+
         GetWindowFormatButton();
 
         windowFormatButton.Click += WindowFormatButton_Click;
-    
-        backButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Back"))
-        {
-            Position = new Vector2(300, 300),
-        };
+
+        backButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Back"), new Vector2(300, 300));
 
         backButton.Click += BackButton_Click;
     

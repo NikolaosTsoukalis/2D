@@ -14,8 +14,8 @@ public class WorldListMainMenuState : State
     private List<Component> components;
 
     private Vector2 firstButtonPosition;
+    private Vector2 nextButtonPosition;
     private Vector2 lastButtonPosition;
-
     private Button newWorldButton;
     private Button backButton;
     private string WorldClicked;
@@ -24,17 +24,14 @@ public class WorldListMainMenuState : State
 
     public WorldListMainMenuState(Main main) : base(main)
     {
-
+        
         firstButtonPosition = new Vector2(300,200);
-        lastButtonPosition = new Vector2(firstButtonPosition.X,firstButtonPosition.Y+50);
+        nextButtonPosition = new Vector2(firstButtonPosition.X,firstButtonPosition.Y+50);
+        lastButtonPosition = nextButtonPosition;
         worldList = Utillity.GetWorldFileNames(true);
         components = new List<Component>();
-        
 
-        newWorldButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_NewWorld"))
-        {
-            Position = firstButtonPosition
-        };
+        newWorldButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_NewWorld"), firstButtonPosition);
         components.Add(newWorldButton);
         if (worldList.Length > 10)
         {
@@ -48,10 +45,7 @@ public class WorldListMainMenuState : State
 
         HandleWorldButtons();
 
-        backButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Back"))
-        {
-            Position = lastButtonPosition
-        };
+        backButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Back"), lastButtonPosition);
         components.Add(backButton);
         backButton.Click += BackButton_Click;
     }
@@ -62,20 +56,22 @@ public class WorldListMainMenuState : State
     {
         try
         {
-            if(worldList.Length > 0)
+            if (worldList.Length > 0)
             {
-                for(int i = 0; i < worldList.Length; i++)
+                for (int i = 0; i < worldList.Length; i++)
                 {
-                    var WorldButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Empty")) { Position = lastButtonPosition, Text = worldList[i].ToString() };
+                    var WorldButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Empty"), nextButtonPosition) { Text = worldList[i].ToString() };
                     components.Add(WorldButton);
                     WorldClicked = WorldButton.Text;
                     WorldButton.Click += loadWorldButton_Click;
-                    
-                    lastButtonPosition.Y += 50;
+
+                    nextButtonPosition.Y += 50;
+                    //backButton.Position.Y += 50;
                 }
             }
+            
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Console.WriteLine("ERROR : " + e);
         }
