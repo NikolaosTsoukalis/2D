@@ -14,6 +14,14 @@ public abstract class Component
     public bool Disabled { get; set; }
     public bool Enabled { get; set; }
 
+    public Rectangle Rectangle
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+        }
+    }
+
     public Component(Texture2D texture, Vector2 position)
     {
         Texture = texture;
