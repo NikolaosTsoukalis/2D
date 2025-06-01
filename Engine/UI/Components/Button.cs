@@ -19,14 +19,6 @@ public class Button : Component
 
     public event EventHandler Click;
 
-    public Rectangle Rectangle
-    {
-        get
-        {
-            return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-        }
-    }
-
     #endregion
 
     #region Methods

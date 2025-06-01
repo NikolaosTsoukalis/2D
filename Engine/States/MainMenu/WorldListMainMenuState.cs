@@ -30,7 +30,7 @@ public class WorldListMainMenuState : State
         lastButtonPosition = nextButtonPosition;
         worldList = Utillity.GetWorldFileNames(true);
         components = new List<Component>();
-
+        
         newWorldButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_NewWorld"), firstButtonPosition);
         components.Add(newWorldButton);
         if (worldList.Length > 10)

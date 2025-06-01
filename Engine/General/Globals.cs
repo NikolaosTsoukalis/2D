@@ -87,18 +87,18 @@ public class Globals
             return;
         }
     }
-    private static InputHandler inputhandler;
-    public static InputHandler Inputhandler
+    private static InputHandler inputHandler;
+    public static InputHandler InputHandler
     {
-        get{return inputhandler;}
+        get{return inputHandler;}
         set
         {
-            if(inputhandler == null)
+            if(inputHandler == null)
             {
-                inputhandler = value;
+                inputHandler = value;
                 return;
             }
-            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + inputhandler.GetType().ToString() + ".");
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + inputHandler.GetType().ToString() + ".");
             return;
         }
     }

@@ -11,7 +11,6 @@ namespace _2D_RPG;
 public class MainMenuState : State
 {
     private List<Component> components;
-
     ///<Summary>
     /// Constructor of main menu state with buttons for settings play game etc
     ///</Summary>

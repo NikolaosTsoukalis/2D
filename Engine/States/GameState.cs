@@ -34,7 +34,7 @@ public class GameState : State
         //Handler Initiallization 
         Globals.EntityHandler = new();
         Globals.AnimationHandler = new();
-        Globals.Inputhandler = new();
+        Globals.InputHandler = new();
         Globals.CollisionHandler = new(main);
         
         Globals.TileMapHandler = new(tilemap);
@@ -162,7 +162,7 @@ public class GameState : State
 
     public void HandlePlayerInput()
     {
-        command = Globals.Inputhandler.HandleInput();
+        command = Globals.InputHandler.HandleInput();
         if(command != null)
         {
             if(command.commandType == Command.CommandTypes.ExitCommand || command.commandType == Command.CommandTypes.FullScreenCommand || command.commandType == Command.CommandTypes.EnableDebugsCommand) 
