@@ -2,11 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Linq.Expressions;
 
 namespace _2D_RPG;
 
-public class Button : Component
+public class Button : ComponentBase
 {
     #region Fields
     public string Text;
@@ -17,6 +16,8 @@ public class Button : Component
 
     private MouseState _previousMouse;
 
+    public ButtonType Type;
+
     public event EventHandler Click;
 
     #endregion
@@ -25,7 +26,7 @@ public class Button : Component
 
     public Button(Texture2D texture, Vector2 position) : base(texture, position)
     {
-        
+
     }
 
     public override void Draw(GameTime gameTime)
@@ -50,9 +51,9 @@ public class Button : Component
             );
 
             // Draw the text
-            Globals.SpriteBatch.Draw(Texture, Rectangle, colour);
+            //Globals.SpriteBatch.Draw(Texture, Rectangle, colour);
             Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), this.Text, textPosition, Color.Black);
-            
+
         }
     }
 

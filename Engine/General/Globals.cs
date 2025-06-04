@@ -223,6 +223,22 @@ public class Globals
         }
     }
 
+    private static MenuHandler menuHandler;
+    public static MenuHandler MenuHandler
+    {
+        get{return menuHandler;}
+        set
+        {
+            if(menuHandler == null)
+            {
+                menuHandler = value;
+                return;
+            }
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + menuHandler.GetType().ToString() + ".");
+            return;
+        }
+    }
+
     private static Camera2D camera;
     public static Camera2D Camera
     {

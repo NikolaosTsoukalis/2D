@@ -49,6 +49,7 @@ public abstract class LayoutBase
     {
         return boundingTexture;
     }
+    
     public virtual void AssignComponentPositions(List<Component> components, Rectangle bounds) { }
 
 

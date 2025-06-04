@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,16 +12,17 @@ namespace _2D_RPG;
 public class MainMenuState : State
 {
     private List<Component> components;
+    private Menu currentMenu;
     ///<Summary>
     /// Constructor of main menu state with buttons for settings play game etc
     ///</Summary>
     public MainMenuState(Main main) : base(main)
     {
-        //Menu menu = new Menu();
-        var startGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Top_Button_Unpressed"), new Vector2(300, 100)){ Text = "Start Game"};
+        Globals.MenuHandler.AddMenuToStackTop(new Menu(0));
+        var startGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Top_Button_Unpressed"), new Vector2(300, 100)) { Text = "Start Game" };
         startGameButton.Click += StartGameButton_Click;
 
-        var settingsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Settings"),new Vector2(300, 250));
+        var settingsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Settings"), new Vector2(300, 250));
 
         settingsButton.Click += SettingsButton_Click;
 
@@ -54,12 +56,12 @@ public class MainMenuState : State
         main.ChangeState(new SettingsMainMenuState(main));
     }
 
-    
+
     private void StartGameButton_Click(object sender, EventArgs e)
     {
         main.ChangeState(new WorldListMainMenuState(main));
     }
-    
+
     ///<Summary>
     /// post updates
     ///</Summary>
@@ -79,8 +81,11 @@ public class MainMenuState : State
         }
     }
 
-    private void QuitGameButton_Click(object sender, EventArgs e)
+    //BACK OR QUIT BUTTON
+    private void PreviousStateButton_Click(object sender, EventArgs e)
     {
-        main.Exit();
+        if (menu)
+            main.Exit();
     }
+    
 }

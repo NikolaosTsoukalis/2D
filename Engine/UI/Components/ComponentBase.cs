@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
-public abstract class Component
+public abstract class ComponentBase
 {
 
     public Vector2 Position { get; set; }
@@ -22,7 +22,7 @@ public abstract class Component
         }
     }
 
-    public Component(Texture2D texture, Vector2 position)
+    public ComponentBase(Texture2D texture, Vector2 position)
     {
         Texture = texture;
         Position = position;

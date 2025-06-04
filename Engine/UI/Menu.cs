@@ -1,21 +1,35 @@
 using System.Collections.Generic;
+using System.Xml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
+public enum MenuType
+{
+    MainMenu,
+    SettingsMainMenu,
+    WorldListMainMenu
+}
+
 public class Menu
 {
+    private List<Component> Components;
 
-    public List<Component> Components;
+    public MenuType MenuType;
 
-    public Component baseFieldComponent;
+    private LayoutBase Layout;
+
+    private Rectangle boundingTexturePosition;
+
+    private Color baseColor;
 
     //public Vector2 
 
-    public Menu()
+    public Menu(MenuType menuType)
     {
-
+        this.baseColor = Color.White;
+        this.MenuType = menuType;
     }
 
     public void Update(GameTime gameTime)
@@ -29,6 +43,8 @@ public class Menu
     public void Draw(GameTime gameTime)
     {
         Globals.SpriteBatch.Begin();
+
+        Globals.SpriteBatch.Draw(Layout.GetBaseTexture(), Layout.GetBaseTextureRectangle(), baseColor);
 
         foreach (var component in Components)
         {
@@ -45,8 +61,16 @@ public class Menu
     public void RemoveComponent(Component component)
     {
         Components.Remove(component);
-    } 
+    }
 
-    //public void SetLayout()
-    
+    public void SetLayout(LayoutBase layout)
+    {
+        this.Layout = layout;
+    }
+
+    public List<Component> getComponentList()
+    {
+        return Components;
+    }
+
 }
