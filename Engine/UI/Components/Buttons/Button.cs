@@ -16,17 +16,33 @@ public class Button : ComponentBase
 
     private MouseState _previousMouse;
 
+    private ButtonFunctionHandler Function;
+
+    private ButtonTextureHandler Texture;
+
     public ButtonType Type;
 
     public event EventHandler Click;
 
     #endregion
 
+    public Button(ButtonType Type) : base(null, new Vector2(0, 0))
+    {
+        this.Type = Type;
+        AssignFunction();
+        AssignTexture();
+    }
+
     #region Methods
 
-    public Button(Texture2D texture, Vector2 position) : base(texture, position)
+    public void AssignFunction()
     {
+        this.Function = new ButtonFunctionHandler(this.Type);
+    }
 
+    public void AssignTexture()
+    {
+        this.Texture = new ButtonTextureHandler(this.Type);
     }
 
     public override void Draw(GameTime gameTime)
@@ -38,8 +54,14 @@ public class Button : ComponentBase
         {
             colour = Color.Gray;
         }
-
-        Globals.SpriteBatch.Draw(Texture, Rectangle, colour);
+        if (isClicked)
+        {
+            Globals.SpriteBatch.Draw(Texture.GetPressedTexture(), Rectangle, colour);
+        }
+        else
+        {
+            Globals.SpriteBatch.Draw(Texture.GetUnPressedTexture(), Rectangle, colour);
+        }
         if (this.Text != null)
         {
             Vector2 textSize = Globals.ContentManager.Load<SpriteFont>("MyFont").MeasureString(this.Text);
@@ -74,12 +96,12 @@ public class Button : ComponentBase
             if (_currentMouse.LeftButton == ButtonState.Pressed && _previousMouse.LeftButton == ButtonState.Pressed && !Disabled)
             {
                 _isHovering = false;
-                Texture = Globals.ContentManager.Load<Texture2D>("Top_Button_Pressed");
+                isClicked = true;
             }
 
             if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed && !Disabled)
             {
-                Click?.Invoke(this, new EventArgs());
+                Function.Call();
             }
         }
     }

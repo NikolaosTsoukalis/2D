@@ -11,7 +11,7 @@ public abstract class LayoutBase
     protected Rectangle Bounds;
     protected Texture2D boundingTexture;
 
-    public LayoutBase(List<Component> components, Texture2D boundingTexture)
+    public LayoutBase(List<ComponentBase> components, Texture2D boundingTexture)
     {
         AssignBoundingTextureVariables(boundingTexture);
     }
@@ -49,8 +49,9 @@ public abstract class LayoutBase
     {
         return boundingTexture;
     }
-    
-    public virtual void AssignComponentPositions(List<Component> components, Rectangle bounds) { }
 
+    public virtual void AssignComponentPositions(List<ComponentBase> components, Rectangle bounds) { }
+
+    public virtual void AssignComponentTextures( List<ComponentBase> components) {}
 
 }

@@ -5,36 +5,25 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
-public enum MenuType
-{
-    MainMenu,
-    SettingsMainMenu,
-    WorldListMainMenu
-}
-
 public class Menu
 {
-    private List<Component> Components;
-
-    public MenuType MenuType;
+    private List<Button> Buttons;
 
     private LayoutBase Layout;
-
-    private Rectangle boundingTexturePosition;
 
     private Color baseColor;
 
     //public Vector2 
 
-    public Menu(MenuType menuType)
+    public Menu(LayoutBase layout)
     {
         this.baseColor = Color.White;
-        this.MenuType = menuType;
+        SetLayout(layout);
     }
 
     public void Update(GameTime gameTime)
     {
-        foreach (var component in Components)
+        foreach (var component in Buttons)
         {
             component.Update(gameTime);
         }
@@ -46,21 +35,28 @@ public class Menu
 
         Globals.SpriteBatch.Draw(Layout.GetBaseTexture(), Layout.GetBaseTextureRectangle(), baseColor);
 
-        foreach (var component in Components)
+        foreach (var component in Buttons)
         {
             component.Draw(gameTime);
         }
         Globals.SpriteBatch.End();
     }
 
-    public void AddComponent(Component component)
+    public void AddButton(Button component)
     {
-        Components.Add(component);
+        Buttons.Add(component);
     }
 
-    public void RemoveComponent(Component component)
+    public void AddButtons(List<Button> buttons)
     {
-        Components.Remove(component);
+        foreach (Button button in buttons)
+        {
+            Buttons.Add(button);    
+        }
+    }
+    public void RemoveButton(Button component)
+    {
+        Buttons.Remove(component);
     }
 
     public void SetLayout(LayoutBase layout)
@@ -68,9 +64,9 @@ public class Menu
         this.Layout = layout;
     }
 
-    public List<Component> getComponentList()
+    public List<Button> getButtonList()
     {
-        return Components;
+        return Buttons;
     }
 
 }

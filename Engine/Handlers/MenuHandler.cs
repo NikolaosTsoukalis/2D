@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 
@@ -7,13 +8,16 @@ namespace _2D_RPG;
 
 public class MenuHandler
 {
-    private Menu currentMenu;
-    private State currentGameState;
+    public Menu currentMenu;
+    public State currentGameState;
 
-    private Stack menuStack;
+    public Stack menuStack;
+
+    public Main Main;
 
     public MenuHandler(Main main)
     {
+        this.Main = main;
         currentGameState = main.currentGameState;
         menuStack = new Stack();
     }
@@ -38,27 +42,5 @@ public class MenuHandler
     {
         currentMenu = (Menu)menuStack.Peek();
         currentMenu.Draw(gameTime);
-    }
-
-    public Menu AddLandingMenu()
-    {
-
-        Menu menu = new Menu(MenuType.MainMenu);
-        menu.AddComponent();
-        menu.SetLayout(new VerticalMainMenuLayoutBase(currentMenu.getComponentList(), null)); // add logic for base texture
-                 
-        AddMenuToStackTop(menu);
-
-        return;
-    }
-
-    public void HandleComponentFunctions(Menu menu)
-    {
-        switch (menu.MenuType)
-        {
-            case MenuType.MainMenu:
-                CreateComponentList
-                break;
-        }
     }
 }

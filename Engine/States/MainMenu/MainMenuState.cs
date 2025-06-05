@@ -11,31 +11,13 @@ namespace _2D_RPG;
 ///</Summary>
 public class MainMenuState : State
 {
-    private List<Component> components;
     private Menu currentMenu;
     ///<Summary>
     /// Constructor of main menu state with buttons for settings play game etc
     ///</Summary>
     public MainMenuState(Main main) : base(main)
     {
-        Globals.MenuHandler.AddMenuToStackTop(new Menu(0));
-        var startGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Top_Button_Unpressed"), new Vector2(300, 100)) { Text = "Start Game" };
-        startGameButton.Click += StartGameButton_Click;
-
-        var settingsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Settings"), new Vector2(300, 250));
-
-        settingsButton.Click += SettingsButton_Click;
-
-        var quitGameButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Exit"), new Vector2(300, 300));
-
-        quitGameButton.Click += QuitGameButton_Click;
-
-        components = new List<Component>()
-        {
-            startGameButton,
-            settingsButton,
-            quitGameButton,
-        };
+        Globals.MenuHandler.AddMenuToStackTop(MenuBuilder.BuildLandingMenu());
     }
 
     ///<Summary>
@@ -44,24 +26,11 @@ public class MainMenuState : State
     public override void Draw(GameTime gameTime)
     {
         Globals.SpriteBatch.Begin();
-
-        foreach (var component in components)
-            component.Draw(gameTime);
-
+        Globals.MenuHandler.Draw(gameTime);
         Globals.SpriteBatch.End();
     }
 
-    private void SettingsButton_Click(object sender, EventArgs e)
-    {
-        main.ChangeState(new SettingsMainMenuState(main));
-    }
-
-
-    private void StartGameButton_Click(object sender, EventArgs e)
-    {
-        main.ChangeState(new WorldListMainMenuState(main));
-    }
-
+ 
     ///<Summary>
     /// post updates
     ///</Summary>
@@ -75,17 +44,6 @@ public class MainMenuState : State
     ///</Summary>
     public override void Update(GameTime gameTime)
     {
-        foreach (var component in components)
-        {
-            component.Update(gameTime);
-        }
+        Globals.MenuHandler.Update(gameTime);
     }
-
-    //BACK OR QUIT BUTTON
-    private void PreviousStateButton_Click(object sender, EventArgs e)
-    {
-        if (menu)
-            main.Exit();
-    }
-    
 }

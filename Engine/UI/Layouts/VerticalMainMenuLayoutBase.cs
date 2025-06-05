@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,12 +9,14 @@ namespace _2D_RPG;
 
 public class VerticalMainMenuLayoutBase : LayoutBase
 {
-    public VerticalMainMenuLayoutBase(List<Component> components, Texture2D BoundingTexture) : base(components, BoundingTexture)
+    private List<ComponentBase> Buttons;
+
+    public VerticalMainMenuLayoutBase(List<ComponentBase> components, Texture2D BoundingTexture) : base(components, BoundingTexture)
     {
-        AssignComponentPositions(components,Bounds);
+        AssignComponentPositions(components, Bounds);
     }
 
-    public override void AssignComponentPositions(List<Component> components, Rectangle Bounds)
+    public override void AssignComponentPositions(List<ComponentBase> components, Rectangle Bounds)
     {
         int yPadding = 50;
 
@@ -39,6 +44,6 @@ public class VerticalMainMenuLayoutBase : LayoutBase
                 components[i].Position = nextButtonPosition;
                 nextButtonPosition.Y += components[i].Texture.Height + yPadding;
             }
-        }    
+        }
     }
 }
