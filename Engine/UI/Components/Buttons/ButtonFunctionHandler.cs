@@ -64,7 +64,7 @@ public class ButtonFunctionHandler
         }
         catch (Exception e)
         {
-            Console.WriteLine("ERROR " + e);
+            Console.WriteLine("ERROR: " + e);
             return false;
         }
     }
@@ -84,7 +84,7 @@ public class ButtonFunctionHandler
 
     public static void OpenSettingsFunction()
     {
-        
+        MenuBuilder.BuildMainMenuStartGameMenu();
     }
     #endregion Functions
 

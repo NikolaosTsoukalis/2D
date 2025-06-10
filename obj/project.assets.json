@@ -238,33 +238,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\v-ntsoukalis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\ntosu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\v-ntsoukalis\\OneDrive - Eurobank S.A\\Desktop\\Project 1\\2D\\2D_RPG.csproj",
+      "projectUniqueName": "C:\\Users\\ntosu\\Desktop\\2D_RPG\\2D_RPG.csproj",
       "projectName": "2D_RPG",
-      "projectPath": "C:\\Users\\v-ntsoukalis\\OneDrive - Eurobank S.A\\Desktop\\Project 1\\2D\\2D_RPG.csproj",
-      "packagesPath": "C:\\Users\\v-ntsoukalis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\v-ntsoukalis\\OneDrive - Eurobank S.A\\Desktop\\Project 1\\2D\\obj\\",
+      "projectPath": "C:\\Users\\ntosu\\Desktop\\2D_RPG\\2D_RPG.csproj",
+      "packagesPath": "C:\\Users\\ntosu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ntosu\\Desktop\\2D_RPG\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\v-ntsoukalis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\ntosu\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -313,7 +304,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.410/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

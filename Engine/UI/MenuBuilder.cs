@@ -11,10 +11,10 @@ public class MenuBuilder
 
     public void BuildMainMenu()
     {
-        
+
     }
 
-    public static Menu BuildLandingMenu()
+    public static Menu BuildMainMenuLandingMenu()
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
 
@@ -25,7 +25,20 @@ public class MenuBuilder
         Button QuitButton = new Button(ButtonType.QuitButton);
         Buttons.Add(QuitButton);
         Menu menu = new Menu(new VerticalMainMenuLayoutBase(Buttons, null));
-        return menu; 
+        return menu;
     }
 
+    public static Menu BuildMainMenuStartGameMenu()
+    {
+        List<ComponentBase> Buttons = new List<ComponentBase>();
+
+        Button StartGameButton = new Button(ButtonType.StartGameButton);
+        Buttons.Add(StartGameButton);
+        Button SettingsButton = new Button(ButtonType.SettingsButton);
+        Buttons.Add(SettingsButton);
+        Button QuitButton = new Button(ButtonType.QuitButton);
+        Buttons.Add(QuitButton);
+        Menu menu = new Menu(new VerticalMainMenuLayoutBase(Buttons, null));
+        return menu;  
+    }
 }
