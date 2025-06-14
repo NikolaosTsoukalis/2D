@@ -3,23 +3,30 @@ using System;
 namespace _2D_RPG;
 
 
-public class ButtonFunctionHandler
+public class ComponentFunctionHandler
 {
+    #region Fields
 
     public Action functionCall;
 
-    public ButtonFunctionHandler(ButtonType buttonType)
+    #endregion
+
+    #region Constructor
+    public ComponentFunctionHandler(ComponentType componentType)
     {
-        if (!AssignFunction(buttonType))
+        if (!AssignFunction(componentType))
         {
             Console.WriteLine("This Button Type does not support a function");
         }
-        
+
     }
 
-    public bool AssignFunction(ButtonType buttonType)
+    #endregion
+
+    #region General Functions
+    public bool AssignFunction(ComponentType componentType)
     {
-        functionCall = CreateFunction(buttonType);
+        functionCall = CreateFunction(componentType);
         if (functionCall.Equals(null))
         {
             return false;
@@ -31,17 +38,19 @@ public class ButtonFunctionHandler
     }
 
     //ButtonFunctions x = new ButtonFunctions(Action x);
-    public static Action CreateFunction(ButtonType buttonType)
+    public static Action CreateFunction(ComponentType componentType)
     {
         try
         {
-            switch (buttonType)
+            switch (componentType)
             {
-                case ButtonType.BackButton:
+                case ComponentType.BackButton:
                     return new Action(GoBackFunction);
-                case ButtonType.QuitButton:
+                case ComponentType.StartGameButton:
+                    return new Action(StartGameFunction);
+                case ComponentType.QuitButton:
                     return new Action(QuitFunction);
-                case ButtonType.SettingsButton:
+                case ComponentType.SettingsButton:
                     return new Action(OpenSettingsFunction);
                 default:
                     return null;
@@ -55,7 +64,7 @@ public class ButtonFunctionHandler
     }
 
 
-    public bool Call()
+    public bool CallFunction()
     {
         try
         {
@@ -69,8 +78,9 @@ public class ButtonFunctionHandler
         }
     }
 
+    #endregion
 
-    #region Functions
+    #region Button Functions
 
     public static void GoBackFunction()
     {
@@ -85,6 +95,11 @@ public class ButtonFunctionHandler
     public static void OpenSettingsFunction()
     {
         MenuBuilder.BuildMainMenuStartGameMenu();
+    }
+
+    public static void StartGameFunction()
+    {
+
     }
     #endregion Functions
 

@@ -9,7 +9,7 @@ namespace _2D_RPG;
 ///</Summary>
 public class SettingsMainMenuState : State 
 {
-    private List<Component> components;
+    private List<ComponentBase> components;
     Button windowFormatButton;
     Button backButton;
     
@@ -18,6 +18,7 @@ public class SettingsMainMenuState : State
     ///</Summary>
     public SettingsMainMenuState(Main main) : base (main)
     {
+        /*
         var controlsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Controls"), new Vector2(300, 200));
 
         controlsButton.Click += ControlsButton_Click;
@@ -38,6 +39,7 @@ public class SettingsMainMenuState : State
             windowFormatButton,
             backButton,
         };
+        */
     }
 
     ///<Summary>
@@ -69,7 +71,7 @@ public class SettingsMainMenuState : State
 
     private void ControlsButton_Click(object sender, EventArgs e)
     {
-        components = new List<Component>()
+        components = new List<ComponentBase>()
         {
             backButton,
         };

@@ -13,7 +13,7 @@ public class VerticalMainMenuLayoutBase : LayoutBase
 
     public VerticalMainMenuLayoutBase(List<ComponentBase> components, Texture2D BoundingTexture) : base(components, BoundingTexture)
     {
-        AssignComponentPositions(components, Bounds);
+        AssignComponentPositions(components, base.BaseBounds);
     }
 
     public override void AssignComponentPositions(List<ComponentBase> components, Rectangle Bounds)
@@ -31,7 +31,8 @@ public class VerticalMainMenuLayoutBase : LayoutBase
             for (int i = 0; i < components.Count; i++)
             {
                 components[i].Position = nextButtonPosition;
-                nextButtonPosition.Y += components[i].Texture.Height + yPadding;
+                base.SetComponentBounds(components[i]);
+                nextButtonPosition.Y += components[i].TextureHandler.CurrentTexture.Height + yPadding;
             }
         }
         else
@@ -42,8 +43,10 @@ public class VerticalMainMenuLayoutBase : LayoutBase
             for (int i = 0; i < components.Count; i++)
             {
                 components[i].Position = nextButtonPosition;
-                nextButtonPosition.Y += components[i].Texture.Height + yPadding;
+                base.SetComponentBounds(components[i]);
+                nextButtonPosition.Y += components[i].TextureHandler.CurrentTexture.Height + yPadding;
             }
         }
     }
+    
 }

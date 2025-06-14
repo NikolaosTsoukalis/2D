@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,8 +9,8 @@ namespace _2D_RPG;
 public abstract class LayoutBase
 {
 
-    protected Rectangle Bounds;
-    protected Texture2D boundingTexture;
+    protected Rectangle BaseBounds { get; set; }
+    protected Texture2D boundingTexture{ get; set; }
 
     public LayoutBase(List<ComponentBase> components, Texture2D boundingTexture)
     {
@@ -31,23 +32,29 @@ public abstract class LayoutBase
             Vector2 boundsStartingPoint = new Vector2(screenWidth / 2 + (screenWidth / 4), screenHeight / 2 - (screenHeight / 4));
             //Set position of bounding texture and the bounds themselves.
             //this is for the middle of the screen.
-            this.Bounds = new Rectangle((int)boundsStartingPoint.X, (int)boundsStartingPoint.Y, textureWidth, textureHeight);
+            this.BaseBounds = new Rectangle((int)boundsStartingPoint.X, (int)boundsStartingPoint.Y, textureWidth, textureHeight);
         }
         else
         {
-            this.Bounds = Rectangle.Empty;
+            this.BaseBounds = Rectangle.Empty;
             return;
         }
     }
 
-    public Rectangle GetBaseTextureRectangle()
+    protected bool SetComponentBounds(ComponentBase component)
     {
-        return Bounds;
-    }
-
-    public Texture2D GetBaseTexture()
-    {
-        return boundingTexture;
+        try
+        {
+            Texture2D currentTexture = component.TextureHandler.CurrentTexture;
+            Vector2 currentPosition = component.Position;
+            component.Bounds = new Rectangle((int)currentPosition.X, (int)currentPosition.Y, currentTexture.Width, currentTexture.Height);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            return true;
+        }
     }
 
     public virtual void AssignComponentPositions(List<ComponentBase> components, Rectangle bounds) { }

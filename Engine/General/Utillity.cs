@@ -47,6 +47,7 @@ public class Utillity
         }
         return ReadTileMapFromBinaryFile(pathToFile);
     }
+
     public static string[] GetWorldFileNames(bool isTesting)
     {
         string folderPath;
@@ -152,8 +153,7 @@ public class Utillity
         catch (Exception e)
         {
             Console.WriteLine("ERROR IN FILE WRITER: " + e);    
-        }
-        
+        }     
     }
 
 

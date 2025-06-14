@@ -18,11 +18,11 @@ public class MenuBuilder
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
 
-        Button StartGameButton = new Button(ButtonType.StartGameButton);
+        Button StartGameButton = new Button(ComponentType.StartGameButton);
         Buttons.Add(StartGameButton);
-        Button SettingsButton = new Button(ButtonType.SettingsButton);
+        Button SettingsButton = new Button(ComponentType.SettingsButton);
         Buttons.Add(SettingsButton);
-        Button QuitButton = new Button(ButtonType.QuitButton);
+        Button QuitButton = new Button(ComponentType.QuitButton);
         Buttons.Add(QuitButton);
         Menu menu = new Menu(new VerticalMainMenuLayoutBase(Buttons, null));
         return menu;
@@ -32,11 +32,11 @@ public class MenuBuilder
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
 
-        Button StartGameButton = new Button(ButtonType.StartGameButton);
+        Button StartGameButton = new Button(ComponentType.StartGameButton);
         Buttons.Add(StartGameButton);
-        Button SettingsButton = new Button(ButtonType.SettingsButton);
+        Button SettingsButton = new Button(ComponentType.SettingsButton);
         Buttons.Add(SettingsButton);
-        Button QuitButton = new Button(ButtonType.QuitButton);
+        Button QuitButton = new Button(ComponentType.QuitButton);
         Buttons.Add(QuitButton);
         Menu menu = new Menu(new VerticalMainMenuLayoutBase(Buttons, null));
         return menu;  

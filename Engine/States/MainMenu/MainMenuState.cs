@@ -11,13 +11,13 @@ namespace _2D_RPG;
 ///</Summary>
 public class MainMenuState : State
 {
-    private Menu currentMenu;
+
     ///<Summary>
     /// Constructor of main menu state with buttons for settings play game etc
     ///</Summary>
     public MainMenuState(Main main) : base(main)
     {
-        Globals.MenuHandler.AddMenuToStackTop(MenuBuilder.BuildLandingMenu());
+        Globals.MenuHandler.AddMenuToStackTop(MenuBuilder.BuildMainMenuLandingMenu());
     }
 
     ///<Summary>
@@ -25,18 +25,7 @@ public class MainMenuState : State
     ///</Summary>
     public override void Draw(GameTime gameTime)
     {
-        Globals.SpriteBatch.Begin();
         Globals.MenuHandler.Draw(gameTime);
-        Globals.SpriteBatch.End();
-    }
-
- 
-    ///<Summary>
-    /// post updates
-    ///</Summary>
-    public override void PostUpdate(GameTime gameTime)
-    {
-        // remove sprites if they're not needed
     }
 
     ///<Summary>
@@ -45,5 +34,18 @@ public class MainMenuState : State
     public override void Update(GameTime gameTime)
     {
         Globals.MenuHandler.Update(gameTime);
+    }
+
+    ///<Summary>
+    /// post updates
+    ///</Summary>
+    public override void PostUpdate(GameTime gameTime)
+    {
+        // remove sprites if they're not needed
+    }
+
+    public void ManageView()
+    {
+
     }
 }

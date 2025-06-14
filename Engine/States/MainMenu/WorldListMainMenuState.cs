@@ -11,7 +11,7 @@ namespace _2D_RPG;
 public class WorldListMainMenuState : State
 {
     
-    private List<Component> components;
+    private List<ComponentBase> components;
 
     private Vector2 firstButtonPosition;
     private Vector2 nextButtonPosition;
@@ -24,7 +24,7 @@ public class WorldListMainMenuState : State
 
     public WorldListMainMenuState(Main main) : base(main)
     {
-        
+        /*
         firstButtonPosition = new Vector2(300,200);
         nextButtonPosition = new Vector2(firstButtonPosition.X,firstButtonPosition.Y+50);
         lastButtonPosition = nextButtonPosition;
@@ -48,12 +48,14 @@ public class WorldListMainMenuState : State
         backButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Back"), lastButtonPosition);
         components.Add(backButton);
         backButton.Click += BackButton_Click;
+        */
     }
 
     #region General Functions
 
     public void HandleWorldButtons()
     {
+        /*
         try
         {
             if (worldList.Length > 0)
@@ -69,13 +71,13 @@ public class WorldListMainMenuState : State
                     //backButton.Position.Y += 50;
                 }
             }
-            
+
         }
         catch (Exception e)
         {
             Console.WriteLine("ERROR : " + e);
         }
-
+        */
     }
 
     #endregion General Functions

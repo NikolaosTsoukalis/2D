@@ -277,14 +277,14 @@
              draw buttons of settings
             </Summary>
         </member>
-        <member name="M:_2D_RPG.MainMenuState.PostUpdate(Microsoft.Xna.Framework.GameTime)">
-            <Summary>
-             post updates
-            </Summary>
-        </member>
         <member name="M:_2D_RPG.MainMenuState.Update(Microsoft.Xna.Framework.GameTime)">
             <Summary>
              Update
+            </Summary>
+        </member>
+        <member name="M:_2D_RPG.MainMenuState.PostUpdate(Microsoft.Xna.Framework.GameTime)">
+            <Summary>
+             post updates
             </Summary>
         </member>
         <member name="T:_2D_RPG.SettingsMainMenuState">

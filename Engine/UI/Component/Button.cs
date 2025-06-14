@@ -16,60 +16,30 @@ public class Button : ComponentBase
 
     private MouseState _previousMouse;
 
-    private ButtonFunctionHandler Function;
-
-    private ButtonTextureHandler Texture;
-
-    public ButtonType Type;
-
-    public event EventHandler Click;
-
     #endregion
 
-    public Button(ButtonType Type) : base(null, new Vector2(0, 0))
-    {
-        this.Type = Type;
-        AssignFunction();
-        AssignTexture();
-    }
+    public Button(ComponentType type) : base(type){}
 
     #region Methods
-
-    public void AssignFunction()
-    {
-        this.Function = new ButtonFunctionHandler(this.Type);
-    }
-
-    public void AssignTexture()
-    {
-        this.Texture = new ButtonTextureHandler(this.Type);
-    }
 
     public override void Draw(GameTime gameTime)
     {
         var colour = Color.White;
-
+        Rectangle Bounds = base.TextureHandler.Bounds;
+        Texture2D CurrentTexture = base.TextureHandler.CurrentTexture;
 
         if (_isHovering)
         {
             colour = Color.Gray;
         }
-        if (isClicked)
-        {
-            Globals.SpriteBatch.Draw(Texture.GetPressedTexture(), Rectangle, colour);
-        }
-        else
-        {
-            Globals.SpriteBatch.Draw(Texture.GetUnPressedTexture(), Rectangle, colour);
-        }
+        Globals.SpriteBatch.Draw(CurrentTexture, Bounds, colour);
         if (this.Text != null)
         {
             Vector2 textSize = Globals.ContentManager.Load<SpriteFont>("MyFont").MeasureString(this.Text);
-
             // Center the text within the button rectangle
             Vector2 textPosition = new Vector2(
-                Rectangle.X + (Rectangle.Width / 2) - (textSize.X / 2),
-                Rectangle.Y + (Rectangle.Height / 2) - (textSize.Y / 2)
+                Bounds.X + (Bounds.Width / 2) - (textSize.X / 2),
+                Bounds.Y + (Bounds.Height / 2) - (textSize.Y / 2)
             );
 
             // Draw the text
@@ -84,24 +54,35 @@ public class Button : ComponentBase
 
         _previousMouse = _currentMouse;
         _currentMouse = Mouse.GetState();
+        Rectangle Bounds = base.TextureHandler.Bounds;
 
         var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 
         _isHovering = false;
 
-        if (mouseRectangle.Intersects(Rectangle))
+        if (mouseRectangle.Intersects(Bounds))
         {
             _isHovering = true;
+            HandleStateChange();
+        }
+    }
 
-            if (_currentMouse.LeftButton == ButtonState.Pressed && _previousMouse.LeftButton == ButtonState.Pressed && !Disabled)
+    public void HandleStateChange()
+    {
+        if (State != ComponentState.Disabled)
+        {
+            if (_currentMouse.LeftButton == ButtonState.Pressed && _previousMouse.LeftButton == ButtonState.Pressed)
+            {
+                State = ComponentState.Clicked;
+            }
+            else if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Released)
+            {
+                State = ComponentState.Free;
+            }
+            else if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
             {
                 _isHovering = false;
-                isClicked = true;
-            }
-
-            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed && !Disabled)
-            {
-                Function.Call();
+                FunctionHandler.CallFunction();
             }
         }
     }
