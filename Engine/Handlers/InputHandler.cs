@@ -194,88 +194,88 @@ public class InputHandler
                 MoveCommand moveUp;
                 if(isRunning)
                 {
-                    moveUp = new MoveCommand(Globals.Directions.Up,true);
+                    moveUp = new MoveCommand(GlobalEnumarations.Directions.Up,true);
                 }
                 else
                 {
-                    moveUp = new MoveCommand(Globals.Directions.Up,false);
+                    moveUp = new MoveCommand(GlobalEnumarations.Directions.Up,false);
                 }
                 return moveUp;
             case "WA":
                 MoveCommand moveUpLeft;
                 if(isRunning)
                 {
-                    moveUpLeft = new MoveCommand(Globals.Directions.UpLeft,true);
+                    moveUpLeft = new MoveCommand(GlobalEnumarations.Directions.UpLeft,true);
                 }
                 else
                 {
-                    moveUpLeft = new MoveCommand(Globals.Directions.UpLeft,false);
+                    moveUpLeft = new MoveCommand(GlobalEnumarations.Directions.UpLeft,false);
                 }
                 return moveUpLeft;
             case "WD":
                 MoveCommand moveUpRight;
                 if(isRunning)
                 {
-                    moveUpRight = new MoveCommand(Globals.Directions.UpRight,true);
+                    moveUpRight = new MoveCommand(GlobalEnumarations.Directions.UpRight,true);
                 }
                 else
                 {
-                    moveUpRight = new MoveCommand(Globals.Directions.UpRight,false);
+                    moveUpRight = new MoveCommand(GlobalEnumarations.Directions.UpRight,false);
                 }
                 return moveUpRight;
             case "S":
                 MoveCommand moveDown;
                 if(isRunning)
                 {
-                    moveDown = new MoveCommand(Globals.Directions.Down,true);
+                    moveDown = new MoveCommand(GlobalEnumarations.Directions.Down,true);
                 }
                 else
                 {
-                    moveDown = new MoveCommand(Globals.Directions.Down,false);
+                    moveDown = new MoveCommand(GlobalEnumarations.Directions.Down,false);
                 }
                 return moveDown;
             case "SA":
                 MoveCommand moveDownLeft;
                 if(isRunning)
                 {
-                    moveDownLeft = new MoveCommand(Globals.Directions.DownLeft,true);
+                    moveDownLeft = new MoveCommand(GlobalEnumarations.Directions.DownLeft,true);
                 }
                 else
                 {
-                    moveDownLeft = new MoveCommand(Globals.Directions.DownLeft,false);
+                    moveDownLeft = new MoveCommand(GlobalEnumarations.Directions.DownLeft,false);
                 }
                 return moveDownLeft;
             case "SD":
                 MoveCommand moveDownRight;
                 if(isRunning)
                 {
-                    moveDownRight = new MoveCommand(Globals.Directions.DownRight,true);
+                    moveDownRight = new MoveCommand(GlobalEnumarations.Directions.DownRight,true);
                 }
                 else
                 {
-                    moveDownRight = new MoveCommand(Globals.Directions.DownRight,false);
+                    moveDownRight = new MoveCommand(GlobalEnumarations.Directions.DownRight,false);
                 }
                 return moveDownRight;
             case "D":
                 MoveCommand moveRight;
                 if(isRunning)
                 {
-                    moveRight = new MoveCommand(Globals.Directions.Right,true);
+                    moveRight = new MoveCommand(GlobalEnumarations.Directions.Right,true);
                 }
                 else
                 {
-                    moveRight = new MoveCommand(Globals.Directions.Right,false);
+                    moveRight = new MoveCommand(GlobalEnumarations.Directions.Right,false);
                 }
                 return moveRight;
             case "A":
                 MoveCommand moveLeft;
                 if(isRunning)
                 {
-                    moveLeft = new MoveCommand(Globals.Directions.Left,true);
+                    moveLeft = new MoveCommand(GlobalEnumarations.Directions.Left,true);
                 }
                 else
                 {
-                    moveLeft = new MoveCommand(Globals.Directions.Left,false);
+                    moveLeft = new MoveCommand(GlobalEnumarations.Directions.Left,false);
                 }
                 return moveLeft;
             case "Esc":

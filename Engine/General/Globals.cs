@@ -15,31 +15,6 @@ namespace _2D_RPG;
 /// </remarks>
 public class Globals
 {
-    #region Enums
-
-    public enum Directions
-    {
-        Up,
-        UpRight,
-        UpLeft,
-        Right,
-        Left,
-        Down,
-        DownRight,
-        DownLeft
-    }
-
-    public enum AttributeTypes
-    {
-        Speed,
-        RunningSpeed,
-        HP,
-        AttackPower,
-        Defence,
-        Intellect
-    }
-
-    #endregion Enums
 
     #region Values
     private static ContentManager contentManager;
@@ -254,15 +229,19 @@ public class Globals
             return;
         }
     }
-    
-    private static Dictionary<Command.CommandTypes,Keys> keyBindings;
+
+    /*
+    private static Dictionary<Command.CommandTypes, Keys> keyBindings;
 
     public static Dictionary<Command.CommandTypes,Keys> KeyBindings
     {
         get{return keyBindings;}
         set{keyBindings = value;}
     }
+    */
 
+    public static MouseState PreviousMouse { get; set; }
+    public static MouseState CurrentMouse { get; set; }
     public static float TotalSeconds { get; set; }
 
     public static float FPS = 60f;

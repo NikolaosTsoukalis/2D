@@ -9,34 +9,33 @@ namespace _2D_RPG;
 public abstract class LayoutBase
 {
 
-    protected Rectangle BaseBounds { get; set; }
-    protected Texture2D boundingTexture{ get; set; }
+    public Rectangle BaseBounds { get; private set; }
+    public Texture2D BoundingTexture { get; private set; }
 
-    public LayoutBase(List<ComponentBase> components, Texture2D boundingTexture)
+    public Menu Menu { get; private set; }
+
+    public LayoutBase(Menu menu, Texture2D boundingTexture)
     {
-        AssignBoundingTextureVariables(boundingTexture);
+        this.Menu = menu;
+        SetBounds(boundingTexture);
     }
 
-    public void AssignBoundingTextureVariables(Texture2D boundingTexture)
+    public virtual void AssignComponentPositions(bool resetFlag) { }
+
+    public void SetBounds(Texture2D boundingTexture)
     {
         if (boundingTexture != null)
         {
-            this.boundingTexture = boundingTexture;
+            this.BoundingTexture = boundingTexture;
 
-            float screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
-            float screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
-
-            int textureWidth = boundingTexture.Bounds.Y;
-            int textureHeight = boundingTexture.Bounds.X;
-
-            Vector2 boundsStartingPoint = new Vector2(screenWidth / 2 + (screenWidth / 4), screenHeight / 2 - (screenHeight / 4));
             //Set position of bounding texture and the bounds themselves.
             //this is for the middle of the screen.
-            this.BaseBounds = new Rectangle((int)boundsStartingPoint.X, (int)boundsStartingPoint.Y, textureWidth, textureHeight);
+            Vector2 baseBoundsPosition = AlignComponentWithBoundCenter(boundingTexture, Menu.ScreenDimensions.X, Menu.ScreenDimensions.Y);
+            this.BaseBounds = new Rectangle((int)baseBoundsPosition.X,(int)baseBoundsPosition.Y, boundingTexture.Width, boundingTexture.Height);
         }
         else
-        {
-            this.BaseBounds = Rectangle.Empty;
+        {    
+            this.BaseBounds = new Rectangle(0, 0, (int)Menu.ScreenDimensions.X, (int)Menu.ScreenDimensions.Y);
             return;
         }
     }
@@ -56,9 +55,27 @@ public abstract class LayoutBase
             return true;
         }
     }
+    
+    public Vector2 AlignComponentWithBoundCenter(Texture2D componentTexture, float boundingWidth, float boundingHeight)
+    {
+        if (componentTexture != null)
+        {
+            int TextureHeight = componentTexture.Height;
+            int TextureWidth = componentTexture.Width;
+            Vector2 centerOfBounds = new Vector2(boundingWidth / 2f, boundingHeight / 2f);
+            Vector2 centerOfTexture = new Vector2(TextureWidth / 2f, TextureHeight / 2f);
 
-    public virtual void AssignComponentPositions(List<ComponentBase> components, Rectangle bounds) { }
+            return centerOfBounds - centerOfTexture;
+        }
+        else
+        {
+            Vector2 centerOfBounds = new Vector2(boundingWidth / 2f, boundingHeight / 2f);
 
-    public virtual void AssignComponentTextures( List<ComponentBase> components) {}
+            return centerOfBounds;
+        }
+            
+
+    }
+
 
 }

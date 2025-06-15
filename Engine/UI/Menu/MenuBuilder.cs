@@ -5,40 +5,53 @@ namespace _2D_RPG;
 
 public class MenuBuilder
 {
-    public MenuBuilder()
-    {
-    }
-
-    public void BuildMainMenu()
-    {
-
-    }
+    public MenuBuilder(){}
 
     public static Menu BuildMainMenuLandingMenu()
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
+        Menu menu = null;
 
-        Button StartGameButton = new Button(ComponentType.StartGameButton);
+        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.StartGameButton);
         Buttons.Add(StartGameButton);
-        Button SettingsButton = new Button(ComponentType.SettingsButton);
+        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.SettingsButton);
         Buttons.Add(SettingsButton);
-        Button QuitButton = new Button(ComponentType.QuitButton);
+        Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton);
         Buttons.Add(QuitButton);
-        Menu menu = new Menu(new VerticalMainMenuLayoutBase(Buttons, null));
+        menu = new Menu(Buttons);
+        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu,null));
         return menu;
     }
 
     public static Menu BuildMainMenuStartGameMenu()
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
+        Menu menu = null;
 
-        Button StartGameButton = new Button(ComponentType.StartGameButton);
+        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.StartGameButton);
         Buttons.Add(StartGameButton);
-        Button SettingsButton = new Button(ComponentType.SettingsButton);
+        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.SettingsButton);
         Buttons.Add(SettingsButton);
-        Button QuitButton = new Button(ComponentType.QuitButton);
+        Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton);
         Buttons.Add(QuitButton);
-        Menu menu = new Menu(new VerticalMainMenuLayoutBase(Buttons, null));
+        menu = new Menu(Buttons);
+        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu,null));
+        return menu;
+    }
+    
+    public static Menu BuildMainMenuSettingsMenu()
+    {
+        List<ComponentBase> Buttons = new List<ComponentBase>();
+        Menu menu = null;
+
+        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.StartGameButton);
+        Buttons.Add(StartGameButton);
+        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.SettingsButton);
+        Buttons.Add(SettingsButton);
+        Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton);
+        Buttons.Add(QuitButton);
+        menu = new Menu(Buttons);
+        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu,null));
         return menu;  
     }
 }

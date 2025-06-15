@@ -4,7 +4,7 @@ class MoveCommand : Command
 {
     #region Values
 
-    private Globals.Directions direction;
+    private GlobalEnumarations.Directions direction;
 
     private bool isRunning = false;
 
@@ -12,11 +12,11 @@ class MoveCommand : Command
 
     #region Constructors
 
-    public MoveCommand(Globals.Directions direction) : base(CommandTypes.MoveCommand)
+    public MoveCommand(GlobalEnumarations.Directions direction) : base(CommandTypes.MoveCommand)
     {
         this.direction = direction;
     }
-    public MoveCommand(Globals.Directions direction, bool isRunning) : base(CommandTypes.MoveCommand)
+    public MoveCommand(GlobalEnumarations.Directions direction, bool isRunning) : base(CommandTypes.MoveCommand)
     {
         this.direction = direction;
         this.isRunning = isRunning;

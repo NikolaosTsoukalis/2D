@@ -12,7 +12,7 @@ public class ComponentFunctionHandler
     #endregion
 
     #region Constructor
-    public ComponentFunctionHandler(ComponentType componentType)
+    public ComponentFunctionHandler(GlobalEnumarations.ComponentType componentType)
     {
         if (!AssignFunction(componentType))
         {
@@ -24,7 +24,7 @@ public class ComponentFunctionHandler
     #endregion
 
     #region General Functions
-    public bool AssignFunction(ComponentType componentType)
+    public bool AssignFunction(GlobalEnumarations.ComponentType componentType)
     {
         functionCall = CreateFunction(componentType);
         if (functionCall.Equals(null))
@@ -38,19 +38,19 @@ public class ComponentFunctionHandler
     }
 
     //ButtonFunctions x = new ButtonFunctions(Action x);
-    public static Action CreateFunction(ComponentType componentType)
+    public static Action CreateFunction(GlobalEnumarations.ComponentType componentType)
     {
         try
         {
             switch (componentType)
             {
-                case ComponentType.BackButton:
+                case GlobalEnumarations.ComponentType.BackButton:
                     return new Action(GoBackFunction);
-                case ComponentType.StartGameButton:
+                case GlobalEnumarations.ComponentType.StartGameButton:
                     return new Action(StartGameFunction);
-                case ComponentType.QuitButton:
+                case GlobalEnumarations.ComponentType.QuitButton:
                     return new Action(QuitFunction);
-                case ComponentType.SettingsButton:
+                case GlobalEnumarations.ComponentType.SettingsButton:
                     return new Action(OpenSettingsFunction);
                 default:
                     return null;
@@ -92,14 +92,14 @@ public class ComponentFunctionHandler
         Globals.MenuHandler.Main.Exit();
     }
 
-    public static void OpenSettingsFunction()
+    public static void StartGameFunction()
     {
         MenuBuilder.BuildMainMenuStartGameMenu();
     }
 
-    public static void StartGameFunction()
+    public static void OpenSettingsFunction()
     {
-
+        MenuBuilder.BuildMainMenuSettingsMenu();
     }
     #endregion Functions
 

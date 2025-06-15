@@ -287,36 +287,6 @@
              post updates
             </Summary>
         </member>
-        <member name="T:_2D_RPG.SettingsMainMenuState">
-            <Summary>
-             settings state for volume etc
-            </Summary>
-        </member>
-        <member name="M:_2D_RPG.SettingsMainMenuState.#ctor(_2D_RPG.Main)">
-            <Summary>
-             constructor for all the buttons in settings
-            </Summary>
-        </member>
-        <member name="M:_2D_RPG.SettingsMainMenuState.Update(Microsoft.Xna.Framework.GameTime)">
-            <Summary>
-             Update
-            </Summary>
-        </member>
-        <member name="M:_2D_RPG.SettingsMainMenuState.PostUpdate(Microsoft.Xna.Framework.GameTime)">
-            <Summary>
-             Post Update
-            </Summary>
-        </member>
-        <member name="M:_2D_RPG.SettingsMainMenuState.Draw(Microsoft.Xna.Framework.GameTime)">
-            <Summary>
-             Draw
-            </Summary>
-        </member>
-        <member name="M:_2D_RPG.SettingsMainMenuState.GetWindowFormatButton">
-            <Summary>
-             window setting
-            </Summary>
-        </member>
         <member name="T:_2D_RPG.Main">
             <summary>
             Main class

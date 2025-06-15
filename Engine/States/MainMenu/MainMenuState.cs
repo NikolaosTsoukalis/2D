@@ -43,9 +43,4 @@ public class MainMenuState : State
     {
         // remove sprites if they're not needed
     }
-
-    public void ManageView()
-    {
-
-    }
 }

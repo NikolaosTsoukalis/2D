@@ -13,9 +13,9 @@ public class ComponentTextureHandler
     public Texture2D TextureDisabled { get; private set; }
     public Texture2D CurrentTexture { get; private set; }
 
-    public ComponentTextureHandler(ComponentType componentType)
+    public ComponentTextureHandler(GlobalEnumarations.ComponentType componentType)
     {
-        if (!CreateTextures(componentType) || !SetCurrentTexture(ComponentState.Free))
+        if (!CreateTextures(componentType) || !SetCurrentTexture(GlobalEnumarations.ComponentState.Free))
         {
             Console.WriteLine("The component '" + componentType.ToString() +  "' was not initiallized correctly.");
         }
@@ -23,18 +23,18 @@ public class ComponentTextureHandler
 
     #region Functions
 
-    protected bool SetCurrentTexture(ComponentState componentState)
+    protected bool SetCurrentTexture(GlobalEnumarations.ComponentState componentState)
     {
         CurrentTexture = null;
         switch (componentState)
         {
-            case ComponentState.Free:
+            case GlobalEnumarations.ComponentState.Free:
                 CurrentTexture = TextureFree;
                 break;
-            case ComponentState.Clicked:
+            case GlobalEnumarations.ComponentState.Clicked:
                 CurrentTexture = TexturePressed;
                 break;
-            case ComponentState.Disabled:
+            case GlobalEnumarations.ComponentState.Disabled:
                 CurrentTexture = TextureDisabled;
                 break;
         }
@@ -46,28 +46,28 @@ public class ComponentTextureHandler
         return true;
     }
 
-    private bool CreateTextures(ComponentType componentType)
+    private bool CreateTextures(GlobalEnumarations.ComponentType componentType)
     {
         try
         {
             switch (componentType)
             {
-                case ComponentType.BackButton:
+                case GlobalEnumarations.ComponentType.BackButton:
                     TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TextureDisabled = null;
                     return true;
-                case ComponentType.StartGameButton:
+                case GlobalEnumarations.ComponentType.StartGameButton:
                     TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TextureDisabled = null;
                     return true;
-                case ComponentType.QuitButton:
+                case GlobalEnumarations.ComponentType.QuitButton:
                     TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TextureDisabled = null;
                     return true;
-                case ComponentType.SettingsButton:
+                case GlobalEnumarations.ComponentType.SettingsButton:
                     TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TextureDisabled = null;

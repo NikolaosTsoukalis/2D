@@ -93,7 +93,10 @@ public class Main : Game
     /// </remarks>
     protected override void Update(GameTime gameTime)
     {
-        if(nextGameState != null)
+        Globals.PreviousMouse = Globals.CurrentMouse;
+        Globals.CurrentMouse = Mouse.GetState();
+
+        if (nextGameState != null)
         {
             currentGameState = nextGameState;
             nextGameState = null;

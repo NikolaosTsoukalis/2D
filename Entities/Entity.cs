@@ -11,8 +11,8 @@ public abstract class Entity
 {
     #region Values
 
-    private Dictionary<Globals.AttributeTypes,int> attributes;
-    public Dictionary<Globals.AttributeTypes,int> Attributes
+    private Dictionary<GlobalEnumarations.AttributeTypes,int> attributes;
+    public Dictionary<GlobalEnumarations.AttributeTypes,int> Attributes
     {
         get{return attributes;}
         set{attributes = value;}
@@ -44,8 +44,8 @@ public abstract class Entity
         set{name = value;}
     }
 
-    private Globals.Directions direction;
-    public Globals.Directions Direction
+    private GlobalEnumarations.Directions direction;
+    public GlobalEnumarations.Directions Direction
     {
         get{return direction;}
         set{direction = value;}
@@ -88,7 +88,7 @@ public abstract class Entity
         if((float)Globals.TotalSeconds <= 1.0)
         {
             AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
-            Direction = Globals.Directions.Down;
+            Direction = GlobalEnumarations.Directions.Down;
         }
     }
 
@@ -98,13 +98,13 @@ public abstract class Entity
 
     public virtual void AssignAttributes(){}
 
-    public int GetAttribute(Globals.AttributeTypes type)
+    public int GetAttribute(GlobalEnumarations.AttributeTypes type)
     {
         FieldInfo = GetType().GetField(type.ToString(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
         return FieldInfo != null ? (int)FieldInfo.GetValue(this) : 0;
     }
 
-    public void ModifyAttribute(Globals.AttributeTypes type, int amount)
+    public void ModifyAttribute(GlobalEnumarations.AttributeTypes type, int amount)
     {
         FieldInfo = this.GetType().GetField(type.ToString(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
         if (FieldInfo != null)

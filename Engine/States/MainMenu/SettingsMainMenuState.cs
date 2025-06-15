@@ -1,4 +1,4 @@
-using System;
+/* using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,7 +18,7 @@ public class SettingsMainMenuState : State
     ///</Summary>
     public SettingsMainMenuState(Main main) : base (main)
     {
-        /*
+        
         var controlsButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Controls"), new Vector2(300, 200));
 
         controlsButton.Click += ControlsButton_Click;
@@ -39,7 +39,7 @@ public class SettingsMainMenuState : State
             windowFormatButton,
             backButton,
         };
-        */
+        
     }
 
     ///<Summary>
@@ -131,4 +131,4 @@ public class SettingsMainMenuState : State
             return windowFormatButton.Texture = Globals.ContentManager.Load<Texture2D>("Button_WindowFormat_Windowed");
         }
     }
-}
+} */

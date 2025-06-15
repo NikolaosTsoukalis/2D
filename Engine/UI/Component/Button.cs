@@ -9,30 +9,24 @@ public class Button : ComponentBase
 {
     #region Fields
     public string Text;
-
-    private MouseState _currentMouse;
-
     private bool _isHovering;
-
-    private MouseState _previousMouse;
-
+    
     #endregion
 
-    public Button(ComponentType type) : base(type){}
+    public Button(GlobalEnumarations.ComponentType type) : base(type) { }
 
     #region Methods
 
     public override void Draw(GameTime gameTime)
     {
         var colour = Color.White;
-        Rectangle Bounds = base.TextureHandler.Bounds;
         Texture2D CurrentTexture = base.TextureHandler.CurrentTexture;
 
         if (_isHovering)
         {
             colour = Color.Gray;
         }
-        Globals.SpriteBatch.Draw(CurrentTexture, Bounds, colour);
+        Globals.SpriteBatch.Draw(CurrentTexture, base.Bounds, colour);
         if (this.Text != null)
         {
             Vector2 textSize = Globals.ContentManager.Load<SpriteFont>("MyFont").MeasureString(this.Text);
@@ -51,16 +45,11 @@ public class Button : ComponentBase
 
     public override void Update(GameTime gameTime)
     {
-
-        _previousMouse = _currentMouse;
-        _currentMouse = Mouse.GetState();
-        Rectangle Bounds = base.TextureHandler.Bounds;
-
-        var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
+        var mouseRectangle = new Rectangle(Globals.CurrentMouse.X, Globals.CurrentMouse.Y, 1, 1);
 
         _isHovering = false;
 
-        if (mouseRectangle.Intersects(Bounds))
+        if (mouseRectangle.Intersects(base.Bounds))
         {
             _isHovering = true;
             HandleStateChange();
@@ -69,17 +58,17 @@ public class Button : ComponentBase
 
     public void HandleStateChange()
     {
-        if (State != ComponentState.Disabled)
+        if (State != GlobalEnumarations.ComponentState.Disabled)
         {
-            if (_currentMouse.LeftButton == ButtonState.Pressed && _previousMouse.LeftButton == ButtonState.Pressed)
+            if (Globals.CurrentMouse.LeftButton == ButtonState.Pressed && Globals.PreviousMouse.LeftButton == ButtonState.Pressed)
             {
-                State = ComponentState.Clicked;
+                State = GlobalEnumarations.ComponentState.Clicked;
             }
-            else if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Released)
+            else if (Globals.CurrentMouse.LeftButton == ButtonState.Released && Globals.PreviousMouse.LeftButton == ButtonState.Released)
             {
-                State = ComponentState.Free;
+                State = GlobalEnumarations.ComponentState.Free;
             }
-            else if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+            else if (Globals.CurrentMouse.LeftButton == ButtonState.Released && Globals.PreviousMouse.LeftButton == ButtonState.Pressed)
             {
                 _isHovering = false;
                 FunctionHandler.CallFunction();

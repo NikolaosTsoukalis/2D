@@ -122,28 +122,28 @@ public class Animation
                     int totalDirectionalFrames = totalFrames / 8;
                     switch(entity.Direction)
                     {
-                        case Globals.Directions.Down:
+                        case GlobalEnumarations.Directions.Down:
                             currentStartingFrame = 0;
                             break;
-                        case Globals.Directions.DownRight:
+                        case GlobalEnumarations.Directions.DownRight:
                             currentStartingFrame = totalDirectionalFrames;
                             break;
-                        case Globals.Directions.Right:
+                        case GlobalEnumarations.Directions.Right:
                             currentStartingFrame = totalDirectionalFrames*2;
                             break;
-                        case Globals.Directions.UpRight:
+                        case GlobalEnumarations.Directions.UpRight:
                             currentStartingFrame = totalDirectionalFrames*3;
                             break;
-                        case Globals.Directions.Up:
+                        case GlobalEnumarations.Directions.Up:
                             currentStartingFrame = totalDirectionalFrames*4;
                             break;
-                        case Globals.Directions.UpLeft:
+                        case GlobalEnumarations.Directions.UpLeft:
                             currentStartingFrame = totalDirectionalFrames*5;
                             break;
-                        case Globals.Directions.Left:
+                        case GlobalEnumarations.Directions.Left:
                             currentStartingFrame = totalDirectionalFrames*6;
                             break;
-                        case Globals.Directions.DownLeft:
+                        case GlobalEnumarations.Directions.DownLeft:
                             currentStartingFrame = totalDirectionalFrames*7;
                             break;
                     }

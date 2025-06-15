@@ -32,8 +32,8 @@ public class MovingEntity : Entity
     { 
         try
         {
-            this.ModifyAttribute(Globals.AttributeTypes.Speed,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.Speed));
-            this.ModifyAttribute(Globals.AttributeTypes.RunningSpeed,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.RunningSpeed));
+            this.ModifyAttribute(GlobalEnumarations.AttributeTypes.Speed,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,GlobalEnumarations.AttributeTypes.Speed));
+            this.ModifyAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,GlobalEnumarations.AttributeTypes.RunningSpeed));
         }
         catch(Exception e)
         {
@@ -42,93 +42,93 @@ public class MovingEntity : Entity
         //base.AssignAttributes();
     }
 
-    public bool Move(Globals.Directions direction, bool isRunning)
+    public bool Move(GlobalEnumarations.Directions direction, bool isRunning)
     {
         this.newPosition = new();
         this.currentPosition = Position;
 
         switch(direction)
         {
-            case Globals.Directions.Up:
+            case GlobalEnumarations.Directions.Up:
                 if(isRunning)
                 {                   
-                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.Y -= this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
                 }
                 else    
-                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.Y -= this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
                 break;
-            case Globals.Directions.UpLeft:
+            case GlobalEnumarations.Directions.UpLeft:
                 if(isRunning)
                 {                   
-                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
-                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.Y -= this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
+                    newPosition.X -= this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else                
-                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.Speed);
-                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.Y -= this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
+                    newPosition.X -= this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
                     newPosition = AdjustDiagonalPosition(newPosition);                    
                 break;
-            case Globals.Directions.UpRight:
+            case GlobalEnumarations.Directions.UpRight:
                 if(isRunning)
                 {          
-                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
-                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.Y -= this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
+                    newPosition.X += this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else     
-                    newPosition.Y -= this.GetAttribute(Globals.AttributeTypes.Speed);
-                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.Y -= this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
+                    newPosition.X += this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 break;
-            case Globals.Directions.Down:
+            case GlobalEnumarations.Directions.Down:
                 if(isRunning)
                 {   
-                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.Y += this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
                 }
                 else
                     
-                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.Y += this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
                 break;
-            case Globals.Directions.DownLeft:
+            case GlobalEnumarations.Directions.DownLeft:
                 if(isRunning)
                 {    
-                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
-                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.Y += this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
+                    newPosition.X -= this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else  
-                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.Speed);
-                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.Y += this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
+                    newPosition.X -= this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 break;
-            case Globals.Directions.DownRight:
+            case GlobalEnumarations.Directions.DownRight:
                 if(isRunning)
                 {     
-                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
-                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.Y += this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
+                    newPosition.X += this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 }
                 else    
-                    newPosition.Y += this.GetAttribute(Globals.AttributeTypes.Speed);
-                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.Y += this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
+                    newPosition.X += this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
                     newPosition = AdjustDiagonalPosition(newPosition);
                 break;
-            case Globals.Directions.Left:
+            case GlobalEnumarations.Directions.Left:
                 if(isRunning)
                 {    
-                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.X -= this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
                 }
                 else
-                    newPosition.X -= this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.X -= this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
                 break;
-            case Globals.Directions.Right:
+            case GlobalEnumarations.Directions.Right:
                 if(isRunning)
                 {    
-                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.RunningSpeed);
+                    newPosition.X += this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed);
                 }
                 else    
-                    newPosition.X += this.GetAttribute(Globals.AttributeTypes.Speed);
+                    newPosition.X += this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed);
                 break;
         }
         //this.pastPosition = Position;
@@ -144,7 +144,7 @@ public class MovingEntity : Entity
     public Vector2 AdjustDiagonalPosition(Vector2 newPosition)
     {
         float diagonalBuffer = (float)(1/Math.Sqrt(2));
-        if(newPosition.LengthSquared() > this.GetAttribute(Globals.AttributeTypes.Speed) * this.GetAttribute(Globals.AttributeTypes.Speed) || newPosition.LengthSquared() > this.GetAttribute(Globals.AttributeTypes.RunningSpeed) * this.GetAttribute(Globals.AttributeTypes.RunningSpeed)) // _speed*_speed = 1 with a _speed = 1
+        if(newPosition.LengthSquared() > this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed) * this.GetAttribute(GlobalEnumarations.AttributeTypes.Speed) || newPosition.LengthSquared() > this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed) * this.GetAttribute(GlobalEnumarations.AttributeTypes.RunningSpeed)) // _speed*_speed = 1 with a _speed = 1
         {
             newPosition *= diagonalBuffer; // adjust for 2 directions pressed at same time.
         }

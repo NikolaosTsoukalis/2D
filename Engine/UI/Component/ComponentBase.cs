@@ -12,13 +12,13 @@ public abstract class ComponentBase
 
     public Rectangle Bounds { get; set; }
 
-    public ComponentState State { get; private set; }
+    public GlobalEnumarations.ComponentState State { get; set; }
 
-    public ComponentType Type { get; protected set; }
+    public GlobalEnumarations.ComponentType Type { get; set; }
 
-    public ComponentBase(ComponentType type)
+    public ComponentBase(GlobalEnumarations.ComponentType type)
     {
-        this.State = ComponentState.Free;        
+        this.State = GlobalEnumarations.ComponentState.Free;        
         this.Type = type;
         InitiallizeHandlers(this.Type);
     }
@@ -31,12 +31,12 @@ public abstract class ComponentBase
     {
         try
         {
-            this.State = ComponentState.Disabled;
+            this.State = GlobalEnumarations.ComponentState.Disabled;
             return true;
         }
         catch (Exception e)
         {
-            this.State = ComponentState.Free;
+            this.State = GlobalEnumarations.ComponentState.Free;
             return false;
         }
     }
@@ -45,23 +45,23 @@ public abstract class ComponentBase
     {
         try
         {
-            this.State = ComponentState.Free;
+            this.State = GlobalEnumarations.ComponentState.Free;
             return true;
         }
         catch (Exception e)
         {
-            this.State = ComponentState.Disabled;
+            this.State = GlobalEnumarations.ComponentState.Disabled;
             return false;
         }
     }
 
-    private void InitiallizeHandlers(ComponentType type)
+    private void InitiallizeHandlers(GlobalEnumarations.ComponentType type)
     {
-        if (FunctionHandler != null)
+        if (FunctionHandler == null)
         {
             this.FunctionHandler = new ComponentFunctionHandler(type);
         }
-        if (FunctionHandler != null)
+        if (TextureHandler == null)
         {
             this.TextureHandler = new ComponentTextureHandler(type);
         }

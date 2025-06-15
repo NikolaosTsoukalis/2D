@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,44 +5,34 @@ namespace _2D_RPG;
 
 public class VerticalMainMenuLayoutBase : LayoutBase
 {
-    private List<ComponentBase> Buttons;
-
-    public VerticalMainMenuLayoutBase(List<ComponentBase> components, Texture2D BoundingTexture) : base(components, BoundingTexture)
+    public VerticalMainMenuLayoutBase(Menu menu, Texture2D BoundingTexture) : base(menu, BoundingTexture)
     {
-        AssignComponentPositions(components, base.BaseBounds);
+        AssignComponentPositions(false);
     }
 
-    public override void AssignComponentPositions(List<ComponentBase> components, Rectangle Bounds)
+    public override void AssignComponentPositions(bool resetFlag)
     {
-        int yPadding = 50;
+        int yPadding = 10;
+        Vector2 currentButtonPosition = new Vector2(0,0);
 
-        float screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
-        float screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
-
-        if (!Bounds.IsEmpty)
+        if (resetFlag)
         {
-            Vector2 firstButtonPosition = new Vector2(Bounds.X / 2 + (Bounds.X / 4), Bounds.Y / 2 - (Bounds.Y / 4));
-            Vector2 nextButtonPosition = firstButtonPosition;
-
-            for (int i = 0; i < components.Count; i++)
-            {
-                components[i].Position = nextButtonPosition;
-                base.SetComponentBounds(components[i]);
-                nextButtonPosition.Y += components[i].TextureHandler.CurrentTexture.Height + yPadding;
-            }
+            base.SetBounds(base.BoundingTexture);    
         }
-        else
+        for (int i = 0; i < base.Menu.Components.Count; i++)
         {
-            Vector2 firstButtonPosition = new Vector2(screenWidth / 2 + (screenWidth / 4), screenHeight / 2 - (screenHeight / 4));
-            Vector2 nextButtonPosition = firstButtonPosition;
-
-            for (int i = 0; i < components.Count; i++)
+            if (i == 0)
             {
-                components[i].Position = nextButtonPosition;
-                base.SetComponentBounds(components[i]);
-                nextButtonPosition.Y += components[i].TextureHandler.CurrentTexture.Height + yPadding;
+                base.Menu.Components[i].Position = AlignComponentWithBoundCenter(base.Menu.Components[i].TextureHandler.CurrentTexture, base.BaseBounds.Width, base.BaseBounds.Height);
+                currentButtonPosition = base.Menu.Components[i].Position;
             }
+            else
+            {
+                base.Menu.Components[i].Position = currentButtonPosition;
+            }
+
+            base.SetComponentBounds(base.Menu.Components[i]);
+            currentButtonPosition.Y += base.Menu.Components[i].TextureHandler.CurrentTexture.Height + yPadding;
         }
-    }
-    
+    }    
 }

@@ -176,7 +176,7 @@ public class ItemDataHandler
         return hitboxData;
     }
 
-    public Rectangle getWeaponHitbox(Globals.Directions direction,Vector2 position, string itemName) 
+    public Rectangle getWeaponHitbox(GlobalEnumarations.Directions direction,Vector2 position, string itemName) 
     {
         hitbox = new();
         if(AssignWeaponHitboxData(itemName)) // pass player weapon 
@@ -185,42 +185,42 @@ public class ItemDataHandler
             hitbox.Height = hitboxData[3];    
             switch(direction)
             {
-                case Globals.Directions.Up:
+                case GlobalEnumarations.Directions.Up:
                     hitbox.X = (int)position.X;
                     hitbox.Y = (int)position.Y - hitboxData[1];
                     break;
 
-                case Globals.Directions.Left:
+                case GlobalEnumarations.Directions.Left:
                     hitbox.X = (int)position.X - hitboxData[0];
                     hitbox.Y = (int)position.Y;
                     break;
 
-                case Globals.Directions.Down:
+                case GlobalEnumarations.Directions.Down:
                     hitbox.X = (int)position.X;
                     hitbox.Y = (int)position.Y + hitboxData[1];
                     break;
                     
-                case Globals.Directions.Right:
+                case GlobalEnumarations.Directions.Right:
                     hitbox.X = (int)position.X + hitboxData[0];
                     hitbox.Y = (int)position.Y;
                     break;
 
-                case Globals.Directions.UpLeft:
+                case GlobalEnumarations.Directions.UpLeft:
                     hitbox.X = (int)position.X - hitboxData[0];
                     hitbox.Y = (int)position.Y - hitboxData[1];
                     break;
 
-                case Globals.Directions.UpRight:
+                case GlobalEnumarations.Directions.UpRight:
                     hitbox.X = (int)position.X + hitboxData[0];
                     hitbox.Y = (int)position.Y - hitboxData[1];
                     break;
 
-                case Globals.Directions.DownLeft:
+                case GlobalEnumarations.Directions.DownLeft:
                     hitbox.X = (int)position.X - hitboxData[0];
                     hitbox.Y = (int)position.Y + hitboxData[1];
                     break;
 
-                case Globals.Directions.DownRight:
+                case GlobalEnumarations.Directions.DownRight:
                     hitbox.X = (int)position.X + hitboxData[0];
                     hitbox.Y = (int)position.Y + hitboxData[1];
                     break;

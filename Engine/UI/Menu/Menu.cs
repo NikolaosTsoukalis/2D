@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Xml;
 using Microsoft.Xna.Framework;
@@ -7,23 +8,37 @@ namespace _2D_RPG;
 
 public class Menu
 {
-    private List<Button> Buttons;
+    public List<ComponentBase> Components { get; private set; }
 
-    private LayoutBase Layout;
+    public LayoutBase Layout { get; private set; }
 
     private Color baseColor;
 
+    public Vector2 ScreenDimensions { get; private set; }
+
     //public Vector2 
 
-    public Menu(LayoutBase layout)
+    public Menu(List<ComponentBase> components)
     {
+        float screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
+        float screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
+        this.ScreenDimensions = new Vector2(screenWidth, screenHeight);
+
         this.baseColor = Color.White;
-        SetLayout(layout);
+        this.Components = components;
     }
 
     public void Update(GameTime gameTime)
     {
-        foreach (var component in Buttons)
+        float screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
+        float screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
+
+        if (ScreenDimensions.X != screenWidth || ScreenDimensions.Y != screenHeight)
+        {
+            this.ScreenDimensions = new Vector2(screenWidth, screenHeight);
+            this.Layout.AssignComponentPositions(true); 
+        }
+        foreach (var component in Components)
         {
             component.Update(gameTime);
         }
@@ -33,9 +48,12 @@ public class Menu
     {
         Globals.SpriteBatch.Begin();
 
-        Globals.SpriteBatch.Draw(Layout.GetBaseTexture(), Layout.GetBaseTextureRectangle(), baseColor);
+        if (Layout.BoundingTexture != null)
+        {
+            Globals.SpriteBatch.Draw(Layout.BoundingTexture, Layout.BaseBounds, baseColor);
+        }
 
-        foreach (var component in Buttons)
+        foreach (var component in Components)
         {
             component.Draw(gameTime);
         }
@@ -44,29 +62,24 @@ public class Menu
 
     public void AddButton(Button component)
     {
-        Buttons.Add(component);
+        Components.Add(component);
     }
 
     public void AddButtons(List<Button> buttons)
     {
         foreach (Button button in buttons)
         {
-            Buttons.Add(button);    
+            Components.Add(button);
         }
     }
+
     public void RemoveButton(Button component)
     {
-        Buttons.Remove(component);
+        Components.Remove(component);
     }
 
-    public void SetLayout(LayoutBase layout)
+    public void SetMenuLayout(LayoutBase layout)
     {
         this.Layout = layout;
     }
-
-    public List<Button> getButtonList()
-    {
-        return Buttons;
-    }
-
 }

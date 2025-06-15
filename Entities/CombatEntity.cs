@@ -38,8 +38,8 @@ public class CombatEntity : MovingEntity
             //intellect
             //stamina?
             //etc (everything that in not assign at parent method calls.)   
-            this.ModifyAttribute(Globals.AttributeTypes.HP,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.HP));  
-            this.ModifyAttribute(Globals.AttributeTypes.AttackPower,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,Globals.AttributeTypes.AttackPower));          
+            this.ModifyAttribute(GlobalEnumarations.AttributeTypes.HP,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,GlobalEnumarations.AttributeTypes.HP));  
+            this.ModifyAttribute(GlobalEnumarations.AttributeTypes.AttackPower,Globals.EntityDataHandler.GetSpecificEntityAttributeValue(this.Name,GlobalEnumarations.AttributeTypes.AttackPower));          
         }
         catch(Exception e)
         {
@@ -60,7 +60,7 @@ public class CombatEntity : MovingEntity
         }
         if(entityGettingAttacked != null)
         {
-            entityGettingAttacked.GetAttacked(this.GetAttribute(Globals.AttributeTypes.AttackPower));
+            entityGettingAttacked.GetAttacked(this.GetAttribute(GlobalEnumarations.AttributeTypes.AttackPower));
         }
         else
         {
@@ -71,8 +71,8 @@ public class CombatEntity : MovingEntity
     public virtual bool GetAttacked(int damageTaken)
     {
         //damage taken should be overriden by a method that takes into account all attributes/abillities.
-        int currentHp = this.GetAttribute(Globals.AttributeTypes.HP) - damageTaken;  
-        this.ModifyAttribute(Globals.AttributeTypes.HP,currentHp);
+        int currentHp = this.GetAttribute(GlobalEnumarations.AttributeTypes.HP) - damageTaken;  
+        this.ModifyAttribute(GlobalEnumarations.AttributeTypes.HP,currentHp);
         
         return true;
     }
