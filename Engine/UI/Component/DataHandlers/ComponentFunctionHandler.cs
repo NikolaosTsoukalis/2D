@@ -7,7 +7,7 @@ public class ComponentFunctionHandler
 {
     #region Fields
 
-    public Action functionCall;
+    public Action functionCall { get; private set; }
 
     #endregion
 
