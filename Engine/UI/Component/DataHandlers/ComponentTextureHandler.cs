@@ -13,7 +13,7 @@ public class ComponentTextureHandler
     public Texture2D TextureDisabled { get; private set; }
     public Texture2D CurrentTexture { get; private set; }
 
-    public string LayoutType{ get; private set; }
+    public string LayoutType { get; private set; }
 
     public ComponentTextureHandler(GlobalEnumarations.ComponentType componentType)
     {
@@ -25,7 +25,7 @@ public class ComponentTextureHandler
 
     #region Functions
 
-    protected bool SetCurrentTexture(GlobalEnumarations.ComponentState componentState)
+    public bool SetCurrentTexture(GlobalEnumarations.ComponentState componentState)
     {
         CurrentTexture = null;
         switch (componentState)
@@ -52,28 +52,28 @@ public class ComponentTextureHandler
     {
         try
         {
-            if (this.LayoutType == String.Empty)
+            if (true) // this.LayoutType == String.Empty
             {
                 switch (componentType)
                 {
                     case GlobalEnumarations.ComponentType.BackButton:
-                        TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
-                        TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
+                        TextureFree = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Free");
+                        TexturePressed = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Pressed");
                         TextureDisabled = null;
                         return true;
                     case GlobalEnumarations.ComponentType.StartGameButton:
-                        TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
-                        TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
+                        TextureFree = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Free");
+                        TexturePressed = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Pressed");
                         TextureDisabled = null;
                         return true;
                     case GlobalEnumarations.ComponentType.QuitButton:
-                        TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
-                        TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
+                        TextureFree = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Free");
+                        TexturePressed = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Pressed");
                         TextureDisabled = null;
                         return true;
                     case GlobalEnumarations.ComponentType.SettingsButton:
-                        TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
-                        TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
+                        TextureFree = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Free");
+                        TexturePressed = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Pressed");
                         TextureDisabled = null;
                         return true;
                     default:
@@ -97,7 +97,7 @@ public class ComponentTextureHandler
             return false;
         }
     }
-    
+
     public bool SetPositionBasedComponentTextures(string layoutType, bool? firstOrLast)
     {
         try
@@ -113,14 +113,14 @@ public class ComponentTextureHandler
                     }
                     else if (firstOrLast == false)
                     {
-                        TextureFree = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Free");
-                        TexturePressed = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Pressed");
+                        TextureFree = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Bottom_Button_Free");
+                        TexturePressed = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Bottom_Button_Pressed");
                         TextureDisabled = null;
                     }
                     else
                     {
-                        TextureFree = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Bottom_Button_Free");
-                        TexturePressed = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Bottom_Button_Pressed");
+                        TextureFree = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Free");
+                        TexturePressed = Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Middle_Button_Pressed");
                         TextureDisabled = null;
                     }
                     return true;
@@ -129,7 +129,7 @@ public class ComponentTextureHandler
                     TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TextureDisabled = null;
                     return true;
-                
+
                 default:
                     TextureFree = null;
                     TexturePressed = null;
@@ -144,7 +144,6 @@ public class ComponentTextureHandler
             return false;
         }
     }
-
     #endregion Functions
 
 }

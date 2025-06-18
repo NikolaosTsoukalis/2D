@@ -30,17 +30,17 @@ public class Menu
 
     public void Update(GameTime gameTime)
     {
+        foreach (var component in Components)
+        {
+            component.Update(gameTime);
+        }
         float screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
         float screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
-
+        
         if (ScreenDimensions.X != screenWidth || ScreenDimensions.Y != screenHeight)
         {
             this.ScreenDimensions = new Vector2(screenWidth, screenHeight);
             this.Layout.AssignComponentPositions(true); 
-        }
-        foreach (var component in Components)
-        {
-            component.Update(gameTime);
         }
     }
 

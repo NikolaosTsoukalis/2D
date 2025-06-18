@@ -14,12 +14,15 @@ public class MenuBuilder
 
         Button StartGameButton = new Button(GlobalEnumarations.ComponentType.StartGameButton);
         StartGameButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", true);
+        StartGameButton.Text = "Start Game";
         Buttons.Add(StartGameButton);
         Button SettingsButton = new Button(GlobalEnumarations.ComponentType.SettingsButton);
         SettingsButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
+        SettingsButton.Text = "Settings";
         Buttons.Add(SettingsButton);
         Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton);
         QuitButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", false);
+        QuitButton.Text = "Quit";
         Buttons.Add(QuitButton);
         menu = new Menu(Buttons);
         menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu,null));

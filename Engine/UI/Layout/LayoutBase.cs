@@ -24,17 +24,17 @@ public abstract class LayoutBase
 
     public void SetBounds(Texture2D boundingTexture)
     {
+        //The Base Bounds will be based on if there is a texture or not. If not the Bounds are the Screen Bounds.
         if (boundingTexture != null)
         {
             this.BoundingTexture = boundingTexture;
 
-            //Set position of bounding texture and the bounds themselves.
-            //this is for the middle of the screen.
+
             Vector2 baseBoundsPosition = AlignComponentWithBoundCenter(boundingTexture, Menu.ScreenDimensions.X, Menu.ScreenDimensions.Y);
-            this.BaseBounds = new Rectangle((int)baseBoundsPosition.X,(int)baseBoundsPosition.Y, boundingTexture.Width, boundingTexture.Height);
+            this.BaseBounds = new Rectangle((int)baseBoundsPosition.X, (int)baseBoundsPosition.Y, boundingTexture.Width, boundingTexture.Height);
         }
         else
-        {    
+        {
             this.BaseBounds = new Rectangle(0, 0, (int)Menu.ScreenDimensions.X, (int)Menu.ScreenDimensions.Y);
             return;
         }
@@ -55,7 +55,7 @@ public abstract class LayoutBase
             return true;
         }
     }
-    
+
     public Vector2 AlignComponentWithBoundCenter(Texture2D componentTexture, float boundingWidth, float boundingHeight)
     {
         if (componentTexture != null)
@@ -73,9 +73,5 @@ public abstract class LayoutBase
 
             return centerOfBounds;
         }
-            
-
     }
-
-
 }
