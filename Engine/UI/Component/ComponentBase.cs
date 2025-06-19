@@ -8,13 +8,15 @@ public abstract class ComponentBase
 
     public ComponentFunctionHandler FunctionHandler { get; private set; }
     public ComponentTextureHandler TextureHandler { get; private set; }
-    public Vector2 Position { get; set; }
+    public bool IsHovering { get; protected set; }
+    public bool IsWritable { get; protected set; }
 
+    public Vector2 Position { get; set; }
     public Rectangle Bounds { get; set; }
 
     public GlobalEnumarations.ComponentState State { get; set; }
 
-    public GlobalEnumarations.ComponentType Type { get; set; }
+    public GlobalEnumarations.ComponentType Type { get; private set; }
 
     public ComponentBase(GlobalEnumarations.ComponentType type)
     {
@@ -26,6 +28,8 @@ public abstract class ComponentBase
     public abstract void Draw(GameTime gameTime);
 
     public abstract void Update(GameTime gameTime);
+
+    public abstract void HandleStateChange();
 
     public bool Disable()
     {

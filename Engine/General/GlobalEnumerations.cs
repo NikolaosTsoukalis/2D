@@ -4,6 +4,7 @@ public class GlobalEnumarations
 {
     public enum Directions
     {
+        None,
         Up,
         UpRight,
         UpLeft,
@@ -16,6 +17,7 @@ public class GlobalEnumarations
 
     public enum AttributeTypes
     {
+        None,
         Speed,
         RunningSpeed,
         HP,
@@ -26,6 +28,8 @@ public class GlobalEnumarations
 
     public enum ComponentType
     {
+        None,
+        TextBox,
         BackButton,
         SettingsButton,
         QuitButton,
@@ -35,6 +39,7 @@ public class GlobalEnumarations
 
     public enum ComponentState
     {
+        None,
         Free,
         Disabled,
         Clicked

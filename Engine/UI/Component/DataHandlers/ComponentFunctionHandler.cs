@@ -9,11 +9,14 @@ public class ComponentFunctionHandler
 
     public Action functionCall { get; private set; }
 
+    private static ComponentBase ParentComponent { get; set; }
+
     #endregion
 
     #region Constructor
-    public ComponentFunctionHandler(GlobalEnumarations.ComponentType componentType)
+    public ComponentFunctionHandler(GlobalEnumarations.ComponentType componentType, ComponentBase parentComponent)
     {
+        ParentComponent = parentComponent;
         if (!AssignFunction(componentType))
         {
             Console.WriteLine("This Button Type does not support a function");
@@ -44,6 +47,7 @@ public class ComponentFunctionHandler
         {
             switch (componentType)
             {
+                //Buttons
                 case GlobalEnumarations.ComponentType.BackButton:
                     return new Action(GoBackFunction);
                 case GlobalEnumarations.ComponentType.StartGameButton:
@@ -52,6 +56,10 @@ public class ComponentFunctionHandler
                     return new Action(QuitFunction);
                 case GlobalEnumarations.ComponentType.SettingsButton:
                     return new Action(OpenSettingsFunction);
+
+                //TextBox
+                case GlobalEnumarations.ComponentType.TextBox:
+                    return new Action(EnableTypingTextBoxFunction);
                 default:
                     return null;
             }
@@ -82,25 +90,38 @@ public class ComponentFunctionHandler
 
     #region Button Functions
 
-    public static void GoBackFunction()
+    private static void GoBackFunction()
     {
         Globals.MenuHandler.RemoveFromStackTop(Globals.MenuHandler.currentMenu);
     }
 
-    public static void QuitFunction()
+    private static void QuitFunction()
     {
         Globals.MenuHandler.Main.Exit();
     }
 
-    public static void StartGameFunction()
+    private static void StartGameFunction()
     {
         MenuBuilder.BuildMainMenuStartGameMenu();
     }
 
-    public static void OpenSettingsFunction()
+    private static void OpenSettingsFunction()
     {
         MenuBuilder.BuildMainMenuSettingsMenu();
     }
     #endregion Functions
+
+    #region TextBox Functions
+
+    private static void EnableTypingTextBoxFunction()
+    {
+        if (ParentComponent.IsWritable)
+        {
+            ParentComponent.Enable();    
+        }
+        
+    }
+
+    #endregion
 
 }
