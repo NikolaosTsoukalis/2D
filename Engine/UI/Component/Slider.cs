@@ -7,14 +7,17 @@ namespace _2D_RPG;
 
 public class Slider : ComponentBase
 {
-    public int CurrentValue;
+    public int CurrentValue { get; private set; }
     private Vector2 CurrentThumbPosition;
 
     public int Scale;
 
-    public Slider(GlobalEnumarations.ComponentType sliderType, int currentValue) : base(sliderType)
+    public GlobalEnumarations.SliderComponentValues ValueType { get; private set; }
+
+    public Slider(GlobalEnumarations.ComponentType sliderType, GlobalEnumarations.SliderComponentValues valueType) : base(sliderType)
     {
-        this.CurrentValue = currentValue;
+        this.ValueType = valueType;
+        this.CurrentValue = GetGlobalValue(valueType);
         this.CurrentThumbPosition = SetThumbPosition(CurrentValue);
         if (CurrentThumbPosition == Vector2.Zero)
         {
@@ -53,7 +56,7 @@ public class Slider : ComponentBase
         var colour = Color.White;
 
         Globals.SpriteBatch.Draw(base.TextureHandler.CurrentTexture, base.Bounds, colour);
-        Globals.SpriteBatch.Draw(base.TextureHandler.)
+        //Globals.SpriteBatch.Draw(base.TextureHandler) // DRAW THUMB
     }
 
     public override void HandleStateChange()
@@ -63,7 +66,20 @@ public class Slider : ComponentBase
             if (Globals.CurrentMouse.LeftButton == ButtonState.Pressed && Globals.PreviousMouse.LeftButton == ButtonState.Pressed)
             {
                 HandleValueChange();
-            }   
+            }
+        }
+    }
+
+    private int GetGlobalValue(GlobalEnumarations.SliderComponentValues valueType)
+    {
+        switch (valueType)
+        {
+            case GlobalEnumarations.SliderComponentValues.Volume:
+                return this.CurrentValue = Globals.Volume;
+            case GlobalEnumarations.SliderComponentValues.Sensitivity:
+                return this.CurrentValue = Globals.Sensitivity;
+            default:
+                return 0;
         }
     }
 
@@ -101,5 +117,29 @@ public class Slider : ComponentBase
             Console.WriteLine("ERROR : " + e);
             return false;
         }
+    }
+
+
+    public static bool VolumeSliderFunction()
+    {
+        switch (ParentComponent.ValueType)
+        {
+            case GlobalEnumarations.SliderComponentValues.Volume:
+                Globals.Volume = ParentComponent.CurrentValue;
+                break;
+            case GlobalEnumarations.SliderComponentValues.Sensitivity:
+                Globals.Sensitivity = ParentComponenet.CurrentValue;
+                break;
+        }
+    }
+
+    public static bool OpenCreateWorldSettingsFunction()
+    {
+        MenuBuilder.BuildCreateWorldSettingsMenu();
+    }
+
+    public static bool LoadWorldListFunction()
+    {
+        MenuBuilder.BuildWorldListMenu();        
     }
 }

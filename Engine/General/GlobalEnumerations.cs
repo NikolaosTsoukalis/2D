@@ -30,11 +30,22 @@ public class GlobalEnumarations
     {
         None,
         TextBox,
+        SliderVertical,
+        SliderHorizontal,
         BackButton,
         SettingsButton,
         QuitButton,
         StartGameButton,
+        CreateWorldSettingsButton,
+        LoadWorldListButton,
 
+    }
+
+    public enum SliderComponentValues
+    {
+        None,
+        Volume,
+        Sensitivity,
     }
 
     public enum ComponentState
