@@ -53,6 +53,6 @@ public class GlobalEnumarations
         None,
         Free,
         Disabled,
-        Clicked
+        Pressed
     }
 }

@@ -8,11 +8,17 @@ namespace _2D_RPG;
 public class Button : ComponentBase
 {
     #region Fields
-    public string Text;
+    public TextBox TextBox { get; private set; }
 
     #endregion
 
-    public Button(GlobalEnumarations.ComponentType type) : base(type) { }
+    public Button(GlobalEnumarations.ComponentType type, string name) : base(type)
+    {
+        if (name != null)
+        {
+            this.TextBox = new TextBox(Globals.Font, name, false);    
+        }
+    }
 
     #region Methods
 
@@ -26,27 +32,20 @@ public class Button : ComponentBase
             //colour = Color.Gray;
         }
         Globals.SpriteBatch.Draw(CurrentTexture, base.Bounds, colour);
-        if (this.Text != null)
+        if (this.TextBox.Text != null)
         {
-            float scale = 0.75f;
-            Rectangle innerBounds = new Rectangle((int)this.Position.X + 20, (int)this.Position.Y + 20, 108, 40);
-            Vector2 textSize = Globals.ContentManager.Load<SpriteFont>("MyFont").MeasureString(this.Text) * scale;
-            // Center the text within the button rectangle
-            Vector2 textPosition = new Vector2(
-                innerBounds.X + (innerBounds.Width - textSize.X) / 2f,
-                innerBounds.Y + (innerBounds.Height - textSize.Y) / 2f
-            );
-
-            // Draw the text
-            //Globals.SpriteBatch.Draw(Texture, Rectangle, colour);
-            Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), this.Text, textPosition, Color.Black, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-            //Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), this.Text, textPosition, Color.Black);
-
+            TextBox.Draw(gameTime);
         }
     }
 
     public override void Update(GameTime gameTime)
     {
+        base.CurrentTime = gameTime;
+        if (TextBox != null)
+        {
+            TextBox.Update(gameTime);    
+        }
+        
         HandleStateChange();
         base.TextureHandler.SetCurrentTexture(base.State);
     }
@@ -61,7 +60,7 @@ public class Button : ComponentBase
 
             if (Globals.CurrentMouse.LeftButton == ButtonState.Pressed && Globals.PreviousMouse.LeftButton == ButtonState.Pressed)
             {
-                State = GlobalEnumarations.ComponentState.Clicked;
+                State = GlobalEnumarations.ComponentState.Pressed;
             }
             else if (Globals.CurrentMouse.LeftButton == ButtonState.Released && Globals.PreviousMouse.LeftButton == ButtonState.Released)
             {
@@ -70,8 +69,8 @@ public class Button : ComponentBase
             else if (Globals.CurrentMouse.LeftButton == ButtonState.Released && Globals.PreviousMouse.LeftButton == ButtonState.Pressed)
             {
                 IsHovering = false;
-                State = GlobalEnumarations.ComponentState.Free;
                 FunctionHandler.CallFunction();
+                State = GlobalEnumarations.ComponentState.Free;
             }
         }
         else

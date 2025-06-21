@@ -73,6 +73,7 @@ public class Main : Game
         Globals.ContentManager = this.Content;
         Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
         Globals.MenuHandler = new MenuHandler(this);
+        Globals.LoadFontTexture();
         currentGameState =  new MainMenuState(this);
         Texture2D customCursorTexture = Content.Load<Texture2D>("Cup_Coffee_Animation2");
         MouseCursor customCursor = MouseCursor.FromTexture2D(customCursorTexture, 0, 0);

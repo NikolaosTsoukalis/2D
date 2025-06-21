@@ -14,7 +14,7 @@ public class VerticalMainMenuLayoutBase : LayoutBase
     {
         if (resetFlag)
         {
-            base.SetBounds(base.BoundingTexture);    
+            base.SetBaseBounds(base.BoundingTexture);    
         }
         for (int i = 0; i < base.Menu.Components.Count; i++)
         {

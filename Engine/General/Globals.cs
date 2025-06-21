@@ -20,10 +20,10 @@ public class Globals
     private static ContentManager contentManager;
     public static ContentManager ContentManager
     {
-        get{return contentManager;}
+        get { return contentManager; }
         set
         {
-            if(contentManager == null)
+            if (contentManager == null)
             {
                 contentManager = value;
                 return;
@@ -35,10 +35,10 @@ public class Globals
     private static SpriteBatch spriteBatch;
     public static SpriteBatch SpriteBatch
     {
-        get{return spriteBatch;}
+        get { return spriteBatch; }
         set
         {
-            if(spriteBatch == null)
+            if (spriteBatch == null)
             {
                 spriteBatch = value;
                 return;
@@ -48,12 +48,12 @@ public class Globals
         }
     }
     private static GraphicsDeviceManager graphicsDeviceManager;
-    public static GraphicsDeviceManager GraphicsDeviceManager 
+    public static GraphicsDeviceManager GraphicsDeviceManager
     {
-        get{return graphicsDeviceManager;}
+        get { return graphicsDeviceManager; }
         set
         {
-            if(graphicsDeviceManager == null)
+            if (graphicsDeviceManager == null)
             {
                 graphicsDeviceManager = value;
                 return;
@@ -65,10 +65,10 @@ public class Globals
     private static InputHandler inputHandler;
     public static InputHandler InputHandler
     {
-        get{return inputHandler;}
+        get { return inputHandler; }
         set
         {
-            if(inputHandler == null)
+            if (inputHandler == null)
             {
                 inputHandler = value;
                 return;
@@ -80,10 +80,10 @@ public class Globals
     private static AnimationHandler animationHandler;
     public static AnimationHandler AnimationHandler
     {
-        get{return animationHandler;}
+        get { return animationHandler; }
         set
         {
-            if(animationHandler == null)
+            if (animationHandler == null)
             {
                 animationHandler = value;
                 return;
@@ -95,10 +95,10 @@ public class Globals
     private static AnimationDataHandler animationDataHandler;
     public static AnimationDataHandler AnimationDataHandler
     {
-        get{return animationDataHandler;}
+        get { return animationDataHandler; }
         set
         {
-            if(animationDataHandler == null)
+            if (animationDataHandler == null)
             {
                 animationDataHandler = value;
                 return;
@@ -110,10 +110,10 @@ public class Globals
     private static EntityHandler entityHandler;
     public static EntityHandler EntityHandler
     {
-        get{return entityHandler;}
+        get { return entityHandler; }
         set
         {
-            if(entityHandler == null)
+            if (entityHandler == null)
             {
                 entityHandler = value;
                 return;
@@ -121,14 +121,14 @@ public class Globals
             Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + entityHandler.GetType().ToString() + ".");
             return;
         }
-    }    
+    }
     private static ItemDataHandler itemDataHandler;
     public static ItemDataHandler ItemDataHandler
     {
-        get{return itemDataHandler;}
+        get { return itemDataHandler; }
         set
         {
-            if(itemDataHandler == null)
+            if (itemDataHandler == null)
             {
                 itemDataHandler = value;
                 return;
@@ -140,10 +140,10 @@ public class Globals
     private static EntityDataHandler entityDataHandler;
     public static EntityDataHandler EntityDataHandler
     {
-        get{return entityDataHandler;}
+        get { return entityDataHandler; }
         set
         {
-            if(entityDataHandler == null)
+            if (entityDataHandler == null)
             {
                 entityDataHandler = value;
                 return;
@@ -155,10 +155,10 @@ public class Globals
     private static CollisionHandler collisionHandler;
     public static CollisionHandler CollisionHandler
     {
-        get{return collisionHandler;}
+        get { return collisionHandler; }
         set
         {
-            if(collisionHandler == null)
+            if (collisionHandler == null)
             {
                 collisionHandler = value;
                 return;
@@ -170,10 +170,10 @@ public class Globals
     private static TileDataHandler tileDataHandler;
     public static TileDataHandler TileDataHandler
     {
-        get{return tileDataHandler;}
+        get { return tileDataHandler; }
         set
         {
-            if(tileDataHandler == null)
+            if (tileDataHandler == null)
             {
                 tileDataHandler = value;
                 return;
@@ -185,10 +185,10 @@ public class Globals
     private static TileMapHandler tileMapHandler;
     public static TileMapHandler TileMapHandler
     {
-        get{return tileMapHandler;}
+        get { return tileMapHandler; }
         set
         {
-            if(tileMapHandler == null)
+            if (tileMapHandler == null)
             {
                 tileMapHandler = value;
                 return;
@@ -201,10 +201,10 @@ public class Globals
     private static MenuHandler menuHandler;
     public static MenuHandler MenuHandler
     {
-        get{return menuHandler;}
+        get { return menuHandler; }
         set
         {
-            if(menuHandler == null)
+            if (menuHandler == null)
             {
                 menuHandler = value;
                 return;
@@ -217,10 +217,10 @@ public class Globals
     private static Camera2D camera;
     public static Camera2D Camera
     {
-        get{return camera;}
+        get { return camera; }
         set
         {
-            if(camera == null)
+            if (camera == null)
             {
                 camera = value;
                 return;
@@ -252,11 +252,13 @@ public class Globals
 
     public static bool drawInteraction = false;
 
-    public static int seed = 10; 
+    public static int seed = 10;
 
     public static int TileSize = 32;
 
     public static Vector2 WorldSize = new Vector2(3200, 3200);
+
+    public static SpriteFont Font;
 
     #endregion Values
 
@@ -267,21 +269,26 @@ public class Globals
         TotalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
-/*
-    public static void LoadKeyBindingsDictionary()
+    public static void LoadFontTexture()
     {
-        keyBindings = new Dictionary<Command.CommandTypes, Keys>
-        {
-            { CommandTypes.MoveUp, Keys.W },
-            { CommandTypes.MoveDown, Keys.S },
-            { CommandTypes.MoveLeft, Keys.A },
-            { CommandTypes.MoveRight, Keys.D },
-            { CommandTypes.OpenGeneralMenu, Keys.Escape },
-            { CommandTypes.SoftToggleRun, Keys.LeftShift },
-            { CommandTypes.OpenInventory, Keys.E }
-        };
+        Font = ContentManager.Load<SpriteFont>("MyFont");
     }
-    */
+
+/*
+            public static void LoadKeyBindingsDictionary()
+            {
+                keyBindings = new Dictionary<Command.CommandTypes, Keys>
+                {
+                    { CommandTypes.MoveUp, Keys.W },
+                    { CommandTypes.MoveDown, Keys.S },
+                    { CommandTypes.MoveLeft, Keys.A },
+                    { CommandTypes.MoveRight, Keys.D },
+                    { CommandTypes.OpenGeneralMenu, Keys.Escape },
+                    { CommandTypes.SoftToggleRun, Keys.LeftShift },
+                    { CommandTypes.OpenInventory, Keys.E }
+                };
+            }
+            */
 
     #endregion Functions
 }

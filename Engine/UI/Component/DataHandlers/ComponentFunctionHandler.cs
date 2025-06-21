@@ -9,7 +9,7 @@ public class ComponentFunctionHandler
 
     public Action functionCall { get; private set; }
 
-    private static ComponentBase ParentComponent { get; set; }
+    public static ComponentBase ParentComponent { get; private set; }
 
     #endregion
 
@@ -115,9 +115,13 @@ public class ComponentFunctionHandler
 
     private static void EnableTypingTextBoxFunction()
     {
-        if (ParentComponent.IsWritable)
+        if (ParentComponent.IsWritable && ParentComponent.State == GlobalEnumarations.ComponentState.Disabled)
         {
-            ParentComponent.Enable();    
+            ParentComponent.Enable();
+        }
+        else
+        {
+            ParentComponent.Disable();
         }
         
     }

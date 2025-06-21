@@ -14,13 +14,19 @@ public abstract class ComponentBase
     public Vector2 Position { get; set; }
     public Rectangle Bounds { get; set; }
 
+    protected bool HasClicked { get; set;}
+
     public GlobalEnumarations.ComponentState State { get; set; }
 
     public GlobalEnumarations.ComponentType Type { get; private set; }
 
+    public GameTime CurrentTime { get; protected set; }
+
+    public float TimeSinceClick { get; protected set; }
+
     public ComponentBase(GlobalEnumarations.ComponentType type)
     {
-        this.State = GlobalEnumarations.ComponentState.Free;        
+        this.State = GlobalEnumarations.ComponentState.Free;
         this.Type = type;
         InitiallizeHandlers(this.Type);
     }
@@ -59,15 +65,37 @@ public abstract class ComponentBase
         }
     }
 
+    public bool HandleDoubleClick()
+    {
+        if (HasClicked && TimeSinceClick < 1)
+        {
+            HasClicked = false;
+            return true;
+        }
+        if (HasClicked && TimeSinceClick > 1.5)
+        {
+            HasClicked = false;
+            TimeSinceClick = 0;
+            return false;
+        }
+        HasClicked = true;
+        TimeSinceClick += (float)CurrentTime.ElapsedGameTime.TotalSeconds;
+        return false;
+    }
+
     private void InitiallizeHandlers(GlobalEnumarations.ComponentType type)
     {
         if (FunctionHandler == null)
         {
-            this.FunctionHandler = new ComponentFunctionHandler(type);
+            this.FunctionHandler = new ComponentFunctionHandler(type, this);
         }
         if (TextureHandler == null)
         {
-            this.TextureHandler = new ComponentTextureHandler(type);
+            this.TextureHandler = new ComponentTextureHandler(type, this);
         }
     }
+
+
+    
+
 }

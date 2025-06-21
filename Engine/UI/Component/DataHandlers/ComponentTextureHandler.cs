@@ -13,10 +13,13 @@ public class ComponentTextureHandler
     public Texture2D TextureDisabled { get; private set; }
     public Texture2D CurrentTexture { get; private set; }
 
+    public static ComponentBase ParentComponent { get; private set; }
+
     public string LayoutType { get; private set; }
 
-    public ComponentTextureHandler(GlobalEnumarations.ComponentType componentType)
+    public ComponentTextureHandler(GlobalEnumarations.ComponentType componentType, ComponentBase parentComponent)
     {
+        ParentComponent = parentComponent;
         if (!SetTextures(componentType) || !SetCurrentTexture(GlobalEnumarations.ComponentState.Free))
         {
             Console.WriteLine("The component '" + componentType.ToString() + "' was not initiallized correctly.");
@@ -33,7 +36,7 @@ public class ComponentTextureHandler
             case GlobalEnumarations.ComponentState.Free:
                 CurrentTexture = TextureFree;
                 break;
-            case GlobalEnumarations.ComponentState.Clicked:
+            case GlobalEnumarations.ComponentState.Pressed:
                 CurrentTexture = TexturePressed;
                 break;
             case GlobalEnumarations.ComponentState.Disabled:

@@ -17,12 +17,12 @@ public abstract class LayoutBase
     public LayoutBase(Menu menu, Texture2D boundingTexture)
     {
         this.Menu = menu;
-        SetBounds(boundingTexture);
+        SetBaseBounds(boundingTexture);
     }
 
     public virtual void AssignComponentPositions(bool resetFlag) { }
 
-    public void SetBounds(Texture2D boundingTexture)
+    public void SetBaseBounds(Texture2D boundingTexture)
     {
         //The Base Bounds will be based on if there is a texture or not. If not the Bounds are the Screen Bounds.
         if (boundingTexture != null)
