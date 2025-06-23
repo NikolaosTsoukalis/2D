@@ -24,6 +24,8 @@ public abstract class ComponentBase
 
     public float TimeSinceClick { get; protected set; }
 
+    
+
     public ComponentBase(GlobalEnumarations.ComponentType type)
     {
         this.State = GlobalEnumarations.ComponentState.Free;

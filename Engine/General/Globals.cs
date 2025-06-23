@@ -260,6 +260,9 @@ public class Globals
 
     public static SpriteFont Font;
 
+    public static int Volume;
+    public static int Sensitivity;
+
     #endregion Values
 
     #region Functions

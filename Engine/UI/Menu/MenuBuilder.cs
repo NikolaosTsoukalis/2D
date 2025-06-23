@@ -7,25 +7,24 @@ public class MenuBuilder
 {
     public MenuBuilder(){}
 
+
+    #region Main Menu Constructors
     public static Menu BuildMainMenuLandingMenu()
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
         Menu menu = null;
 
-        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.StartGameButton);
+        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.StartGameButton, "Start Game");
         StartGameButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", true);
-        StartGameButton.Text = "Start Game";
         Buttons.Add(StartGameButton);
-        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.SettingsButton);
+        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.SettingsButton,"Settings");
         SettingsButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
-        SettingsButton.Text = "Settings";
         Buttons.Add(SettingsButton);
-        Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton);
+        Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton,"Quit");
         QuitButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", false);
-        QuitButton.Text = "Quit";
         Buttons.Add(QuitButton);
         menu = new Menu(Buttons);
-        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu,null));
+        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
         return menu;
     }
 
@@ -44,6 +43,16 @@ public class MenuBuilder
         menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu,null));
         return menu;
     }
+
+    public static Menu BuildMainMenuWorldListMenu()
+    {
+        return null;
+    }
+
+    public static Menu BuildMainMenuCreateWorldSettingsMenu()
+    {
+        return null;
+    }
     
     public static Menu BuildMainMenuSettingsMenu()
     {
@@ -57,7 +66,7 @@ public class MenuBuilder
         Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton);
         Buttons.Add(QuitButton);
         menu = new Menu(Buttons);
-        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu,null));
-        return menu;  
+        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
+        return menu;
     }
 }

@@ -123,7 +123,50 @@ public class ComponentFunctionHandler
         {
             ParentComponent.Disable();
         }
-        
+
+    }
+
+    public static bool VolumeSliderFunction()
+    {
+        var component = (Slider)ParentComponent;
+        switch (component.ValueType)
+        {
+            case GlobalEnumarations.SliderComponentValues.Volume:
+                Globals.Volume = component.CurrentValue;
+                return true;
+            case GlobalEnumarations.SliderComponentValues.Sensitivity:
+                Globals.Sensitivity = component.CurrentValue;
+                return true;
+        }
+        return false;
+    }
+
+    public static bool OpenCreateWorldSettingsFunction()
+    {
+        try
+        {
+            MenuBuilder.BuildCreateWorldSettingsMenu();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+            return false;
+        }
+    }
+
+    public static bool LoadWorldListFunction()
+    {
+        try
+        {
+            MenuBuilder.BuildMainMenuWorldListMenu();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+            return false;
+        }
     }
 
     #endregion

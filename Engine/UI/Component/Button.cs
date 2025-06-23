@@ -16,7 +16,7 @@ public class Button : ComponentBase
     {
         if (name != null)
         {
-            this.TextBox = new TextBox(Globals.Font, name, false);    
+            this.TextBox = new TextBox(Globals.Font, name, false);
         }
     }
 
@@ -43,9 +43,9 @@ public class Button : ComponentBase
         base.CurrentTime = gameTime;
         if (TextBox != null)
         {
-            TextBox.Update(gameTime);    
+            TextBox.Update(gameTime);
         }
-        
+
         HandleStateChange();
         base.TextureHandler.SetCurrentTexture(base.State);
     }
@@ -78,7 +78,9 @@ public class Button : ComponentBase
             IsHovering = false;
         }
     }
+    
+
     #endregion
-    
-    
+
+
 }

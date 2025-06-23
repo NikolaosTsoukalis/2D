@@ -119,27 +119,4 @@ public class Slider : ComponentBase
         }
     }
 
-
-    public static bool VolumeSliderFunction()
-    {
-        switch (ParentComponent.ValueType)
-        {
-            case GlobalEnumarations.SliderComponentValues.Volume:
-                Globals.Volume = ParentComponent.CurrentValue;
-                break;
-            case GlobalEnumarations.SliderComponentValues.Sensitivity:
-                Globals.Sensitivity = ParentComponenet.CurrentValue;
-                break;
-        }
-    }
-
-    public static bool OpenCreateWorldSettingsFunction()
-    {
-        MenuBuilder.BuildCreateWorldSettingsMenu();
-    }
-
-    public static bool LoadWorldListFunction()
-    {
-        MenuBuilder.BuildWorldListMenu();        
-    }
 }
