@@ -40,7 +40,6 @@ public class ComponentFunctionHandler
         }
     }
 
-    //ButtonFunctions x = new ButtonFunctions(Action x);
     public static Action CreateFunction(GlobalEnumarations.ComponentType componentType)
     {
         try
@@ -56,10 +55,22 @@ public class ComponentFunctionHandler
                     return new Action(QuitFunction);
                 case GlobalEnumarations.ComponentType.SettingsButton:
                     return new Action(OpenSettingsFunction);
+                case GlobalEnumarations.ComponentType.CreateWorldSettingsButton:
+                    return new Action(OpenWorldSettingsFunction);
+                case GlobalEnumarations.ComponentType.LoadWorldListButton:
+                    return new Action(LoadWorldListFunction);
+
 
                 //TextBox
                 case GlobalEnumarations.ComponentType.TextBox:
                     return new Action(EnableTypingTextBoxFunction);
+
+                //Slider
+                case GlobalEnumarations.ComponentType.SliderVertical:
+                case GlobalEnumarations.ComponentType.SliderHorizontal:
+                    return new Action(ChangeValueSliderFunction);
+
+                //Default
                 default:
                     return null;
             }
@@ -109,7 +120,32 @@ public class ComponentFunctionHandler
     {
         MenuBuilder.BuildMainMenuSettingsMenu();
     }
-    #endregion Functions
+
+        public static void OpenWorldSettingsFunction()
+    {
+        try
+        {
+            MenuBuilder.BuildMainMenuCreateWorldSettingsMenu();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+    }
+
+    public static void LoadWorldListFunction()
+    {
+        try
+        {
+            MenuBuilder.BuildMainMenuWorldListMenu();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+    }
+
+    #endregion
 
     #region TextBox Functions
 
@@ -125,50 +161,23 @@ public class ComponentFunctionHandler
         }
 
     }
+    #endregion
 
-    public static bool VolumeSliderFunction()
+    #region Slider Functions
+
+    public static void ChangeValueSliderFunction()
     {
         var component = (Slider)ParentComponent;
         switch (component.ValueType)
         {
             case GlobalEnumarations.SliderComponentValues.Volume:
                 Globals.Volume = component.CurrentValue;
-                return true;
+                break;
             case GlobalEnumarations.SliderComponentValues.Sensitivity:
                 Globals.Sensitivity = component.CurrentValue;
-                return true;
-        }
-        return false;
-    }
-
-    public static bool OpenCreateWorldSettingsFunction()
-    {
-        try
-        {
-            MenuBuilder.BuildCreateWorldSettingsMenu();
-            return true;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-            return false;
-        }
-    }
-
-    public static bool LoadWorldListFunction()
-    {
-        try
-        {
-            MenuBuilder.BuildMainMenuWorldListMenu();
-            return true;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-            return false;
+                break;
         }
     }
 
     #endregion
-
 }
