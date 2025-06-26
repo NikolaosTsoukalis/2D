@@ -16,10 +16,12 @@ public class TextBox : ComponentBase
 
     public Vector2 FlashingLinePosition { get; private set; }
 
-    public TextBox(SpriteFont font, string text, bool isWritable) : base(GlobalEnumarations.ComponentType.TextBox)
+    public ComponentBase ParentComponent { get; private set; }
+    public TextBox(SpriteFont font, string text, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox)
     {
         this.Font = font;
         this.Text = text;
+        this.ParentComponent = parentComponent;
         base.IsWritable = isWritable;
         if (IsWritable)
         {

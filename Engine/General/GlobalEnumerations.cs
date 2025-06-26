@@ -38,6 +38,7 @@ public class GlobalEnumarations
         StartGameButton,
         CreateWorldSettingsButton,
         LoadWorldListButton,
+        LoadWorldButton,
 
     }
 

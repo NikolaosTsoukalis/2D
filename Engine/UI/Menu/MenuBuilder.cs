@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -46,9 +47,14 @@ public class MenuBuilder
 
     public static Menu BuildMainMenuWorldListMenu()
     {
+        List<ComponentBase> Buttons = new List<ComponentBase>();
+        Menu menu = null;
 
         string[] worldList = Utillity.GetWorldFileNames(true);
-
+        Buttons = HandleWorldButtons(worldList);
+        Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, "Back");
+        menu = new Menu(Buttons);
+        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
 
         return null;
     }
@@ -77,29 +83,27 @@ public class MenuBuilder
 
     #region Helper Functions
     
-    public void HandleWorldButtons(string[] worldList)
+    public static List<ComponentBase> HandleWorldButtons(string[] worldList)
     {
-        
+        List<ComponentBase> componentList = new List<ComponentBase>();
         try
         {
             if (worldList.Length > 0)
             {
                 for (int i = 0; i < worldList.Length; i++)
                 {
-                    var WorldButton = new Button(Globals.ContentManager.Load<Texture2D>("Button_Empty"), nextButtonPosition) { Text = worldList[i].ToString() };
-                    components.Add(WorldButton);
-                    WorldClicked = WorldButton.Text;
-                    WorldButton.Click += loadWorldButton_Click;
-
-                    nextButtonPosition.Y += 50;
-                    //backButton.Position.Y += 50;
+                    var WorldButton = new Button(GlobalEnumarations.ComponentType.LoadWorldButton, worldList[i]);
+                    componentList.Add(WorldButton);
                 }
+                return componentList;
             }
+            return null;
 
         }
         catch (Exception e)
         {
             Console.WriteLine("ERROR : " + e);
+            return null;
         }
         
     }

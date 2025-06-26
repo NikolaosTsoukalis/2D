@@ -103,25 +103,54 @@ public class ComponentFunctionHandler
 
     private static void GoBackFunction()
     {
-        Globals.MenuHandler.RemoveFromStackTop(Globals.MenuHandler.currentMenu);
+        try
+        {
+            Globals.MenuHandler.RemoveFromStackTop(Globals.MenuHandler.currentMenu);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
     }
 
     private static void QuitFunction()
     {
-        Globals.MenuHandler.Main.Exit();
+        try
+        {
+            Globals.MenuHandler.Main.Exit();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        } 
     }
 
     private static void StartGameFunction()
     {
-        MenuBuilder.BuildMainMenuStartGameMenu();
+        try
+        {
+           MenuBuilder.BuildMainMenuStartGameMenu();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
     }
 
     private static void OpenSettingsFunction()
     {
-        MenuBuilder.BuildMainMenuSettingsMenu();
+        try
+        {
+           MenuBuilder.BuildMainMenuSettingsMenu();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+        
     }
 
-        public static void OpenWorldSettingsFunction()
+    public static void OpenWorldSettingsFunction()
     {
         try
         {
@@ -138,6 +167,22 @@ public class ComponentFunctionHandler
         try
         {
             MenuBuilder.BuildMainMenuWorldListMenu();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+        }
+    }
+
+    public static void LoadWorldFunction()
+    {
+        var component = (Button)ParentComponent;
+        try
+        {
+            int[,] tileMapMatrix = Utillity.GetWorldBinaryFile(component.TextBox.Text, true);
+            TileMap tileMap = new TileMap(tileMapMatrix);
+            ParentComponent.main.ChangeState(new GameState(main, tileMap));
+
         }
         catch (Exception e)
         {
