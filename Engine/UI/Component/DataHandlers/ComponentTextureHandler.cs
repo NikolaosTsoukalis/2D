@@ -15,8 +15,6 @@ public class ComponentTextureHandler
 
     public static ComponentBase ParentComponent { get; private set; }
 
-    public string LayoutType { get; private set; }
-
     public ComponentTextureHandler(GlobalEnumarations.ComponentType componentType, ComponentBase parentComponent)
     {
         ParentComponent = parentComponent;
@@ -148,5 +146,15 @@ public class ComponentTextureHandler
         }
     }
     #endregion Functions
+
+    public Rectangle GetSpecialComponentRectangle(ComponentBase component)
+    {
+        switch (component.Type):
+            case GlobalEnumarations.ComponentType.TextBox:
+                var componentTemp = (TextBox)component;
+                componentTemp.
+            break;
+
+    }
 
 }

@@ -51,7 +51,7 @@ public class MenuBuilder
         Menu menu = null;
 
         string[] worldList = Utillity.GetWorldFileNames(true);
-        Buttons = HandleWorldButtons(worldList);
+        Buttons = CreateWorldButtons(worldList);
         Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, "Back");
         menu = new Menu(Buttons);
         menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
@@ -83,7 +83,7 @@ public class MenuBuilder
 
     #region Helper Functions
     
-    public static List<ComponentBase> HandleWorldButtons(string[] worldList)
+    public static List<ComponentBase> CreateWorldButtons(string[] worldList)
     {
         List<ComponentBase> componentList = new List<ComponentBase>();
         try

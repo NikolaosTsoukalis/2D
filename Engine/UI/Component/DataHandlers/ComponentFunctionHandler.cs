@@ -122,14 +122,14 @@ public class ComponentFunctionHandler
         catch (Exception e)
         {
             Console.WriteLine("ERROR : " + e);
-        } 
+        }
     }
 
     private static void StartGameFunction()
     {
         try
         {
-           MenuBuilder.BuildMainMenuStartGameMenu();
+            MenuBuilder.BuildMainMenuStartGameMenu();
         }
         catch (Exception e)
         {
@@ -141,13 +141,13 @@ public class ComponentFunctionHandler
     {
         try
         {
-           MenuBuilder.BuildMainMenuSettingsMenu();
+            MenuBuilder.BuildMainMenuSettingsMenu();
         }
         catch (Exception e)
         {
             Console.WriteLine("ERROR : " + e);
         }
-        
+
     }
 
     public static void OpenWorldSettingsFunction()
@@ -167,6 +167,7 @@ public class ComponentFunctionHandler
         try
         {
             MenuBuilder.BuildMainMenuWorldListMenu();
+
         }
         catch (Exception e)
         {
@@ -181,8 +182,7 @@ public class ComponentFunctionHandler
         {
             int[,] tileMapMatrix = Utillity.GetWorldBinaryFile(component.TextBox.Text, true);
             TileMap tileMap = new TileMap(tileMapMatrix);
-            ParentComponent.main.ChangeState(new GameState(main, tileMap));
-
+            Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, tileMap));
         }
         catch (Exception e)
         {
@@ -225,4 +225,5 @@ public class ComponentFunctionHandler
     }
 
     #endregion
+    
 }

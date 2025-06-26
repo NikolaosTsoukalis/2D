@@ -30,7 +30,6 @@ public class Main : Game
     public Main()
     {
         Globals.GraphicsDeviceManager = new GraphicsDeviceManager(this);
-
         Content.RootDirectory = "Content";
 
         IsMouseVisible = true;
