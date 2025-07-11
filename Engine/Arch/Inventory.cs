@@ -16,12 +16,11 @@ public class Inventory
     private Dictionary<string,Tuple<int,int>> BaseInventoryData; // item name,position(x,y)
     private Dictionary<string,string> EquippedInventoryData; // item name, item position.
     private Texture2D InventoryTexture;
+    private Rectangle Position;
 
     #endregion Fields
 
     #region Constructor
-    
-    private Rectangle Position;
     ///<Summary>
     /// Inventory Constructor
     ///</Summary>

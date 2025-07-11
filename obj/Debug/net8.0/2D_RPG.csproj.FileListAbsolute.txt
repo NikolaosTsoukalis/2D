@@ -107,7 +107,6 @@ c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Con
 c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Button_WindowFormat_Windowed.xnb
 c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Character_Idle_strip32.xnb
 c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Character_Walk_strip32.xnb
-c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Character_Walk_strip80.xnb
 c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Controls_Menu.xnb
 c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Cup_Coffee_Animation2.xnb
 c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\MyFont.xnb
@@ -165,3 +164,8 @@ c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_Idle_str
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_MeleeAttack_strip56.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_NewWorld.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_Empty.xnb
+c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Button_Empty.xnb
+c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Button_NewWorld.xnb
+c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Entity\Character_Idle_strip80.xnb
+c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Entity\Character_MeleeAttack_strip56.xnb
+c:\Users\Γιώργος\Desktop\2D repositories\newFromMain\bin\Debug\net8.0\Content\Entity\Character_Walk_strip80.xnb

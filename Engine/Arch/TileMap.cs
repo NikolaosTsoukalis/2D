@@ -38,13 +38,13 @@ public class TileMap
 
         GenerateMap();
     }
-    
+
     public TileMap(int[,] tileMap)  //GIORGOOOOOOOO TIN EINAI TO WORLDSIZE KAI TI EINAI TO TILEMAPMATRIX LENGTH?
     {
         worldSize.X = (int)Globals.WorldSize.X;
         worldSize.Y = (int)Globals.WorldSize.Y;
         tileMapMatrix = tileMap;
-        
+
         tileMapSize = tileMapMatrix.Length;
     }
 
@@ -840,6 +840,5 @@ public class TileMap
             return (h < 8 ? 1.0 : -1.0) * grad * x + (h >= 8 ? 1.0 : -1.0) * grad * y;
         }
     }
-
     #endregion
 }   
