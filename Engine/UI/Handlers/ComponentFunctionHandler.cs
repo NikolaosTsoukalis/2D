@@ -1,93 +1,64 @@
 using System;
+using System.Collections.Generic;
 
 namespace _2D_RPG;
+
 
 
 public class ComponentFunctionHandler
 {
     #region Fields
 
-    public Action functionCall { get; private set; }
+    public Action FunctionCall { get; private set; }
 
-    public static ComponentBase ParentComponent { get; private set; }
+    public ComponentBase ParentComponent { get; private set; }
+
+    private static readonly Dictionary<GlobalEnumarations.ComponentType, Func<ComponentFunctionHandler, Action>> FunctionMap = new()
+    {
+        { GlobalEnumarations.ComponentType.BackButton, handler => handler.GoBackFunction },
+        { GlobalEnumarations.ComponentType.StartGameButton, handler => handler.StartGameFunction },
+        { GlobalEnumarations.ComponentType.QuitButton, handler => handler.QuitFunction },
+        { GlobalEnumarations.ComponentType.SettingsButton, handler => handler.OpenSettingsFunction },
+        { GlobalEnumarations.ComponentType.CreateWorldSettingsButton, handler => handler.OpenWorldSettingsFunction },
+        { GlobalEnumarations.ComponentType.LoadWorldListButton, handler => handler.LoadWorldListFunction },
+        { GlobalEnumarations.ComponentType.TextBox, handler => handler.EnableTypingTextBoxFunction },
+        { GlobalEnumarations.ComponentType.SliderVertical, handler => handler.ChangeValueSliderFunction },
+        { GlobalEnumarations.ComponentType.SliderHorizontal, handler => handler.ChangeValueSliderFunction }
+    };
 
     #endregion
 
     #region Constructor
+
     public ComponentFunctionHandler(GlobalEnumarations.ComponentType componentType, ComponentBase parentComponent)
     {
-        ParentComponent = parentComponent;
+        this.ParentComponent = parentComponent;
         if (!AssignFunction(componentType))
         {
             Console.WriteLine("This Button Type does not support a function");
         }
-
     }
 
     #endregion
 
     #region General Functions
-    public bool AssignFunction(GlobalEnumarations.ComponentType componentType)
+    private bool AssignFunction(GlobalEnumarations.ComponentType componentType)
     {
-        functionCall = CreateFunction(componentType);
-        if (functionCall.Equals(null))
+        if (FunctionMap.TryGetValue(componentType, out var actionFactory))
         {
-            return false;
-        }
-        else
-        {
+            FunctionCall = actionFactory(this);
             return true;
         }
+
+        FunctionCall = null;
+        return false;
     }
-
-    public static Action CreateFunction(GlobalEnumarations.ComponentType componentType)
-    {
-        try
-        {
-            switch (componentType)
-            {
-                //Buttons
-                case GlobalEnumarations.ComponentType.BackButton:
-                    return new Action(GoBackFunction);
-                case GlobalEnumarations.ComponentType.StartGameButton:
-                    return new Action(StartGameFunction);
-                case GlobalEnumarations.ComponentType.QuitButton:
-                    return new Action(QuitFunction);
-                case GlobalEnumarations.ComponentType.SettingsButton:
-                    return new Action(OpenSettingsFunction);
-                case GlobalEnumarations.ComponentType.CreateWorldSettingsButton:
-                    return new Action(OpenWorldSettingsFunction);
-                case GlobalEnumarations.ComponentType.LoadWorldListButton:
-                    return new Action(LoadWorldListFunction);
-
-
-                //TextBox
-                case GlobalEnumarations.ComponentType.TextBox:
-                    return new Action(EnableTypingTextBoxFunction);
-
-                //Slider
-                case GlobalEnumarations.ComponentType.SliderVertical:
-                case GlobalEnumarations.ComponentType.SliderHorizontal:
-                    return new Action(ChangeValueSliderFunction);
-
-                //Default
-                default:
-                    return null;
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-            return null;
-        }
-    }
-
 
     public bool CallFunction()
     {
         try
         {
-            functionCall();
+            FunctionCall();
             return true;
         }
         catch (Exception e)
@@ -101,7 +72,7 @@ public class ComponentFunctionHandler
 
     #region Button Functions
 
-    private static void GoBackFunction()
+    private void GoBackFunction()
     {
         try
         {
@@ -113,7 +84,7 @@ public class ComponentFunctionHandler
         }
     }
 
-    private static void QuitFunction()
+    private void QuitFunction()
     {
         try
         {
@@ -125,7 +96,7 @@ public class ComponentFunctionHandler
         }
     }
 
-    private static void StartGameFunction()
+    private void StartGameFunction()
     {
         try
         {
@@ -137,7 +108,7 @@ public class ComponentFunctionHandler
         }
     }
 
-    private static void OpenSettingsFunction()
+    private void OpenSettingsFunction()
     {
         try
         {
@@ -150,7 +121,7 @@ public class ComponentFunctionHandler
 
     }
 
-    public static void OpenWorldSettingsFunction()
+    public void OpenWorldSettingsFunction()
     {
         try
         {
@@ -162,7 +133,7 @@ public class ComponentFunctionHandler
         }
     }
 
-    public static void LoadWorldListFunction()
+    public void LoadWorldListFunction()
     {
         try
         {
@@ -175,7 +146,7 @@ public class ComponentFunctionHandler
         }
     }
 
-    public static void LoadWorldFunction()
+    public void LoadWorldFunction()
     {
         var component = (Button)ParentComponent;
         try
@@ -194,7 +165,7 @@ public class ComponentFunctionHandler
 
     #region TextBox Functions
 
-    private static void EnableTypingTextBoxFunction()
+    private void EnableTypingTextBoxFunction()
     {
         if (ParentComponent.IsWritable && ParentComponent.State == GlobalEnumarations.ComponentState.Disabled)
         {
@@ -210,7 +181,7 @@ public class ComponentFunctionHandler
 
     #region Slider Functions
 
-    public static void ChangeValueSliderFunction()
+    public void ChangeValueSliderFunction()
     {
         var component = (Slider)ParentComponent;
         switch (component.ValueType)
@@ -225,5 +196,5 @@ public class ComponentFunctionHandler
     }
 
     #endregion
-    
+
 }

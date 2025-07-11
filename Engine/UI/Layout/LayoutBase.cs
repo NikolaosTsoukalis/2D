@@ -74,4 +74,6 @@ public abstract class LayoutBase
             return centerOfBounds;
         }
     }
+
+    public bool 
 }

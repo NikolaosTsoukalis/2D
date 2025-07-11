@@ -15,7 +15,7 @@ public class Button : ComponentBase
     {
         if (name != null)
         {
-            this.TextBox = new TextBox(Globals.Font, name, false,this);
+            this.TextBox = new TextBox(Globals.Font, name, 0.75f, false,this);
         }
     }
 

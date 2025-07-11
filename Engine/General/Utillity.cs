@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
@@ -152,13 +151,12 @@ public class Utillity
         }
         catch (Exception e)
         {
-            Console.WriteLine("ERROR IN FILE WRITER: " + e);    
-        }     
+            Console.WriteLine("ERROR IN FILE WRITER: " + e);
+        }
     }
 
 
     #endregion Functions for World Saves
-
 
 }
 

@@ -30,5 +30,9 @@ public abstract class State
 
     public abstract void Draw(GameTime gameTime);
 
+    public abstract bool InitializeHandlers(Main main);
+
+    public abstract bool ManageTextureLibrary();
+
     #endregion Functions
 }

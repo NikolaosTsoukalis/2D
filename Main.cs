@@ -57,6 +57,7 @@ public class Main : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
+        InitializeHandlers(this);
         base.Initialize();
     }
 
@@ -69,11 +70,8 @@ public class Main : Game
     /// </remarks>
     protected override void LoadContent()
     {
-        Globals.ContentManager = this.Content;
-        Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
-        Globals.MenuHandler = new MenuHandler(this);
         Globals.LoadFontTexture();
-        currentGameState =  new MainMenuState(this);
+        currentGameState = new MainMenuState(this);
         Texture2D customCursorTexture = Content.Load<Texture2D>("Cup_Coffee_Animation2");
         MouseCursor customCursor = MouseCursor.FromTexture2D(customCursorTexture, 0, 0);
         //Mouse.SetCursor(customCursor);
@@ -121,7 +119,7 @@ public class Main : Game
     /// </remarks>
     protected override void Draw(GameTime gameTime)
     {
-        Color colour = gameTime.IsRunningSlowly? Color.Red : Color.CornflowerBlue;
+        Color colour = gameTime.IsRunningSlowly ? Color.Red : Color.CornflowerBlue;
         GraphicsDevice.Clear(colour);
 
         currentGameState.Draw(gameTime);
@@ -132,6 +130,23 @@ public class Main : Game
     public void ChangeState(State state)
     {
         nextGameState = state;
+    }
+    
+    public bool InitializeHandlers(Main main)
+    {
+        try
+        { 
+            Globals.ContentManager = main.Content;
+            Globals.SpriteBatch = new SpriteBatch(main.GraphicsDevice);
+            Globals.AnimationHandler = new AnimationHandler();
+            Globals.TextureLibrary = new TextureLibrary();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR ON INITIALLIZING HANDLERS: " + e);
+            return false; 
+        }
     }
 
     #endregion Functions

@@ -77,7 +77,7 @@ public class AnimationHandler
             }
         }
     }
-   public void UpdateAnimationList()
+    public void UpdateAnimationList() // ONLY WORKS FOR ENTITY ANIMATIONS 
     {
         try
         {

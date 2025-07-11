@@ -12,42 +12,39 @@ public class TextBox : ComponentBase
 
     public string Text { get; private set; }
 
+    public float TextScale { get; private set; }
+
+    public Vector2 TextSize { get; private set; }
+
     public Texture2D FlashingLineTexture { get; private set; }
 
     public Vector2 FlashingLinePosition { get; private set; }
 
     public ComponentBase ParentComponent { get; private set; }
-    public TextBox(SpriteFont font, string text, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox)
+    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox)
     {
         this.Font = font;
         this.Text = text;
-        this.ParentComponent = parentComponent;
+        this.TextScale = textScale;
+        this.TextSize = Globals.Font.MeasureString(this.Text) * TextScale;
         base.IsWritable = isWritable;
+        this.ParentComponent = parentComponent;
         if (IsWritable)
         {
             LoadFlashingTextLine();
         }
+        SetPosition(Vector2.One);
     }
 
     public override void Draw(GameTime gameTime)
     {
         if (this.Text != null)
         {
-            float scale = 0.75f;
-            Rectangle innerBounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, 108, 40);
-            Vector2 textSize = Globals.Font.MeasureString(this.Text) * scale;
-            // Center the text within the button rectangle
-            Vector2 textPosition = new Vector2(
-                innerBounds.X + (innerBounds.Width - textSize.X) / 2f,
-                innerBounds.Y + (innerBounds.Height - textSize.Y) / 2f
-            );
-
-            // Draw the text
-            Globals.SpriteBatch.DrawString(Globals.Font, this.Text, textPosition, Color.Black, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            Globals.SpriteBatch.DrawString(Globals.Font, this.Text, base.Position, Color.Black, 0f, Vector2.Zero, TextScale, SpriteEffects.None, 0f);
             if (base.State != GlobalEnumarations.ComponentState.Disabled && base.IsWritable && HandleFlashingLine())
             {
 
-                FlashingLinePosition = textPosition + new Vector2(textSize.X + 1, 0);
+                FlashingLinePosition = base.Position + new Vector2(TextSize.X + 1, 0);
 
                 Globals.SpriteBatch.Draw(FlashingLineTexture, new Rectangle((int)FlashingLinePosition.X, (int)FlashingLinePosition.Y, 2, Globals.Font.LineSpacing), Color.White);
             }
@@ -58,6 +55,7 @@ public class TextBox : ComponentBase
     public override void Update(GameTime gameTime)
     {
         base.CurrentTime = gameTime;
+        if(base.Position )
         HandleStateChange();
     }
 
@@ -108,16 +106,30 @@ public class TextBox : ComponentBase
         return false;
     }
 
-    public void HandleTextPosition()
+    public bool SetPosition(Vector2 position)
     {
-        float scale = 0.75f;
-        Rectangle base.TextureHandler.GetTextBoxRectangle();
-        Rectangle innerBounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, 108, 40);
-        Vector2 textSize = Globals.Font.MeasureString(this.Text) * scale;
-        // Center the text within the button rectangle
-        Vector2 textPosition = new Vector2(
-            innerBounds.X + (innerBounds.Width - textSize.X) / 2f,
-            innerBounds.Y + (innerBounds.Height - textSize.Y) / 2f
-        );
+        if (!this.ParentComponent.Equals(null))
+        {
+            Vector2 TextBoxPadding = Globals.TextureLibrary.GetTextBoxPosition(base.TextureHandler.CurrentTexture);
+            base.Bounds = new Rectangle((int)this.ParentComponent.Position.X, (int)this.ParentComponent.Position.Y, (int)TextBoxPadding.X, (int)TextBoxPadding.Y);
+            
+            float xPoint = base.Bounds.X + (base.Bounds.Width - TextSize.X) / 2f;
+            float yPoint = base.Bounds.Y + (base.Bounds.Height - TextSize.Y) / 2f;
+            base.Position = new Vector2(xPoint, yPoint);
+
+            return true;
+        }
+        else if (position != Vector2.Zero)
+        {
+            base.Position = position;
+            return true;
+        }
+        else
+        {
+            base.Position = Vector2.Zero;
+            Console.WriteLine("TextBox Position was not set properly!");
+            return false;
+        }
+                
     }
 }

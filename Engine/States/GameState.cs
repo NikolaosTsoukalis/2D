@@ -14,7 +14,7 @@ public class GameState : State
     /// testing debug mode
     ///</Summary>
     public bool DebugMode = false;
-    public TileMap tileMap;
+    public TileMap TileMap;
     private Command command;
     readonly Player player;
     readonly HostileEntity slime;
@@ -31,28 +31,17 @@ public class GameState : State
     ///</Summary>
     public GameState(Main main, TileMap tilemap) : base(main)
     {
-        //Handler Initiallization 
-        Globals.EntityHandler = new();
-        Globals.AnimationHandler = new();
-        Globals.InputHandler = new();
-        Globals.CollisionHandler = new(main);
-        
-        Globals.TileMapHandler = new(tilemap);
+        this.TileMap = tilemap;
+        InitializeHandlers(main);
 
-        //Data Handler Initiallization
-        Globals.AnimationDataHandler = new();
-        Globals.ItemDataHandler = new();
-        Globals.EntityDataHandler = new();
 
-        Globals.TileDataHandler = new();
-        
         //Game State specific
         Inventory = new();
         Globals.Camera = new();
-        
+
         //Temporary Entity Initiallization
-        player = new Player(EntityDataHandler.NonHostileEntityTypes.Player,null,new Vector2(500, 500));
-        slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime,null,new Vector2(300, 400));
+        player = new Player(EntityDataHandler.NonHostileEntityTypes.Player, null, new Vector2(500, 500));
+        slime = new HostileEntity(EntityDataHandler.HostileEntityTypes.Slime, null, new Vector2(300, 400));
         Globals.EntityHandler.AddEntityToList(player);
 
     }
@@ -80,9 +69,9 @@ public class GameState : State
     ///</Summary>
     public override void PostUpdate(GameTime gameTime)
     {
-        if(player.AnimationIdentifier == AnimationDataHandler.AnimationIdentifier.Run)
+        if (player.AnimationIdentifier == AnimationDataHandler.AnimationIdentifier.Run)
         {
-            if(!Globals.EntityHandler.GetEntityList().Contains(slime))
+            if (!Globals.EntityHandler.GetEntityList().Contains(slime))
             {
                 //AnimationDataHandler.LoadSlimeAnimationDictionary();
                 Globals.EntityHandler.AddEntityToList(slime);
@@ -94,18 +83,18 @@ public class GameState : State
     /// get camera -> draw map around camera and inside -> draw animations
     ///</Summary>
     public override void Draw(GameTime gameTime)
-    { 
+    {
 
         Globals.SpriteBatch.Begin(transformMatrix: Globals.Camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
         try
         {
-            if(CallDrawFuctions()){} // conditionals in case a Draw function doesnt get called correctly.
-            Texture2D tileDebugTexture = new Texture2D(main.GraphicsDevice, 1,1);
+            if (CallDrawFuctions()) { } // conditionals in case a Draw function doesnt get called correctly.
+            Texture2D tileDebugTexture = new Texture2D(main.GraphicsDevice, 1, 1);
             tileDebugTexture.SetData(new[] { Color.Black });
-                    
+
             Globals.SpriteBatch.Draw(tileDebugTexture, new Vector2(0, 0), Color.Black); // top-left with no offset
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Console.WriteLine("ERROR :" + e);
         }
@@ -116,6 +105,54 @@ public class GameState : State
     #endregion GameLoopFunctions
 
     #region GeneralPurposeFunctions
+    
+    public override bool ManageTextureLibrary()
+    {
+        try
+        {
+            if (Globals.TextureLibrary.LoadUITextures() && Globals.TextureLibrary.LoadTextBoxPositionMap())
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Texture Library Load failed");
+            }
+            return false;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR ON Loading TextureLibrary: " + e);
+            return false;
+        }
+    }
+
+    public override bool InitializeHandlers(Main main)
+    {
+        try
+        {
+            //Handler Initiallization 
+            Globals.EntityHandler = new();
+            Globals.AnimationHandler = new();
+            Globals.InputHandler = new();
+            Globals.CollisionHandler = new(main);
+
+            Globals.TileMapHandler = new(TileMap);
+
+            //Data Handler Initiallization
+            Globals.AnimationDataHandler = new();
+            Globals.ItemDataHandler = new();
+            Globals.EntityDataHandler = new();
+
+            Globals.TileDataHandler = new();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR ON INITIALLIZING HANDLERS: " + e);
+            return false;
+        }
+    }
 
     ///<Summary>
     /// Call Handler Update Functions
@@ -127,8 +164,9 @@ public class GameState : State
         Globals.AnimationHandler.UpdateAnimationList();
         Globals.AnimationHandler.UpdateAnimations();
     }
-
     
+    
+
     ///<Summary>
     /// Call Draw Functions
     ///</Summary>
@@ -136,9 +174,9 @@ public class GameState : State
     {
         try
         {
-            if(Globals.enableDebugs)
+            if (Globals.enableDebugs)
             {
-                Debugger.Draw(this, main, player);    
+                Debugger.Draw(this, main, player);
             }
             else
             {
@@ -146,14 +184,14 @@ public class GameState : State
                 Globals.AnimationHandler.DrawAnimations();
             }
 
-            if(Globals.drawInteraction)
+            if (Globals.drawInteraction)
             {
                 Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), "FUCK OFF!", new Vector2(200, 300), Color.White);
             }
             return true;
 
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Console.WriteLine("ERROR : " + e);
             return false;
@@ -163,9 +201,9 @@ public class GameState : State
     public void HandlePlayerInput()
     {
         command = Globals.InputHandler.HandleInput();
-        if(command != null)
+        if (command != null)
         {
-            if(command.commandType == Command.CommandTypes.ExitCommand || command.commandType == Command.CommandTypes.FullScreenCommand || command.commandType == Command.CommandTypes.EnableDebugsCommand) 
+            if (command.commandType == Command.CommandTypes.ExitCommand || command.commandType == Command.CommandTypes.FullScreenCommand || command.commandType == Command.CommandTypes.EnableDebugsCommand)
             {
                 command.Execute(main);
             }
@@ -174,6 +212,8 @@ public class GameState : State
         else
             player.AnimationIdentifier = AnimationDataHandler.AnimationIdentifier.Idle;
     }
+    
+    
 
     #endregion GeneralPurposeFunctions
 }

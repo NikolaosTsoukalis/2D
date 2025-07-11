@@ -230,6 +230,22 @@ public class Globals
         }
     }
 
+    private static TextureLibrary textureLibrary;
+    public static TextureLibrary TextureLibrary
+    {
+        get { return textureLibrary; }
+        set
+        {
+            if (textureLibrary == null)
+            {
+                textureLibrary = value;
+                return;
+            }
+            Console.Out.WriteLine("WARNING : Can't create more than 1 instance of " + textureLibrary.GetType().ToString() + ".");
+            return;
+        }
+    }
+
     /*
     private static Dictionary<Command.CommandTypes, Keys> keyBindings;
 
@@ -277,21 +293,22 @@ public class Globals
         Font = ContentManager.Load<SpriteFont>("MyFont");
     }
 
-/*
-            public static void LoadKeyBindingsDictionary()
-            {
-                keyBindings = new Dictionary<Command.CommandTypes, Keys>
+    /*
+                public static void LoadKeyBindingsDictionary()
                 {
-                    { CommandTypes.MoveUp, Keys.W },
-                    { CommandTypes.MoveDown, Keys.S },
-                    { CommandTypes.MoveLeft, Keys.A },
-                    { CommandTypes.MoveRight, Keys.D },
-                    { CommandTypes.OpenGeneralMenu, Keys.Escape },
-                    { CommandTypes.SoftToggleRun, Keys.LeftShift },
-                    { CommandTypes.OpenInventory, Keys.E }
-                };
-            }
-            */
+                    keyBindings = new Dictionary<Command.CommandTypes, Keys>
+                    {
+                        { CommandTypes.MoveUp, Keys.W },
+                        { CommandTypes.MoveDown, Keys.S },
+                        { CommandTypes.MoveLeft, Keys.A },
+                        { CommandTypes.MoveRight, Keys.D },
+                        { CommandTypes.OpenGeneralMenu, Keys.Escape },
+                        { CommandTypes.SoftToggleRun, Keys.LeftShift },
+                        { CommandTypes.OpenInventory, Keys.E }
+                    };
+                }
+                */
 
     #endregion Functions
+
 }

@@ -1,7 +1,48 @@
+
 namespace _2D_RPG;
 
 public class GlobalEnumarations
 {
+
+    #region Textures
+
+    public enum TextureLibrary
+    {
+        //CHARACTER
+        Character_Idle,
+        Character_Walk,
+        Character_MeleeAttack,
+    }
+
+    public enum TextureLibraryUI
+    {
+        Bottom_Button_Free,
+        Bottom_Button_Pressed,
+        Bottom_Button_Disabled,
+        Middle_Button_Free,
+        Middle_Button_Pressed,
+        Middle_Button_Disabled,
+        Top_Button_Free,
+        Top_Button_Pressed,
+        Top_Button_Disabled,
+
+    }
+
+    public enum TextureLibraryTiles
+    {
+        Grass,
+        Grass1,
+        Grass2,
+        Grass3,
+        Sand,
+        Stone,
+        Wall,
+        Water,
+        Wood,
+    }
+
+    #endregion
+
     public enum Directions
     {
         None,
