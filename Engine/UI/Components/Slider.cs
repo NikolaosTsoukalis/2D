@@ -59,6 +59,14 @@ public class Slider : ComponentBase
         //Globals.SpriteBatch.Draw(base.TextureHandler) // DRAW THUMB
     }
 
+    public override void DebugDraw(GameTime gameTime)
+    {
+        var colour = Color.White;
+
+        Globals.SpriteBatch.Draw(base.TextureHandler.CurrentTexture, base.Bounds, colour);
+        //Globals.SpriteBatch.Draw(base.TextureHandler) // DRAW THUMB
+    }
+
     public override void HandleStateChange()
     {
         if (base.State == GlobalEnumarations.ComponentState.Free)

@@ -15,7 +15,7 @@ public class Button : ComponentBase
     {
         if (name != null)
         {
-            this.TextBox = new TextBox(Globals.Font, name, 0.75f, false,this);
+            this.TextBox = new TextBox(Globals.Font, name, 0.75f, false, this);
         }
     }
 
@@ -35,6 +35,15 @@ public class Button : ComponentBase
         {
             TextBox.Draw(gameTime);
         }
+    }
+
+    public override void DebugDraw(GameTime gameTime)
+    {
+        Texture2D Pixel = new Texture2D(Globals.GraphicsDeviceManager.GraphicsDevice, 1, 1);
+        Pixel.SetData(new[] { Color.White });
+        Globals.SpriteBatch.Draw(base.TextureHandler.CurrentTexture, base.Bounds, Color.White);
+        Globals.SpriteBatch.Draw(Pixel, base.Bounds, Color.Yellow * 0.3f);
+        TextBox.DebugDraw(gameTime);
     }
 
     public override void Update(GameTime gameTime)
@@ -59,26 +68,26 @@ public class Button : ComponentBase
 
             if (Globals.CurrentMouse.LeftButton == ButtonState.Pressed && Globals.PreviousMouse.LeftButton == ButtonState.Pressed)
             {
-                State = GlobalEnumarations.ComponentState.Pressed;
+                base.State = GlobalEnumarations.ComponentState.Pressed;
             }
             else if (Globals.CurrentMouse.LeftButton == ButtonState.Released && Globals.PreviousMouse.LeftButton == ButtonState.Released)
             {
-                State = GlobalEnumarations.ComponentState.Free;
+                base.State = GlobalEnumarations.ComponentState.Free;
             }
             else if (Globals.CurrentMouse.LeftButton == ButtonState.Released && Globals.PreviousMouse.LeftButton == ButtonState.Pressed)
             {
-                IsHovering = false;
+                base.IsHovering = false;
                 FunctionHandler.CallFunction();
-                State = GlobalEnumarations.ComponentState.Free;
+                base.State = GlobalEnumarations.ComponentState.Free;
             }
         }
         else
         {
-            IsHovering = false;
+            base.IsHovering = false;
         }
     }
-    
 
+    
     #endregion
 
 

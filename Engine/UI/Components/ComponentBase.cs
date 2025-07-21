@@ -39,6 +39,8 @@ public abstract class ComponentBase
 
     public abstract void HandleStateChange();
 
+    public abstract void DebugDraw(GameTime gameTime);
+
     public bool Disable()
     {
         try
@@ -67,7 +69,7 @@ public abstract class ComponentBase
         }
     }
 
-    public bool HandleDoubleClick()
+    public bool HandleDoubleClick() // MOVE TO  GLOBAL?
     {
         if (HasClicked && TimeSinceClick < 1)
         {
@@ -96,8 +98,4 @@ public abstract class ComponentBase
             this.TextureHandler = new ComponentTextureHandler(type, this);
         }
     }
-
-
-    
-
 }

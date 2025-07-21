@@ -26,21 +26,21 @@ public class TextBox : ComponentBase
         this.Font = font;
         this.Text = text;
         this.TextScale = textScale;
-        this.TextSize = Globals.Font.MeasureString(this.Text) * TextScale;
+        UpdateTextSize();
         base.IsWritable = isWritable;
         this.ParentComponent = parentComponent;
         if (IsWritable)
         {
             LoadFlashingTextLine();
         }
-        SetPosition(Vector2.One);
+        //SetPosition(Vector2.One);
     }
 
     public override void Draw(GameTime gameTime)
     {
         if (this.Text != null)
         {
-            Globals.SpriteBatch.DrawString(Globals.Font, this.Text, base.Position, Color.Black, 0f, Vector2.Zero, TextScale, SpriteEffects.None, 0f);
+            Globals.SpriteBatch.DrawString(this.Font, this.Text, base.Position, Color.Black, 0f, Vector2.Zero, this.TextScale, SpriteEffects.None, 0f);
             if (base.State != GlobalEnumarations.ComponentState.Disabled && base.IsWritable && HandleFlashingLine())
             {
 
@@ -55,11 +55,11 @@ public class TextBox : ComponentBase
     public override void Update(GameTime gameTime)
     {
         base.CurrentTime = gameTime;
-        if(base.Position )
+        UpdateTextSize();
         HandleStateChange();
     }
 
-    public override void HandleStateChange()
+    public override void HandleStateChange() //REDO **************
     {
         var mouseRectangle = new Rectangle(Globals.CurrentMouse.X, Globals.CurrentMouse.Y, 1, 1);
 
@@ -108,14 +108,40 @@ public class TextBox : ComponentBase
 
     public bool SetPosition(Vector2 position)
     {
-        if (!this.ParentComponent.Equals(null))
+        UpdateTextSize();
+        if (this.ParentComponent != null)
         {
-            Vector2 TextBoxPadding = Globals.TextureLibrary.GetTextBoxPosition(base.TextureHandler.CurrentTexture);
-            base.Bounds = new Rectangle((int)this.ParentComponent.Position.X, (int)this.ParentComponent.Position.Y, (int)TextBoxPadding.X, (int)TextBoxPadding.Y);
-            
-            float xPoint = base.Bounds.X + (base.Bounds.Width - TextSize.X) / 2f;
-            float yPoint = base.Bounds.Y + (base.Bounds.Height - TextSize.Y) / 2f;
-            base.Position = new Vector2(xPoint, yPoint);
+            // Padding into the textbox area from the outer image
+            Int4 padding = Globals.TextureLibrary.GetTextBoxPadding(this.ParentComponent.TextureHandler.CurrentTexture);
+
+            // Full image size
+            int imageWidth = this.ParentComponent.TextureHandler.CurrentTexture.Width;
+            int imageHeight = this.ParentComponent.TextureHandler.CurrentTexture.Height;
+
+            // Textbox area size = full size minus left/right and top/bottom padding
+            int textboxWidth = imageWidth - padding.X - padding.W;
+            int textboxHeight = imageHeight - padding.Y - padding.Z;
+
+            // Define the inner bounds of the textbox
+            base.Bounds = new Rectangle(
+                (int)this.ParentComponent.Position.X + padding.X,
+                (int)this.ParentComponent.Position.Y + padding.Z,
+                textboxWidth,
+                textboxHeight
+            );
+
+            // Center the text within the textbox area
+            float xCenterPoint = base.Bounds.X + (textboxWidth - TextSize.X) / 2f;
+            float yCenterPoint = base.Bounds.Y + (textboxHeight - TextSize.Y) / 2f;
+
+            if (this.IsWritable)
+            {
+                base.Position = new Vector2(base.Bounds.X, base.Bounds.Y);
+            }
+            else
+            {
+                base.Position = new Vector2(xCenterPoint, yCenterPoint);
+            }
 
             return true;
         }
@@ -130,6 +156,29 @@ public class TextBox : ComponentBase
             Console.WriteLine("TextBox Position was not set properly!");
             return false;
         }
-                
+    }
+
+    public bool UpdateTextSize()
+    {
+        if (this.Font != null && !string.IsNullOrWhiteSpace(this.Text))
+        {
+            this.TextSize = Font.MeasureString(this.Text) * this.TextScale;
+        }
+        else
+        {
+            TextSize = Vector2.Zero;
+            return false;
+        }
+        return true;
+    }
+
+    public override void DebugDraw(GameTime gameTime)
+    {
+        Texture2D Pixel = new Texture2D(Globals.GraphicsDeviceManager.GraphicsDevice, 1, 1);
+        Pixel.SetData(new[] { Color.White });
+
+        Globals.SpriteBatch.Draw(Pixel, base.Bounds, Color.Red * 0.3f);
+        Globals.SpriteBatch.Draw(Pixel, new Rectangle((int)base.Position.X, (int)base.Position.Y, 3, 3), Color.Green);
+        Globals.SpriteBatch.DrawString(this.Font, this.Text, base.Position, Color.Black, 0f, Vector2.Zero, this.TextScale, SpriteEffects.None, 0f);
     }
 }
