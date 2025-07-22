@@ -46,8 +46,6 @@ public class Menu
 
     public void Draw(GameTime gameTime)
     {
-        Globals.SpriteBatch.Begin();
-
         if (Layout.BoundingTexture != null)
         {
             Globals.SpriteBatch.Draw(Layout.BoundingTexture, Layout.BaseBounds, baseColor);
@@ -57,7 +55,19 @@ public class Menu
         {
             component.Draw(gameTime);
         }
-        Globals.SpriteBatch.End();
+    }
+
+    public void DebugDraw(GameTime gameTime) // for testing purposes
+    {
+        if (Layout.BoundingTexture != null)
+        {
+            Globals.SpriteBatch.Draw(Layout.BoundingTexture, Layout.BaseBounds, baseColor);
+        }
+
+        foreach (var component in Components)
+        {
+            component.DebugDraw(gameTime);
+        }
     }
 
     public void AddButton(Button component)

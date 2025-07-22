@@ -43,4 +43,10 @@ public class MenuHandler
         currentMenu = (Menu)menuStack.Peek();
         currentMenu.Draw(gameTime);
     }
+
+    public void DebugDraw(GameTime gameTime)
+    {
+        currentMenu = (Menu)menuStack.Peek();
+        currentMenu.DebugDraw(gameTime);
+    }
 }

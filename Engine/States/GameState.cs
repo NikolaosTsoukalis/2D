@@ -88,7 +88,7 @@ public class GameState : State
         Globals.SpriteBatch.Begin(transformMatrix: Globals.Camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
         try
         {
-            if (CallDrawFuctions()) { } // conditionals in case a Draw function doesnt get called correctly.
+            if (CallDrawFuctions(gameTime)) { } // conditionals in case a Draw function doesnt get called correctly.
             Texture2D tileDebugTexture = new Texture2D(main.GraphicsDevice, 1, 1);
             tileDebugTexture.SetData(new[] { Color.Black });
 
@@ -110,7 +110,7 @@ public class GameState : State
     {
         try
         {
-            if (Globals.TextureLibrary.LoadUITextures() && Globals.TextureLibrary.LoadTextBoxPositionMap())
+            if (Globals.TextureLibrary.LoadUITextures() && Globals.TextureLibrary.LoadTextBoxPaddingMap())
             {
                 return true;
             }
@@ -170,13 +170,13 @@ public class GameState : State
     ///<Summary>
     /// Call Draw Functions
     ///</Summary>
-    public bool CallDrawFuctions()
+    public override bool CallDrawFuctions(GameTime gameTime)
     {
         try
         {
             if (Globals.enableDebugs)
             {
-                Debugger.Draw(this, main, player);
+                Debugger.DrawGameState(this, main, player,gameTime);
             }
             else
             {

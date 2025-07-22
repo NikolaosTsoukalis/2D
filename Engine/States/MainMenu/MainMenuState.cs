@@ -19,7 +19,8 @@ public class MainMenuState : State
     {
         ManageTextureLibrary();
         InitializeHandlers(main);
-        Globals.MenuHandler.AddMenuToStackTop(MenuBuilder.BuildMainMenuLandingMenu());    
+        //initillize with landing menu
+        Globals.MenuHandler.AddMenuToStackTop(MenuBuilder.BuildMainMenuLandingMenu());
     }
 
     ///<Summary>
@@ -27,7 +28,11 @@ public class MainMenuState : State
     ///</Summary>
     public override void Draw(GameTime gameTime)
     {
-        Globals.MenuHandler.Draw(gameTime);
+        Globals.SpriteBatch.Begin();
+
+        CallDrawFuctions(gameTime);
+
+        Globals.SpriteBatch.End();
     }
 
     ///<Summary>
@@ -59,12 +64,12 @@ public class MainMenuState : State
             return false;
         }
     }
-    
+
     public override bool ManageTextureLibrary()
     {
         try
         {
-            if (Globals.TextureLibrary.LoadUITextures() && Globals.TextureLibrary.LoadTextBoxPositionMap())
+            if (Globals.TextureLibrary.LoadUITextures() && Globals.TextureLibrary.LoadTextBoxPaddingMap())
             {
                 return true;
             }
@@ -81,4 +86,31 @@ public class MainMenuState : State
         }
     }
 
+    public override bool CallDrawFuctions(GameTime gameTime)
+    {
+        try
+        {
+            if (Globals.enableDebugs)
+            {
+                //Globals.MenuHandler.Draw(gameTime);
+                Debugger.DrawMainMenuState(gameTime);
+            }
+            else
+            {
+                Globals.MenuHandler.Draw(gameTime);
+            }
+
+            if (Globals.drawInteraction)
+            {
+                Globals.SpriteBatch.DrawString(Globals.ContentManager.Load<SpriteFont>("MyFont"), "FUCK OFF!", new Vector2(200, 300), Color.White);
+            }
+            return true;
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR : " + e);
+            return false;
+        }
+    }
 }

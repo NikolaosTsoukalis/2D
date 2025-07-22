@@ -12,7 +12,7 @@ public class TextureLibrary
 {
     private Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D> TextureLibraryUI { get; set; }
 
-    public Dictionary<GlobalEnumarations.TextureLibraryUI,Vector2> UITextBoxPositionMap { get; private set;}
+    public Dictionary<GlobalEnumarations.TextureLibraryUI,Int4> UITextBoxPaddingMap { get; private set;}
 
     public TextureLibrary()
     {
@@ -76,42 +76,43 @@ public class TextureLibrary
         }
     }
 
-    public Vector2 GetTextBoxPosition(GlobalEnumarations.TextureLibraryUI textureType)
+    public Int4 GetTextBoxPadding(GlobalEnumarations.TextureLibraryUI textureType)
     {
 
-        if (UITextBoxPositionMap.TryGetValue(textureType, out Vector2 position))
+        if (UITextBoxPaddingMap.TryGetValue(textureType, out Int4 padding))
         {
-            return position;
+            return padding;
         }
-        return Vector2.Zero;
+        return new Int4(0, 0, 0, 0);
 
     }
 
-    public Vector2 GetTextBoxPosition(Texture2D texture)
+    public Int4 GetTextBoxPadding(Texture2D texture)
     {
-        if (UITextBoxPositionMap.TryGetValue(TextureLibraryUI.FirstOrDefault(x => x.Value == texture).Key, out Vector2 position))
+        if (UITextBoxPaddingMap.TryGetValue(TextureLibraryUI.FirstOrDefault(x => x.Value == texture).Key, out Int4 padding))
         {
-            return position;    
+            return padding;    
         }
-        return Vector2.Zero;
+        return new Int4(0, 0, 0, 0);
 
     }
 
-    public bool LoadTextBoxPositionMap()
+    public bool LoadTextBoxPaddingMap()
     {
         try
         {
-            UITextBoxPositionMap = new Dictionary<GlobalEnumarations.TextureLibraryUI, Vector2>()
+            //
+            UITextBoxPaddingMap = new Dictionary<GlobalEnumarations.TextureLibraryUI, Int4>()
             {
-                { GlobalEnumarations.TextureLibraryUI.Bottom_Button_Free, new Vector2(116, 40) },
-                { GlobalEnumarations.TextureLibraryUI.Bottom_Button_Pressed, new Vector2(116, 40) },
-                { GlobalEnumarations.TextureLibraryUI.Bottom_Button_Disabled, new Vector2(116, 40) },
-                { GlobalEnumarations.TextureLibraryUI.Middle_Button_Free, new Vector2(116, 40) },
-                { GlobalEnumarations.TextureLibraryUI.Middle_Button_Pressed, new Vector2(116, 40) },
-                { GlobalEnumarations.TextureLibraryUI.Middle_Button_Disabled, new Vector2(116, 40) },
-                { GlobalEnumarations.TextureLibraryUI.Top_Button_Free, new Vector2(108, 40) },
-                { GlobalEnumarations.TextureLibraryUI.Top_Button_Pressed, new Vector2(108, 40) },
-                { GlobalEnumarations.TextureLibraryUI.Top_Button_Disabled, new Vector2(108, 40) }
+                { GlobalEnumarations.TextureLibraryUI.Bottom_Button_Free,       new Int4(20, 18, 20, 28) },
+                { GlobalEnumarations.TextureLibraryUI.Bottom_Button_Pressed,    new Int4(20, 18, 20, 28) },
+                { GlobalEnumarations.TextureLibraryUI.Bottom_Button_Disabled,   new Int4(20, 18, 20, 28) },
+                { GlobalEnumarations.TextureLibraryUI.Middle_Button_Free,       new Int4(20, 18, 20, 17) },
+                { GlobalEnumarations.TextureLibraryUI.Middle_Button_Pressed,    new Int4(20, 18, 20, 17) },
+                { GlobalEnumarations.TextureLibraryUI.Middle_Button_Disabled,   new Int4(20, 18, 20, 17) },
+                { GlobalEnumarations.TextureLibraryUI.Top_Button_Free,          new Int4(20, 34, 20, 19) },
+                { GlobalEnumarations.TextureLibraryUI.Top_Button_Pressed,       new Int4(20, 34, 20, 19) },
+                { GlobalEnumarations.TextureLibraryUI.Top_Button_Disabled,      new Int4(20, 34, 20, 19) }
             };
 
             return true;
@@ -128,7 +129,7 @@ public class TextureLibrary
     {
         try
         {
-            UITextBoxPositionMap = null;
+            UITextBoxPaddingMap = null;
             return true;
         }
         catch (Exception e)

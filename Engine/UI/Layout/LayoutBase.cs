@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -75,5 +76,41 @@ public abstract class LayoutBase
         }
     }
 
-    public bool 
+    public bool SetTextBoxPosition(ComponentBase component)
+    {
+        Type type = component.GetType();
+        PropertyInfo field = type.GetProperty("TextBox", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        if (field != null)
+        {
+            object TextBox = field.GetValue(component);
+            if (TextBox != null)
+            {
+                MethodInfo SetPosition = TextBox.GetType().GetMethod("SetPosition");
+
+                if (SetPosition != null)
+                {
+                    SetPosition.Invoke(TextBox, new object[] { Vector2.Zero });
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public bool SetDebugButtonPosition(ComponentBase component)
+    {
+        try
+        {
+            int xPoint = this.BaseBounds.Width - component.TextureHandler.CurrentTexture.Width;
+            int yPoint = this.BaseBounds.Height - component.TextureHandler.CurrentTexture.Height;
+            component.Position = new Vector2(xPoint, yPoint);
+            SetComponentBounds(component);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR: " + e);
+            return false;    
+        }
+    }
 }

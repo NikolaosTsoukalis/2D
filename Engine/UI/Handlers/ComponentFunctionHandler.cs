@@ -15,15 +15,21 @@ public class ComponentFunctionHandler
 
     private static readonly Dictionary<GlobalEnumarations.ComponentType, Func<ComponentFunctionHandler, Action>> FunctionMap = new()
     {
+        //FUNCTION
+        { GlobalEnumarations.ComponentType.Debug, handler => handler.EnableDebugFunction},
         { GlobalEnumarations.ComponentType.BackButton, handler => handler.GoBackFunction },
-        { GlobalEnumarations.ComponentType.StartGameButton, handler => handler.StartGameFunction },
         { GlobalEnumarations.ComponentType.QuitButton, handler => handler.QuitFunction },
-        { GlobalEnumarations.ComponentType.SettingsButton, handler => handler.OpenSettingsFunction },
-        { GlobalEnumarations.ComponentType.CreateWorldSettingsButton, handler => handler.OpenWorldSettingsFunction },
-        { GlobalEnumarations.ComponentType.LoadWorldListButton, handler => handler.LoadWorldListFunction },
         { GlobalEnumarations.ComponentType.TextBox, handler => handler.EnableTypingTextBoxFunction },
+        { GlobalEnumarations.ComponentType.CreateWorldButton, handler => handler.CreateWorldFunction },
         { GlobalEnumarations.ComponentType.SliderVertical, handler => handler.ChangeValueSliderFunction },
-        { GlobalEnumarations.ComponentType.SliderHorizontal, handler => handler.ChangeValueSliderFunction }
+        { GlobalEnumarations.ComponentType.SliderHorizontal, handler => handler.ChangeValueSliderFunction },
+        { GlobalEnumarations.ComponentType.LoadWorldFromWorldListButton, handler => handler.LoadWorldFromWorldListFunction },
+
+        //NAVIGATION
+        { GlobalEnumarations.ComponentType.NavigateMainMenuSettingsMenuButton, handler => handler.NavigateMainMenuSettingsMenuFunction },
+        { GlobalEnumarations.ComponentType.NavigateStartGameMenuButton, handler => handler.NavigateStartGameMenuFunction },
+        { GlobalEnumarations.ComponentType.NavigateNewWorldSettingsMenuButton, handler => handler.NavigateCreateWorldSettingsMenuFunction },
+        { GlobalEnumarations.ComponentType.NavigateWorldListMenuButton, handler => handler.NavigateWorldListMenuFunction },
     };
 
     #endregion
@@ -63,7 +69,7 @@ public class ComponentFunctionHandler
         }
         catch (Exception e)
         {
-            Console.WriteLine("ERROR: " + e);
+            Console.WriteLine("ERROR in '" + FunctionCall.ToString() + "' : " + e);
             return false;
         }
     }
@@ -72,93 +78,76 @@ public class ComponentFunctionHandler
 
     #region Button Functions
 
+    private void EnableDebugFunction()
+    {
+        Globals.enableDebugs = !Globals.enableDebugs;
+    }
+    
     private void GoBackFunction()
     {
-        try
-        {
-            Globals.MenuHandler.RemoveFromStackTop(Globals.MenuHandler.currentMenu);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-        }
+        Globals.MenuHandler.RemoveFromStackTop(Globals.MenuHandler.currentMenu);
     }
 
     private void QuitFunction()
     {
-        try
-        {
-            Globals.MenuHandler.Main.Exit();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-        }
+        Globals.MenuHandler.Main.Exit();
     }
 
-    private void StartGameFunction()
+    private void NavigateStartGameMenuFunction()
     {
-        try
+        Menu newMenu = MenuBuilder.BuildMainMenuStartGameMenu();
+        if (newMenu == null)
         {
-            MenuBuilder.BuildMainMenuStartGameMenu();
+            throw new Exception("ERROR : (MainMenu) StartGame Menu was not built!");    
         }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-        }
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);
     }
 
-    private void OpenSettingsFunction()
+    private void NavigateMainMenuSettingsMenuFunction()
     {
-        try
+        Menu newMenu = MenuBuilder.BuildMainMenuSettingsMenu();
+        if (newMenu == null)
         {
-            MenuBuilder.BuildMainMenuSettingsMenu();
+            throw new Exception("ERROR : (MainMenu) Settings Menu was not built!");    
         }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-        }
-
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);
     }
 
-    public void OpenWorldSettingsFunction()
+    private void NavigateCreateWorldSettingsMenuFunction()
     {
-        try
+        Menu newMenu = MenuBuilder.BuildMainMenuCreateWorldSettingsMenu();
+        if (newMenu == null)
         {
-            MenuBuilder.BuildMainMenuCreateWorldSettingsMenu();
+            throw new Exception("ERROR : (MainMenu) CreateWorldSettings Menu was not built!");    
         }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-        }
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);
     }
 
-    public void LoadWorldListFunction()
+    private void NavigateWorldListMenuFunction()
     {
-        try
+        Menu newMenu = MenuBuilder.BuildMainMenuWorldListMenu();
+        if (newMenu == null)
         {
-            MenuBuilder.BuildMainMenuWorldListMenu();
-
+            throw new Exception("ERROR : (MainMenu) WorldList Menu was not built!");    
         }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-        }
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);
     }
 
-    public void LoadWorldFunction()
+    private void LoadWorldFromWorldListFunction()
     {
         var component = (Button)ParentComponent;
-        try
-        {
-            int[,] tileMapMatrix = Utillity.GetWorldBinaryFile(component.TextBox.Text, true);
-            TileMap tileMap = new TileMap(tileMapMatrix);
-            Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, tileMap));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR : " + e);
-        }
+        int[,] tileMapMatrix = Utillity.GetWorldBinaryFile(component.TextBox.Text, true);
+        TileMap tileMap = new TileMap(tileMapMatrix);
+
+        Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, tileMap));
+    }
+
+    private void CreateWorldFunction()
+    {
+        //HERE WE NEED TO IMPORT THE SETTINGS FROM THE "CREATE WORLD SETTINGS MENU"
+        //IF THEY HAVE NOT BEEN OPENED THERE HAS TO BE DEFAULT VALUES
+        TileMap tileMap = new TileMap();
+        Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, tileMap));
     }
 
     #endregion

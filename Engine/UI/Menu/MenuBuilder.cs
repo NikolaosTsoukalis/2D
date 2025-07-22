@@ -15,15 +15,20 @@ public class MenuBuilder
         List<ComponentBase> Buttons = new List<ComponentBase>();
         Menu menu = null;
 
-        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.StartGameButton, "Start Game");
+        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.NavigateStartGameMenuButton, "Start Game");
         StartGameButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", true);
         Buttons.Add(StartGameButton);
-        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.SettingsButton, "Settings");
+        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.NavigateMainMenuSettingsMenuButton, "Settings");
         SettingsButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
         Buttons.Add(SettingsButton);
         Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton, "Quit");
         QuitButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", false);
         Buttons.Add(QuitButton);
+
+        //DEBUG BUTTON REMOVE!!
+        Button DebugButton = new Button(GlobalEnumarations.ComponentType.Debug, "Debug");
+        Buttons.Add(DebugButton);
+
         menu = new Menu(Buttons);
         menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
         return menu;
@@ -34,12 +39,18 @@ public class MenuBuilder
         List<ComponentBase> Buttons = new List<ComponentBase>();
         Menu menu = null;
 
-        Button CreateWorldSettingsButton = new Button(GlobalEnumarations.ComponentType.CreateWorldSettingsButton, "Create World");
-        Buttons.Add(CreateWorldSettingsButton);
-        Button LoadWorldListButton = new Button(GlobalEnumarations.ComponentType.LoadWorldListButton, "Load World");
+        Button NewWorldButton = new Button(GlobalEnumarations.ComponentType.NavigateNewWorldSettingsMenuButton, "New World");
+        NewWorldButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", true);
+        Buttons.Add(NewWorldButton);
+
+        Button LoadWorldListButton = new Button(GlobalEnumarations.ComponentType.NavigateWorldListMenuButton, "Load World");
+        LoadWorldListButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
         Buttons.Add(LoadWorldListButton);
+
         Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, "Back");
+        BackButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", false);
         Buttons.Add(BackButton);
+
         menu = new Menu(Buttons);
         menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
         return menu;
@@ -53,15 +64,28 @@ public class MenuBuilder
         string[] worldList = Utillity.GetWorldFileNames(true);
         Buttons = CreateWorldButtons(worldList);
         Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, "Back");
+        BackButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", false);
+        Buttons.Add(BackButton);
+
         menu = new Menu(Buttons);
         menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
 
-        return null;
+        return menu;
     }
 
     public static Menu BuildMainMenuCreateWorldSettingsMenu()
     {
-        return null;
+        List<ComponentBase> Buttons = new List<ComponentBase>();
+        Menu menu = null;
+
+        Button CreateWorldButton = new Button(GlobalEnumarations.ComponentType.CreateWorldButton, "Create World");
+        CreateWorldButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", false);
+        Buttons.Add(CreateWorldButton);
+
+        menu = new Menu(Buttons);
+        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
+
+        return menu;
     }
 
     public static Menu BuildMainMenuSettingsMenu()
@@ -92,7 +116,8 @@ public class MenuBuilder
             {
                 for (int i = 0; i < worldList.Length; i++)
                 {
-                    var WorldButton = new Button(GlobalEnumarations.ComponentType.LoadWorldButton, worldList[i]);
+                    var WorldButton = new Button(GlobalEnumarations.ComponentType.LoadWorldFromWorldListButton, worldList[i]);
+                    WorldButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
                     componentList.Add(WorldButton);
                 }
                 return componentList;

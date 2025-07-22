@@ -16,6 +16,7 @@ public class GlobalEnumarations
 
     public enum TextureLibraryUI
     {
+        None,
         Bottom_Button_Free,
         Bottom_Button_Pressed,
         Bottom_Button_Disabled,
@@ -70,16 +71,27 @@ public class GlobalEnumarations
     public enum ComponentType
     {
         None,
+        Debug,
+
+        //FUNCTION
         TextBox,
         SliderVertical,
         SliderHorizontal,
         BackButton,
-        SettingsButton,
         QuitButton,
-        StartGameButton,
-        CreateWorldSettingsButton,
-        LoadWorldListButton,
-        LoadWorldButton,
+        CreateWorldButton,
+        LoadWorldFromWorldListButton,
+
+        //      MENU NAVIGATION
+
+        //      -MAIN MENU-
+        NavigateStartGameMenuButton,
+        NavigateMainMenuSettingsMenuButton,
+
+        //      -START GAME MENU-
+
+        NavigateWorldListMenuButton,
+        NavigateNewWorldSettingsMenuButton,
 
     }
 

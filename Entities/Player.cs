@@ -16,7 +16,7 @@ public class Player : CombatEntity
 
     public Player(EntityDataHandler.NonHostileEntityTypes entityName,Texture2D texture,Vector2 position) : base(entityName.ToString(),texture,position)
     {
-         //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES.
+        //HERE WE NEED AN INTEGER ARRAY OF PLAYER ATTRIBUTES BASED ON SAVE FILES.
         this.AssignIteractHitbox();    
     }
 

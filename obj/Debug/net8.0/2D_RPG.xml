@@ -257,7 +257,7 @@
              Call Handler Update Functions
             </Summary>
         </member>
-        <member name="M:_2D_RPG.GameState.CallDrawFuctions">
+        <member name="M:_2D_RPG.GameState.CallDrawFuctions(Microsoft.Xna.Framework.GameTime)">
             <Summary>
              Call Draw Functions
             </Summary>

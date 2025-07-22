@@ -5,9 +5,9 @@ using System.Reflection;
 
 namespace _2D_RPG;
 
-public class VerticalMainMenuLayoutBase : LayoutBase
+public class NewWorldSettingsLayout : LayoutBase
 {
-    public VerticalMainMenuLayoutBase(Menu menu, Texture2D BoundingTexture) : base(menu, BoundingTexture)
+    public NewWorldSettingsLayout(Menu menu, Texture2D BoundingTexture) : base(menu, BoundingTexture)
     {
         AssignComponentPositions(false);
     }
@@ -22,6 +22,12 @@ public class VerticalMainMenuLayoutBase : LayoutBase
         {
             var currentComponent = base.Menu.Components[i];
             if (currentComponent.Type == GlobalEnumarations.ComponentType.Debug)
+            {
+                base.SetDebugButtonPosition(currentComponent);
+                base.SetTextBoxPosition(currentComponent);
+                continue;    
+            }
+            if (currentComponent.Type == GlobalEnumarations.ComponentType.CreateWorldButton || currentComponent.Type == GlobalEnumarations.ComponentType.BackButton)
             {
                 base.SetDebugButtonPosition(currentComponent);
                 base.SetTextBoxPosition(currentComponent);
