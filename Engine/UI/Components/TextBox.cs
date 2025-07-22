@@ -26,7 +26,7 @@ public class TextBox : ComponentBase
         this.Font = font;
         this.Text = text;
         this.TextScale = textScale;
-        UpdateTextSize();
+        UpdateTextSize(0);
         base.IsWritable = isWritable;
         this.ParentComponent = parentComponent;
         if (IsWritable)
@@ -55,7 +55,7 @@ public class TextBox : ComponentBase
     public override void Update(GameTime gameTime)
     {
         base.CurrentTime = gameTime;
-        UpdateTextSize();
+        UpdateTextSize(0);
         HandleStateChange();
     }
 
@@ -108,7 +108,7 @@ public class TextBox : ComponentBase
 
     public bool SetPosition(Vector2 position)
     {
-        UpdateTextSize();
+        UpdateTextSize(0);
         if (this.ParentComponent != null)
         {
             // Padding into the textbox area from the outer image
@@ -119,17 +119,17 @@ public class TextBox : ComponentBase
             int imageHeight = this.ParentComponent.TextureHandler.CurrentTexture.Height;
 
             // Textbox area size = full size minus left/right and top/bottom padding
-            int textboxWidth = imageWidth - padding.X - padding.W;
-            int textboxHeight = imageHeight - padding.Y - padding.Z;
+            int textboxWidth = imageWidth - padding.X - padding.Z;
+            int textboxHeight = imageHeight - padding.Y - padding.W;
 
             // Define the inner bounds of the textbox
             base.Bounds = new Rectangle(
-                (int)this.ParentComponent.Position.X + padding.X,
-                (int)this.ParentComponent.Position.Y + padding.Z,
+                (int)this.ParentComponent.Bounds.X + padding.X,
+                (int)this.ParentComponent.Bounds.Y + padding.Y,
                 textboxWidth,
                 textboxHeight
             );
-
+            
             // Center the text within the textbox area
             float xCenterPoint = base.Bounds.X + (textboxWidth - TextSize.X) / 2f;
             float yCenterPoint = base.Bounds.Y + (textboxHeight - TextSize.Y) / 2f;
@@ -143,6 +143,11 @@ public class TextBox : ComponentBase
                 base.Position = new Vector2(xCenterPoint, yCenterPoint);
             }
 
+            Rectangle textTopLeftPoint = new Rectangle((int)base.Position.X, (int)base.Position.Y,1,1);
+            if (!base.Bounds.Intersects(textTopLeftPoint))
+            {
+                UpdateTextSize(-0.01f);
+            }
             return true;
         }
         else if (position != Vector2.Zero)
@@ -158,8 +163,14 @@ public class TextBox : ComponentBase
         }
     }
 
-    public bool UpdateTextSize()
+    public bool UpdateTextSize(float quotient)
     {
+        if (quotient != 0)
+        {
+            this.TextScale += quotient;
+            this.TextSize = Font.MeasureString(this.Text) * this.TextScale;
+            SetPosition(Vector2.Zero);  
+        }
         if (this.Font != null && !string.IsNullOrWhiteSpace(this.Text))
         {
             this.TextSize = Font.MeasureString(this.Text) * this.TextScale;
