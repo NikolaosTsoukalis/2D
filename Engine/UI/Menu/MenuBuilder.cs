@@ -9,16 +9,17 @@ public class MenuBuilder
     public MenuBuilder() { }
 
 
-    #region Main Menu Constructors
-    public static Menu BuildMainMenuLandingMenu()
+    #region Main Menu
+
+    public static Menu BuildMainMenu()
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
         Menu menu = null;
 
-        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.NavigateStartGameMenuButton, "Start Game");
+        NavigationButton StartGameButton = new NavigationButton(GlobalEnumarations.MenuNavigationPaths.MainMenuToStartGame, "Start Game");
         StartGameButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", true);
         Buttons.Add(StartGameButton);
-        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.NavigateMainMenuSettingsMenuButton, "Settings");
+        NavigationButton SettingsButton = new NavigationButton(GlobalEnumarations.MenuNavigationPaths.MainMenuToSettings, "Settings");
         SettingsButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
         Buttons.Add(SettingsButton);
         Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton, "Quit");
@@ -26,7 +27,7 @@ public class MenuBuilder
         Buttons.Add(QuitButton);
 
         //DEBUG BUTTON REMOVE!!
-        Button DebugButton = new Button(GlobalEnumarations.ComponentType.Debug, "Debug");
+        Button DebugButton = new Button(GlobalEnumarations.ComponentType.DebugButton, "Debug");
         Buttons.Add(DebugButton);
 
         menu = new Menu(Buttons);
@@ -34,18 +35,22 @@ public class MenuBuilder
         return menu;
     }
 
-    public static Menu BuildMainMenuStartGameMenu()
+    #endregion
+
+    #region Start Game Menu
+
+    public static Menu BuildStartGameMenu()
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
         Menu menu = null;
 
-        Button NewWorldButton = new Button(GlobalEnumarations.ComponentType.NavigateNewWorldSettingsMenuButton, "New World");
-        NewWorldButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", true);
-        Buttons.Add(NewWorldButton);
+        NavigationButton CreateWorldButton = new NavigationButton(GlobalEnumarations.MenuNavigationPaths.StartGameToCreateWorld, "Create World");
+        CreateWorldButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", true);
+        Buttons.Add(CreateWorldButton);
 
-        Button LoadWorldListButton = new Button(GlobalEnumarations.ComponentType.NavigateWorldListMenuButton, "Load World");
-        LoadWorldListButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
-        Buttons.Add(LoadWorldListButton);
+        NavigationButton LoadWorldButton = new NavigationButton(GlobalEnumarations.MenuNavigationPaths.StartGameToLoadWorld, "Load World");
+        LoadWorldButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
+        Buttons.Add(LoadWorldButton);
 
         Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, "Back");
         BackButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", false);
@@ -56,7 +61,11 @@ public class MenuBuilder
         return menu;
     }
 
-    public static Menu BuildMainMenuWorldListMenu()
+    #endregion
+
+    #region Load World Menu
+
+    public static Menu BuildLoadWorldMenu()
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
         Menu menu = null;
@@ -73,22 +82,38 @@ public class MenuBuilder
         return menu;
     }
 
-    public static Menu BuildMainMenuCreateWorldSettingsMenu()
+    #endregion
+
+    #region Create World Menu
+
+    public static Menu BuildCreateWorldMenu()
     {
         List<ComponentBase> Buttons = new List<ComponentBase>();
         Menu menu = null;
 
-        Button CreateWorldButton = new Button(GlobalEnumarations.ComponentType.CreateWorldButton, "Create World");
-        CreateWorldButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", false);
+        Button CreateWorldButton = new Button(GlobalEnumarations.ComponentType.CreateAndLoadWorldButton, "Create");
+        CreateWorldButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
         Buttons.Add(CreateWorldButton);
 
+        Button SaveWorldAndQuitButton = new Button(GlobalEnumarations.ComponentType.SaveWorldAndQuitButton, "Save & Quit");
+        SaveWorldAndQuitButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
+        Buttons.Add(SaveWorldAndQuitButton);
+
+        Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, "Back");
+        BackButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
+        Buttons.Add(BackButton);
+
         menu = new Menu(Buttons);
-        menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, null));
+        menu.SetMenuLayout(new CreateWorldSettingsLayout(menu, null));
 
         return menu;
     }
 
-    public static Menu BuildMainMenuSettingsMenu()
+    #endregion
+
+    #region Settings Menu
+
+    public static Menu BuildSettingsMenu()
     {
         return null;
     }
@@ -116,7 +141,7 @@ public class MenuBuilder
             {
                 for (int i = 0; i < worldList.Length; i++)
                 {
-                    var WorldButton = new Button(GlobalEnumarations.ComponentType.LoadWorldFromWorldListButton, worldList[i]);
+                    var WorldButton = new Button(GlobalEnumarations.ComponentType.LoadWorldButton, worldList[i]);
                     WorldButton.TextureHandler.SetPositionBasedComponentTextures("VerticalMainMenuLayoutBase", null);
                     componentList.Add(WorldButton);
                 }

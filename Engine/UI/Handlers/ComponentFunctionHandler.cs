@@ -13,23 +13,35 @@ public class ComponentFunctionHandler
 
     public ComponentBase ParentComponent { get; private set; }
 
-    private static readonly Dictionary<GlobalEnumarations.ComponentType, Func<ComponentFunctionHandler, Action>> FunctionMap = new()
+    private static readonly Dictionary<GlobalEnumarations.MenuNavigationPaths, Func<ComponentFunctionHandler, Action>> NavigationActionFactory = new()
+    {
+        { GlobalEnumarations.MenuNavigationPaths.MainMenuToStartGame, handler => handler.NavigateMainMenuToStartGameMenu },
+        { GlobalEnumarations.MenuNavigationPaths.MainMenuToSettings, handler => handler.NavigateMainMenuToSettingsMenu },
+
+        { GlobalEnumarations.MenuNavigationPaths.StartGameToCreateWorld, handler => handler.NavigateStartGameToCreateWorldMenu },
+        { GlobalEnumarations.MenuNavigationPaths.StartGameToLoadWorld, handler => handler.NavigateStartGameToLoadWorldMenu },
+                
+    };
+
+
+    private static readonly Dictionary<GlobalEnumarations.ComponentType, Func<ComponentFunctionHandler, Action>> ActionFactory = new()
     {
         //FUNCTION
-        { GlobalEnumarations.ComponentType.Debug, handler => handler.EnableDebugFunction},
-        { GlobalEnumarations.ComponentType.BackButton, handler => handler.GoBackFunction },
-        { GlobalEnumarations.ComponentType.QuitButton, handler => handler.QuitFunction },
-        { GlobalEnumarations.ComponentType.TextBox, handler => handler.EnableTypingTextBoxFunction },
-        { GlobalEnumarations.ComponentType.CreateWorldButton, handler => handler.CreateWorldFunction },
-        { GlobalEnumarations.ComponentType.SliderVertical, handler => handler.ChangeValueSliderFunction },
-        { GlobalEnumarations.ComponentType.SliderHorizontal, handler => handler.ChangeValueSliderFunction },
-        { GlobalEnumarations.ComponentType.LoadWorldFromWorldListButton, handler => handler.LoadWorldFromWorldListFunction },
+        { GlobalEnumarations.ComponentType.DebugButton,                     handler => handler.EnableDebug },
 
-        //NAVIGATION
-        { GlobalEnumarations.ComponentType.NavigateMainMenuSettingsMenuButton, handler => handler.NavigateMainMenuSettingsMenuFunction },
-        { GlobalEnumarations.ComponentType.NavigateStartGameMenuButton, handler => handler.NavigateStartGameMenuFunction },
-        { GlobalEnumarations.ComponentType.NavigateNewWorldSettingsMenuButton, handler => handler.NavigateCreateWorldSettingsMenuFunction },
-        { GlobalEnumarations.ComponentType.NavigateWorldListMenuButton, handler => handler.NavigateWorldListMenuFunction },
+        { GlobalEnumarations.ComponentType.BackButton,                      handler => handler.GoBack },
+        { GlobalEnumarations.ComponentType.QuitButton,                      handler => handler.Quit },
+        { GlobalEnumarations.ComponentType.LoadWorldButton,                 handler => handler.LoadWorld },
+        { GlobalEnumarations.ComponentType.CreateAndLoadWorldButton,        handler => handler.CreateAndLoadWorld },
+        { GlobalEnumarations.ComponentType.SaveWorldAndQuitButton,          handler => handler.SaveWorldAndQuit },
+
+        { GlobalEnumarations.ComponentType.TextBox,                         handler => handler.EnableTypingTextBox },
+        { GlobalEnumarations.ComponentType.SliderVertical,                  handler => handler.ChangeValueSlider },
+        { GlobalEnumarations.ComponentType.SliderHorizontal,                handler => handler.ChangeValueSlider },
+
+
+
+        { GlobalEnumarations.ComponentType.SaveWorldButton,                 handler => handler.SaveWorld },
     };
 
     #endregion
@@ -41,22 +53,34 @@ public class ComponentFunctionHandler
         this.ParentComponent = parentComponent;
         if (!AssignFunction(componentType))
         {
-            Console.WriteLine("This Button Type does not support a function");
+            Console.WriteLine("The Function of the component: '" + parentComponent.ToString() + "' was not assigned properly.");
         }
     }
 
     #endregion
 
     #region General Functions
-    private bool AssignFunction(GlobalEnumarations.ComponentType componentType)
+
+    public bool AssignFunction(GlobalEnumarations.ComponentType componentType)
     {
-        if (FunctionMap.TryGetValue(componentType, out var actionFactory))
+
+        if (ActionFactory.TryGetValue(componentType, out var action))
         {
-            FunctionCall = actionFactory(this);
+            FunctionCall = action(this);
             return true;
+        }
+        if (componentType == GlobalEnumarations.ComponentType.NavigationButton)
+        {
+            NavigationButton component = (NavigationButton)ParentComponent;
+            if (NavigationActionFactory.TryGetValue(component.Path, out var navigationAction))
+            {
+                FunctionCall = navigationAction(this);
+                return true;
+            }
         }
 
         FunctionCall = null;
+
         return false;
     }
 
@@ -78,62 +102,22 @@ public class ComponentFunctionHandler
 
     #region Button Functions
 
-    private void EnableDebugFunction()
+    private void EnableDebug()
     {
         Globals.enableDebugs = !Globals.enableDebugs;
     }
-    
-    private void GoBackFunction()
+
+    private void GoBack()
     {
-        Globals.MenuHandler.RemoveFromStackTop(Globals.MenuHandler.currentMenu);
+        Globals.MenuHandler.RemoveFromStackTop();
     }
 
-    private void QuitFunction()
+    private void Quit()
     {
         Globals.MenuHandler.Main.Exit();
     }
 
-    private void NavigateStartGameMenuFunction()
-    {
-        Menu newMenu = MenuBuilder.BuildMainMenuStartGameMenu();
-        if (newMenu == null)
-        {
-            throw new Exception("ERROR : (MainMenu) StartGame Menu was not built!");    
-        }
-        Globals.MenuHandler.AddMenuToStackTop(newMenu);
-    }
-
-    private void NavigateMainMenuSettingsMenuFunction()
-    {
-        Menu newMenu = MenuBuilder.BuildMainMenuSettingsMenu();
-        if (newMenu == null)
-        {
-            throw new Exception("ERROR : (MainMenu) Settings Menu was not built!");    
-        }
-        Globals.MenuHandler.AddMenuToStackTop(newMenu);
-    }
-
-    private void NavigateCreateWorldSettingsMenuFunction()
-    {
-        Menu newMenu = MenuBuilder.BuildMainMenuCreateWorldSettingsMenu();
-        if (newMenu == null)
-        {
-            throw new Exception("ERROR : (MainMenu) CreateWorldSettings Menu was not built!");    
-        }
-        Globals.MenuHandler.AddMenuToStackTop(newMenu);
-    }
-
-    private void NavigateWorldListMenuFunction()
-    {
-        Menu newMenu = MenuBuilder.BuildMainMenuWorldListMenu();
-        if (newMenu == null)
-        {
-            throw new Exception("ERROR : (MainMenu) WorldList Menu was not built!");    
-        }
-        Globals.MenuHandler.AddMenuToStackTop(newMenu);
-    }
-
-    private void LoadWorldFromWorldListFunction()
+    private void LoadWorld()
     {
         var component = (Button)ParentComponent;
         int[,] tileMapMatrix = Utillity.GetWorldBinaryFile(component.TextBox.Text, true);
@@ -142,7 +126,7 @@ public class ComponentFunctionHandler
         Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, tileMap));
     }
 
-    private void CreateWorldFunction()
+    private void CreateAndLoadWorld()
     {
         //HERE WE NEED TO IMPORT THE SETTINGS FROM THE "CREATE WORLD SETTINGS MENU"
         //IF THEY HAVE NOT BEEN OPENED THERE HAS TO BE DEFAULT VALUES
@@ -150,11 +134,22 @@ public class ComponentFunctionHandler
         Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, tileMap));
     }
 
+    private void SaveWorld()
+    {
+        //save
+    }
+
+    private void SaveWorldAndQuit()
+    {
+        //save
+        NavigateCreateWorldToMainMenu();
+    }
+
     #endregion
 
     #region TextBox Functions
 
-    private void EnableTypingTextBoxFunction()
+    private void EnableTypingTextBox()
     {
         if (ParentComponent.IsWritable && ParentComponent.State == GlobalEnumarations.ComponentState.Disabled)
         {
@@ -170,7 +165,7 @@ public class ComponentFunctionHandler
 
     #region Slider Functions
 
-    public void ChangeValueSliderFunction()
+    public void ChangeValueSlider()
     {
         var component = (Slider)ParentComponent;
         switch (component.ValueType)
@@ -186,4 +181,52 @@ public class ComponentFunctionHandler
 
     #endregion
 
+    #region Navigation Functions
+
+    private void NavigateMainMenuToStartGameMenu()
+    {
+        Menu newMenu = MenuBuilder.BuildStartGameMenu();
+        if (newMenu == null)
+        {
+            throw new Exception("ERROR : (MainMenu) StartGame Menu was not built!");
+        }
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);
+    }
+
+    private void NavigateMainMenuToSettingsMenu()
+    {
+        Menu newMenu = MenuBuilder.BuildSettingsMenu();
+        if (newMenu == null)
+        {
+            throw new Exception("ERROR : (MainMenu) Settings Menu was not built!");
+        }
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);
+    }
+
+    private void NavigateStartGameToCreateWorldMenu()
+    {
+        Menu newMenu = MenuBuilder.BuildCreateWorldMenu();
+        if (newMenu == null)
+        {
+            throw new Exception("ERROR : (MainMenu) CreateWorldSettings Menu was not built!");
+        }
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);
+    }
+
+    private void NavigateStartGameToLoadWorldMenu()
+    {
+        Menu newMenu = MenuBuilder.BuildLoadWorldMenu();
+        if (newMenu == null)
+        {
+            throw new Exception("ERROR : (MainMenu) WorldList Menu was not built!");
+        }
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);
+    }
+    
+    private void NavigateCreateWorldToMainMenu()
+    {
+        Globals.MenuHandler.ResetStackToRoot();
+    }
+
+    #endregion
 }

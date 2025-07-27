@@ -20,7 +20,7 @@ public class MainMenuState : State
         ManageTextureLibrary();
         InitializeHandlers(main);
         //initillize with landing menu
-        Globals.MenuHandler.AddMenuToStackTop(MenuBuilder.BuildMainMenuLandingMenu());
+        Globals.MenuHandler.AddMenuToStackTop(MenuBuilder.BuildMainMenu());
     }
 
     ///<Summary>
@@ -67,23 +67,26 @@ public class MainMenuState : State
 
     public override bool ManageTextureLibrary()
     {
+        bool Continue = true;
         try
         {
-            if (Globals.TextureLibrary.LoadUITextures() && Globals.TextureLibrary.LoadTextBoxPaddingMap())
+            do
             {
-                return true;
-            }
-            else
+                Continue = Globals.TextureLibrary.LoadButtonTextures();
+                Continue = Globals.TextureLibrary.LoadTextBoxPaddingMap();
+                
+            }while()
+            if (!Continue)
             {
-                Console.WriteLine("Texture Library Load failed");
+                throw new Exception("Texture Library Load failed");
             }
-            return false;
         }
         catch (Exception e)
         {
             Console.WriteLine("ERROR ON Loading TextureLibrary: " + e);
             return false;
         }
+        return false;
     }
 
     public override bool CallDrawFuctions(GameTime gameTime)

@@ -13,11 +13,14 @@ public abstract class LayoutBase
     public Rectangle BaseBounds { get; private set; }
     public Texture2D BoundingTexture { get; private set; }
 
+    public Vector2 BoundCenter { get; private set; }
+
     public Menu Menu { get; private set; }
 
     public LayoutBase(Menu menu, Texture2D boundingTexture)
     {
         this.Menu = menu;
+        SanitizeComponents(this.Menu.Components);
         SetBaseBounds(boundingTexture);
     }
 
@@ -30,13 +33,14 @@ public abstract class LayoutBase
         {
             this.BoundingTexture = boundingTexture;
 
-
             Vector2 baseBoundsPosition = AlignComponentWithBoundCenter(boundingTexture, Menu.ScreenDimensions.X, Menu.ScreenDimensions.Y);
             this.BaseBounds = new Rectangle((int)baseBoundsPosition.X, (int)baseBoundsPosition.Y, boundingTexture.Width, boundingTexture.Height);
+            this.BoundCenter = new Vector2(this.BaseBounds.Width / 2f, this.BaseBounds.Height / 2f);
         }
         else
         {
             this.BaseBounds = new Rectangle(0, 0, (int)Menu.ScreenDimensions.X, (int)Menu.ScreenDimensions.Y);
+            this.BoundCenter = new Vector2((int)Menu.ScreenDimensions.X / 2f, (int)Menu.ScreenDimensions.Y / 2f);
             return;
         }
     }
@@ -110,7 +114,15 @@ public abstract class LayoutBase
         catch (Exception e)
         {
             Console.WriteLine("ERROR: " + e);
-            return false;    
+            return false;
+        }
+    }
+    
+    private void SanitizeComponents(List<ComponentBase> components)
+    {
+        foreach(ComponentBase component in  components)
+        {
+            component.SanitizeHandlers();    
         }
     }
 }

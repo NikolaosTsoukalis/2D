@@ -89,8 +89,17 @@ public class ComponentTextureHandler
             }
             else
             {
-                if (ParentComponent.Type == GlobalEnumarations.ComponentType.Debug)
+                if (ParentComponent.Type == GlobalEnumarations.ComponentType.DebugButton)
                 {
+                    TextureFree = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.Middle_Button_Free);
+                    TexturePressed = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.Middle_Button_Pressed);
+                    TextureDisabled = null;
+                    SetCurrentTexture(GlobalEnumarations.ComponentState.Free);
+                    return true;
+                }
+                if (ParentComponent.Type == GlobalEnumarations.ComponentType.TextBox)
+                {
+                    TextBox component = (TextBox)ParentComponent;
                     TextureFree = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.Middle_Button_Free);
                     TexturePressed = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.Middle_Button_Pressed);
                     TextureDisabled = null;
@@ -138,6 +147,14 @@ public class ComponentTextureHandler
                     }
                     SetCurrentTexture(GlobalEnumarations.ComponentState.Free);
                     return true;
+
+                case "CreateWorldSettingsLayout":
+                    TextureFree = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.Middle_Button_Free);
+                    TexturePressed = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.Middle_Button_Pressed);
+                    TextureDisabled = null;
+                    SetCurrentTexture(GlobalEnumarations.ComponentState.Free);
+                    return true;
+
                 case "test":
                     TextureFree = Globals.ContentManager.Load<Texture2D>("Button_Controls");
                     TexturePressed = Globals.ContentManager.Load<Texture2D>("Button_Controls");

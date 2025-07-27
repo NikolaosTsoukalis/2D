@@ -36,11 +36,11 @@ public class Menu
         }
         float screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
         float screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
-        
+
         if (ScreenDimensions.X != screenWidth || ScreenDimensions.Y != screenHeight)
         {
             this.ScreenDimensions = new Vector2(screenWidth, screenHeight);
-            this.Layout.AssignComponentPositions(true); 
+            this.Layout.AssignComponentPositions(true);
         }
     }
 

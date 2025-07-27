@@ -229,6 +229,54 @@
 /processorParam:TextureFormat=Color
 /build:ComponentTextures/Button/Top_Button_Pressed.png
 
+#begin ComponentTextures/TextBox/Middle_TextBox_Big_Disabled.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Middle_TextBox_Big_Disabled.png
+
+#begin ComponentTextures/TextBox/Middle_TextBox_Big_Free.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Middle_TextBox_Big_Free.png
+
+#begin ComponentTextures/TextBox/Middle_TextBox_Small_Disabled.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Middle_TextBox_Small_Disabled.png
+
+#begin ComponentTextures/TextBox/Middle_TextBox_Small_Free.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Middle_TextBox_Small_Free.png
+
 #begin Controls_Menu.png
 /importer:TextureImporter
 /processor:TextureProcessor

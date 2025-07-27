@@ -43,12 +43,10 @@ public class TextBox : ComponentBase
             Globals.SpriteBatch.DrawString(this.Font, this.Text, base.Position, Color.Black, 0f, Vector2.Zero, this.TextScale, SpriteEffects.None, 0f);
             if (base.State != GlobalEnumarations.ComponentState.Disabled && base.IsWritable && HandleFlashingLine())
             {
-
                 FlashingLinePosition = base.Position + new Vector2(TextSize.X + 1, 0);
 
                 Globals.SpriteBatch.Draw(FlashingLineTexture, new Rectangle((int)FlashingLinePosition.X, (int)FlashingLinePosition.Y, 2, Globals.Font.LineSpacing), Color.White);
             }
-
         }
     }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 using Microsoft.Xna.Framework;
 
 namespace _2D_RPG;
@@ -14,7 +15,7 @@ public abstract class ComponentBase
     public Vector2 Position { get; set; }
     public Rectangle Bounds { get; set; }
 
-    protected bool HasClicked { get; set;}
+    protected bool HasClicked { get; set; }
 
     public GlobalEnumarations.ComponentState State { get; set; }
 
@@ -24,13 +25,13 @@ public abstract class ComponentBase
 
     public float TimeSinceClick { get; protected set; }
 
-    
+
 
     public ComponentBase(GlobalEnumarations.ComponentType type)
     {
         this.State = GlobalEnumarations.ComponentState.Free;
         this.Type = type;
-        InitiallizeHandlers(this.Type);
+        this.InitiallizeHandlers(type);
     }
 
     public abstract void Draw(GameTime gameTime);
@@ -97,5 +98,35 @@ public abstract class ComponentBase
         {
             this.TextureHandler = new ComponentTextureHandler(type, this);
         }
+    }
+
+    public void SanitizeHandlers()
+    {
+        try
+        {
+            if (this.FunctionHandler == null || this.FunctionHandler.FunctionCall == null)
+            {
+                this.FunctionHandler = new ComponentFunctionHandler(this.Type, this);
+
+                if (FunctionHandler == null)
+                {
+                    throw new Exception("Function Handler for Type: '" + Type.ToString() + "' did not Sanitize correctly.");
+                }
+            }
+            if (this.TextureHandler == null)
+            {
+                this.TextureHandler = new ComponentTextureHandler(this.Type, this);
+
+                if (TextureHandler == null)
+                {
+                    throw new Exception("Texture Handler for Type: '" + Type.ToString() + "' did not Sanitize correctly.");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("WARNING: " + e);
+        }
+
     }
 }

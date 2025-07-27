@@ -27,9 +27,33 @@ public class MenuHandler
         menuStack.Push(menu);
     }
 
-    public void RemoveFromStackTop(Menu menu)
+    public void RemoveFromStackTop()
     {
         menuStack.Pop();
+    }
+
+    public void EmptyStack(Menu menu)
+    {
+        menuStack.Clear();
+    }
+
+    public void RemoveFromStackTopUntil(Menu menu)
+    {
+        if (menuStack.Contains(menu))
+        {
+            while (menuStack.Peek() != menu)
+            {
+                menuStack.Pop();
+            }
+        }
+    }
+
+    public void ResetStackToRoot()
+    {
+        while (menuStack.Count > 1 )
+        {
+            menuStack.Pop();
+        }
     }
 
     public void Update(GameTime gameTime)

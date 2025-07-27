@@ -21,7 +21,7 @@ public class VerticalMainMenuLayoutBase : LayoutBase
         for (int i = 0; i < base.Menu.Components.Count; i++)
         {
             var currentComponent = base.Menu.Components[i];
-            if (currentComponent.Type == GlobalEnumarations.ComponentType.Debug)
+            if (currentComponent.Type == GlobalEnumarations.ComponentType.DebugButton)
             {
                 base.SetDebugButtonPosition(currentComponent);
                 base.SetTextBoxPosition(currentComponent);
