@@ -14,25 +14,25 @@ public class Slider : ComponentBase
 
     public GlobalEnumarations.SliderComponentValues ValueType { get; private set; }
 
-    public Slider(GlobalEnumarations.ComponentType type, GlobalEnumarations.SliderComponentValues valueType) : base(type)
+    public Slider(GlobalEnumarations.ComponentType functionType,GlobalEnumarations.TextureLibraryUI textureType, GlobalEnumarations.SliderComponentValues valueType) : base(functionType, textureType)
     {
         this.ValueType = valueType;
         this.CurrentValue = GetGlobalValue(valueType);
         this.CurrentThumbPosition = SetThumbPosition(CurrentValue);
         if (CurrentThumbPosition == Vector2.Zero)
         {
-            Console.WriteLine("ERROR on : '" + Type.ToString() + "', Position could not be set!");
+            Console.WriteLine("ERROR on : '" + functionType.ToString() + "', Position could not be set!");
         }
     }
 
     private Vector2 SetThumbPosition(int variableValue)
     {
         Vector2 thumpPosition;
-        switch (this.Type)
+        switch (base.FunctionType)
         {
             case GlobalEnumarations.ComponentType.SliderHorizontal:
-                thumpPosition.X = this.Position.X + variableValue * Scale;
-                thumpPosition.Y = this.Position.Y;
+                thumpPosition.X = base.Position.X + variableValue * Scale;
+                thumpPosition.Y = base.Position.Y;
                 break;
             case GlobalEnumarations.ComponentType.SliderVertical:
                 thumpPosition.Y = this.Position.Y - variableValue * Scale;
@@ -100,7 +100,7 @@ public class Slider : ComponentBase
             {
                 if (Globals.CurrentMouse.LeftButton == ButtonState.Released && Globals.PreviousMouse.LeftButton == ButtonState.Released)
                 {
-                    switch (base.Type)
+                    switch (base.FunctionType)
                     {
                         case GlobalEnumarations.ComponentType.SliderHorizontal:
                             whole = (int)this.Position.X + this.TextureHandler.CurrentTexture.Width;

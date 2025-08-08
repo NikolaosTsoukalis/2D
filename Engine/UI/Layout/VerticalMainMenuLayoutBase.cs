@@ -28,8 +28,8 @@ public class VerticalMainMenuLayoutBase : LayoutBase
                 continue;    
             }
             int yPadding = 80;
-            currentComponent.Position = AlignComponentWithBoundCenter(currentComponent.TextureHandler.CurrentTexture, base.BaseBounds.Width, base.BaseBounds.Height);
-            currentComponent.Position = new Vector2(currentComponent.Position.X, currentComponent.Position.Y + i * yPadding);
+            //currentComponent.Position = AlignComponentWithBoundCenter(currentComponent.TextureHandler.CurrentTexture, base.BaseBounds.Width, base.BaseBounds.Height);
+            //currentComponent.Position = new Vector2(currentComponent.Position.X, currentComponent.Position.Y + i * yPadding);
             base.SetComponentBounds(currentComponent);
             base.SetTextBoxPosition(currentComponent);
         }

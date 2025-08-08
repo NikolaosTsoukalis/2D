@@ -6,36 +6,48 @@ public class GlobalEnumarations
 
     #region Textures
 
-    public enum TextureLibrary
-    {
-        //CHARACTER
-        Character_Idle,
-        Character_Walk,
-        Character_MeleeAttack,
-    }
-
     public enum TextureLibraryUI
     {
-        //Buttons
-
         None,
-        Bottom_Button_Free,
-        Bottom_Button_Pressed,
-        Bottom_Button_Disabled,
-        Middle_Button_Free,
-        Middle_Button_Pressed,
-        Middle_Button_Disabled,
-        Top_Button_Free,
-        Top_Button_Pressed,
-        Top_Button_Disabled,
 
+        //BUTTON\\
+        //-----TYPE L--------\\
+        Button_NULL_Type_L,
+        Button_Free_Type_L,
+        Button_Pressed_Type_L,
+        Button_Disabled_Type_L,
+        //-----TYPE L--------\\
 
-        //TextBox's
-        Middle_TextBox_Small_Free,
-        Middle_TextBox_Small_Disabled,
+        //-----TYPE S--------\\
+        Button_Free_Type_S,
+        Button_Pressed_Type_S,
+        Button_Disabled_Type_S,
+        //-----TYPE S--------\\
 
-        Middle_TextBox_Big_Free,
-        Middle_TextBox_Big_Disabled
+            //TEXTBOX\\
+        //-----TYPE L--------\\
+        TextBox_Free_Type_L,
+        TextBox_Pressed_Type_L,
+        //-----TYPE L--------\\
+
+        //-----TYPE S--------\\
+        TextBox_Free_Type_S,
+        TextBox_Pressed_Type_S,
+        //-----TYPE S--------\\
+
+        //-----TYPE B--------\\
+        TextBox_Free_Type_B,
+        TextBox_Pressed_Type_B,
+        //-----TYPE B--------\\
+
+            //MENU\\
+        //-----MAIN MENU STATE--------\\
+        MainMenu,
+        StartGameMenu,
+        LoadWorldMenu,
+        SettingsMenu,
+        CreateWorldMenu,
+        //-----MAIN MENU STATE--------\\
     }
 
     public enum TextureLibraryTiles
@@ -110,7 +122,6 @@ public class GlobalEnumarations
         //Create World Menu
         CreateWorldToGameState,
         CreateWorldToMainMenu,
-
 
     }
 

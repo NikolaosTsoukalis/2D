@@ -110,7 +110,7 @@ public class GameState : State
     {
         try
         {
-            if (Globals.TextureLibrary.LoadUITextures() && Globals.TextureLibrary.LoadTextBoxPaddingMap())
+            if (Globals.TextureLibrary.LoadButtonTextures() && Globals.TextureLibrary.LoadTextBoxPaddingMap())
             {
                 return true;
             }

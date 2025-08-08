@@ -6,7 +6,6 @@ namespace _2D_RPG;
 
 public abstract class ComponentBase
 {
-
     public ComponentFunctionHandler FunctionHandler { get; private set; }
     public ComponentTextureHandler TextureHandler { get; private set; }
     public bool IsHovering { get; protected set; }
@@ -19,19 +18,19 @@ public abstract class ComponentBase
 
     public GlobalEnumarations.ComponentState State { get; set; }
 
-    public GlobalEnumarations.ComponentType Type { get; private set; }
+    public GlobalEnumarations.ComponentType FunctionType { get; private set; }
+    public GlobalEnumarations.TextureLibraryUI TextureType { get; private set; }
 
     public GameTime CurrentTime { get; protected set; }
 
     public float TimeSinceClick { get; protected set; }
 
-
-
-    public ComponentBase(GlobalEnumarations.ComponentType type)
+    public ComponentBase(GlobalEnumarations.ComponentType functionType,GlobalEnumarations.TextureLibraryUI textureType)
     {
         this.State = GlobalEnumarations.ComponentState.Free;
-        this.Type = type;
-        this.InitiallizeHandlers(type);
+        this.FunctionType = functionType;
+        this.TextureType = textureType;
+        this.InitiallizeHandlers(FunctionType,TextureType);
     }
 
     public abstract void Draw(GameTime gameTime);
@@ -88,15 +87,15 @@ public abstract class ComponentBase
         return false;
     }
 
-    private void InitiallizeHandlers(GlobalEnumarations.ComponentType type)
+    private void InitiallizeHandlers(GlobalEnumarations.ComponentType functionType, GlobalEnumarations.TextureLibraryUI textureType)
     {
         if (FunctionHandler == null)
         {
-            this.FunctionHandler = new ComponentFunctionHandler(type, this);
+            this.FunctionHandler = new ComponentFunctionHandler(functionType, this);
         }
         if (TextureHandler == null)
         {
-            this.TextureHandler = new ComponentTextureHandler(type, this);
+            this.TextureHandler = new ComponentTextureHandler(textureType, this);
         }
     }
 
@@ -106,20 +105,20 @@ public abstract class ComponentBase
         {
             if (this.FunctionHandler == null || this.FunctionHandler.FunctionCall == null)
             {
-                this.FunctionHandler = new ComponentFunctionHandler(this.Type, this);
+                this.FunctionHandler = new ComponentFunctionHandler(this.FunctionType, this);
 
                 if (FunctionHandler == null)
                 {
-                    throw new Exception("Function Handler for Type: '" + Type.ToString() + "' did not Sanitize correctly.");
+                    throw new Exception("Function Handler for Type: '" + this.FunctionType.ToString() + "' did not Sanitize correctly.");
                 }
             }
-            if (this.TextureHandler == null)
+            if (this.TextureHandler == null || this.TextureHandler.CurrentTexture == null)
             {
-                this.TextureHandler = new ComponentTextureHandler(this.Type, this);
+                this.TextureHandler = new ComponentTextureHandler(this.TextureType, this);
 
                 if (TextureHandler == null)
                 {
-                    throw new Exception("Texture Handler for Type: '" + Type.ToString() + "' did not Sanitize correctly.");
+                    throw new Exception("Texture Handler for Type: '" + TextureType.ToString() + "' did not Sanitize correctly.");
                 }
             }
         }

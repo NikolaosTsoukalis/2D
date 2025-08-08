@@ -21,7 +21,7 @@ public class TextBox : ComponentBase
     public Vector2 FlashingLinePosition { get; private set; }
 
     public ComponentBase ParentComponent { get; private set; }
-    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox)
+    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base()
     {
         this.Font = font;
         this.Text = text;
@@ -109,30 +109,12 @@ public class TextBox : ComponentBase
         UpdateTextSize(0);
         if (this.ParentComponent != null)
         {
-            // Padding into the textbox area from the outer image
-            Int4 padding = Globals.TextureLibrary.GetTextBoxPadding(this.ParentComponent.TextureHandler.CurrentTexture);
-
-            // Full image size
-            int imageWidth = this.ParentComponent.TextureHandler.CurrentTexture.Width;
-            int imageHeight = this.ParentComponent.TextureHandler.CurrentTexture.Height;
-
-            // Textbox area size = full size minus left/right and top/bottom padding
-            int textboxWidth = imageWidth - padding.X - padding.Z;
-            int textboxHeight = imageHeight - padding.Y - padding.W;
-
-            // Define the inner bounds of the textbox
-            base.Bounds = new Rectangle(
-                (int)this.ParentComponent.Bounds.X + padding.X,
-                (int)this.ParentComponent.Bounds.Y + padding.Y,
-                textboxWidth,
-                textboxHeight
-            );
             
             // Center the text within the textbox area
-            float xCenterPoint = base.Bounds.X + (textboxWidth - TextSize.X) / 2f;
-            float yCenterPoint = base.Bounds.Y + (textboxHeight - TextSize.Y) / 2f;
+            float xCenterPoint = base.Bounds.X + (base.TextureHandler.TextureWidth - TextSize.X) / 2f;
+            float yCenterPoint = base.Bounds.Y + (base.TextureHandler.TextureHeight - TextSize.Y) / 2f;
 
-            if (this.IsWritable)
+            if (this.IsWritable || base.TextureType.ToString().Contains("Type_S"))
             {
                 base.Position = new Vector2(base.Bounds.X, base.Bounds.Y);
             }

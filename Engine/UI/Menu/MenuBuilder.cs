@@ -88,22 +88,27 @@ public class MenuBuilder
 
     public static Menu BuildCreateWorldMenu()
     {
-        List<ComponentBase> Buttons = new List<ComponentBase>();
+        List<ComponentBase> Components = new List<ComponentBase>();
+
         Menu menu = null;
+
+        TextBox SeedTextBox = new TextBox(Globals.Font, "Seed", 0.75f, false, null);
+        SeedTextBox.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
+        Components.Add(SeedTextBox);
 
         Button CreateWorldButton = new Button(GlobalEnumarations.ComponentType.CreateAndLoadWorldButton, "Create");
         CreateWorldButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
-        Buttons.Add(CreateWorldButton);
+        Components.Add(CreateWorldButton);
 
         Button SaveWorldAndQuitButton = new Button(GlobalEnumarations.ComponentType.SaveWorldAndQuitButton, "Save & Quit");
         SaveWorldAndQuitButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
-        Buttons.Add(SaveWorldAndQuitButton);
+        Components.Add(SaveWorldAndQuitButton);
 
         Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, "Back");
         BackButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
-        Buttons.Add(BackButton);
+        Components.Add(BackButton);
 
-        menu = new Menu(Buttons);
+        menu = new Menu(Components);
         menu.SetMenuLayout(new CreateWorldSettingsLayout(menu, null));
 
         return menu;

@@ -171,5 +171,7 @@ c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Middle_Button_Pressed.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Top_Button_Free.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Top_Button_Pressed.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\TextBox_Middle_Big.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\TextBox_Middle_Small.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Middle_TextBox_Big_Disabled.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Middle_TextBox_Big_Free.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Middle_TextBox_Small_Disabled.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Middle_TextBox_Small_Free.xnb

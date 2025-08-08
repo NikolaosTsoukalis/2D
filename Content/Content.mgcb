@@ -13,126 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Button_Back.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_Back.png
-
-#begin Button_Controls.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_Controls.png
-
-#begin Button_Empty.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_Empty.png
-
-#begin Button_Exit.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_Exit.png
-
-#begin Button_NewWorld.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_NewWorld.png
-
-#begin Button_Settings.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_Settings.png
-
-#begin Button_StartGame.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_StartGame.png
-
-#begin Button_WindowFormat_Borderless.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_WindowFormat_Borderless.png
-
-#begin Button_WindowFormat_Fullscreen.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_WindowFormat_Fullscreen.png
-
-#begin Button_WindowFormat_Windowed.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Button_WindowFormat_Windowed.png
-
 #begin Character_Idle_strip32.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -157,7 +37,7 @@
 /processorParam:TextureFormat=Color
 /build:Character_Walk_strip32.png
 
-#begin ComponentTextures/Button/Bottom_Button_Free.png
+#begin ComponentTextures/Button/Bounds/Bounds_SingleButton_Type_LBottom.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -167,9 +47,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/Button/Bottom_Button_Free.png
+/build:ComponentTextures/Button/Bounds/Bounds_SingleButton_Type_LBottom.png
 
-#begin ComponentTextures/Button/Bottom_Button_Pressed.png
+#begin ComponentTextures/Button/Bounds/Bounds_SingleButton_Type_LMiddle.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -179,9 +59,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/Button/Bottom_Button_Pressed.png
+/build:ComponentTextures/Button/Bounds/Bounds_SingleButton_Type_LMiddle.png
 
-#begin ComponentTextures/Button/Middle_Button_Free.png
+#begin ComponentTextures/Button/Bounds/Bounds_SingleButton_Type_LTop.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -191,9 +71,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/Button/Middle_Button_Free.png
+/build:ComponentTextures/Button/Bounds/Bounds_SingleButton_Type_LTop.png
 
-#begin ComponentTextures/Button/Middle_Button_Pressed.png
+#begin ComponentTextures/Button/Self/Button_Disabled_Type_L.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -203,9 +83,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/Button/Middle_Button_Pressed.png
+/build:ComponentTextures/Button/Self/Button_Disabled_Type_L.png
 
-#begin ComponentTextures/Button/Top_Button_Free.png
+#begin ComponentTextures/Button/Self/Button_Disabled_Type_S.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -215,9 +95,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/Button/Top_Button_Free.png
+/build:ComponentTextures/Button/Self/Button_Disabled_Type_S.png
 
-#begin ComponentTextures/Button/Top_Button_Pressed.png
+#begin ComponentTextures/Button/Self/Button_Free_Type_L.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -227,9 +107,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/Button/Top_Button_Pressed.png
+/build:ComponentTextures/Button/Self/Button_Free_Type_L.png
 
-#begin ComponentTextures/TextBox/Middle_TextBox_Big_Disabled.png
+#begin ComponentTextures/Button/Self/Button_Free_Type_S.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -239,9 +119,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/TextBox/Middle_TextBox_Big_Disabled.png
+/build:ComponentTextures/Button/Self/Button_Free_Type_S.png
 
-#begin ComponentTextures/TextBox/Middle_TextBox_Big_Free.png
+#begin ComponentTextures/Button/Self/Button_Pressed_Type_L.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -251,9 +131,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/TextBox/Middle_TextBox_Big_Free.png
+/build:ComponentTextures/Button/Self/Button_Pressed_Type_L.png
 
-#begin ComponentTextures/TextBox/Middle_TextBox_Small_Disabled.png
+#begin ComponentTextures/Button/Self/Button_Pressed_Type_S.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -263,9 +143,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/TextBox/Middle_TextBox_Small_Disabled.png
+/build:ComponentTextures/Button/Self/Button_Pressed_Type_S.png
 
-#begin ComponentTextures/TextBox/Middle_TextBox_Small_Free.png
+#begin ComponentTextures/Menu/MainMenu.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -275,7 +155,127 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/TextBox/Middle_TextBox_Small_Free.png
+/build:ComponentTextures/Menu/MainMenu.png
+
+#begin ComponentTextures/Menu/WorldSettingsMenu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/Menu/WorldSettingsMenu.png
+
+#begin ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_B.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_B.png
+
+#begin ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_L.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_L.png
+
+#begin ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_S.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_S.png
+
+#begin ComponentTextures/TextBox/Self/TextBox_Disabled_Type_L.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Disabled_Type_L.png
+
+#begin ComponentTextures/TextBox/Self/TextBox_Disabled_Type_S.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Disabled_Type_S.png
+
+#begin ComponentTextures/TextBox/Self/TextBox_Free_Type_L.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Free_Type_L.png
+
+#begin ComponentTextures/TextBox/Self/TextBox_Free_Type_S.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Free_Type_S.png
+
+#begin ComponentTextures/TextBox/Self/TextBox_Pressed_Type_L.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Pressed_Type_L.png
+
+#begin ComponentTextures/TextBox/Self/TextBox_Pressed_Type_S.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Pressed_Type_S.png
 
 #begin Controls_Menu.png
 /importer:TextureImporter

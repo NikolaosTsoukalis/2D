@@ -7,7 +7,7 @@ public class NavigationButton : Button
 
     public GlobalEnumarations.MenuNavigationPaths Path { get; private set; }
 
-    public NavigationButton(GlobalEnumarations.MenuNavigationPaths path, string name) : base(GlobalEnumarations.ComponentType.NavigationButton, name)
+    public NavigationButton(GlobalEnumarations.MenuNavigationPaths path,GlobalEnumarations.TextureLibraryUI textureType, string name) : base(GlobalEnumarations.ComponentType.NavigationButton,textureType, name)
     {
         this.Path = path;
     }

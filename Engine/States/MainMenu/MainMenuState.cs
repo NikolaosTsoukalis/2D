@@ -67,26 +67,17 @@ public class MainMenuState : State
 
     public override bool ManageTextureLibrary()
     {
-        bool Continue = true;
         try
         {
-            do
-            {
-                Continue = Globals.TextureLibrary.LoadButtonTextures();
-                Continue = Globals.TextureLibrary.LoadTextBoxPaddingMap();
-                
-            }while()
-            if (!Continue)
-            {
-                throw new Exception("Texture Library Load failed");
-            }
+            Globals.TextureLibrary.LoadButtonTextures();
+            Globals.TextureLibrary.LoadTextBoxPaddingMap();
+            return true;
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Console.WriteLine("ERROR ON Loading TextureLibrary: " + e);
             return false;
         }
-        return false;
+        
     }
 
     public override bool CallDrawFuctions(GameTime gameTime)

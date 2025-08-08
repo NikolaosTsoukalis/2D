@@ -11,7 +11,7 @@ public class Button : ComponentBase
 
     #endregion
 
-    public Button(GlobalEnumarations.ComponentType type, string name) : base(type)
+    public Button(GlobalEnumarations.ComponentType functionType, GlobalEnumarations.TextureLibraryUI textureType, string name) : base(functionType, textureType)
     {
         if (name != null)
         {
