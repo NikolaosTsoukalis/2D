@@ -9,24 +9,35 @@ namespace _2D_RPG;
 
 public abstract class LayoutBase
 {
-
+    public Int2 ScreenDimensions { get; private set; }
     public Rectangle BaseBounds { get; private set; }
     public Vector2 BaseBoundCenter { get; private set; }
-    public Texture2D LayoutTexture { get; protected set; }
-    public Vector2 LayoutPosition { get; protected set; }
+    public Texture2D Texture { get; protected set; }
+    public Int2 Position { get; protected set; }
 
     public Menu Menu { get; private set; }
 
-    public LayoutBase(Menu menu, Texture2D menuBoundsTexture)
+    public LayoutBase(Menu menu, Texture2D texture)
     {
         this.Menu = menu;
+        Texture = texture;
+        this.ScreenDimensions = Globals.ScreenResolution;
         SanitizeComponents(this.Menu.Components);
         SetBaseBoundsToScreen();
+        this.Position = AlignComponentWithBoundCenter(texture, BaseBounds.X, BaseBounds.Y);
     }
 
-    public virtual void AssignComponentPositions(bool resetFlag) { }
+    public virtual void AssignComponentPositions() { }
     public virtual void SetComponentPaddingMap() { }
 
+    public virtual void Update(GameTime gameTime) { }
+    public virtual void Draw(GameTime gameTime) { }
+    public virtual void DebugDraw(GameTime gameTime) { }
+
+    public void UpdateScreenDimensions()
+    {
+        this.ScreenDimensions = Globals.ScreenResolution;
+    }
     public void SetBaseBoundsToScreen()
     {
         this.BaseBounds = new Rectangle(0, 0, (int)Menu.ScreenDimensions.X, (int)Menu.ScreenDimensions.Y);
@@ -49,26 +60,26 @@ public abstract class LayoutBase
         }
     }
 
-    public Vector2 AlignComponentWithBoundCenter(Texture2D componentTexture, float boundingWidth, float boundingHeight)
+    public Int2 AlignComponentWithBoundCenter(Texture2D componentTexture, int boundingWidth, int boundingHeight)
     {
         if (componentTexture != null)
         {
             int TextureHeight = componentTexture.Height;
             int TextureWidth = componentTexture.Width;
-            Vector2 centerOfBounds = new Vector2(boundingWidth / 2f, boundingHeight / 2f);
-            Vector2 centerOfTexture = new Vector2(TextureWidth / 2f, TextureHeight / 2f);
+            Int2 centerOfBounds = new Int2(boundingWidth / 2, boundingHeight / 2);
+            Int2 centerOfTexture = new Int2(TextureWidth / 2, TextureHeight / 2);
 
             return centerOfBounds - centerOfTexture;
         }
         else
         {
-            Vector2 centerOfBounds = new Vector2(boundingWidth / 2f, boundingHeight / 2f);
+            Int2 centerOfBounds = new Int2(boundingWidth / 2, boundingHeight / 2);
 
             return centerOfBounds;
         }
     }
 
-    public bool SetTextBoxPosition(ComponentBase component)
+    public bool SetChildTextBoxPosition(ComponentBase component)
     {
         Type type = component.GetType();
         PropertyInfo field = type.GetProperty("TextBox", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);

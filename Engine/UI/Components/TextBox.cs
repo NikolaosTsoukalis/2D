@@ -21,7 +21,7 @@ public class TextBox : ComponentBase
     public Vector2 FlashingLinePosition { get; private set; }
 
     public ComponentBase ParentComponent { get; private set; }
-    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base()
+    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox,GlobalEnumarations.TextureLibraryUI.None)
     {
         this.Font = font;
         this.Text = text;
@@ -29,6 +29,20 @@ public class TextBox : ComponentBase
         UpdateTextSize(0);
         base.IsWritable = isWritable;
         this.ParentComponent = parentComponent;
+        if (IsWritable)
+        {
+            LoadFlashingTextLine();
+        }
+        //SetPosition(Vector2.One);
+    }
+
+    public TextBox(GlobalEnumarations.TextureLibraryUI texture, SpriteFont font, string text, float textScale, bool isWritable) : base(GlobalEnumarations.ComponentType.TextBox, texture)
+    {
+        this.Font = font;
+        this.Text = text;
+        this.TextScale = textScale;
+        UpdateTextSize(0);
+        base.IsWritable = isWritable;
         if (IsWritable)
         {
             LoadFlashingTextLine();
@@ -109,12 +123,11 @@ public class TextBox : ComponentBase
         UpdateTextSize(0);
         if (this.ParentComponent != null)
         {
-            
             // Center the text within the textbox area
             float xCenterPoint = base.Bounds.X + (base.TextureHandler.TextureWidth - TextSize.X) / 2f;
             float yCenterPoint = base.Bounds.Y + (base.TextureHandler.TextureHeight - TextSize.Y) / 2f;
 
-            if (this.IsWritable || base.TextureType.ToString().Contains("Type_S"))
+            if (this.IsWritable || !base.TextureType.ToString().Contains("Type_S"))
             {
                 base.Position = new Vector2(base.Bounds.X, base.Bounds.Y);
             }

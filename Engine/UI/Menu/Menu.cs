@@ -9,47 +9,31 @@ namespace _2D_RPG;
 public class Menu
 {
     public List<ComponentBase> Components { get; private set; }
-
     public LayoutBase Layout { get; private set; }
-
-    private Color baseColor;
-
-    public Vector2 ScreenDimensions { get; private set; }
+    public Int2 ScreenDimensions { get; private set; }
 
     //public Vector2 
 
     public Menu(List<ComponentBase> components)
     {
-        float screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
-        float screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
-        this.ScreenDimensions = new Vector2(screenWidth, screenHeight);
+        this.ScreenDimensions = Globals.ScreenResolution;
 
-        this.baseColor = Color.White;
         this.Components = components;
     }
 
     public void Update(GameTime gameTime)
     {
+        Layout.Update(gameTime);
+        
         foreach (var component in Components)
         {
             component.Update(gameTime);
-        }
-        float screenWidth = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
-        float screenHeight = Globals.GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
-
-        if (ScreenDimensions.X != screenWidth || ScreenDimensions.Y != screenHeight)
-        {
-            this.ScreenDimensions = new Vector2(screenWidth, screenHeight);
-            this.Layout.AssignComponentPositions(true);
         }
     }
 
     public void Draw(GameTime gameTime)
     {
-        if (Layout.BoundingTexture != null)
-        {
-            Globals.SpriteBatch.Draw(Layout.BoundingTexture, Layout.BaseBounds, baseColor);
-        }
+        Layout.Draw(gameTime);
 
         foreach (var component in Components)
         {
@@ -59,10 +43,7 @@ public class Menu
 
     public void DebugDraw(GameTime gameTime) // for testing purposes
     {
-        if (Layout.BoundingTexture != null)
-        {
-            Globals.SpriteBatch.Draw(Layout.BoundingTexture, Layout.BaseBounds, baseColor);
-        }
+        Layout.DebugDraw(gameTime);
 
         foreach (var component in Components)
         {

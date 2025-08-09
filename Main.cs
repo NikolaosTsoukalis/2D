@@ -15,7 +15,8 @@ public class Main : Game
     #region Values
 
     public State currentGameState;
-    public State nextGameState;
+    private State nextGameState;
+    private Int2 ScreenResolution;
 
     #endregion Values
 
@@ -58,6 +59,8 @@ public class Main : Game
     {
         // TODO: Add your initialization logic here
         InitializeHandlers(this);
+        Globals.UpdateScreenResolution();
+        ManageScreenResolutionChange(true);
         base.Initialize();
     }
 
@@ -91,8 +94,10 @@ public class Main : Game
     /// </remarks>
     protected override void Update(GameTime gameTime)
     {
+        ManageScreenResolutionChange(false);
         Globals.PreviousMouse = Globals.CurrentMouse;
         Globals.CurrentMouse = Mouse.GetState();
+
 
         if (nextGameState != null)
         {
@@ -131,11 +136,11 @@ public class Main : Game
     {
         nextGameState = state;
     }
-    
+
     public bool InitializeHandlers(Main main)
     {
         try
-        { 
+        {
             Globals.ContentManager = main.Content;
             Globals.SpriteBatch = new SpriteBatch(main.GraphicsDevice);
             Globals.AnimationHandler = new AnimationHandler();
@@ -145,8 +150,23 @@ public class Main : Game
         catch (Exception e)
         {
             Console.WriteLine("ERROR ON INITIALLIZING HANDLERS: " + e);
-            return false; 
+            return false;
         }
+    }
+
+    public void ManageScreenResolutionChange(bool startUp)
+    {
+        if (startUp)
+        {
+            this.ScreenResolution = Globals.ScreenResolution;
+        }
+        if (!this.ScreenResolution.Equals(Globals.ScreenResolution))
+        {
+            Globals.UpdateScreenResolution();
+            this.ScreenResolution = Globals.ScreenResolution;
+            Console.WriteLine("RESOLUTION UPDATED TO: W'" + this.ScreenResolution.X + "' and H'" + this.ScreenResolution.Y + "'.");
+        }
+        
     }
 
     #endregion Functions

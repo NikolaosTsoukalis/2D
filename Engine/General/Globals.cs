@@ -279,9 +279,18 @@ public class Globals
     public static int Volume;
     public static int Sensitivity;
 
+    public static Int2 ScreenResolution;
+
     #endregion Values
 
     #region Functions
+
+    public static void UpdateScreenResolution()
+    {
+        int screenWidth = GraphicsDeviceManager.GraphicsDevice.Viewport.Width;
+        int screenHeight = GraphicsDeviceManager.GraphicsDevice.Viewport.Height;
+        ScreenResolution = new Int2(screenWidth, screenHeight);
+    }
 
     public static void UpdateTimeForAnimations(GameTime gameTime, Game game)
     {

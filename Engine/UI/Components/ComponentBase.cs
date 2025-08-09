@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.Tracing;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
 
@@ -30,6 +31,14 @@ public abstract class ComponentBase
         this.State = GlobalEnumarations.ComponentState.Free;
         this.FunctionType = functionType;
         this.TextureType = textureType;
+        this.InitiallizeHandlers(FunctionType,TextureType);
+    }
+
+    public ComponentBase(GlobalEnumarations.ComponentType functionType)
+    {
+        this.State = GlobalEnumarations.ComponentState.Free;
+        this.FunctionType = functionType;
+        this.TextureType = GlobalEnumarations.TextureLibraryUI.None;
         this.InitiallizeHandlers(FunctionType,TextureType);
     }
 
@@ -93,7 +102,7 @@ public abstract class ComponentBase
         {
             this.FunctionHandler = new ComponentFunctionHandler(functionType, this);
         }
-        if (TextureHandler == null)
+        if (TextureHandler == null && this.TextureType != GlobalEnumarations.TextureLibraryUI.None)
         {
             this.TextureHandler = new ComponentTextureHandler(textureType, this);
         }
@@ -112,7 +121,7 @@ public abstract class ComponentBase
                     throw new Exception("Function Handler for Type: '" + this.FunctionType.ToString() + "' did not Sanitize correctly.");
                 }
             }
-            if (this.TextureHandler == null || this.TextureHandler.CurrentTexture == null)
+            if ((this.TextureHandler == null || this.TextureHandler.CurrentTexture == null) && this.TextureType != GlobalEnumarations.TextureLibraryUI.None)
             {
                 this.TextureHandler = new ComponentTextureHandler(this.TextureType, this);
 

@@ -10,14 +10,38 @@ namespace _2D_RPG;
 public class MainMenuLayout : LayoutBase
 {
     private Dictionary<int, Int2> ComponentPaddingMap;
-    public MainMenuLayout(Menu menu) : base(menu, null)
+    public MainMenuLayout(Menu menu, Texture2D texture) : base(menu, null)
     {
-        base.LayoutTexture = null; //layout of menu
-        base.LayoutPosition = AlignComponentWithBoundCenter(LayoutTexture, base.BaseBounds.X, base.BaseBounds.Y);
         SetComponentPaddingMap();
-        AssignComponentPositions(false);
+        AssignComponentPositions();
     }
 
+    public override void Update(GameTime gameTime)
+    {
+        if (!base.ScreenDimensions.Equals(Globals.ScreenResolution))
+        {
+            base.UpdateScreenDimensions();
+            base.SetBaseBoundsToScreen();
+            base.Position = base.AlignComponentWithBoundCenter(base.Texture, base.BaseBounds.X, base.BaseBounds.Y);
+            AssignComponentPositions();
+        }
+    }
+
+    public override void Draw(GameTime gameTime)
+    {
+        Globals.SpriteBatch.Draw(base.Texture, base.Position, Color.White);
+    }
+
+    public override void DebugDraw(GameTime gameTime)
+    {
+        Globals.SpriteBatch.Draw(base.Texture, base.Position, Color.White);
+
+        Texture2D Pixel = new Texture2D(Globals.GraphicsDeviceManager.GraphicsDevice, 1, 1);
+        Pixel.SetData(new[] { Color.White });
+        Globals.SpriteBatch.Draw(base.Texture, base.Position, Color.White);
+        Globals.SpriteBatch.Draw(Pixel, new Rectangle((int)base.Position.X,base.Position.Y,base.Texture.Width,base.Texture.Height), Color.Yellow * 0.3f);
+        TextBox.DebugDraw(gameTime);
+    }
     public override void SetComponentPaddingMap()
     {
         ComponentPaddingMap = new Dictionary<int, Int2>()
@@ -29,31 +53,26 @@ public class MainMenuLayout : LayoutBase
         };
     }
 
-    public override void AssignComponentPositions(bool resetFlag)
+    public override void AssignComponentPositions()
     {
-        if (resetFlag)
-        {
-            base.SetBaseBoundsToScreen();
-            base.LayoutPosition = AlignComponentWithBoundCenter(LayoutTexture, base.BaseBounds.X, base.BaseBounds.Y);
-        }
         for (int i = 0; i < base.Menu.Components.Count; i++)
         {
             var currentComponent = base.Menu.Components[i];
             if (currentComponent.FunctionType == GlobalEnumarations.ComponentType.DebugButton)
             {
                 base.SetDebugButtonPosition(currentComponent);
-                base.SetTextBoxPosition(currentComponent);
+                base.SetChildTextBoxPosition(currentComponent);
                 i--;
                 continue;
             }
 
             int xPadding = ComponentPaddingMap.GetValueOrDefault(i).X;
             int yPadding = ComponentPaddingMap.GetValueOrDefault(i).Y;
-            int xPosition = (int)base.LayoutPosition.X + xPadding;
-            int yPosition = (int)base.LayoutPosition.Y + yPadding;
-            //currentComponent.Position = new Vector2(xPosition, yPosition);
+            int xPosition = (int)base.Position.X + xPadding;
+            int yPosition = (int)base.Position.Y + yPadding;
+            currentComponent.Position = new Vector2(xPosition, yPosition);
             base.SetComponentBounds(currentComponent);
-            base.SetTextBoxPosition(currentComponent);
+            base.SetChildTextBoxPosition(currentComponent);
         }
     }
    
