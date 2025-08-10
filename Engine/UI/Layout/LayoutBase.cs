@@ -13,7 +13,7 @@ public abstract class LayoutBase
     public Rectangle BaseBounds { get; private set; }
     public Vector2 BaseBoundCenter { get; private set; }
     public Texture2D Texture { get; protected set; }
-    public Int2 Position { get; protected set; }
+    public Vector2 Position { get; protected set; }
 
     public Menu Menu { get; private set; }
 
@@ -60,20 +60,20 @@ public abstract class LayoutBase
         }
     }
 
-    public Int2 AlignComponentWithBoundCenter(Texture2D componentTexture, int boundingWidth, int boundingHeight)
+    public Vector2 AlignComponentWithBoundCenter(Texture2D componentTexture, int boundingWidth, int boundingHeight)
     {
         if (componentTexture != null)
         {
             int TextureHeight = componentTexture.Height;
             int TextureWidth = componentTexture.Width;
-            Int2 centerOfBounds = new Int2(boundingWidth / 2, boundingHeight / 2);
-            Int2 centerOfTexture = new Int2(TextureWidth / 2, TextureHeight / 2);
+            Vector2 centerOfBounds = new Vector2(boundingWidth / 2f, boundingHeight / 2f);
+            Vector2 centerOfTexture = new Vector2(TextureWidth / 2f, TextureHeight / 2f);
 
             return centerOfBounds - centerOfTexture;
         }
         else
         {
-            Int2 centerOfBounds = new Int2(boundingWidth / 2, boundingHeight / 2);
+            Vector2 centerOfBounds = new Vector2(boundingWidth / 2f, boundingHeight / 2f);
 
             return centerOfBounds;
         }

@@ -17,7 +17,6 @@ public class MainMenuState : State
     ///</Summary>
     public MainMenuState(Main main) : base(main)
     {
-        ManageTextureLibrary();
         InitializeHandlers(main);
         //initillize with landing menu
         Globals.MenuHandler.AddMenuToStackTop(MenuBuilder.BuildMainMenu());
@@ -55,6 +54,7 @@ public class MainMenuState : State
     {
         try
         {
+            Globals.TextureLibrary = new TextureLibrary();
             Globals.MenuHandler = new MenuHandler(main);
             return true;
         }
@@ -67,10 +67,10 @@ public class MainMenuState : State
 
     public override bool ManageTextureLibrary()
     {
+        //REFACTOR
         try
         {
             Globals.TextureLibrary.LoadButtonTextures();
-            Globals.TextureLibrary.LoadTextBoxPaddingMap();
             return true;
         }
         catch (Exception)

@@ -39,9 +39,9 @@ public class MainMenuLayout : LayoutBase
         Texture2D Pixel = new Texture2D(Globals.GraphicsDeviceManager.GraphicsDevice, 1, 1);
         Pixel.SetData(new[] { Color.White });
         Globals.SpriteBatch.Draw(base.Texture, base.Position, Color.White);
-        Globals.SpriteBatch.Draw(Pixel, new Rectangle((int)base.Position.X,base.Position.Y,base.Texture.Width,base.Texture.Height), Color.Yellow * 0.3f);
-        TextBox.DebugDraw(gameTime);
+        Globals.SpriteBatch.Draw(Pixel, new Rectangle((int)base.Position.X,(int)base.Position.Y,base.Texture.Width,base.Texture.Height), Color.SkyBlue * 0.3f);
     }
+    
     public override void SetComponentPaddingMap()
     {
         ComponentPaddingMap = new Dictionary<int, Int2>()

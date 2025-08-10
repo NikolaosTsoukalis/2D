@@ -36,6 +36,10 @@ public class TextureLibrary
         {
             return textBoxTexture;
         }
+        if (TextureLibraryMenu.TryGetValue(textureType, out Texture2D menuTexture))
+        {
+            return menuTexture;
+        }
 
         return null;
 
@@ -117,7 +121,7 @@ public class TextureLibrary
         }
     }
 
-    public bool UnloadUITextures()
+    public bool UnloadUITextureLibraries()
     {
         try
         {
@@ -144,72 +148,6 @@ public class TextureLibrary
         catch (Exception e)
         {
             Console.WriteLine("ERROR on TextureLibraryUI unload: " + e);
-            return false;
-        }
-    }
-
-    public Int4 GetTextBoxPadding(GlobalEnumarations.TextureLibraryUI textureType)
-    {
-
-        if (UITextBoxPaddingMap.TryGetValue(textureType, out Int4 padding))
-        {
-            return padding;
-        }
-        return new Int4(0, 0, 0, 0);
-
-    }
-
-    public Int4 GetTextBoxPadding(Texture2D texture)
-    {
-        Int4 padding;
-        if (UITextBoxPaddingMap.TryGetValue(TextureLibraryButton.FirstOrDefault(x => x.Value == texture).Key, out padding))
-        {
-            return padding;
-        }
-        
-        if (UITextBoxPaddingMap.TryGetValue(TextureLibraryTextBox.FirstOrDefault(x => x.Value == texture).Key, out padding))
-        {
-            return padding;
-        }
-        return new Int4(0, 0, 0, 0);
-
-    }
-
-    public bool LoadTextBoxPaddingMap()
-    {
-        try
-        {
-            //
-            UITextBoxPaddingMap = new Dictionary<GlobalEnumarations.TextureLibraryUI, List<Int2>>()
-            {
-                {GlobalEnumarations.TextureLibraryUI.MainMenu, new List<Int2>({ new Int2(10, 10) }) },
-                { GlobalEnumarations.TextureLibraryUI.Button_Disabled_Type_L,   new Int4(20, 18, 20, 28) },
-                { GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L,       new Int4(20, 18, 20, 28) },
-
-                { GlobalEnumarations.TextureLibraryUI.Button_Free_Type_S,       new Int4(20, 18, 20, 28) },
-                { GlobalEnumarations.TextureLibraryUI.Button_Disabled_Type_S,   new Int4(20, 18, 20, 17) },
-            };
-
-            return true;
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR on UITextBoxPaddingMap load: " + e);
-            return false;
-        }
-    }
-    
-    public bool UnloadTextBoxPositionMap()
-    {
-        try
-        {
-            UITextBoxPaddingMap = null;
-            return true;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR on UITextBoxPaddingMap unload: " + e);
             return false;
         }
     }

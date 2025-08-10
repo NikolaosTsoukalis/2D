@@ -195,12 +195,12 @@ public class ComponentFunctionHandler
 
     private void NavigateMainMenuToSettingsMenu()
     {
-        Menu newMenu = MenuBuilder.BuildSettingsMenu();
+        /*Menu newMenu = MenuBuilder.BuildSettingsMenu();
         if (newMenu == null)
         {
             throw new Exception("ERROR : (MainMenu) Settings Menu was not built!");
         }
-        Globals.MenuHandler.AddMenuToStackTop(newMenu);
+        Globals.MenuHandler.AddMenuToStackTop(newMenu);*/
     }
 
     private void NavigateStartGameToCreateWorldMenu()

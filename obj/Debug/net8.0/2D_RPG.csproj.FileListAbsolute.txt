@@ -71,14 +71,6 @@ c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_WindowFormat_Borderless.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_WindowFormat_Fullscreen.xnb
 c:\Users\v-ntsoukalis\OneDrive - Eurobank S.A\Desktop\Project 1\2D\bin\Debug\net8.0\Content\Button_WindowFormat_Windowed.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_Back.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_Controls.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_Exit.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_Settings.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_StartGame.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_WindowFormat_Borderless.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_WindowFormat_Fullscreen.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_WindowFormat_Windowed.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Controls_Menu.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Cup_Coffee_Animation2.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Slime_Walk_strip48.xnb
@@ -163,15 +155,26 @@ c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_MeleeAtt
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_Walk_strip80.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_Idle_strip80.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Entity\Character_MeleeAttack_strip56.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_NewWorld.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\Button_Empty.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Bottom_Button_Free.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Bottom_Button_Pressed.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Middle_Button_Free.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Middle_Button_Pressed.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Top_Button_Free.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Top_Button_Pressed.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Middle_TextBox_Big_Disabled.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Middle_TextBox_Big_Free.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Middle_TextBox_Small_Disabled.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Middle_TextBox_Small_Free.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Bounds\Bounds_SingleButton_Type_LBottom.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Bounds\Bounds_SingleButton_Type_LMiddle.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Bounds\Bounds_SingleButton_Type_LTop.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Self\Button_Disabled_Type_L.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Self\Button_Disabled_Type_S.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Self\Button_Free_Type_L.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Self\Button_Free_Type_S.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Self\Button_Pressed_Type_L.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Button\Self\Button_Pressed_Type_S.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Menu\MainMenu.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Bounds\Bounds_TextBox_Type_B.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Bounds\Bounds_TextBox_Type_L.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Bounds\Bounds_TextBox_Type_S.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Disabled_Type_L.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Disabled_Type_S.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Free_Type_L.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Free_Type_S.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Pressed_Type_L.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Pressed_Type_S.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Diabled_Type_B.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Free_Type_B.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Pressed_Type_B.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Menu\CreateWorldMenu.xnb

@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+/* using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _2D_RPG;
@@ -44,8 +44,8 @@ public class CreateWorldSettingsLayout : LayoutBase
             currentComponent.Position = AlignComponentWithBoundCenter(currentComponent.TextureHandler.CurrentTexture, base.BaseBounds.Width, base.BaseBounds.Height);
             currentComponent.Position = new Vector2(currentComponent.Position.X, currentComponent.Position.Y + i * yPadding);
             base.SetComponentBounds(currentComponent);
-            base.SetTextBoxPosition(currentComponent); */
+            base.SetTextBoxPosition(currentComponent); 
         }
     }
    
-}
+} */

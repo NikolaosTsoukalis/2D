@@ -5,7 +5,7 @@ public class GlobalEnumarations
 {
 
     #region Textures
-
+    
     public enum TextureLibraryUI
     {
         None,
@@ -24,7 +24,7 @@ public class GlobalEnumarations
         Button_Disabled_Type_S,
         //-----TYPE S--------\\
 
-            //TEXTBOX\\
+        //TEXTBOX\\
         //-----TYPE L--------\\
         TextBox_Free_Type_L,
         TextBox_Pressed_Type_L,
@@ -40,7 +40,7 @@ public class GlobalEnumarations
         TextBox_Pressed_Type_B,
         //-----TYPE B--------\\
 
-            //MENU\\
+        //MENU\\
         //-----MAIN MENU STATE--------\\
         MainMenu,
         StartGameMenu,

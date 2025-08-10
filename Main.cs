@@ -74,6 +74,7 @@ public class Main : Game
     protected override void LoadContent()
     {
         Globals.LoadFontTexture();
+
         currentGameState = new MainMenuState(this);
         Texture2D customCursorTexture = Content.Load<Texture2D>("Cup_Coffee_Animation2");
         MouseCursor customCursor = MouseCursor.FromTexture2D(customCursorTexture, 0, 0);
@@ -144,7 +145,6 @@ public class Main : Game
             Globals.ContentManager = main.Content;
             Globals.SpriteBatch = new SpriteBatch(main.GraphicsDevice);
             Globals.AnimationHandler = new AnimationHandler();
-            Globals.TextureLibrary = new TextureLibrary();
             return true;
         }
         catch (Exception e)

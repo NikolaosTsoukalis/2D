@@ -145,6 +145,18 @@
 /processorParam:TextureFormat=Color
 /build:ComponentTextures/Button/Self/Button_Pressed_Type_S.png
 
+#begin ComponentTextures/Menu/CreateWorldMenu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/Menu/CreateWorldMenu.png
+
 #begin ComponentTextures/Menu/MainMenu.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -156,18 +168,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ComponentTextures/Menu/MainMenu.png
-
-#begin ComponentTextures/Menu/WorldSettingsMenu.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:ComponentTextures/Menu/WorldSettingsMenu.png
 
 #begin ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_B.png
 /importer:TextureImporter
@@ -205,6 +205,18 @@
 /processorParam:TextureFormat=Color
 /build:ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_S.png
 
+#begin ComponentTextures/TextBox/Self/TextBox_Diabled_Type_B.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Diabled_Type_B.png
+
 #begin ComponentTextures/TextBox/Self/TextBox_Disabled_Type_L.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -229,6 +241,18 @@
 /processorParam:TextureFormat=Color
 /build:ComponentTextures/TextBox/Self/TextBox_Disabled_Type_S.png
 
+#begin ComponentTextures/TextBox/Self/TextBox_Free_Type_B.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Free_Type_B.png
+
 #begin ComponentTextures/TextBox/Self/TextBox_Free_Type_L.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -252,6 +276,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ComponentTextures/TextBox/Self/TextBox_Free_Type_S.png
+
+#begin ComponentTextures/TextBox/Self/TextBox_Pressed_Type_B.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ComponentTextures/TextBox/Self/TextBox_Pressed_Type_B.png
 
 #begin ComponentTextures/TextBox/Self/TextBox_Pressed_Type_L.png
 /importer:TextureImporter
