@@ -46,10 +46,10 @@ public class MainMenuLayout : LayoutBase
     {
         ComponentPaddingMap = new Dictionary<int, Int2>()
         {
-            {1,new Int2(40,10)},
-            {2,new Int2(44,108)},
-            {3,new Int2(44,188)},
-            {4,new Int2(44,268)},
+            {0,new Int2(39,9)},
+            {1,new Int2(43,107)},
+            {2,new Int2(43,187)},
+            {3,new Int2(43,267)},
         };
     }
 
@@ -61,7 +61,7 @@ public class MainMenuLayout : LayoutBase
             if (currentComponent.FunctionType == GlobalEnumarations.ComponentType.DebugButton)
             {
                 base.SetDebugButtonPosition(currentComponent);
-                base.SetChildTextBoxPosition(currentComponent);
+                base.ManageTextBoxPosition(currentComponent);
                 //i--;
                 continue;
             }
@@ -72,7 +72,7 @@ public class MainMenuLayout : LayoutBase
             int yPosition = (int)base.Position.Y + yPadding;
             currentComponent.Position = new Vector2(xPosition, yPosition);
             base.SetComponentBounds(currentComponent);
-            base.SetChildTextBoxPosition(currentComponent);
+            base.ManageTextBoxPosition(currentComponent);
         }
     }
    

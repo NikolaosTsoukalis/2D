@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -62,6 +63,15 @@ public class ComponentTextureHandler
         try
         {
             Texture2D texture = Globals.TextureLibrary.GetUITexture(textureType);
+            char typeIdentifier = textureType.ToString().Last();
+            if (ParentComponent.FunctionType.ToString().Contains("Button"))
+            {
+                switch(typeIdentifier):
+                TextureFree = 
+                TexturePressed =
+                TextureDisabled =
+            }
+            textureType.ToString();
             if (textureType.ToString().Contains("Free"))
             {
                 TextureFree = texture;
@@ -80,6 +90,7 @@ public class ComponentTextureHandler
                 SetCurrentTexture(GlobalEnumarations.ComponentState.Disabled);
                 return true;
             }
+
             TextureFree = null;
             TexturePressed = null;
             TextureDisabled = null;

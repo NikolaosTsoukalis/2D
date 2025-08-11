@@ -14,13 +14,14 @@ public class TextureLibrary
     private Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D> TextureLibraryTextBox { get; set; }
     private Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D> TextureLibraryMenu { get; set; }
 
-    public Dictionary<GlobalEnumarations.TextureLibraryUI, List<Int2>> UITextBoxPaddingMap { get; private set; }
+    public Dictionary<GlobalEnumarations.TextureLibraryUI, Int4> UITextBoxPaddingMap { get; private set; }
 
     public TextureLibrary()
     {
         LoadButtonTextures();
         LoadTextBoxTextures();
         LoadMenuTextures();
+        LoadUITextBoxPaddingMap();
     }
 
     #region UI TEXTURES
@@ -101,6 +102,21 @@ public class TextureLibrary
         }
     }
 
+    public Int4 GetTextBoxPadding(GlobalEnumarations.TextureLibraryUI parentTexture)
+    {
+        try
+        {
+            UITextBoxPaddingMap.TryGetValue(parentTexture, out var padding);
+
+            return padding;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR getting TextBoxPadding: " + e);
+            return new Int4(0, 0, 0, 0);    
+        }
+    }
+
     public bool LoadMenuTextures()
     {
         try
@@ -111,7 +127,7 @@ public class TextureLibrary
                 { GlobalEnumarations.TextureLibraryUI.MainMenu,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Menu/MainMenu")},
                 { GlobalEnumarations.TextureLibraryUI.CreateWorldMenu,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Menu/CreateWorldMenu")},
             };
-            
+
             return true;
         }
         catch (Exception e)
@@ -149,6 +165,27 @@ public class TextureLibrary
         {
             Console.WriteLine("ERROR on TextureLibraryUI unload: " + e);
             return false;
+        }
+    }
+
+    public void LoadUITextBoxPaddingMap()
+    {
+        try
+        {
+            UITextBoxPaddingMap = new Dictionary<GlobalEnumarations.TextureLibraryUI, Int4>
+            {
+                {GlobalEnumarations.TextureLibraryUI.Button_Disabled_Type_L,    new Int4(8,8,8,8)},
+                {GlobalEnumarations.TextureLibraryUI.Button_Pressed_Type_L,     new Int4(8,8,8,8)},
+                {GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L,        new Int4(8,8,8,8)},
+
+                { GlobalEnumarations.TextureLibraryUI.Button_Disabled_Type_S,   new Int4(8,8,8,8)},
+                {GlobalEnumarations.TextureLibraryUI.Button_Free_Type_S,        new Int4(8,8,8,8)},
+                {GlobalEnumarations.TextureLibraryUI.Button_Pressed_Type_S,     new Int4(8,8,8,8)},
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR loading UITextBoxPaddingMap : " + e);   
         }
     }
 

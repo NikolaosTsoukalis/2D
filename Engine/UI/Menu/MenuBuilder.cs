@@ -13,22 +13,25 @@ public class MenuBuilder
 
     public static Menu BuildMainMenu()
     {
-        List<ComponentBase> Buttons = new List<ComponentBase>();
+        List<ComponentBase> Components = new List<ComponentBase>();
         Texture2D MenuLayoutTexture = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.MainMenu);
         Menu menu = null;
 
+        TextBox TitleBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Free_Type_B, Globals.Font, "Main Menu", 0.75f, false);
+        Components.Add(TitleBox);
+
         Button StartGameButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Start Game", GlobalEnumarations.MenuNavigationPaths.MainMenuToStartGame);
-        Buttons.Add(StartGameButton);
+        Components.Add(StartGameButton);
         Button SettingsButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Settings", GlobalEnumarations.MenuNavigationPaths.MainMenuToSettings);
-        Buttons.Add(SettingsButton);
+        Components.Add(SettingsButton);
         Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton,GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Quit");
-        Buttons.Add(QuitButton);
+        Components.Add(QuitButton);
 
         //DEBUG BUTTON REMOVE!!
         Button DebugButton = new Button(GlobalEnumarations.ComponentType.DebugButton,GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Debug");
-        Buttons.Add(DebugButton);
+        Components.Add(DebugButton);
 
-        menu = new Menu(Buttons);
+        menu = new Menu(Components);
         menu.SetMenuLayout(new MainMenuLayout(menu, MenuLayoutTexture));
         return menu;
     }
@@ -53,7 +56,7 @@ public class MenuBuilder
         Buttons.Add(BackButton);
 
         menu = new Menu(Buttons);
-       ///menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, MenuLayoutTexture));
+       //menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, MenuLayoutTexture));
         return menu;
     }
 

@@ -16,24 +16,25 @@ public class TextBox : ComponentBase
 
     public Vector2 TextSize { get; private set; }
 
+    public Vector2 TextPosition { get; private set; }
+
     public Texture2D FlashingLineTexture { get; private set; }
 
     public Vector2 FlashingLinePosition { get; private set; }
 
     public ComponentBase ParentComponent { get; private set; }
-    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox,GlobalEnumarations.TextureLibraryUI.None,null)
+    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox)
     {
         this.Font = font;
         this.Text = text;
         this.TextScale = textScale;
-        UpdateTextSize(0);
+        //UpdateTextSize(0);
         base.IsWritable = isWritable;
         this.ParentComponent = parentComponent;
         if (IsWritable)
         {
             LoadFlashingTextLine();
         }
-        //SetPosition(Vector2.One);
     }
 
     public TextBox(GlobalEnumarations.TextureLibraryUI texture, SpriteFont font, string text, float textScale, bool isWritable) : base(GlobalEnumarations.ComponentType.TextBox, texture, null)
@@ -41,8 +42,9 @@ public class TextBox : ComponentBase
         this.Font = font;
         this.Text = text;
         this.TextScale = textScale;
-        UpdateTextSize(0);
+        //UpdateTextSize(0);
         base.IsWritable = isWritable;
+        
         if (IsWritable)
         {
             LoadFlashingTextLine();
@@ -52,9 +54,13 @@ public class TextBox : ComponentBase
 
     public override void Draw(GameTime gameTime)
     {
-        if (this.Text != null)
+        if (base.TextureType != GlobalEnumarations.TextureLibraryUI.None)
         {
-            Globals.SpriteBatch.DrawString(this.Font, this.Text, base.Position, Color.Black, 0f, Vector2.Zero, this.TextScale, SpriteEffects.None, 0f);
+            Globals.SpriteBatch.Draw(base.TextureHandler.CurrentTexture, base.Position, Color.White);
+        }
+        if(this.Text != null)
+        {
+            Globals.SpriteBatch.DrawString(this.Font, this.Text, this.TextPosition, Color.Black, 0f, Vector2.Zero, this.TextScale, SpriteEffects.None, 0f);
             if (base.State != GlobalEnumarations.ComponentState.Disabled && base.IsWritable && HandleFlashingLine())
             {
                 FlashingLinePosition = base.Position + new Vector2(TextSize.X + 1, 0);
@@ -67,7 +73,7 @@ public class TextBox : ComponentBase
     public override void Update(GameTime gameTime)
     {
         base.CurrentTime = gameTime;
-        UpdateTextSize(0);
+        //UpdateTextSize(0);
         HandleStateChange();
     }
 
@@ -118,51 +124,72 @@ public class TextBox : ComponentBase
         return false;
     }
 
-    public bool SetPosition(Vector2 position)
+    public void SetPositionAsChild()
     {
-        UpdateTextSize(0);
-        if (this.ParentComponent != null)
+        try
         {
-            // Center the text within the textbox area
-            if (this.IsWritable || !base.TextureType.ToString().Contains("Type_S"))
-            {
-                base.Position = new Vector2(base.Bounds.X, base.Bounds.Y);
-            }
-            else
-            {
-                float xCenterPoint = base.Bounds.X + (ParentComponent.TextureHandler.TextureWidth - TextSize.X) / 2f;
-                float yCenterPoint = base.Bounds.Y + (ParentComponent.TextureHandler.TextureHeight - TextSize.Y) / 2f;
+            Int4 padding = Globals.TextureLibrary.GetTextBoxPadding(this.ParentComponent.TextureType);
 
-                base.Position = new Vector2(xCenterPoint, yCenterPoint);
-            }
+            base.Position = new Vector2(this.ParentComponent.Position.X + padding.X, this.ParentComponent.Position.Y + padding.Y);
 
-            Rectangle textTopLeftPoint = new Rectangle((int)base.Position.X, (int)base.Position.Y,1,1);
-            if (!base.Bounds.Intersects(textTopLeftPoint))
-            {
-               // UpdateTextSize(-0.01f);
-            }
-            return true;
+            base.Bounds = new Rectangle(
+                (int)base.Position.X,
+                (int)base.Position.Y,
+                ParentComponent.TextureHandler.TextureWidth - padding.Z,
+                ParentComponent.TextureHandler.TextureHeight - padding.W
+            );
+            
+            float xCenterPoint = base.Bounds.X + (ParentComponent.TextureHandler.TextureWidth - TextSize.X) / 2f;
+            float yCenterPoint = base.Bounds.Y + (ParentComponent.TextureHandler.TextureHeight - TextSize.Y) / 2f;
+
+            this.TextPosition = new Vector2(xCenterPoint, yCenterPoint);
+
+            Rectangle textTopLeftPoint = new Rectangle((int)this.TextPosition.X, (int)this.TextPosition.Y, 1, 1);
+            UpdateTextSize(0);
         }
-        else if (position != Vector2.Zero)
+        catch (Exception e)
         {
-            base.Position = position;
-            return true;
+            Console.WriteLine("ERROR Setting TextBox Position: " + e);
         }
+    }
+
+    public void SetPositionAsParent()
+    {
+        float xCenterPoint = base.Bounds.X + (this.TextureHandler.TextureWidth - TextSize.X) / 2f;
+        float yCenterPoint = base.Bounds.Y + (this.TextureHandler.TextureHeight - TextSize.Y) / 2f;
+
+        this.TextPosition = new Vector2(xCenterPoint, yCenterPoint);
+    
+        /*
         else
         {
-            base.Position = Vector2.Zero;
-            Console.WriteLine("TextBox Position was not set properly!");
-            return false;
-        }
+            float bottomOfTexture = base.Position.Y + base.TextureHandler.CurrentTexture.Height;
+            this.TextPosition = new Vector2(base.Position.X, bottomOfTexture);
+        }*/
+        
+        UpdateTextSize(0);
     }
 
     public bool UpdateTextSize(float quotient)
     {
+        Rectangle textTopLeftPoint = new Rectangle((int)this.TextPosition.X, (int)this.TextPosition.Y, 1, 1);
+        if (!base.Bounds.Intersects(textTopLeftPoint))
+        {
+            quotient = -0.01f;
+        }
+
         if (quotient != 0)
         {
             this.TextScale += quotient;
             this.TextSize = Font.MeasureString(this.Text) * this.TextScale;
-            SetPosition(Vector2.Zero);  
+            if (this.ParentComponent != null)
+            {
+                SetPositionAsChild();
+            }
+            else
+            {
+                SetPositionAsParent();
+            }
         }
         if (this.Font != null && !string.IsNullOrWhiteSpace(this.Text))
         {

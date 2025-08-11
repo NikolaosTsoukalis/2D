@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.InteropServices.Marshalling;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -24,7 +25,7 @@ public abstract class LayoutBase
         this.ScreenDimensions = Globals.ScreenResolution;
         SanitizeComponents(this.Menu.Components);
         SetBaseBoundsToScreen();
-        this.Position = AlignComponentWithBoundCenter(texture, BaseBounds.X, BaseBounds.Y);
+        this.Position = AlignComponentWithBoundCenter(texture, BaseBounds.Width, BaseBounds.Height);
     }
 
     public virtual void AssignComponentPositions() { }
@@ -79,8 +80,13 @@ public abstract class LayoutBase
         }
     }
 
-    public bool SetChildTextBoxPosition(ComponentBase component)
+    public bool ManageTextBoxPosition(ComponentBase component)
     {
+        if (component.GetType().Equals(typeof(TextBox)))
+        {
+            TextBox componentN = (TextBox)component;
+            componentN.SetPositionAsParent();
+        }
         Type type = component.GetType();
         PropertyInfo field = type.GetProperty("TextBox", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         if (field != null)
@@ -88,11 +94,11 @@ public abstract class LayoutBase
             object TextBox = field.GetValue(component);
             if (TextBox != null)
             {
-                MethodInfo SetPosition = TextBox.GetType().GetMethod("SetPosition");
+                MethodInfo SetPositionAsChild = TextBox.GetType().GetMethod("SetPositionAsChild");
 
-                if (SetPosition != null)
+                if (SetPositionAsChild != null)
                 {
-                    SetPosition.Invoke(TextBox, new object[] { Vector2.Zero });
+                    SetPositionAsChild.Invoke(TextBox,null);
                     return true;
                 }
             }
