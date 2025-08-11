@@ -14,7 +14,7 @@ public class Slider : ComponentBase
 
     public GlobalEnumarations.SliderComponentValues ValueType { get; private set; }
 
-    public Slider(GlobalEnumarations.ComponentType functionType,GlobalEnumarations.TextureLibraryUI textureType, GlobalEnumarations.SliderComponentValues valueType) : base(functionType, textureType)
+    public Slider(GlobalEnumarations.ComponentType functionType,GlobalEnumarations.TextureLibraryUI textureType, GlobalEnumarations.SliderComponentValues valueType) : base(functionType, textureType,null)
     {
         this.ValueType = valueType;
         this.CurrentValue = GetGlobalValue(valueType);

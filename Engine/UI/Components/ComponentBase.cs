@@ -25,21 +25,31 @@ public abstract class ComponentBase
     public GameTime CurrentTime { get; protected set; }
 
     public float TimeSinceClick { get; protected set; }
+    
+    public Enum SpecialAttribute { get; protected set; }
 
-    public ComponentBase(GlobalEnumarations.ComponentType functionType,GlobalEnumarations.TextureLibraryUI textureType)
+    public ComponentBase(GlobalEnumarations.ComponentType functionType, GlobalEnumarations.TextureLibraryUI textureType, Enum specialAttribute)
     {
         this.State = GlobalEnumarations.ComponentState.Free;
         this.FunctionType = functionType;
         this.TextureType = textureType;
-        this.InitiallizeHandlers(FunctionType,TextureType);
+        this.SpecialAttribute = specialAttribute;
+        this.InitiallizeHandlers();
+    }
+
+    public ComponentBase(GlobalEnumarations.ComponentType functionType, GlobalEnumarations.TextureLibraryUI textureType)
+    {
+        this.State = GlobalEnumarations.ComponentState.Free;
+        this.FunctionType = functionType;
+        this.TextureType = textureType;
+        this.InitiallizeHandlers();
     }
 
     public ComponentBase(GlobalEnumarations.ComponentType functionType)
     {
         this.State = GlobalEnumarations.ComponentState.Free;
         this.FunctionType = functionType;
-        this.TextureType = GlobalEnumarations.TextureLibraryUI.None;
-        this.InitiallizeHandlers(FunctionType,TextureType);
+        this.InitiallizeHandlers();
     }
 
     public abstract void Draw(GameTime gameTime);
@@ -96,15 +106,15 @@ public abstract class ComponentBase
         return false;
     }
 
-    private void InitiallizeHandlers(GlobalEnumarations.ComponentType functionType, GlobalEnumarations.TextureLibraryUI textureType)
+    private void InitiallizeHandlers()
     {
         if (FunctionHandler == null)
         {
-            this.FunctionHandler = new ComponentFunctionHandler(functionType, this);
+            this.FunctionHandler = new ComponentFunctionHandler(this.FunctionType, this);
         }
         if (TextureHandler == null && this.TextureType != GlobalEnumarations.TextureLibraryUI.None)
         {
-            this.TextureHandler = new ComponentTextureHandler(textureType, this);
+            this.TextureHandler = new ComponentTextureHandler(this.TextureType, this);
         }
     }
 

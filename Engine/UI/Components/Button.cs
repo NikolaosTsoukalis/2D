@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -11,7 +12,7 @@ public class Button : ComponentBase
 
     #endregion
 
-    public Button(GlobalEnumarations.ComponentType functionType, GlobalEnumarations.TextureLibraryUI textureType, string name) : base(functionType, textureType)
+    public Button(GlobalEnumarations.ComponentType functionType, GlobalEnumarations.TextureLibraryUI textureType, string name, Enum specialAttribute) : base(functionType, textureType, specialAttribute)
     {
         if (name != null)
         {
@@ -19,6 +20,14 @@ public class Button : ComponentBase
         }
     }
 
+    public Button(GlobalEnumarations.ComponentType functionType, GlobalEnumarations.TextureLibraryUI textureType, string name) : base(functionType, textureType)
+    {
+        if (name != null)
+        {
+            this.TextBox = new TextBox(Globals.Font, name, 0.75f, false, this);
+        }
+    }
+    
     #region Methods
 
     public override void Draw(GameTime gameTime)

@@ -10,7 +10,7 @@ namespace _2D_RPG;
 public class MainMenuLayout : LayoutBase
 {
     private Dictionary<int, Int2> ComponentPaddingMap;
-    public MainMenuLayout(Menu menu, Texture2D texture) : base(menu, null)
+    public MainMenuLayout(Menu menu, Texture2D texture) : base(menu, texture)
     {
         SetComponentPaddingMap();
         AssignComponentPositions();
@@ -41,7 +41,7 @@ public class MainMenuLayout : LayoutBase
         Globals.SpriteBatch.Draw(base.Texture, base.Position, Color.White);
         Globals.SpriteBatch.Draw(Pixel, new Rectangle((int)base.Position.X,(int)base.Position.Y,base.Texture.Width,base.Texture.Height), Color.SkyBlue * 0.3f);
     }
-    
+
     public override void SetComponentPaddingMap()
     {
         ComponentPaddingMap = new Dictionary<int, Int2>()
@@ -62,7 +62,7 @@ public class MainMenuLayout : LayoutBase
             {
                 base.SetDebugButtonPosition(currentComponent);
                 base.SetChildTextBoxPosition(currentComponent);
-                i--;
+                //i--;
                 continue;
             }
 

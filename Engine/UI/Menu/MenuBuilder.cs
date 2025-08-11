@@ -17,9 +17,9 @@ public class MenuBuilder
         Texture2D MenuLayoutTexture = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.MainMenu);
         Menu menu = null;
 
-        NavigationButton StartGameButton = new NavigationButton(GlobalEnumarations.MenuNavigationPaths.MainMenuToStartGame, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Start Game");
+        Button StartGameButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Start Game", GlobalEnumarations.MenuNavigationPaths.MainMenuToStartGame);
         Buttons.Add(StartGameButton);
-        NavigationButton SettingsButton = new NavigationButton(GlobalEnumarations.MenuNavigationPaths.MainMenuToSettings, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Settings");
+        Button SettingsButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Settings", GlobalEnumarations.MenuNavigationPaths.MainMenuToSettings);
         Buttons.Add(SettingsButton);
         Button QuitButton = new Button(GlobalEnumarations.ComponentType.QuitButton,GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Quit");
         Buttons.Add(QuitButton);
@@ -29,7 +29,7 @@ public class MenuBuilder
         Buttons.Add(DebugButton);
 
         menu = new Menu(Buttons);
-        //menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, MenuLayoutTexture));
+        menu.SetMenuLayout(new MainMenuLayout(menu, MenuLayoutTexture));
         return menu;
     }
 
@@ -43,10 +43,10 @@ public class MenuBuilder
         Texture2D MenuLayoutTexture = Globals.TextureLibrary.GetUITexture(GlobalEnumarations.TextureLibraryUI.MainMenu);
         Menu menu = null;
 
-        NavigationButton CreateWorldButton = new NavigationButton(GlobalEnumarations.MenuNavigationPaths.StartGameToCreateWorld, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Create World");
+        Button CreateWorldButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Create World", GlobalEnumarations.MenuNavigationPaths.StartGameToCreateWorld);
         Buttons.Add(CreateWorldButton);
 
-        NavigationButton LoadWorldButton = new NavigationButton(GlobalEnumarations.MenuNavigationPaths.StartGameToLoadWorld,GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Load World");
+        Button LoadWorldButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Load World", GlobalEnumarations.MenuNavigationPaths.StartGameToLoadWorld);
         Buttons.Add(LoadWorldButton);
 
         Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L, "Back");

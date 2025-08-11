@@ -87,7 +87,7 @@ public class ComponentTextureHandler
         }
         catch (Exception e)
         {
-            Console.WriteLine("ERROR : " + e);
+            Console.WriteLine("ERROR while setting texture for '" + this.ParentComponent.GetType().ToString() +  "' : " + e);
             return false;
         }
     }

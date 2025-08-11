@@ -103,7 +103,7 @@ public class MainMenuState : State
         }
         catch (Exception e)
         {
-            Console.WriteLine("ERROR : " + e);
+            Console.WriteLine("ERROR in Draw Call(Main Menu State): " + e);
             return false;
         }
     }

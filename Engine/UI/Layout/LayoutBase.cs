@@ -20,7 +20,7 @@ public abstract class LayoutBase
     public LayoutBase(Menu menu, Texture2D texture)
     {
         this.Menu = menu;
-        Texture = texture;
+        this.Texture = texture;
         this.ScreenDimensions = Globals.ScreenResolution;
         SanitizeComponents(this.Menu.Components);
         SetBaseBoundsToScreen();
@@ -55,7 +55,7 @@ public abstract class LayoutBase
         }
         catch (Exception e)
         {
-            Console.WriteLine("ERROR: " + e);
+            Console.WriteLine("ERROR in SetComponentBounds: " + e);
             return true;
         }
     }
@@ -112,7 +112,7 @@ public abstract class LayoutBase
         }
         catch (Exception e)
         {
-            Console.WriteLine("ERROR: " + e);
+            Console.WriteLine("ERROR in SetDebugButtonPosition: " + e);
             return false;
         }
     }

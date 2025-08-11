@@ -69,14 +69,10 @@ public class ComponentFunctionHandler
             FunctionCall = action(this);
             return true;
         }
-        if (componentType == GlobalEnumarations.ComponentType.NavigationButton)
+        if (NavigationActionFactory.TryGetValue((GlobalEnumarations.MenuNavigationPaths)ParentComponent.SpecialAttribute, out var navigationAction))
         {
-            NavigationButton component = (NavigationButton)ParentComponent;
-            if (NavigationActionFactory.TryGetValue(component.Path, out var navigationAction))
-            {
-                FunctionCall = navigationAction(this);
-                return true;
-            }
+            FunctionCall = navigationAction(this);
+            return true;
         }
 
         FunctionCall = null;

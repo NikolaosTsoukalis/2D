@@ -21,7 +21,7 @@ public class TextBox : ComponentBase
     public Vector2 FlashingLinePosition { get; private set; }
 
     public ComponentBase ParentComponent { get; private set; }
-    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox,GlobalEnumarations.TextureLibraryUI.None)
+    public TextBox(SpriteFont font, string text, float textScale, bool isWritable, ComponentBase parentComponent) : base(GlobalEnumarations.ComponentType.TextBox,GlobalEnumarations.TextureLibraryUI.None,null)
     {
         this.Font = font;
         this.Text = text;
@@ -36,7 +36,7 @@ public class TextBox : ComponentBase
         //SetPosition(Vector2.One);
     }
 
-    public TextBox(GlobalEnumarations.TextureLibraryUI texture, SpriteFont font, string text, float textScale, bool isWritable) : base(GlobalEnumarations.ComponentType.TextBox, texture)
+    public TextBox(GlobalEnumarations.TextureLibraryUI texture, SpriteFont font, string text, float textScale, bool isWritable) : base(GlobalEnumarations.ComponentType.TextBox, texture, null)
     {
         this.Font = font;
         this.Text = text;
@@ -124,22 +124,22 @@ public class TextBox : ComponentBase
         if (this.ParentComponent != null)
         {
             // Center the text within the textbox area
-            float xCenterPoint = base.Bounds.X + (base.TextureHandler.TextureWidth - TextSize.X) / 2f;
-            float yCenterPoint = base.Bounds.Y + (base.TextureHandler.TextureHeight - TextSize.Y) / 2f;
-
             if (this.IsWritable || !base.TextureType.ToString().Contains("Type_S"))
             {
                 base.Position = new Vector2(base.Bounds.X, base.Bounds.Y);
             }
             else
             {
+                float xCenterPoint = base.Bounds.X + (ParentComponent.TextureHandler.TextureWidth - TextSize.X) / 2f;
+                float yCenterPoint = base.Bounds.Y + (ParentComponent.TextureHandler.TextureHeight - TextSize.Y) / 2f;
+
                 base.Position = new Vector2(xCenterPoint, yCenterPoint);
             }
 
             Rectangle textTopLeftPoint = new Rectangle((int)base.Position.X, (int)base.Position.Y,1,1);
             if (!base.Bounds.Intersects(textTopLeftPoint))
             {
-                UpdateTextSize(-0.01f);
+               // UpdateTextSize(-0.01f);
             }
             return true;
         }
