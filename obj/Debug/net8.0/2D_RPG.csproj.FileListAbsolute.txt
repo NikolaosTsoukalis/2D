@@ -174,7 +174,7 @@ c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Free_Type_S.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Pressed_Type_L.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Pressed_Type_S.xnb
-c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Diabled_Type_B.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Free_Type_B.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Pressed_Type_B.xnb
 c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\Menu\CreateWorldMenu.xnb
+c:\Users\ntosu\Desktop\2D_RPG\bin\Debug\net8.0\Content\ComponentTextures\TextBox\Self\TextBox_Disabled_Type_B.xnb

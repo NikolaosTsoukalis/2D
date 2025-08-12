@@ -10,9 +10,9 @@ namespace _2D_RPG;
 // TRIPLET OF LOAD/UNLOAD/GETTEXTURE
 public class TextureLibrary
 {
-    private Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D> TextureLibraryButton { get; set; }
-    private Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D> TextureLibraryTextBox { get; set; }
-    private Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D> TextureLibraryMenu { get; set; }
+    private Dictionary<GlobalEnumarations.TextureLibraryUI, TextureBundle> TextureLibraryButton { get; set; }
+    private Dictionary<GlobalEnumarations.TextureLibraryUI, TextureBundle> TextureLibraryTextBox { get; set; }
+    private Dictionary<GlobalEnumarations.TextureLibraryUI, TextureBundle> TextureLibraryMenu { get; set; }
 
     public Dictionary<GlobalEnumarations.TextureLibraryUI, Int4> UITextBoxPaddingMap { get; private set; }
 
@@ -26,18 +26,18 @@ public class TextureLibrary
 
     #region UI TEXTURES
 
-    public Texture2D GetUITexture(GlobalEnumarations.TextureLibraryUI textureType)
+    public TextureBundle? GetUITextureBundle(GlobalEnumarations.TextureLibraryUI textureType)
     {
-        if (TextureLibraryButton.TryGetValue(textureType, out Texture2D buttonTexture))
+        if (TextureLibraryButton.TryGetValue(textureType, out TextureBundle buttonTexture))
         {
             return buttonTexture;
         }
 
-        if (TextureLibraryTextBox.TryGetValue(textureType, out Texture2D textBoxTexture))
+        if (TextureLibraryTextBox.TryGetValue(textureType, out TextureBundle textBoxTexture))
         {
             return textBoxTexture;
         }
-        if (TextureLibraryMenu.TryGetValue(textureType, out Texture2D menuTexture))
+        if (TextureLibraryMenu.TryGetValue(textureType, out TextureBundle menuTexture))
         {
             return menuTexture;
         }
@@ -50,18 +50,12 @@ public class TextureLibrary
     {
         try
         {
-            TextureLibraryButton = new Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D>()
+            TextureLibraryButton = new Dictionary<GlobalEnumarations.TextureLibraryUI, TextureBundle>()
             {
                 //Type Long
-                {GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Self/Button_Free_Type_L")},
-                {GlobalEnumarations.TextureLibraryUI.Button_Pressed_Type_L,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Self/Button_Pressed_Type_L")},
-                {GlobalEnumarations.TextureLibraryUI.Button_Disabled_Type_L,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Self/Button_Disabled_Type_L")},
-
+                {GlobalEnumarations.TextureLibraryUI.Button_Type_L, LoadBundle("ComponentTextures/Button/Self/Button","Type_L")},
                 //Type Short
-                {GlobalEnumarations.TextureLibraryUI.Button_Free_Type_S,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Self/Button_Free_Type_S")},
-                {GlobalEnumarations.TextureLibraryUI.Button_Pressed_Type_S,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Self/Button_Pressed_Type_S")},
-                {GlobalEnumarations.TextureLibraryUI.Button_Disabled_Type_S,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Button/Self/Button_Disabled_Type_S")},
-
+                {GlobalEnumarations.TextureLibraryUI.Button_Type_S, LoadBundle("ComponentTextures/Button/Self/Button","Type_S")}
             };
             
             return true;
@@ -77,28 +71,103 @@ public class TextureLibrary
     {
         try
         {
-            TextureLibraryTextBox = new Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D>()
+            TextureLibraryTextBox = new Dictionary<GlobalEnumarations.TextureLibraryUI, TextureBundle>()
             {
                 //Type Long
-                { GlobalEnumarations.TextureLibraryUI.TextBox_Free_Type_L,Globals.ContentManager.Load<Texture2D>("ComponentTextures/TextBox/Self/TextBox_Free_Type_L")},
-                { GlobalEnumarations.TextureLibraryUI.TextBox_Pressed_Type_L,Globals.ContentManager.Load<Texture2D>("ComponentTextures/TextBox/Self/TextBox_Pressed_Type_L")},
+                { GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, LoadBundle("ComponentTextures/TextBox/Self/TextBox","Type_L")},
 
                 //Type Short
-                { GlobalEnumarations.TextureLibraryUI.TextBox_Free_Type_S,Globals.ContentManager.Load<Texture2D>("ComponentTextures/TextBox/Self/TextBox_Free_Type_S")},
-                { GlobalEnumarations.TextureLibraryUI.TextBox_Pressed_Type_S,Globals.ContentManager.Load<Texture2D>("ComponentTextures/TextBox/Self/TextBox_Pressed_Type_S")},
+                { GlobalEnumarations.TextureLibraryUI.TextBox_Type_S,LoadBundle("ComponentTextures/TextBox/Self/TextBox","Type_S")},
 
                 //Type Big
-                { GlobalEnumarations.TextureLibraryUI.TextBox_Free_Type_B,Globals.ContentManager.Load<Texture2D>("ComponentTextures/TextBox/Self/TextBox_Free_Type_B")},
-                { GlobalEnumarations.TextureLibraryUI.TextBox_Pressed_Type_B,Globals.ContentManager.Load<Texture2D>("ComponentTextures/TextBox/Self/TextBox_Pressed_Type_B")},
-
+                { GlobalEnumarations.TextureLibraryUI.TextBox_Type_B, LoadBundle("ComponentTextures/TextBox/Self/TextBox","Type_B")}
             };
-            
             return true;
         }
         catch (Exception e)
         {
             Console.WriteLine("ERROR on TextureLibraryTextBox load : " + e);
             return false;
+        }
+    }
+
+    public bool LoadMenuTextures()
+    {
+        try
+        {
+            TextureLibraryMenu = new Dictionary<GlobalEnumarations.TextureLibraryUI, TextureBundle>()
+            {
+                //Type Long
+                { GlobalEnumarations.TextureLibraryUI.MainMenu, 
+                    new TextureBundle
+                    (
+                        Globals.ContentManager.Load<Texture2D>("ComponentTextures/Menu/MainMenu"),null,null
+                    )
+                },
+                { GlobalEnumarations.TextureLibraryUI.CreateWorldMenu,
+                    new TextureBundle
+                    (
+                        Globals.ContentManager.Load<Texture2D>("ComponentTextures/Menu/CreateWorldMenu"),null,null
+                    )
+
+                },
+            };
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR on TextureLibraryTextBox load : " + e);
+            return false;
+        }
+    }
+
+/*
+            public bool UnloadUITextureLibraries()
+            {
+                try
+                {
+                    foreach (Texture2D texture in TextureLibraryButton.Values)
+                    {
+                        Globals.ContentManager.UnloadAsset(texture.Name);
+                        TextureLibraryButton = null;
+                    }
+                    foreach (Texture2D texture in TextureLibraryTextBox.Values)
+                    {
+                        Globals.ContentManager.UnloadAsset(texture.Name);
+                        TextureLibraryTextBox = null;
+                    }
+                    foreach (Texture2D texture in TextureLibraryMenu.Values)
+                    {
+                        Globals.ContentManager.UnloadAsset(texture.Name);
+
+                    }
+                    TextureLibraryTextBox = null;
+                    TextureLibraryButton = null;
+                    TextureLibraryMenu = null;
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ERROR on TextureLibraryUI unload: " + e);
+                    return false;
+                }
+            }
+            */
+
+    public void LoadUITextBoxPaddingMap()
+    {
+        try
+        {
+            UITextBoxPaddingMap = new Dictionary<GlobalEnumarations.TextureLibraryUI, Int4>
+            {
+                {GlobalEnumarations.TextureLibraryUI.Button_Type_L,    new Int4(8,8,8,8)},
+                {GlobalEnumarations.TextureLibraryUI.Button_Type_S,    new Int4(8,8,8,8)},
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("ERROR loading UITextBoxPaddingMap : " + e);
         }
     }
 
@@ -116,79 +185,17 @@ public class TextureLibrary
             return new Int4(0, 0, 0, 0);    
         }
     }
-
-    public bool LoadMenuTextures()
+    
+    private TextureBundle LoadBundle(string basePath, string type)
     {
-        try
-        {
-            TextureLibraryMenu = new Dictionary<GlobalEnumarations.TextureLibraryUI, Texture2D>()
-            {
-                //Type Long
-                { GlobalEnumarations.TextureLibraryUI.MainMenu,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Menu/MainMenu")},
-                { GlobalEnumarations.TextureLibraryUI.CreateWorldMenu,Globals.ContentManager.Load<Texture2D>("ComponentTextures/Menu/CreateWorldMenu")},
-            };
-
-            return true;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR on TextureLibraryTextBox load : " + e);
-            return false;
-        }
-    }
-
-    public bool UnloadUITextureLibraries()
-    {
-        try
-        {
-            foreach (Texture2D texture in TextureLibraryButton.Values)
-            {
-                Globals.ContentManager.UnloadAsset(texture.Name);
-                TextureLibraryButton = null;
-            }
-            foreach (Texture2D texture in TextureLibraryTextBox.Values)
-            {
-                Globals.ContentManager.UnloadAsset(texture.Name);
-                TextureLibraryTextBox = null;
-            }
-            foreach (Texture2D texture in TextureLibraryMenu.Values)
-            {
-                Globals.ContentManager.UnloadAsset(texture.Name);
-                  
-            }
-            TextureLibraryTextBox = null;
-            TextureLibraryButton = null;
-            TextureLibraryMenu = null;  
-            return true;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR on TextureLibraryUI unload: " + e);
-            return false;
-        }
-    }
-
-    public void LoadUITextBoxPaddingMap()
-    {
-        try
-        {
-            UITextBoxPaddingMap = new Dictionary<GlobalEnumarations.TextureLibraryUI, Int4>
-            {
-                {GlobalEnumarations.TextureLibraryUI.Button_Disabled_Type_L,    new Int4(8,8,8,8)},
-                {GlobalEnumarations.TextureLibraryUI.Button_Pressed_Type_L,     new Int4(8,8,8,8)},
-                {GlobalEnumarations.TextureLibraryUI.Button_Free_Type_L,        new Int4(8,8,8,8)},
-
-                { GlobalEnumarations.TextureLibraryUI.Button_Disabled_Type_S,   new Int4(8,8,8,8)},
-                {GlobalEnumarations.TextureLibraryUI.Button_Free_Type_S,        new Int4(8,8,8,8)},
-                {GlobalEnumarations.TextureLibraryUI.Button_Pressed_Type_S,     new Int4(8,8,8,8)},
-            };
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("ERROR loading UITextBoxPaddingMap : " + e);   
-        }
-    }
-
+        return new TextureBundle
+        (
+            Globals.ContentManager.Load<Texture2D>($"{basePath}_Free_{type}"),
+            Globals.ContentManager.Load<Texture2D>($"{basePath}_Pressed_{type}"),
+            Globals.ContentManager.Load<Texture2D>($"{basePath}_Disabled_{type}")
+        );
+    }  
+    
     #endregion
 
     #region PLAYER TEXTURES

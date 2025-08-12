@@ -62,43 +62,26 @@ public class ComponentTextureHandler
     {
         try
         {
-            Texture2D texture = Globals.TextureLibrary.GetUITexture(textureType);
             char typeIdentifier = textureType.ToString().Last();
-            if (ParentComponent.FunctionType.ToString().Contains("Button"))
+            TextureBundle? textureBundle = Globals.TextureLibrary.GetUITextureBundle(textureType);
+            if (textureBundle.Equals(null))
             {
-                switch(typeIdentifier):
-                TextureFree = 
-                TexturePressed =
-                TextureDisabled =
+                TextureFree = null;
+                TexturePressed = null;
+                TextureDisabled = null;
+                throw new Exception("ERROR while setting texture for '" + this.ParentComponent.GetType().ToString() + "' : TextureBundle did not initiallize.");
             }
-            textureType.ToString();
-            if (textureType.ToString().Contains("Free"))
+            else
             {
-                TextureFree = texture;
-                SetCurrentTexture(GlobalEnumarations.ComponentState.Free);
+                TextureFree = textureBundle.Value.TextureFree;
+                TexturePressed = textureBundle.Value.TexturePressed;
+                TextureDisabled = textureBundle.Value.TextureDisabled;
                 return true;
             }
-            else if (textureType.ToString().Contains("Pressed"))
-            {
-                TexturePressed = texture;
-                SetCurrentTexture(GlobalEnumarations.ComponentState.Pressed);
-                return true;
-            }
-            else if (textureType.ToString().Contains("Disabled"))
-            {
-                TextureDisabled = texture;
-                SetCurrentTexture(GlobalEnumarations.ComponentState.Disabled);
-                return true;
-            }
-
-            TextureFree = null;
-            TexturePressed = null;
-            TextureDisabled = null;
-            return false;
         }
         catch (Exception e)
         {
-            Console.WriteLine("ERROR while setting texture for '" + this.ParentComponent.GetType().ToString() +  "' : " + e);
+            Console.WriteLine("ERROR while setting texture for '" + this.ParentComponent.GetType().ToString() + "' : " + e);
             return false;
         }
     }

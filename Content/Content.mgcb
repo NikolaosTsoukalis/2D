@@ -205,7 +205,7 @@
 /processorParam:TextureFormat=Color
 /build:ComponentTextures/TextBox/Bounds/Bounds_TextBox_Type_S.png
 
-#begin ComponentTextures/TextBox/Self/TextBox_Diabled_Type_B.png
+#begin ComponentTextures/TextBox/Self/TextBox_Disabled_Type_B.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -215,7 +215,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ComponentTextures/TextBox/Self/TextBox_Diabled_Type_B.png
+/build:ComponentTextures/TextBox/Self/TextBox_Disabled_Type_B.png
 
 #begin ComponentTextures/TextBox/Self/TextBox_Disabled_Type_L.png
 /importer:TextureImporter
