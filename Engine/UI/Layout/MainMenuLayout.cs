@@ -71,8 +71,8 @@ public class MainMenuLayout : LayoutBase
             int xPosition = (int)base.Position.X + xPadding;
             int yPosition = (int)base.Position.Y + yPadding;
             currentComponent.Position = new Vector2(xPosition, yPosition);
-            base.SetComponentBounds(currentComponent);
             base.ManageTextBoxPosition(currentComponent);
+            base.SetComponentBounds(currentComponent);
         }
     }
    

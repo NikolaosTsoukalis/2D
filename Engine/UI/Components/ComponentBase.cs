@@ -10,7 +10,6 @@ public abstract class ComponentBase
     public ComponentFunctionHandler FunctionHandler { get; private set; }
     public ComponentTextureHandler TextureHandler { get; private set; }
     public bool IsHovering { get; protected set; }
-    public bool IsWritable { get; protected set; }
 
     public Vector2 Position { get; set; }
     public Rectangle Bounds { get; set; }

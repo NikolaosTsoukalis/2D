@@ -85,21 +85,24 @@ public abstract class LayoutBase
         if (component.GetType().Equals(typeof(TextBox)))
         {
             TextBox componentN = (TextBox)component;
-            componentN.SetPositionAsParent();
+            componentN.SetTextPositionAsParent();
         }
-        Type type = component.GetType();
-        PropertyInfo field = type.GetProperty("TextBox", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        if (field != null)
+        else
         {
-            object TextBox = field.GetValue(component);
-            if (TextBox != null)
+            Type type = component.GetType();
+            PropertyInfo field = type.GetProperty("TextBox", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (field != null)
             {
-                MethodInfo SetPositionAsChild = TextBox.GetType().GetMethod("SetPositionAsChild");
-
-                if (SetPositionAsChild != null)
+                object TextBox = field.GetValue(component);
+                if (TextBox != null)
                 {
-                    SetPositionAsChild.Invoke(TextBox,null);
-                    return true;
+                    MethodInfo SetPositionAsChild = TextBox.GetType().GetMethod("SetPositionAsChild");
+
+                    if (SetPositionAsChild != null)
+                    {
+                        SetPositionAsChild.Invoke(TextBox, null);
+                        return true;
+                    }
                 }
             }
         }

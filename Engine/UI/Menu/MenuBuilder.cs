@@ -17,7 +17,7 @@ public class MenuBuilder
         Texture2D MenuLayoutTexture = Globals.TextureLibrary.GetUITextureBundle(GlobalEnumarations.TextureLibraryUI.MainMenu).Value.TextureFree;
         Menu menu = null;
 
-        TextBox TitleBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_B, Globals.Font, "Main Menu", 0.75f, false);
+        TextBox TitleBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_B, Globals.Font, "Main Menu", 0.75f, false, true);
         Components.Add(TitleBox);
 
         Button StartGameButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Start Game", GlobalEnumarations.MenuNavigationPaths.MainMenuToStartGame);
@@ -42,21 +42,24 @@ public class MenuBuilder
 
     public static Menu BuildStartGameMenu()
     {
-        List<ComponentBase> Buttons = new List<ComponentBase>();
+        List<ComponentBase> Components = new List<ComponentBase>();
         Texture2D MenuLayoutTexture = Globals.TextureLibrary.GetUITextureBundle(GlobalEnumarations.TextureLibraryUI.MainMenu).Value.TextureFree;
         Menu menu = null;
 
+        TextBox TitleBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_B, Globals.Font, "Start Game", 0.75f, false, true);
+        Components.Add(TitleBox);
+
         Button CreateWorldButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Create World", GlobalEnumarations.MenuNavigationPaths.StartGameToCreateWorld);
-        Buttons.Add(CreateWorldButton);
+        Components.Add(CreateWorldButton);
 
         Button LoadWorldButton = new Button(GlobalEnumarations.ComponentType.NavigationButton, GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Load World", GlobalEnumarations.MenuNavigationPaths.StartGameToLoadWorld);
-        Buttons.Add(LoadWorldButton);
+        Components.Add(LoadWorldButton);
 
         Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Back");
-        Buttons.Add(BackButton);
+        Components.Add(BackButton);
 
-        menu = new Menu(Buttons);
-       //menu.SetMenuLayout(new VerticalMainMenuLayoutBase(menu, MenuLayoutTexture));
+        menu = new Menu(Components);
+        menu.SetMenuLayout(new MainMenuLayout(menu, MenuLayoutTexture));
         return menu;
     }
 

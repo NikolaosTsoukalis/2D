@@ -147,7 +147,7 @@ public class ComponentFunctionHandler
 
     private void EnableTypingTextBox()
     {
-        if (ParentComponent.IsWritable && ParentComponent.State == GlobalEnumarations.ComponentState.Disabled)
+        if (/*ParentComponent.IsWritable &&*/ ParentComponent.State == GlobalEnumarations.ComponentState.Disabled)
         {
             ParentComponent.Enable();
         }
