@@ -47,7 +47,6 @@ public class TextBox : ComponentBase
         this.Text = text;
         this.TextScale = textScale;
         this.TextSize = font.MeasureString(text);
-        //UpdateTextSize(0);
         this.IsTextCentered = isTextCentered;
         this.IsWritable = isWritable;
         
@@ -55,7 +54,6 @@ public class TextBox : ComponentBase
         {
             LoadFlashingTextLine();
         }
-        //SetPosition(Vector2.One);
     }
 
     public override void Update(GameTime gameTime)
@@ -78,7 +76,7 @@ public class TextBox : ComponentBase
             {
                 FlashingLinePosition = this.TextPosition + new Vector2(TextSize.X + 1, 0);
 
-                Globals.SpriteBatch.Draw(FlashingLineTexture, new Rectangle((int)FlashingLinePosition.X, (int)FlashingLinePosition.Y, 2, Globals.Font.LineSpacing), Color.White);
+                Globals.SpriteBatch.Draw(FlashingLineTexture, new Rectangle((int)FlashingLinePosition.X, (int)FlashingLinePosition.Y, 1, Globals.Font.LineSpacing), Color.White);
             }
         }
     }
@@ -87,7 +85,10 @@ public class TextBox : ComponentBase
     {
         Texture2D Pixel = new Texture2D(Globals.GraphicsDeviceManager.GraphicsDevice, 1, 1);
         Pixel.SetData(new[] { Color.White });
-
+        if (this.ParentComponent == null)
+        {
+            Globals.SpriteBatch.Draw(base.TextureHandler.CurrentTexture,base.Position, Color.White);
+        }
         Globals.SpriteBatch.Draw(Pixel, base.Bounds, Color.Red * 0.3f);
         Globals.SpriteBatch.Draw(Pixel, new Rectangle((int)this.TextPosition.X, (int)this.TextPosition.Y, 3, 3), Color.Green);
         Globals.SpriteBatch.DrawString(this.Font, this.Text, this.TextPosition, Color.Black, 0f, this.TextSize, this.TextScale, SpriteEffects.None, 0f);
@@ -158,8 +159,8 @@ public class TextBox : ComponentBase
 
             if (this.IsTextCentered)
             {
-                float xCenterPoint = base.Bounds.X + base.Bounds.Width / 2f;
-                float yCenterPoint = base.Bounds.Y + base.Bounds.Height / 2f;
+                float xCenterPoint = base.Position.X + base.Bounds.Width / 2f;
+                float yCenterPoint = base.Position.Y + base.Bounds.Height / 2f;
 
                 this.TextPosition = new Vector2(xCenterPoint, yCenterPoint);
                 this.TextSize = this.TextSize / 2f;
@@ -194,20 +195,36 @@ public class TextBox : ComponentBase
 
     public void UpdateTextSize(bool isParent)
     {
+        float scaleModifier = 0.02f;
+        float xPositionOfTextStart = this.TextPosition.X - this.TextSize.X * TextScale;
+        float yPositionOfTextStart = this.TextPosition.Y - this.TextSize.Y * TextScale;
+        float xMinPosition = base.Position.X;
+        float yMinPosition = base.Position.Y;
         if (isParent)
         {
-            while (this.TextPosition.X - this.TextSize.X < base.TextureHandler.CurrentTexture.Width / 2)
+            xMinPosition += 1;
+            yMinPosition += 1;    
+        }
+
+        if (xPositionOfTextStart < xMinPosition || yPositionOfTextStart < yMinPosition)
+        {
+            this.TextScale -= scaleModifier;
+            xPositionOfTextStart = this.TextPosition.X - this.TextSize.X * TextScale;
+            yPositionOfTextStart = this.TextPosition.Y - this.TextSize.Y * TextScale;
+            if (xPositionOfTextStart < base.Position.X || yPositionOfTextStart < base.Position.Y)
             {
-                this.TextScale -= 0.01f;
+                UpdateTextSize(isParent);
             }
         }
-        else
+        else if (xPositionOfTextStart > xMinPosition || yPositionOfTextStart > yMinPosition)
         {
-            while (this.TextPosition.X - this.TextSize.X < base.Bounds.X)
+            this.TextScale += scaleModifier;
+            xPositionOfTextStart = this.TextPosition.X - this.TextSize.X * TextScale;
+            yPositionOfTextStart = this.TextPosition.Y - this.TextSize.Y * TextScale;
+            if (xPositionOfTextStart > base.Position.X || yPositionOfTextStart > base.Position.Y)
             {
-                this.TextScale -= 0.01f;
-                
-            }    
+                UpdateTextSize(isParent);
+            }
         }
     }
 }

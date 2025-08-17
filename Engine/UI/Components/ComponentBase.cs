@@ -33,6 +33,7 @@ public abstract class ComponentBase
         this.FunctionType = functionType;
         this.TextureType = textureType;
         this.SpecialAttribute = specialAttribute;
+        CurrentTime = new();
         this.InitiallizeHandlers();
     }
 

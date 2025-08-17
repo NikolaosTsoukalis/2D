@@ -58,6 +58,9 @@ public class MenuBuilder
         Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Back");
         Components.Add(BackButton);
 
+        Button DebugButton = new Button(GlobalEnumarations.ComponentType.DebugButton,GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Debug");
+        Components.Add(DebugButton);
+
         menu = new Menu(Components);
         menu.SetMenuLayout(new MainMenuLayout(menu, MenuLayoutTexture));
         return menu;
@@ -91,31 +94,46 @@ public class MenuBuilder
 
     public static Menu BuildCreateWorldMenu()
     {
+        
         List<ComponentBase> Components = new List<ComponentBase>();
-
+        Texture2D MenuLayoutTexture = Globals.TextureLibrary.GetUITextureBundle(GlobalEnumarations.TextureLibraryUI.CreateWorldMenu).Value.TextureFree;
         Menu menu = null;
 
-        /*
-        TextBox SeedTextBox = new TextBox(Globals.Font, "Seed", 0.75f, false, null);
-        SeedTextBox.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
+        TextBox TitleBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_B, Globals.Font, "Create World", 1.00f, false, true);
+        Components.Add(TitleBox);
+
+        TextBox SeedTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, "Seed", 1.00f, false, true);  
         Components.Add(SeedTextBox);
 
-        Button CreateWorldButton = new Button(GlobalEnumarations.ComponentType.CreateAndLoadWorldButton, "Create");
-        CreateWorldButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
+        TextBox SeedValueTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, " ", 1.00f, true, true);  
+        Components.Add(SeedValueTextBox);
+
+        TextBox WorldSizeTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, "World Size", 1.00f, false, true);  
+        Components.Add(WorldSizeTextBox);
+
+        TextBox WorldSizeValueTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, " ", 1.00f, true, true);  
+        Components.Add(WorldSizeValueTextBox);
+
+        TextBox CorruptionTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, "Corruption", 1.00f, false, true);  
+        Components.Add(CorruptionTextBox);
+
+        TextBox CorruptionValueTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_S, Globals.Font, " ", 1.00f, true, true);  
+        Components.Add(CorruptionValueTextBox);
+
+        Button CreateWorldButton = new Button(GlobalEnumarations.ComponentType.CreateAndLoadWorldButton, GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Create");
         Components.Add(CreateWorldButton);
 
-        Button SaveWorldAndQuitButton = new Button(GlobalEnumarations.ComponentType.SaveWorldAndQuitButton, "Save & Quit");
-        SaveWorldAndQuitButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
+        Button SaveWorldAndQuitButton = new Button(GlobalEnumarations.ComponentType.SaveWorldAndQuitButton, GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Save & Quit");
         Components.Add(SaveWorldAndQuitButton);
 
-        Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton, "Back");
-        BackButton.TextureHandler.SetPositionBasedComponentTextures("CreateWorldSettingsLayout", null);
+        Button BackButton = new Button(GlobalEnumarations.ComponentType.BackButton,GlobalEnumarations.TextureLibraryUI.Button_Type_L, "Back");
         Components.Add(BackButton);
 
         menu = new Menu(Components);
-        menu.SetMenuLayout(new CreateWorldSettingsLayout(menu, null));
-    */
+        menu.SetMenuLayout(new CreateWorldLayout(menu, MenuLayoutTexture));
+        
         return menu;
+        
     }
 
     #endregion

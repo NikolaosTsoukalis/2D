@@ -161,8 +161,8 @@ public class TextureLibrary
         {
             UITextBoxPaddingMap = new Dictionary<GlobalEnumarations.TextureLibraryUI, Int4>
             {
-                {GlobalEnumarations.TextureLibraryUI.Button_Type_L,    new Int4(8,8,8,8)},
-                {GlobalEnumarations.TextureLibraryUI.Button_Type_S,    new Int4(8,8,8,8)},
+                {GlobalEnumarations.TextureLibraryUI.Button_Type_L,    new Int4(9,9,9,9)},
+                {GlobalEnumarations.TextureLibraryUI.Button_Type_S,    new Int4(9,9,9,9)},
             };
         }
         catch (Exception e)
@@ -195,7 +195,7 @@ public class TextureLibrary
             Globals.ContentManager.Load<Texture2D>($"{basePath}_Disabled_{type}")
         );
     }  
-    
+
     #endregion
 
     #region PLAYER TEXTURES

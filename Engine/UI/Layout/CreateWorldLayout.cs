@@ -7,10 +7,10 @@ using System.Reflection;
 
 namespace _2D_RPG;
 
-public class MainMenuLayout : LayoutBase
+public class CreateWorldLayout : LayoutBase
 {
     private Dictionary<int, Int2> ComponentPaddingMap;
-    public MainMenuLayout(Menu menu, Texture2D texture) : base(menu, texture)
+    public CreateWorldLayout(Menu menu, Texture2D texture) : base(menu, texture)
     {
         SetComponentPaddingMap();
         AssignComponentPositions();
@@ -39,17 +39,23 @@ public class MainMenuLayout : LayoutBase
         Texture2D Pixel = new Texture2D(Globals.GraphicsDeviceManager.GraphicsDevice, 1, 1);
         Pixel.SetData(new[] { Color.White });
         Globals.SpriteBatch.Draw(base.Texture, base.Position, Color.White);
-        Globals.SpriteBatch.Draw(Pixel, new Rectangle((int)base.Position.X,(int)base.Position.Y,base.Texture.Width,base.Texture.Height), Color.Blue * 0.3f);
+        Globals.SpriteBatch.Draw(Pixel, new Rectangle((int)base.Position.X,(int)base.Position.Y,base.Texture.Width,base.Texture.Height), Color.SkyBlue * 0.3f);
     }
 
     public override void SetComponentPaddingMap()
     {
         ComponentPaddingMap = new Dictionary<int, Int2>()
         {
-            {0,new Int2(39,9)},
-            {1,new Int2(43,107)},
-            {2,new Int2(43,187)},
-            {3,new Int2(43,267)},
+            {0,new Int2(165,9)},
+            {1,new Int2(91,86)},
+            {2,new Int2(259,86)},
+            {3,new Int2(91,154)},
+            {4,new Int2(259,156)},
+            {5,new Int2(91,224)},
+            {6,new Int2(299,218)},
+            {7,new Int2(47,314)},
+            {8,new Int2(179,314)},
+            {9,new Int2(311,314)},
         };
     }
 

@@ -111,10 +111,6 @@ public class GlobalEnumarations
         StartGameToCreateWorld,
         StartGameToLoadWorld,
 
-        //Create World Menu
-        CreateWorldToGameState,
-        CreateWorldToMainMenu,
-
     }
 
     public enum SliderComponentValues

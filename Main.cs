@@ -125,7 +125,7 @@ public class Main : Game
     /// </remarks>
     protected override void Draw(GameTime gameTime)
     {
-        Color colour = gameTime.IsRunningSlowly ? Color.Red : Color.CornflowerBlue;
+        Color colour = gameTime.IsRunningSlowly ? Color.Black : Color.WhiteSmoke;
         GraphicsDevice.Clear(colour);
 
         currentGameState.Draw(gameTime);
