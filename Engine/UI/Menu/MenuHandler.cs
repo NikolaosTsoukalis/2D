@@ -18,7 +18,7 @@ public class MenuHandler
     public MenuHandler(Main main)
     {
         this.Main = main;
-        currentGameState = main.currentGameState;
+        currentGameState = Main.currentGameState;
         menuStack = new Stack();
     }
 

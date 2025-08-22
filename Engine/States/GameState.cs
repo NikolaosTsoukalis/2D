@@ -134,7 +134,6 @@ public class GameState : State
             //Handler Initiallization 
             Globals.EntityHandler = new();
             Globals.AnimationHandler = new();
-            Globals.InputHandler = new();
             Globals.CollisionHandler = new(main);
 
             Globals.TileMapHandler = new(TileMap);

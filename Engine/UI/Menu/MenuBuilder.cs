@@ -102,17 +102,17 @@ public class MenuBuilder
         TextBox TitleBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_B, Globals.Font, "Create World", 1.00f, false, true);
         Components.Add(TitleBox);
 
+        TextBox WorldNameTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, "World Name", 1.00f, false, true);  
+        Components.Add(WorldNameTextBox);
+
+        TextBox WorldNameValueTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, " ", 1.00f, true, true);  
+        Components.Add(WorldNameValueTextBox);
+
         TextBox SeedTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, "Seed", 1.00f, false, true);  
         Components.Add(SeedTextBox);
 
         TextBox SeedValueTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, " ", 1.00f, true, true);  
         Components.Add(SeedValueTextBox);
-
-        TextBox WorldSizeTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, "World Size", 1.00f, false, true);  
-        Components.Add(WorldSizeTextBox);
-
-        TextBox WorldSizeValueTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, " ", 1.00f, true, true);  
-        Components.Add(WorldSizeValueTextBox);
 
         TextBox CorruptionTextBox = new TextBox(GlobalEnumarations.TextureLibraryUI.TextBox_Type_L, Globals.Font, "Corruption", 1.00f, false, true);  
         Components.Add(CorruptionTextBox);

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework.Input;
 
 namespace _2D_RPG;
@@ -7,46 +8,55 @@ public class InputHandler
     #region Values
 
     private KeyboardState ks = Keyboard.GetState();
+    public State CurrentGameState { get; private set;}
 
     #endregion Values
 
     #region Constructors
 
-    public InputHandler()
+    public InputHandler(Main main)
     {
-        //initialize non variable commands;
+        this.CurrentGameState = Main.currentGameState;
+        this.ks = Keyboard.GetState();
     }
 
     #endregion Constructors
 
     #region Functions
 
+    public void Update()
+    {
+        this.CurrentGameState = Main.currentGameState;
+        this.ks = Keyboard.GetState();
+    }
+
+
     public Command HandleInput()     //TO DO: CREATE A MENU THAT CAN DYNAMICALLY CHANGE KEYS BASE ON PLAYER'S PREFERENCE
     {
         Update();
-        if(ks.IsKeyDown(Keys.A) || ks.IsKeyDown(Keys.S) || ks.IsKeyDown(Keys.D) || ks.IsKeyDown(Keys.W))
+        if (ks.IsKeyDown(Keys.A) || ks.IsKeyDown(Keys.S) || ks.IsKeyDown(Keys.D) || ks.IsKeyDown(Keys.W))
         {
             return HandleMovementInput();
         }
-        if(ks.IsKeyDown(Keys.Escape))
+        if (ks.IsKeyDown(Keys.Escape))
         {
-            return HandleCommandType("Esc",false);
+            return HandleCommandType("Esc", false);
         }
-        if(ks.IsKeyDown(Keys.LeftShift) && ks.IsKeyDown(Keys.Space))
+        if (ks.IsKeyDown(Keys.LeftShift) && ks.IsKeyDown(Keys.Space))
         {
-            return HandleCommandType("ShiftSpace",false);
+            return HandleCommandType("ShiftSpace", false);
         }
-        if(ks.IsKeyDown(Keys.Back))
+        if (ks.IsKeyDown(Keys.Back))
         {
-            return HandleCommandType("BackSpace",false);
+            return HandleCommandType("BackSpace", false);
         }
-        if(ks.IsKeyDown(Keys.Space))
+        if (ks.IsKeyDown(Keys.Space))
         {
-            return HandleCommandType("Space",false);
+            return HandleCommandType("Space", false);
         }
-        if(ks.IsKeyDown(Keys.E))
+        if (ks.IsKeyDown(Keys.E))
         {
-            return HandleCommandType("E",false);
+            return HandleCommandType("E", false);
         }
         return null;
     }
@@ -295,11 +305,6 @@ public class InputHandler
                 return InteractCommand;
         }
         return null;
-    }
-
-    public virtual void Update()
-    {
-        ks = Keyboard.GetState();
     }
 
     #endregion Functions

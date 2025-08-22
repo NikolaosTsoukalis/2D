@@ -14,7 +14,7 @@ public class Main : Game
 {
     #region Values
 
-    public State currentGameState;
+    public static State currentGameState;
     private State nextGameState;
     private Int2 ScreenResolution;
 

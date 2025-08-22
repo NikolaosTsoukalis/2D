@@ -18,7 +18,7 @@ class ToggleInventoryCommand : Command
     public override void Execute(Main main)
     {
         //entity.Direction = direction;
-        if(main.currentGameState.GetType() == typeof(GameState))
+        if(Main.currentGameState.GetType() == typeof(GameState))
         {
             Globals.ToggleInventory = !Globals.ToggleInventory;
         }

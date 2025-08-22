@@ -116,7 +116,7 @@ public class ComponentFunctionHandler
     private void LoadWorld()
     {
         var component = (Button)ParentComponent;
-        int[,] tileMapMatrix = Utillity.GetWorldBinaryFile(component.TextBox.Text, true);
+        int[,] tileMapMatrix = Utillity.GetTileMapFromWorldFile(component.TextBox.Text, true);
         TileMap tileMap = new TileMap(tileMapMatrix);
 
         Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, tileMap));
@@ -124,10 +124,10 @@ public class ComponentFunctionHandler
 
     private void CreateAndLoadWorld()
     {
+        Utillity.createTileMapFiles(Globals.WorldName); 
         //HERE WE NEED TO IMPORT THE SETTINGS FROM THE "CREATE WORLD SETTINGS MENU"
         //IF THEY HAVE NOT BEEN OPENED THERE HAS TO BE DEFAULT VALUES
-        TileMap tileMap = new TileMap();
-        Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, tileMap));
+        Globals.MenuHandler.Main.ChangeState(new GameState(Globals.MenuHandler.Main, new TileMap(Utillity.GetTileMapFromWorldFile(Globals.WorldName,true))));
     }
 
     private void SaveWorld()
@@ -137,7 +137,8 @@ public class ComponentFunctionHandler
 
     private void SaveWorldAndQuit()
     {
-        //save
+        //save AND ADD ALL OTHER SETTINGS
+        Utillity.createTileMapFiles(Globals.WorldName);
         NavigateCreateWorldToMainMenu();
     }
 

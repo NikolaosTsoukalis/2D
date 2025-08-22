@@ -274,6 +274,9 @@ public class Globals
 
     public static Vector2 WorldSize = new Vector2(3200, 3200);
 
+    public static int WorldSeed;
+    public static string WorldName;
+
     public static SpriteFont Font;
 
     public static int Volume;

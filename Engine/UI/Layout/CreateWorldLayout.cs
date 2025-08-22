@@ -50,7 +50,7 @@ public class CreateWorldLayout : LayoutBase
             {1,new Int2(91,86)},
             {2,new Int2(259,86)},
             {3,new Int2(91,154)},
-            {4,new Int2(259,156)},
+            {4,new Int2(259,154)},
             {5,new Int2(91,224)},
             {6,new Int2(299,218)},
             {7,new Int2(47,314)},

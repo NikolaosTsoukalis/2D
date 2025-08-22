@@ -54,6 +54,7 @@ public class MainMenuState : State
     {
         try
         {
+            Globals.InputHandler = new(main);
             Globals.TextureLibrary = new TextureLibrary();
             Globals.MenuHandler = new MenuHandler(main);
             return true;

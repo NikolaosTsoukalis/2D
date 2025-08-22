@@ -67,14 +67,14 @@ public abstract class LayoutBase
         {
             int TextureHeight = componentTexture.Height;
             int TextureWidth = componentTexture.Width;
-            Vector2 centerOfBounds = new Vector2(boundingWidth / 2f, boundingHeight / 2f);
-            Vector2 centerOfTexture = new Vector2(TextureWidth / 2f, TextureHeight / 2f);
+            Vector2 centerOfBounds = new Vector2(boundingWidth / 2, boundingHeight / 2);
+            Vector2 centerOfTexture = new Vector2(TextureWidth / 2, TextureHeight / 2);
 
             return centerOfBounds - centerOfTexture;
         }
         else
         {
-            Vector2 centerOfBounds = new Vector2(boundingWidth / 2f, boundingHeight / 2f);
+            Vector2 centerOfBounds = new Vector2(boundingWidth / 2, boundingHeight / 2);
 
             return centerOfBounds;
         }

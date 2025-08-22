@@ -31,7 +31,7 @@ public class Utillity
         }
     }
 
-    public static int[,] GetWorldBinaryFile(string worldName, bool isTesting)
+    public static int[,] GetTileMapFromWorldFile(string worldName, bool isTesting)
     {
         string pathToFile;
 

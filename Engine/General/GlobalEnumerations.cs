@@ -57,6 +57,7 @@ public class GlobalEnumarations
 
     #endregion
 
+    #region General Info
     public enum Directions
     {
         None,
@@ -69,6 +70,8 @@ public class GlobalEnumarations
         DownRight,
         DownLeft
     }
+    
+    #endregion
 
     public enum AttributeTypes
     {

@@ -35,6 +35,7 @@ public class TextBox : ComponentBase
         this.IsWritable = isWritable;
         this.IsTextCentered = isTextCentered;
         this.ParentComponent = parentComponent;
+        base.Disable();
         if (IsWritable)
         {
             LoadFlashingTextLine();
@@ -49,6 +50,7 @@ public class TextBox : ComponentBase
         this.TextSize = font.MeasureString(text);
         this.IsTextCentered = isTextCentered;
         this.IsWritable = isWritable;
+        base.Disable();
         
         if (IsWritable)
         {
